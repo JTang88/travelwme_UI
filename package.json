@@ -36,7 +36,7 @@
   },
   "scripts": {
     "build": "webpack -w --config webpack.config.js",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon file-server/index.js"
   },
   "repository": {
     "type": "git",
