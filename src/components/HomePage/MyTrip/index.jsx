@@ -6,7 +6,7 @@ function MyTrip() {
   return (
     <div>
       <Switch>
-        <Route path="/mytrip/tripinfo" component={TripInfo} />
+        <Route path="/homepage/mytrip/tripinfo" component={TripInfo} />
       </Switch>
     </div>
   );
