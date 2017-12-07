@@ -1,17 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
-import Auth from '../Auth';
+// import Auth from '../Auth';
 import Homepage from '../Homepage';
-import Landing from '../LandingPage';
+// import Landing from '../LandingPage';
 
-const App = () => {
+function App() {
   return (
     <div className="app">
       <Switch>
-        <Route path="/auth" component={Auth} />
+        {/* <Route path="/auth" component={Auth} /> */}
         <Route path="/homepage" component={Homepage} />
-        <Route path="/landing" component={Landing} />
+        {/* <Route path="/landing" component={Landing} /> */}
       </Switch>
     </div>
   );
