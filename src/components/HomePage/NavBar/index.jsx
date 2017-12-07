@@ -12,7 +12,7 @@ function NavBar() {
           <Link to="/homepage/searchtrip" href="/homepage/searchtrip" className="nav-item nav-link">Search Trip</Link>
 
           <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a className="nav-link dropdown-toggle" href="/homepage/mytrip" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               My Trips
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
