@@ -11,10 +11,10 @@ function App() {
       <Switch>
         {/* <Route path="/auth" component={Auth} /> */}
         <Route path="/homepage" component={HomePage} />
-        {/* <Route path="/landing" component={Landing} /> */}
+        {/* <Route path="/" component={Landing} /> */}
       </Switch>
     </div>
   );
-};
+}
 
 export default App;
