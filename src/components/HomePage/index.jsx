@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import PlanTrip from './PlanTrip';
 import SearchTrip from './SearchTrip';
 import Profile from './Profile';
+import TrendTrips from './TrendTrips';
 
 function HomePage() {
   return (
@@ -16,6 +17,7 @@ function HomePage() {
         <Route path="/homepage/mytrip" component={MyTrip} />
         <Route path="/homepage/profile" component={Profile} />
       </Switch>
+      <TrendTrips />
     </div>
   );
 }
