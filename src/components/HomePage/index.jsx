@@ -12,12 +12,12 @@ function HomePage() {
     <div>
       <NavBar />
       <Switch>
+        <Route exact path="/homepage" component={TrendTrips} />
         <Route path="/homepage/plantrip" component={PlanTrip} />
         <Route path="/homepage/searchtrip" component={SearchTrip} />
         <Route path="/homepage/mytrip" component={MyTrip} />
         <Route path="/homepage/profile" component={Profile} />
       </Switch>
-      <TrendTrips />
     </div>
   );
 }
