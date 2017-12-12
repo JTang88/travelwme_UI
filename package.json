@@ -43,7 +43,8 @@
   },
   "scripts": {
     "build": "webpack -w --config webpack.config.js",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "lint": "eslint src --ext .jsx; eslint src --ext .js"
   },
   "keywords": [],
   "author": "",
