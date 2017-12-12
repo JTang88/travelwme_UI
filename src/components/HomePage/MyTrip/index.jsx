@@ -16,7 +16,7 @@ const query = gql`{
 `;
 
 function MyTrip(props) {
-  console.log('hiiii', props);
+  console.log('query', props);
   return (
     <div>
       <Switch>
@@ -28,7 +28,6 @@ function MyTrip(props) {
 }
 
 
-MyTrip = graphql(query)(MyTrip);
-export default MyTrip;
+export default graphql(query)(MyTrip);
 
 // mytrip component and add trending trip component routing to trip info
