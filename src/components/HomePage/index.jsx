@@ -5,12 +5,15 @@ import NavBar from './NavBar';
 import PlanTrip from './PlanTrip';
 import SearchTrip from './SearchTrip';
 import Profile from './Profile';
+import TrendTrips from './TrendTrips';
+
 
 function HomePage() {
   return (
     <div>
       <NavBar />
       <Switch>
+        <Route exact path="/homepage" component={TrendTrips} />
         <Route path="/homepage/plantrip" component={PlanTrip} />
         <Route path="/homepage/searchtrip" component={SearchTrip} />
         <Route path="/homepage/mytrip" component={MyTrip} />

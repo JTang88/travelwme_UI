@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "apollo-cache-inmemory": "^1.1.4",
+    "apollo-client": "^2.0.4",
+    "apollo-client-preset": "^1.0.5",
+    "apollo-link-http": "^1.3.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
@@ -13,10 +17,13 @@
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
     "firebase": "^4.6.1",
+    "graphql": "^0.11.7",
+    "graphql-tag": "^2.6.0",
     "jquery": "^3.2.1",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.2.0",
+    "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
@@ -38,15 +45,7 @@
     "build": "webpack -w --config webpack.config.js",
     "server-dev": "nodemon server/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/erica-k/travelwme_UI.git"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/erica-k/travelwme_UI/issues"
-  },
-  "homepage": "https://github.com/erica-k/travelwme_UI#readme"
+  "license": "ISC"
 }
