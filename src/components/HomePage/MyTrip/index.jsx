@@ -1,9 +1,22 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import TripInfo from './TripInfo';
 import TripGroup from './TripGroup';
 
-function MyTrip() {
+
+// We use the gql tag to parse our query string into a query document
+const query = gql`{
+  allUsers {
+    id,
+    username
+  }
+}
+`;
+
+function MyTrip(props) {
+  console.log('hiiii', props);
   return (
     <div>
       <Switch>
@@ -14,6 +27,8 @@ function MyTrip() {
   );
 }
 
+
+MyTrip = graphql(query)(MyTrip);
 export default MyTrip;
 
 // mytrip component and add trending trip component routing to trip info
