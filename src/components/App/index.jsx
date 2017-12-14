@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 // import Auth from '../Auth';
 import HomePage from '../HomePage';
-// import Landing from '../LandingPage';
+import Landing from '../LandingPage';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Switch>
         {/* <Route path="/auth" component={Auth} /> */}
         <Route path="/homepage" component={HomePage} />
-        {/* <Route path="/" component={Landing} /> */}
+        <Route path="/" component={Landing} />
       </Switch>
     </div>
   );
