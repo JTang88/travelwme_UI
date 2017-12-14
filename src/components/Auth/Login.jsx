@@ -9,6 +9,7 @@ class Login extends Component {
       username: '',
       password: ''
     }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {

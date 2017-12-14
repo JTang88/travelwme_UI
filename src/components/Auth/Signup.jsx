@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -7,52 +6,41 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 
-// all you have to do for sign up is to make a post request to the server and store password, email and password. 
-
 class Signup extends Component {
-  constructor({ mutate }) {
-    super({ mutate });
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       username: '',
       password: '',
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
   }
 
   handleChange(event) {
     const { name } = event.target;
     this.setState({ [name]: event.target.value });
+    // console.log(this.state)
   }
 
-  // async handleSignupSubmit(e) {
-  //   e.preventDefault();
-  //   const { 
-  //     username,
-  //     email,
-  //     password,
-  //   } = this.state;
-  //   const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/users`, {
-  //     username,
-  //     email,
-  //     password,
-  //   });
-  //   const { accessToken } = data;
-  //   localStorage.setItem('token', accessToken);
-  //   this.props.history.push('/');
-  // }
-
-  handleSignupSubmit() {
+  async handleSignupSubmit(e) {
+    e.preventDefault();
     const {
       username,
       email,
       password,
     } = this.state;
 
-    this.mutate({
-      variables: { username, email, password },
-    });
+    console.log('this is what register look like', this.props.mutate)
 
+    await this.props.mutate({
+      variables: {
+        username,
+        email,
+        password,
+      },
+    });
   }
 
   render() {
@@ -60,7 +48,7 @@ class Signup extends Component {
       <div className="signup-form-container">
         <form 
           className="auth-form"
-          onSubmit={this.handleSignupSubmit}
+          // onSubmit={this.handleSignupSubmit}
         >
           <h2>Sign Up</h2>
           <p>
@@ -92,7 +80,7 @@ class Signup extends Component {
           <button
             color="yellow"
             text="Sign Up"
-            // onClick={this.handleSignupSubmit}
+            onClick={this.handleSignupSubmit}
           />
         </form>
       </div>
@@ -100,28 +88,43 @@ class Signup extends Component {
   }
 }
 
-
-const ADD_REGISTER_MUTATION = gql`
+const register = gql`
 mutation register($username: String!, $email: String!, $password: String!) {
   register(username: $username, email: $email, password: $password) {
     id
-    username
   }
 }
 `;
-const SignupWithMutation = graphql(ADD_REGISTER_MUTATION)(Signup);
+
+const SignupWithMutation = graphql(register)(Signup);
 
 export default SignupWithMutation;
 
 
-// const ADD_REGISTER_MUTATION = gql`
-// mutation makeRegister($username: String!, $email: String!, $password: String!) {
-//   register(username: $username, email: $email, $password: password) {
+// const CREATE_REGISTER_MUTATION = gql`
+// mutation register($username: String!, $email: String!, $password: String!) {
+//   Signup(username: $username, email: $email, password: $password) {
 //     id
 //     username
 //   }
 // }
 // `;
-// const SignupWithMutation = graphql(ADD_REGISTER_MUTATION, { name: 'makeRegister' })(Signup);
+
+// export default graphql(CREATE_REGISTER_MUTATION, { name: 'register' })(Signup)
+
+// Signup = graphql(queryTrips)(Signup);
+
+// export default Signup;
+
+
+// const ADD_REGISTER_MUTATION = gql`
+// mutation register($username: String!, $email: String!, $password: String!) {
+//   register(username: $username, email: $email, password: $password) {
+//     id
+//     username
+//   }
+// }
+// `;
+// const SignupWithMutation = graphql(ADD_REGISTER_MUTATION)(Signup);
 
 // export default SignupWithMutation;
