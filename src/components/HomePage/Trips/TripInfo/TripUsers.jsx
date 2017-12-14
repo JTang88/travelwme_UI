@@ -3,9 +3,9 @@ import React from 'react';
 function TripUsers() {
   return (
     <div>
-      <h1>Joined</h1>
+      <h2>Joined</h2>
 
-      <h1>Interested</h1>
+      <h2>Interested</h2>
     </div>
   );
 }
