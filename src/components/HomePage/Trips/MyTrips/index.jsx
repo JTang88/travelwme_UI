@@ -31,7 +31,7 @@ class MyTrips extends React.Component {
       this.props.userTrips(this.props.data.getUser.trips);
     }
   }
-  
+
   render() {
     console.log('MYTRIPSSSSS', this.props.trips);
     return (
@@ -39,12 +39,10 @@ class MyTrips extends React.Component {
         <h1>My Trips</h1>
         <div>
           {this.props.trips.map(trip =>
-            (<div><h3>{trip.title}</h3></div>)
-          )}
+            (<div key={trip.id}><h3>{trip.title}</h3></div>))}
         </div>
       </div>
     );
-
   }
 }
 
