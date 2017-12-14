@@ -7,7 +7,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter } from 'react-router-dom';
-import allReducers from './reducers';
+import allReducers from './reducers/index';
 import App from './components/App';
 
 const client = new ApolloClient({
