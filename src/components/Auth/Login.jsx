@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      username: '',
-      password: ''
-    }
-    this.handleChange = this.handleChange.bind(this)
+      email: '',
+      password: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -20,16 +24,19 @@ class Login extends Component {
   async handleLoginSubmit(e) {
     e.preventDefault();
     const {
-      username,
+      email,
       password,
     } = this.state;
-    const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/users/auth`, {
-      username,
-      password,
+
+    const token = await this.props.mutate({
+      variables: {
+        email,
+        password,
+      },
     });
-    const { accessToken } = data;
-    localStorage.setItem('token', accessToken);
-    this.props.history.push('/');
+
+    localStorage.setItem('token', token);
+    console.log(token);
   }
 
   render() {
@@ -50,18 +57,17 @@ class Login extends Component {
           </p>
           <input
             type="text"
-            name="username"
-            placeholder="username"
+            name="email"
+            placeholder="email"
             onChange={this.handleChange}
           />
           <input
-            type="password"
+            type="test"
             name="password"
             placeholder="password"
             onChange={this.handleChange}
           />
           <button
-            backgroundColor="red"
             color="white"
             text="Log In"
             onClick={this.handleLoginSubmit}
@@ -72,4 +78,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+
+const login = gql`
+mutation login($email: String!, $password: String!) {
+  login(email: $email, password: $password) 
+}
+`;
+
+const loginWithMutation = graphql(login)(Login);
+
+export default loginWithMutation;
+
+// login(email: String, password: String): String!
+// const SignupWithMutation = graphql(register)(Signup);
+
+// export default SignupWithMutation;

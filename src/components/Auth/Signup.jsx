@@ -21,7 +21,6 @@ class Signup extends Component {
   handleChange(event) {
     const { name } = event.target;
     this.setState({ [name]: event.target.value });
-    // console.log(this.state)
   }
 
   async handleSignupSubmit(e) {
@@ -31,8 +30,6 @@ class Signup extends Component {
       email,
       password,
     } = this.state;
-
-    console.log('this is what register look like', this.props.mutate)
 
     await this.props.mutate({
       variables: {
@@ -99,32 +96,3 @@ mutation register($username: String!, $email: String!, $password: String!) {
 const SignupWithMutation = graphql(register)(Signup);
 
 export default SignupWithMutation;
-
-
-// const CREATE_REGISTER_MUTATION = gql`
-// mutation register($username: String!, $email: String!, $password: String!) {
-//   Signup(username: $username, email: $email, password: $password) {
-//     id
-//     username
-//   }
-// }
-// `;
-
-// export default graphql(CREATE_REGISTER_MUTATION, { name: 'register' })(Signup)
-
-// Signup = graphql(queryTrips)(Signup);
-
-// export default Signup;
-
-
-// const ADD_REGISTER_MUTATION = gql`
-// mutation register($username: String!, $email: String!, $password: String!) {
-//   register(username: $username, email: $email, password: $password) {
-//     id
-//     username
-//   }
-// }
-// `;
-// const SignupWithMutation = graphql(ADD_REGISTER_MUTATION)(Signup);
-
-// export default SignupWithMutation;
