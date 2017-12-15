@@ -35,8 +35,8 @@ class Login extends Component {
       },
     });
 
-    localStorage.setItem('token', token);
-    console.log(token);
+    localStorage.setItem('token', token.data.login);
+    console.log(token.data.login);
   }
 
   render() {
