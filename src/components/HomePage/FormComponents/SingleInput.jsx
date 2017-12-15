@@ -1,29 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const SingleInput = (props) => {
 return (
     <div className="form">
-      <label className="label">{props.title}</label>
+    <label className="label">{props.title}</label>
       <input
-        className="form-input"
+        // className="form-input"
         name={props.name}
-        type={props.inputType}
+        type={props.type}
         value={props.content}
         onChange={props.handleFunc}
-        // placeholder={props.placeholder} 
+        placeholder={props.placeholder} 
         />
     </div>
   );
 }
 
 SingleInput.propTypes = {  
-  inputType: React.PropTypes.oneOf(['text', 'number']).isRequired,
-  title: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  handleFunc: React.PropTypes.func.isRequired,
-  content: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  handleFunc: PropTypes.func.isRequired,
+  content: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]).isRequired,
   // placeholder: React.PropTypes.string,
 };

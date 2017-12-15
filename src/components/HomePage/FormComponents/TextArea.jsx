@@ -1,11 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TextArea = (props) => {
   return (
     <div className="group">
+     <div>
       <label className="label">{props.title}</label>
+     </div>
       <textarea
-        className="form-input"
+        // className="form-input"
+        type={props.type}
         name={props.name}
         rows={props.rows}
         value={props.content}
@@ -16,12 +20,15 @@ const TextArea = (props) => {
 };
 
 TextArea.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  rows: React.PropTypes.number.isRequired,
-  name: React.PropTypes.string.isRequired,
-  content: React.PropTypes.string.isRequired,
-  placeholder: React.PropTypes.string,
-  handleFunc: React.PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  rows: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  content: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  handleFunc: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
 };
 
 export default TextArea;

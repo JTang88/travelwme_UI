@@ -1,35 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // export default 
 const Select = (props) => {
   return (
     <div className="group">
+    <label>{props.title}</label>
       <select
         name={props.name}
         value={props.selectedOption}
-        onChange={props.handleFunc}
+        onClick={props.handleFunc}
         className="form-select">
         <option value="">{props.placeholder}</option>
-        {props.options.map((opt) => {
-          return (
-            <option
-              key={opt}
-              value={opt}
-            > {opt}
-            </option>
-          );
-        })}
+        
+        {
+          // props.options.isArray ?
+          props.options.map((option) => {
+            return (
+              <option
+                key={option}
+                value={option}
+              > {option}
+              </option>
+            );
+          }) 
+          // : 
+          //   <option
+          //   key={options}
+          //   value={options}
+          // > {options}
+          // </option>
+          }
       </select>
     </div>
   );
 };
 
 Select.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  options: React.PropTypes.array.isRequired,
-  selectedOption: React.PropTypes.string,
-  handleFunc: React.PropTypes.func.isRequired,
-  placeholder: React.PropTypes.string
+  // title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  options: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
+  selectedOption: PropTypes.string,
+  handleFunc: PropTypes.func.isRequired,
+  // placeholder: PropTypes.string
 };
 
 export default Select;
