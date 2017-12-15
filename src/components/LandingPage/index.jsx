@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Link,
-  Redirect,
   withRouter,
 } from 'react-router-dom';
 import Login from '../Auth/Login';
@@ -12,7 +10,6 @@ import Signup from '../Auth/Signup';
 // import Homepage from '../HomePage';
 
 const Landing = () => (
-  <Router>
     <div>
       <div>Let's travel</div>
       {/* <AuthButton/> */}
@@ -25,7 +22,6 @@ const Landing = () => (
 
       {/* <PrivateRoute path="/homepage" component={Homepage}/> */}
     </div>
-  </Router>
 );
 
 export default Landing;

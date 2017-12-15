@@ -1,8 +1,10 @@
 import React from 'react';
-import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import decode from 'jwt-decode';
 import HomePage from '../HomePage';
 import Landing from '../LandingPage';
+import Login from '../Auth/Login';
+import Signup from '../Auth/Signup';
 
 
 const checkAuth = () => {
@@ -39,6 +41,8 @@ function App() {
   return (
     <div className="app">
       <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/sign" component={Signup} />
         <Route exact path="/landing" component={Landing} />
         <AuthRoute exact path="/" component={HomePage} />
         <AuthRoute path="/homepage" component={HomePage} />

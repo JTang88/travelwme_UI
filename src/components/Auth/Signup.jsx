@@ -31,6 +31,10 @@ class Signup extends Component {
       password,
     } = this.state;
 
+    if (username === '' || email === '' || password === '') {
+      return;
+    }
+
     await this.props.mutate({
       variables: {
         username,
@@ -38,6 +42,7 @@ class Signup extends Component {
         password,
       },
     });
+    this.props.history.push('/login');
   }
 
   render() {

@@ -28,6 +28,10 @@ class Login extends Component {
       password,
     } = this.state;
 
+    if (email === '' || password === '') {
+      return;
+    }
+
     const token = await this.props.mutate({
       variables: {
         email,
@@ -37,6 +41,7 @@ class Login extends Component {
 
     localStorage.setItem('token', token.data.login);
     console.log(token.data.login);
+    this.props.history.push('/');
   }
 
   render() {
