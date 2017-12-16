@@ -5,6 +5,7 @@ import userTrips from './reducerTrips';
 import myTrip from './reducerMyTrip';
 import searchTrip from './reducerSearchTrip';
 import userId from './reducerUserId';
+import tripTravelers from './reducerTravelers';
 
 const allReducers = combineReducers({
   trip: reducerTrips,
@@ -13,6 +14,7 @@ const allReducers = combineReducers({
   mytrip: myTrip,
   search: searchTrip,
   userid: userId,
+  travelers: tripTravelers,
 });
 
 export default allReducers;

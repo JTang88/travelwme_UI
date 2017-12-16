@@ -9,8 +9,8 @@ import userTrips from '../../../../actions/userTripsAction';
 import myTrip from '../../../../actions/myTripAction';
 //convert to stateful component
 const pendTrips = gql`
-{
-  getUser(id: 3) {
+query queryTrips($id: Int!) {
+  getUser(id: $id) {
     id
     username
     trips {
@@ -27,6 +27,7 @@ const pendTrips = gql`
   }
 }
 `;
+
 
 function PendingTrips(props) {
 
