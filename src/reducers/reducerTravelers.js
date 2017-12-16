@@ -6,5 +6,3 @@ export default function (state = null, action) {
   }
   return state;
 }
-
-//////NEED TO WORK ON THIS TO ONLY SEND TRAVERLS WITH C OR J FOR USER_TYPE

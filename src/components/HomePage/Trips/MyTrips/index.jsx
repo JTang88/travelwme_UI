@@ -5,19 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
-import myTrip from '../../../../actions/myTripAction';
+import showTrip from '../../../../actions/showTripAction';
 import userId from '../../../../actions/useridAction';
 import tripTravelers from '../../../../actions/tripTravelersAction';
-
-// Suppose our profile query took an avatar size
-// const CurrentUserForLayout = gql`
-// query CurrentUserForLayout($avatarSize: Int!) {
-//   currentUser {
-//     login
-//     avatar_url(avatarSize: $avatarSize)
-//   }
-// }
-// `;
 
 const queryTrips = gql`
 query queryTrips($id: Int!) {
@@ -35,6 +25,7 @@ query queryTrips($id: Int!) {
       relationship_status
       trip_state
       users{
+        id
         username
         user_type
       }
@@ -59,7 +50,7 @@ class MyTrips extends React.Component {
   }
 
   setTripAndTravelers(trip) {
-    this.props.myTrip(trip);
+    this.props.showTrip(trip);
     this.props.tripTravelers(trip.users);
   }
 
@@ -95,14 +86,14 @@ class MyTrips extends React.Component {
 function mapStateToProps(state) {
   return {
     trips: state.trips,
-    mytrip: state.mytrip,
+    showtrip: state.showtrip,
     userid: state.userid,
     travelers: state.travelers,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips, myTrip, userId, tripTravelers }, dispatch);
+  return bindActionCreators({ userTrips, showTrip, userId, tripTravelers }, dispatch);
 }
 
 // / The caller could do something like:

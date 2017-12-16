@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
-import myTrip from '../../../../actions/myTripAction';
+import showTrip from '../../../../actions/showTripAction';
 //convert to stateful component
+//query for interested trips only
 const pendTrips = gql`
 query queryTrips($id: Int!) {
   getUser(id: $id) {
@@ -41,7 +42,7 @@ function PendingTrips(props) {
       <div>
         {props.trips.map(trip =>
           (<div key={trip.id}>
-            <h3 onClick={() => props.myTrip(trip)}>
+            <h3 onClick={() => props.showTrip(trip)}>
               <Link to="/homepage/trips/tripinfo" href="/homepage/trips/tripinfo" className="nav-item nav-link">
                 {trip.title}
               </Link>
@@ -59,15 +60,22 @@ function PendingTrips(props) {
 function mapStateToProps(state) {
   return {
     trips: state.trips,
-    mytrip: state.mytrip,
+    showtrip: state.showtrip,
+    userid: state.userid,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips, myTrip }, dispatch);
+  return bindActionCreators({ userTrips, showTrip }, dispatch);
 }
 
-PendingTrips = graphql(pendTrips)(PendingTrips);
+PendingTrips = graphql(pendTrips, {
+  options: props => ({
+    variables: {
+      id: props.userid,
+    },
+  }),
+})(PendingTrips);
 
 export default connect(mapStateToProps, matchDispatchToProps)(PendingTrips);
 
