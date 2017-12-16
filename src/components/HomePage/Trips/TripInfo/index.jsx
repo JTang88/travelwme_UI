@@ -1,15 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
 
-function TripInfo() {
+function TripInfo(props) {
   return (
     <div>
-      <h3>TRIP INFO</h3>
       <TripDetails />
       <TripUsers />
+      <button onClick={() => console.log(props)}>
+              button
+        </button>
     </div>
   );
 }
 
-export default TripInfo;
+function mapStateToProps(state) {
+  return {
+    trips: state.trips,
+    mytrip: state.mytrip,
+  };
+}
+
+export default connect(mapStateToProps)(TripInfo);

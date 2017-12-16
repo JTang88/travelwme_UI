@@ -3,7 +3,9 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import userTrips from '../../../../actions/index';
+import { Link } from 'react-router-dom';
+import userTrips from '../../../../actions/userTripsAction';
+import myTrip from '../../../../actions/myTripAction';
 
 const queryTrips = gql`{
   getUser(id: 1) {
@@ -39,8 +41,17 @@ class MyTrips extends React.Component {
         <h1>My Trips</h1>
         <div>
           {this.props.trips.map(trip =>
-            (<div key={trip.id}><h3>{trip.title}</h3></div>))}
+            (<div key={trip.id}>
+              <h3 onClick={() => this.props.myTrip(trip)}>
+                <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
+                  {trip.title}
+                </Link>
+              </h3>
+            </div>))}
         </div>
+        <button onClick={() => console.log(this.props)}>
+              button
+        </button>
       </div>
     );
   }
@@ -49,11 +60,12 @@ class MyTrips extends React.Component {
 function mapStateToProps(state) {
   return {
     trips: state.trips,
+    mytrip: state.mytrip,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips: userTrips }, dispatch);
+  return bindActionCreators({ userTrips: userTrips, myTrip: myTrip }, dispatch);
 }
 
 MyTrips = graphql(queryTrips)(MyTrips);
