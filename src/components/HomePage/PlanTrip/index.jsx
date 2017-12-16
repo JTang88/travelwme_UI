@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag';
 import SingleInput from '../FormComponents/SingleInput';
 import TextArea from '../FormComponents/TextArea';
 import Select from '../FormComponents/Select';
+import { create } from 'domain';
 // import OneInput from '../FormComponents/OneInput';
 
 
@@ -14,13 +17,13 @@ class PlanTrip extends Component {
     this.state = {
       title: '',
       description: '',
-      cost: '',
-      dateStart: 0,
-      dateEnd: 0,
+      cost: 0,
+      dateStart: '',
+      dateEnd: '',
       genderOptions: ['F','M','Other','Non-Binary'],
       genderSelected: '',
-      ageRange: ["ada","sadas", "asdsad"],
-      ageSelected: '',
+      ageRange: [25, 35, 45],
+      ageSelected: 0,
       fitnessOptions:['average', 'sexy', 'couch potato', 'athletic'],
       fitnessSelected: '',
       relationshipOptions: ['single', 'commited', 'free love', 'it\'s complicated','married'],
@@ -29,9 +32,12 @@ class PlanTrip extends Component {
       // selectedKeys: [],
       // tripStatus: "Open",
       // userType: "C"
+      key: 'test'
     };
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleClearForm = this.handleClearForm.bind(this)
+    // this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.testFunc = this.testFunc.bind(this)
   }
 
   // componentDidMount{
@@ -53,6 +59,18 @@ class PlanTrip extends Component {
     });
   }
   
+  testFunc (){
+    this.props.mutate({
+      variables: {
+        word: this.state.key
+      }
+    })
+    .then(({ data }) => {
+      console.log('got data', data);
+    }).catch((error) => {
+      console.log('there was an error sending the query', error);
+    });
+  }
 
 
   render() {
@@ -60,7 +78,6 @@ class PlanTrip extends Component {
       <div>
         <form>
           <h1>Plan Trip Form</h1>
-          {/* <textarea value={this.state.description} onChange={this.handleDesc}/> */}
           <SingleInput
             type="text"
             name="title"
@@ -94,7 +111,7 @@ class PlanTrip extends Component {
             placeholder="end date" />  
 
           <SingleInput
-            type="text"
+            type="number"
             name="cost"
             title="Cost"
             handleFunc={this.handleInputChange}
@@ -139,12 +156,106 @@ class PlanTrip extends Component {
             selectedOption={this.state.relationship}
             />
         </form>
-        
+        return <button onClick={this.testFunc}>test</button>
         <Link to="/homepage/mytrip/tripinfo" href="/homepage/mytrip/tripinfo">
-          <button>Create Trip</button>
+          <button >Create Trip</button>
         </Link>
       </div>
     );
   }
 }
-export default PlanTrip;
+console.log('this is graphql', graphql)
+console.log('this is gql', gql)
+
+const addKey = gql`
+mutation addKey($word: String) {
+  addKey(word: $word){
+    id
+  }
+}
+`;
+
+const TestTrip = graphql(addKey)(PlanTrip);
+// const PlanTripSaveData = graphql(createTrip)(PlanTrip);
+
+// export default PlanTripSaveData ;
+// export default PlanTrip;
+export default TestTrip;
+
+
+
+
+
+
+
+
+
+
+// testFunc () {
+//     this.props.mutate({
+//     variables:{
+//       title: this.state.title, 
+//       description: this.state.description, 
+//       cost: this.state.cost, 
+//       date_start: this.state.date_start, 
+//       date_end: this.state.date_end, 
+//       gender: this.state.genderSelected, 
+//       age: this.state.ageSelected, 
+//       fitness: this.state.fitnessSelected, 
+//       relationship_status: this.state.relationshipSelected, 
+//       trip_status: 'open',
+//       key1: 'sdaasd', 
+//       key2: 'sadsdadas', 
+//       key3: 'sadsdadas', 
+//       key4: 'sadsdadas', 
+//       key5: 'sadsdadas', 
+//       key6: 'sadsdadas', 
+//       userId: 3,
+//     },
+//   })
+// }
+
+
+
+
+
+// const createTrip = gql`
+// mutation createTrip(
+//   $title: String!, 
+//   $description: String!, 
+//   $cost: Int!, 
+//   $date_start: String!, 
+//   $date_end: String!, 
+//   $gender: String!, 
+//   $age: Int!, 
+//   $fitness: String!, 
+//   $relationship_status: String!, 
+//   $trip_state: String!, 
+//   $key1: String!, 
+//   $key2: String!, 
+//   $key3: String!, 
+//   $key4: String!, 
+//   $key5: String!, 
+//   $key6: String!, 
+//   $userId: Int!){
+//     createTrip(
+//       title: $title, 
+//       description: $description, 
+//       cost: $cost, 
+//       date_start: $date_start, 
+//       date_end: $date_end, 
+//       gender: $gender, 
+//       age: $age, 
+//       fitness: $fitness, 
+//       relationship_status: $relationship_status, 
+//       trip_status: $trip_status, 
+//       key1: $key1, 
+//       key2: $key2, 
+//       key3: $key3, 
+//       key4: $key4, 
+//       key5: $key5, 
+//       key6: $key6, 
+//       userId: $userId) {
+//         id
+//       }
+//   }`;
