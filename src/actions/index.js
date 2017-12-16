@@ -1,9 +1,10 @@
-function selectTrips(trips) {
+function userTrips(trips) {
+  console.log('ACTIONNNN');
   return {
-    type: 'ALL_TRIPS',
+    type: 'USER_TRIPS',
     payload: trips,
   };
 }
 
-export default selectTrips;
+export default userTrips;
 

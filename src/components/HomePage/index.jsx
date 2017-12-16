@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import MyTrip from './MyTrip/index';
+import Trips from './Trips/index';
 import NavBar from './NavBar';
 import PlanTrip from './PlanTrip';
 import SearchTrip from './SearchTrip';
@@ -16,7 +16,7 @@ function HomePage() {
         <Route exact path="/homepage" component={TrendTrips} />
         <Route path="/homepage/plantrip" component={PlanTrip} />
         <Route path="/homepage/searchtrip" component={SearchTrip} />
-        <Route path="/homepage/mytrip" component={MyTrip} />
+        <Route path="/homepage/trips" component={Trips} />
         <Route path="/homepage/profile" component={Profile} />
       </Switch>
     </div>
