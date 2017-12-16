@@ -9,6 +9,7 @@ module.exports = {
     "import"
   ],
   "rules": {
+    "react/prefer-stateless-function": 0,
     "eol-last": 0,
     "no-nested-ternary": 0,
     "no-console": 0,
