@@ -1,7 +1,7 @@
 export default function (state = null, action) {
-  console.log('REDDDDUCERRRR TRAVELER', action.payload);
+  console.log('REDDDDUCERRRR CREATOR', action.payload);
   switch (action.type) {
-    case 'TRAVELERS':
+    case 'CREATOR':
       return action.payload;
   }
   return state;

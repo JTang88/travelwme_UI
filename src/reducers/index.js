@@ -3,14 +3,14 @@ import userTrips from './reducerTrips';
 import showTrip from './reducerShowTrip';
 import searchTrip from './reducerSearchTrip';
 import userId from './reducerUserId';
-import tripTravelers from './reducerTravelers';
+import tripCreator from './reducerTripCreator';
 
 const allReducers = combineReducers({
   trips: userTrips,
   showtrip: showTrip,
   search: searchTrip,
   userid: userId,
-  travelers: tripTravelers,
+  creator: tripCreator,
 });
 
 export default allReducers;

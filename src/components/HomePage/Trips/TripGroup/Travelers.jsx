@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 function Travelers(props) {
   let tripCreator;
   let tripJoined;
-  for (let i = 0; i < props.travelers.length; i++) {
-    if (props.travelers[i].user_type === 'C') {
-      tripCreator = (<div>Creator: {props.travelers[i].username}</div>);
-    } else {
-      tripJoined = (<div>{props.travelers[i].username}</div>);
-    }
-  }
+  // for (let i = 0; i < props.travelers.length; i++) {
+  //   if (props.travelers[i].user_type === 'C') {
+  //     tripCreator = (<div>Creator: {props.travelers[i].username}</div>);
+  //   } else {
+  //     tripJoined = (<div>{props.travelers[i].username}</div>);
+  //   }
+  // }
 
-  console.log('TRAVELERSSSSS', props.travelers);
+  // console.log('TRAVELERSSSSS', props.travelers);
   return (
     <div>
       {tripCreator}
@@ -27,7 +27,6 @@ function mapStateToProps(state) {
     trips: state.trips,
     mytrip: state.mytrip,
     userid: state.userid,
-    travelers: state.travelers,
   };
 }
 
