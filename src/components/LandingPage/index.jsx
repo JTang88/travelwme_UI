@@ -25,35 +25,3 @@ const Landing = () => (
 );
 
 export default Landing;
-
-
-// class Landing extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       login: false,
-//       first: true,
-//     };
-//   }
-
-//   render() {
-//     return (
-//       <Router>
-//         <div>
-//           <div>Let's travel</div>
-//           {/* <AuthButton/> */}
-//             <ul>
-//               <li><Link to="/login">login</Link></li>
-//               <li><Link to="/sign">signup</Link></li>
-//             </ul>
-
-//           <Route path="/login" component={Login} />
-//           {/* <PrivateRoute path="/homepage" component={Homepage}/> */}
-//         </div>
-//       </Router>
-//     );
-//   }
-// }
-
-
-// export default Landing;
