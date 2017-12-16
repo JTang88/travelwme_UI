@@ -9,6 +9,8 @@ module.exports = {
     "import"
   ],
   "rules": {
+    "eol-last": 0,
+    "no-nested-ternary": 0,
     "no-console": 0,
     "no-plusplus": 0,
     "default-case": 0,
