@@ -26,14 +26,13 @@ class NavBar extends React.Component {
             <Link to="/homepage/searchtrip" href="/homepage/searchtrip" className="nav-item nav-link">Search Trip</Link>
   
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="/homepage/mytrip" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                My Trips
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <Link to="/homepage/mytrip/tripinfo" href="/homepage/mytrip/tripinfo" className="dropdown-item">Created</Link>
-                <Link to="/homepage/mytrip/tripinfo" href="/homepage/mytrip/tripinfo" className="dropdown-item">Interested</Link>
-                <Link to="/homepage/mytrip/tripgroup" href="/homepage/mytrip/tripgroup"className="dropdown-item">Joined</Link>
-              </div>
+            <a className="nav-link dropdown-toggle" href="/homepage/mytrip" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Trips
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <Link to="/homepage/trips/mytrips" href="/homepage/trips/mytrips" className="dropdown-item">My Trips</Link>
+              <Link to="/homepage/trips/pending" href="/homepage/trips/pending" className="dropdown-item">Pending Trips</Link>
+            </div>
             </li>
   
             <Link to="/homepage/profile" href="/homepage/profile" className="nav-item nav-link">Profile</Link>
