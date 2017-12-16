@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import setCurrentUser from '../../actions/authActions';
+import { setCurrentUser } from '../../actions/authActions';
 
 class Login extends Component {
   constructor(props) {
@@ -16,6 +16,10 @@ class Login extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.props);
   }
 
   handleChange(event) {
@@ -106,7 +110,6 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({ setCurrentUser }, dispatch);
 }
-
 
 export default connect(mapStateToProps, matchDispatchToProps)(loginWithMutation);
 
