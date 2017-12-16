@@ -1,14 +1,16 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
 import myTrip from '../../../../actions/myTripAction';
-
-const pendTrips = gql`{
-  getUser(id: 1) {
+//convert to stateful component
+const pendTrips = gql`
+{
+  getUser(id: 3) {
     id
     username
     trips {
@@ -61,7 +63,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips: userTrips, myTrip: myTrip }, dispatch);
+  return bindActionCreators({ userTrips, myTrip }, dispatch);
 }
 
 PendingTrips = graphql(pendTrips)(PendingTrips);
