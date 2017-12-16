@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import userTrips from './reducerTrips';
-import myTrip from './reducerMyTrip';
+import showTrip from './reducerShowTrip';
 import searchTrip from './reducerSearchTrip';
 import userId from './reducerUserId';
 import tripTravelers from './reducerTravelers';
 
 const allReducers = combineReducers({
   trips: userTrips,
-  mytrip: myTrip,
+  showtrip: showTrip,
   search: searchTrip,
   userid: userId,
   travelers: tripTravelers,
