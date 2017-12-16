@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
 import showTrip from '../../../../actions/showTripAction';
 import userId from '../../../../actions/useridAction';
-import tripTravelers from '../../../../actions/tripTravelersAction';
+import tripCreator from '../../../../actions/tripCreatorAction';
 
 const queryTrips = gql`
 query queryTrips($id: Int!) {
@@ -51,7 +51,7 @@ class MyTrips extends React.Component {
 
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
-    this.props.tripTravelers(trip.users);
+    this.props.tripCreator(trip.users);
   }
 
   render() {
@@ -88,12 +88,12 @@ function mapStateToProps(state) {
     trips: state.trips,
     showtrip: state.showtrip,
     userid: state.userid,
-    travelers: state.travelers,
+    creator: state.creator,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips, showTrip, userId, tripTravelers }, dispatch);
+  return bindActionCreators({ userTrips, showTrip, userId, tripCreator }, dispatch);
 }
 
 // / The caller could do something like:
