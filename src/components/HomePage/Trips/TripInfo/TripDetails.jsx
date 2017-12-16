@@ -7,9 +7,11 @@ function TripDetails(props) {
     <div>
       <h2>Trip Details</h2>
       <hr />
-      <h3>{props.mytrip.title}</h3>
-      <h4>{props.mytrip.date_start.slice(4, 15)}</h4>
-      <h4>{props.mytrip.date_end.slice(4, 15)}</h4>
+      <h3>Title: {props.mytrip.title}</h3>
+      <h4>Start Date: {props.mytrip.date_start.slice(4, 15)}</h4>
+      <h4>End Date: {props.mytrip.date_end.slice(4, 15)}</h4>
+      <h4>Fitness: {props.mytrip.fitness}</h4>
+      <h4>Trip Status: {props.mytrip.trip_state}</h4>
     </div>
   );
 }

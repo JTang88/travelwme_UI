@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
 import myTrip from '../../../../actions/myTripAction';
 import userId from '../../../../actions/useridAction';
+import tripTravelers from '../../../../actions/tripTravelersAction';
 
 // Suppose our profile query took an avatar size
 // const CurrentUserForLayout = gql`
@@ -33,21 +34,33 @@ query queryTrips($id: Int!) {
       fitness
       relationship_status
       trip_state
+      users{
+        username
+        user_type
+      }
     }
   }
-}
-`;
+}`;
 
 class MyTrips extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
+  }
 
   componentDidUpdate() {
     console.log('QUERY', this.props.data);
     // if (!this.props.data.loading) {
     //   this.props.userTrips(this.props.data.getUser.trips);
     // }
-      if (!this.props.data.loading) {
-        this.props.userTrips(this.props.data.getUser.trips);
-      }
+    if (!this.props.data.loading) {
+      this.props.userTrips(this.props.data.getUser.trips);
+    }
+  }
+
+  setTripAndTravelers(trip) {
+    this.props.myTrip(trip);
+    this.props.tripTravelers(trip.users);
   }
 
   render() {
@@ -64,7 +77,7 @@ class MyTrips extends React.Component {
         <div>
           {this.props.trips.map(trip =>
             (<div key={trip.id}>
-              <h3 onClick={() => this.props.myTrip(trip)}>
+              <h3 onClick={() => this.setTripAndTravelers(trip)}>
                 <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
                   {trip.title}
                 </Link>
@@ -84,11 +97,12 @@ function mapStateToProps(state) {
     trips: state.trips,
     mytrip: state.mytrip,
     userid: state.userid,
+    travelers: state.travelers,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips, myTrip, userId }, dispatch);
+  return bindActionCreators({ userTrips, myTrip, userId, tripTravelers }, dispatch);
 }
 
 // / The caller could do something like:
