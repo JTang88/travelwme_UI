@@ -3,6 +3,7 @@ import Select from '../FormComponents/Select';
 import TextArea from '../FormComponents/TextArea';
 
 const FakeUser = {
+  id: 1,
   username: 'Jerry Tang',
   age: 29,
   gender: '',
@@ -17,7 +18,7 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      edit: true,
+      edit: false,
       ageOptions:
        [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
          40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 
@@ -29,6 +30,7 @@ class Profile extends React.Component {
 
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handdleUpdateProfile = this.handdleUpdateProfile.bind(this);
   }
 
   handleInputChange(event) {
@@ -37,7 +39,12 @@ class Profile extends React.Component {
     change[event.target.name] = value;
     this.setState(change);   
   }
-  // if edit === false, just render whatever you get from redux
+  
+  handdleUpdateProfile() {
+    this.setState({ edit: false })
+  }
+
+
   render() {
     return (
       <div>
@@ -93,19 +100,26 @@ class Profile extends React.Component {
             title="About me:"
             rows={6}
             name="description"
-            content={this.state.description}
+            content=""
             handleFunc={this.handleInputChange}
-            placeholder={FakeUser.description ? FakeUser.description : `Yes, it's annoying "about me" again. But please tell your future travel mates a 
-            little bit about yourself, we encourage to say something weird about yourself, it would be func:`}
+            placeholder={FakeUser.description ? FakeUser.description : `lease tell your future travel mates a 
+            little bit about yourself`}
             />
           : <div>About me: 
               <p>{FakeUser.description ? FakeUser.description : ''}</p>
             </div>
           }
         </ul>
+        {this.state.edit ? <button onClick={this.handdleUpdateProfile}>Update Profile</button> : <button onClick={() => (this.setState({ edit: true }))} >Edit</button>}
       </div>
     );
   }
 }
 
 export default Profile;
+
+// Desk for tomorrow
+  // 1. learn how to upload and store/retrive image into/from database
+  // 2. Final draft the user info fieids and modify user related schema and resolvers accodringly
+  // 3. Untilize GraphQL and Redux to front load and store data
+  // 4. complete the profile component 
