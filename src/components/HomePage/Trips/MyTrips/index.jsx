@@ -37,7 +37,7 @@ class MyTrips extends React.Component {
   constructor(props) {
     super(props);
     this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
-    this.tripRender = this.tripRender.bind(this);
+    this.displayListofTrips = this.displayListofTrips.bind(this);
   }
 
   componentDidUpdate() {
@@ -52,35 +52,36 @@ class MyTrips extends React.Component {
     this.props.tripCreator(trip.users);
   }
 
-  tripRender() {
+  displayListofTrips() {
+    let tripRender;
 
-    let tripsRender;
-    
-    if (this.props.trips.length > 0) {
-      return (<div>
-        {this.props.trips.map(trip =>
-          (<div key={trip.id}>
-            <h3 onClick={() => this.setTripAndTravelers(trip)}>
-              <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
-                {trip.title}
-              </Link>
-            </h3>
-          </div>))}
-      </div>)
-    } else {
-      return (<div>
-        <h3>Currently No Trips!</h3>
-      </div>);
-    } 
+    if (!this.props.data.loading) {
+      if (this.props.trips.length > 0) {
+        tripRender = (<div>
+          {this.props.trips.map(trip =>
+            (<div key={trip.id}>
+              <h3 onClick={() => this.setTripAndTravelers(trip)}>
+                <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
+                  {trip.title}
+                </Link>
+              </h3>
+            </div>))}
+        </div>)
+      } else {
+        tripRender = (<div>
+          <h3>Currently No Trips!</h3>
+        </div>);
+      }
+    }
 
+    return tripRender;
   }
-  
-  render() {
 
+  render() {
     return (
       <div>
         <h1>My Trips</h1>
-        {this.tripRender()}
+        {this.displayListofTrips()}
         <button onClick={() => console.log(this.props)}>
               button
         </button>
@@ -99,7 +100,9 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips, showTrip, userId, tripCreator }, dispatch);
+  return bindActionCreators({
+    userTrips, showTrip, userId, tripCreator,
+  }, dispatch);
 }
 
 // / The caller could do something like:
