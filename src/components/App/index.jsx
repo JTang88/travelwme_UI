@@ -44,8 +44,9 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/sign" component={Signup} />
         <Route exact path="/landing" component={Landing} />
-        <AuthRoute exact path="/" component={HomePage} />
-        <AuthRoute path="/homepage" component={HomePage} />
+        {/* <AuthRoute exact path="/" component={HomePage} />
+        <AuthRoute path="/homepage" component={HomePage} /> */}
+        <Route path="/homepage" component={HomePage} /> 
       </Switch>
     </div>
   );

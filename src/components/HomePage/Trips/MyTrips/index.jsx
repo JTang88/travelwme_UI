@@ -37,13 +37,11 @@ class MyTrips extends React.Component {
   constructor(props) {
     super(props);
     this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
+    this.tripRender = this.tripRender.bind(this);
   }
 
   componentDidUpdate() {
     console.log('QUERY', this.props.data);
-    // if (!this.props.data.loading) {
-    //   this.props.userTrips(this.props.data.getUser.trips);
-    // }
     if (!this.props.data.loading) {
       this.props.userTrips(this.props.data.getUser.trips);
     }
@@ -54,27 +52,35 @@ class MyTrips extends React.Component {
     this.props.tripCreator(trip.users);
   }
 
+  tripRender() {
+
+    let tripsRender;
+    
+    if (this.props.trips.length > 0) {
+      return (<div>
+        {this.props.trips.map(trip =>
+          (<div key={trip.id}>
+            <h3 onClick={() => this.setTripAndTravelers(trip)}>
+              <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
+                {trip.title}
+              </Link>
+            </h3>
+          </div>))}
+      </div>)
+    } else {
+      return (<div>
+        <h3>Currently No Trips!</h3>
+      </div>);
+    } 
+
+  }
+  
   render() {
-    // console.log('MYTRIPSSSSS', this.props.history.push({
-    //   pathName:
-    //   state: {
-        
-    //   }
-    // }));
 
     return (
       <div>
         <h1>My Trips</h1>
-        <div>
-          {this.props.trips.map(trip =>
-            (<div key={trip.id}>
-              <h3 onClick={() => this.setTripAndTravelers(trip)}>
-                <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
-                  {trip.title}
-                </Link>
-              </h3>
-            </div>))}
-        </div>
+        {this.tripRender()}
         <button onClick={() => console.log(this.props)}>
               button
         </button>
