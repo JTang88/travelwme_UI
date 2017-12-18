@@ -5,6 +5,8 @@ import showTrip from './reducerShowTrip';
 import searchTrip from './reducerSearchTrip';
 import userId from './reducerUserId';
 import tripCreator from './reducerTripCreator';
+import tripTravelers from './reducerTripTravelers';
+import tripInterested from './reducerTripInterested';
 
 const allReducers = combineReducers({
   auth: authReducer,
@@ -13,6 +15,8 @@ const allReducers = combineReducers({
   search: searchTrip,
   userid: userId,
   creator: tripCreator,
+  triptrav: tripTravelers,
+  tripint: tripInterested,
 });
 
 export default allReducers;

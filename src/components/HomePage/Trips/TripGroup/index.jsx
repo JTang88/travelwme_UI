@@ -1,22 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Travelers from '../TripGroup/Travelers';
+import TripSuggestions from '../TripGroup/TripSuggestions';
 import TripDetails from '../TripInfo/TripDetails';
+import ApproveTrav from '../TripGroup/ApproveTravelers';
 
-function TripGroup(props) {
+function TripGroup() {
   return (
     <div>
       <h1>Trip Group</h1>
       <Travelers />
       <TripDetails />
+      <TripSuggestions />
+      <ApproveTrav />
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    // users: state.users,
-  };
-}
 
-export default connect(mapStateToProps)(TripGroup);
+export default TripGroup;

@@ -8,6 +8,8 @@ import userTrips from '../../../../actions/userTripsAction';
 import showTrip from '../../../../actions/showTripAction';
 import userId from '../../../../actions/useridAction';
 import tripCreator from '../../../../actions/tripCreatorAction';
+import tripTravelers from '../../../../actions/tripTravelersAction';
+import tripInterested from '../../../../actions/tripInterestedAction';
 
 const queryTrips = gql`
 query queryTrips($id: Int!) {
@@ -50,6 +52,8 @@ class MyTrips extends React.Component {
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
     this.props.tripCreator(trip.users);
+    this.props.tripTravelers(trip.users);
+    this.props.tripInterested(trip.users);
   }
 
   displayListofTrips() {
@@ -96,26 +100,18 @@ function mapStateToProps(state) {
     showtrip: state.showtrip,
     userid: state.userid,
     creator: state.creator,
+    triptrav: state.triptrav,
+    tripint: state.tripint,
   };
 }
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    userTrips, showTrip, userId, tripCreator,
+    userTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested,
   }, dispatch);
 }
 
-// / The caller could do something like:
-// <ProfileWithData avatarSize={300} />
-// And our HOC could look like:
-// const ProfileWithData = graphql(CurrentUserForLayout, {
-//   options: ({ avatarSize }) => ({ variables: { avatarSize } }),
-// })(Profile);
-// const ProfileWithData = graphql(CurrentUserForLayout, {
-//   options: { variables: { avatarSize: 100 } },
-//   })(Profile);
-
-MyTrips = graphql(queryTrips, {
+const Trips = graphql(queryTrips, {
   options: props => ({
     variables: {
       id: props.userid,
@@ -123,10 +119,4 @@ MyTrips = graphql(queryTrips, {
   }),
 })(MyTrips);
 
-
-// MyTrips=  graphql(queryTrips, {
-//   options: { variables: { id: 2 } },
-// })(MyTrips);
-
-
-export default connect(mapStateToProps, matchDispatchToProps)(MyTrips);
+export default connect(mapStateToProps, matchDispatchToProps)(Trips);
