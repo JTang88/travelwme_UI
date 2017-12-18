@@ -9,6 +9,7 @@ module.exports = {
     "import"
   ],
   "rules": {
+    "no-useless-constructor": 0,
     "no-trailing-spaces": 0,
     "react/prefer-stateless-function": 0,
     "eol-last": 0,
