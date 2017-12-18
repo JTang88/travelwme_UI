@@ -24,6 +24,7 @@ class Profile extends React.Component {
          62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 
          84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
       relationshipOptions: ['single', 'in a relationship', 'complicated'],
+      genderSelected: '',
       genderOptions: ['male', 'female', 'other'],
       fitnessOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
 
@@ -41,6 +42,7 @@ class Profile extends React.Component {
   
   handdleUpdateProfile() {
     this.setState({ edit: false });
+    console.log(this.state);
   }
 
 
@@ -56,7 +58,7 @@ class Profile extends React.Component {
               placeholder={FakeUser.fitness ? FakeUser.fitness : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.genderOptions}
-              selectedOption={this.state.gender}
+              selectedOption={this.state.genderSelected}
           />
           : <div>Gender: { FakeUser.gender ? FakeUser.gender : ''}</div>
             }
@@ -122,3 +124,35 @@ export default Profile;
   // 2. Final draft the user info fieids and modify user related schema and resolvers accodringly
   // 3. Untilize GraphQL and Redux to front load and store data
   // 4. complete the profile component 
+
+//  const login = gql`
+// mutation login($email: String!, $password: String!) {
+//   login(email: $email, password: $password) 
+// }
+// `;
+
+// async handleLoginSubmit(e) {
+//   e.preventDefault();
+//   const {
+//     email,
+//     password,
+//   } = this.state;
+
+//   if (email === '' || password === '') {
+//     return;
+//   }
+
+//   const token = await this.props.mutate({
+//     variables: {
+//       email,
+//       password,
+//     },
+//   });
+
+//   if (token) {
+//     localStorage.setItem('token', token.data.login);
+//     const decodedToken = decode(token.data.login);
+//     this.props.setCurrentUser(decodedToken.user);
+//     this.props.history.push('/');
+//   }
+// }
