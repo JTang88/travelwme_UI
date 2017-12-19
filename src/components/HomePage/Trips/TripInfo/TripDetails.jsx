@@ -9,7 +9,7 @@ function TripDetails(props) {
       <h4>Start Date: {props.showtrip.date_start.slice(4, 15)}</h4>
       <h4>End Date: {props.showtrip.date_end.slice(4, 15)}</h4>
       <h4>Fitness: {props.showtrip.fitness}</h4>
-      <h4>Trip Status: {props.showtrip.trip_state}</h4>
+      <h4>Trip Status: {props.tripstat}</h4>
     </div>
   );
 }
@@ -18,6 +18,7 @@ function mapStateToProps(state) {
   return {
     trips: state.trips,
     showtrip: state.showtrip,
+    tripstat: state.tripstat,
   };
 }
 

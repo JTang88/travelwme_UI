@@ -31,6 +31,10 @@ class ApproveTrav extends React.Component {
     this.setState({
       [name]: value,
     });
+
+    // if (event.target.name === 'user') {
+      //when selected display user info
+    // }
   }
 
   updateUserTripStatus() {
@@ -60,7 +64,7 @@ class ApproveTrav extends React.Component {
               <h2>Interested Users: </h2>
               <div>
                 <select name="user" onChange={this.handleChange}>
-                  <option selected value="Users">Users</option>
+                  <option defaultValue value="Users">Users</option>
                   {this.props.tripint.map( user =>
                     (<option key={user.id} value={user.id}>
                       {user.username}</option>))}
@@ -68,7 +72,7 @@ class ApproveTrav extends React.Component {
               </div>
               <div>
                 <select name="decision" onChange={this.handleChange}>
-                  <option selected value="Choose">Choose...</option>
+                  <option defaultValue value="Choose">Choose...</option>
                   <option value="J">Approve</option>
                   <option value="D">Decline</option>
                 </select>
@@ -121,6 +125,6 @@ function matchDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-ApproveTrav = graphql(interestedInATrip)(ApproveTrav);
+const Approve = graphql(interestedInATrip)(ApproveTrav);
 
-export default connect(mapStateToProps, matchDispatchToProps)(ApproveTrav);
+export default connect(mapStateToProps, matchDispatchToProps)(Approve);

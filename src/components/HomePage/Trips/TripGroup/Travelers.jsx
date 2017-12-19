@@ -12,9 +12,9 @@ class Travelers extends React.Component {
     if (this.props.triptrav.length === 0) {
       showTravelers = (<div>No Travelers</div>); }
     else {
-      showTravelers = (<div>
+      showTravelers = (<div className="row">
         {this.props.triptrav.map(user =>
-      (<div key={user.id}>
+      (<div key={user.id} className="col-sm-6 mb-lg-2">
         {user.username}
       </div>))}
       </div>)

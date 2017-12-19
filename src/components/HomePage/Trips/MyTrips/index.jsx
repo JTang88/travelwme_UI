@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
+import pendingTrips from '../../../../actions/pendingTripsActions';
 import showTrip from '../../../../actions/showTripAction';
 import userId from '../../../../actions/useridAction';
 import tripCreator from '../../../../actions/tripCreatorAction';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
+import updateStatus from '../../../../actions/tripStatusAction';
 
 const queryTrips = gql`
   query queryTrips($id: Int!) {
@@ -26,6 +28,7 @@ const queryTrips = gql`
       fitness
       relationship_status
       trip_state
+      user_type
       users{
         id
         username
@@ -42,10 +45,11 @@ class MyTrips extends React.Component {
     this.displayListofTrips = this.displayListofTrips.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log('QUERY', this.props.data);
-    if (!this.props.data.loading) {
+  componentDidUpdate(prevProps) {
+    if (this.props.data.getUser && !prevProps.data.getUser) {
+      console.log('QUERY', this.props.data);
       this.props.userTrips(this.props.data.getUser.trips);
+      this.props.pendingTrips(this.props.data.getUser.trips);
     }
   }
 
@@ -54,20 +58,22 @@ class MyTrips extends React.Component {
     this.props.tripCreator(trip.users);
     this.props.tripTravelers(trip.users);
     this.props.tripInterested(trip.users);
+    this.props.updateStatus(trip.trip_state);
   }
 
   displayListofTrips() {
     let tripRender;
 
     if (!this.props.data.loading) {
-      if (this.props.trips.length > 0) {
+      if (this.props.mytrips.length > 0) {
         tripRender = (<div>
-          {this.props.trips.map(trip =>
+          {this.props.mytrips.map(trip =>
             (<div key={trip.id}>
               <h3 onClick={() => this.setTripAndTravelers(trip)}>
                 <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
                   {trip.title}
                 </Link>
+                  {trip.state}
               </h3>
             </div>))}
         </div>)
@@ -96,18 +102,20 @@ class MyTrips extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    trips: state.trips,
+    mytrips: state.mytrips,
+    pendtrips: state.pendtrips,
     showtrip: state.showtrip,
     userid: state.userid,
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,
+    tripstat: state.tripstat,
   };
 }
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    userTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested,
+    userTrips, pendingTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested, updateStatus,
   }, dispatch);
 }
 
