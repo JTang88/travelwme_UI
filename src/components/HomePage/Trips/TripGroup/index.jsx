@@ -10,8 +10,10 @@ function TripGroup() {
       <h1>Trip Group</h1>
       <Travelers />
       <TripDetails />
-      <TripSuggestions />
-      <ApproveTrav />
+      <div className="d-flex justify-content-around">
+        <TripSuggestions />
+        <ApproveTrav />
+      </div>  
     </div>
   );
 }

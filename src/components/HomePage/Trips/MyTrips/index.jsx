@@ -12,8 +12,8 @@ import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
 
 const queryTrips = gql`
-query queryTrips($id: Int!) {
-  getUser(id: $id) {
+  query queryTrips($id: Int!) {
+    getUser(id: $id) {
     id
     username
     trips {
