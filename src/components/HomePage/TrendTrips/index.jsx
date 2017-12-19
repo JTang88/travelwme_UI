@@ -1,9 +1,11 @@
 import React from 'react';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setCurrentUser } from '../../../actions/authActions';
+import setTrendTrips from '../../../actions/trendTripAction';
 
 const getUser = gql`
 query getUser($id: Int!) {
@@ -20,7 +22,17 @@ const allTrips = gql`
 query allTrips {
   allTrips {
     title
+    description
+    date_start 
+    date_end 
+    cost 
     id
+    users {
+      username
+      age
+      gender
+      body_type
+    }
   }
 }`;
 
@@ -28,13 +40,7 @@ query allTrips {
 class TrendTrips extends React.Component { 
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    // setTimeout(() => (console.log('this is redux user data before update' , this.props.auth.getUser)), 0);
-    // setTimeout(() => (console.log('this is user data' , this.props.getUser)), 3000);
-    // setTimeout(() => (console.log('this is trip data' , this.props.allTrips)), 4000);
-    // setTimeout(() => (console.log('this is redux user data' , this.props.auth)), 5000);
+    // this.checkOutATrip = this.checkOutATrip.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -42,30 +48,52 @@ class TrendTrips extends React.Component {
       console.log('setting current user with graphql stuff');
       this.props.setCurrentUser(this.props.qlUser.getUser);
     }
+
+    if (this.props.qlTrips.allTrips && !prevProps.qlTrips.allTrips) {
+      console.log('setting current user with graphql stuff');
+      this.props.setTrendTrips(this.props.qlTrips.allTrips);
+    }
+
   }
+
+  // checkOutATrip() {
+  //   this.props.history.push('/homepage/trips/tripinfo')
+  // }
 
   render() {
     return (
       <div>
         <h1>Trending Trips</h1>
+        {
+          this.props.trend.trips.map((trip, i) => (
+            <div key={i}>
+              <Link to="/sign" href="/sign">{trip.title}</Link>
+               this link is supoose to link to tripinfo not sign, the sign is just a place holder for now!
+              <div> 
+                {trip.date_start}
+              </div> 
+              <div> 
+                {trip.date_end}
+              </div> 
+            </div>  
+            )
+          )
+        }
       </div>
     );
   }
 }
 
-
 function mapStateToProps(state) {
   return {
     auth: state.auth,
+    trend: state.trend,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ setCurrentUser }, dispatch);
+  return bindActionCreators({ setCurrentUser, setTrendTrips }, dispatch);
 }
-
-console.log('===================================');
-console.log('running compose for the first time');
 
 const Container = compose(
   graphql(
@@ -82,13 +110,10 @@ const Container = compose(
       },
     },
   ),
-  graphql(allTrips, { name: 'allTrips' })
+  graphql(allTrips, { name: 'qlTrips' })
 )(TrendTrips);
 
 export default connect(mapStateToProps, matchDispatchToProps)(Container);
-
-
-
 
 
 // export default async () => {

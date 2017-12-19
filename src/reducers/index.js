@@ -5,9 +5,11 @@ import showTrip from './reducerShowTrip';
 import searchTrip from './reducerSearchTrip';
 import userId from './reducerUserId';
 import tripCreator from './reducerTripCreator';
+import trendTripReducer from './trendTripReducer';
 
 const allReducers = combineReducers({
   auth: authReducer,
+  trend: trendTripReducer,
   trips: userTrips,
   showtrip: showTrip,
   search: searchTrip,
