@@ -6,8 +6,8 @@ const FakeUser = {
   id: 1,
   username: 'Jerry Tang',
   age: 29,
-  gender: '',
-  fitness: '',
+  gender: 'male',
+  body_type: 'sexy',
   relationship: 'single',
   description: 'I am a creazy person',
 };
@@ -24,10 +24,12 @@ class Profile extends React.Component {
          62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 
          84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
       relationshipOptions: ['single', 'in a relationship', 'complicated'],
-      genderSelected: '',
       genderOptions: ['male', 'female', 'other'],
       fitnessOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
-
+      gender: '',
+      body_type: '',
+      relationship: '',
+      age: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handdleUpdateProfile = this.handdleUpdateProfile.bind(this);
@@ -43,6 +45,10 @@ class Profile extends React.Component {
   handdleUpdateProfile() {
     this.setState({ edit: false });
     console.log(this.state);
+    // this function needs to call the mutaiton and pass in all the variables
+  
+    
+
   }
 
 
@@ -54,30 +60,30 @@ class Profile extends React.Component {
           { this.state.edit ?
             <Select
               title="Gender"
-              name="genderSelected"
-              placeholder={FakeUser.fitness ? FakeUser.fitness : 'choose a answer'}
+              name="gender"
+              placeholder={FakeUser.gender ? FakeUser.gender : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.genderOptions}
-              selectedOption={this.state.genderSelected}
+              selectedOption={this.state.gender}
           />
           : <div>Gender: { FakeUser.gender ? FakeUser.gender : ''}</div>
             }
           { this.state.edit ?
             <Select
-              title="Fitness"
-              name="fitnessSelected"
-              placeholder={FakeUser.fitness ? FakeUser.fitness : 'choose a answer'}
+              title="Body_type"
+              name="body_type"
+              placeholder={FakeUser.body_type ? FakeUser.body_type : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.fitnessOptions}
               selectedOption={this.state.fitness}
             />
-          : <div>Fitness: {FakeUser.fitness ? FakeUser.fitness : ''}</div>
+          : <div>Body_type: {FakeUser.body_type ? FakeUser.body_type : ''}</div>
           }
           { this.state.edit ?
             <Select
               title="Relationship"
-              name="relationshipSelected"
-              placeholder={FakeUser.fitness ? FakeUser.relationship : 'choose a answer'}
+              name="relationship"
+              placeholder={FakeUser.relationship ? FakeUser.relationship : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.relationshipOptions}
               selectedOption={this.state.relationship}
@@ -87,7 +93,7 @@ class Profile extends React.Component {
           { this.state.edit ? 
             <Select
               title="Age"
-              name="ageSelected"
+              name="age"
               placeholder={FakeUser.age ? FakeUser.age : 18}
               handleFunc={this.handleInputChange}
               options={this.state.ageOptions}
@@ -116,6 +122,19 @@ class Profile extends React.Component {
     );
   }
 }
+
+
+// function mapStateToProps(state) {
+//   return {
+//     auth: state.auth,
+//   };
+// }
+
+
+
+
+
+
 
 export default Profile;
 

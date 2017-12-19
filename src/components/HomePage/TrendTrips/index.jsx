@@ -3,10 +3,12 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setCurrentUser } from '../../../actions/authActions';
 
 const getUser = gql`
 query getUser($id: Int!) {
   getUser(id: $id) {
+    id
     username
     age
     body_type
@@ -22,24 +24,25 @@ query allTrips {
   }
 }`;
 
-// const allUsers = gql`
-// query allUsers {
-//   allUsers {
-//     username
-//     id
-//   }
-// }`;
 
-class TrendTrips extends React.Component {
+class TrendTrips extends React.Component { 
   constructor(props) {
     super(props);
-
-
   }
 
   componentDidMount() {
-    setTimeout(() => (console.log('this is user datea' , this.props.getUser)), 2000);
-    setTimeout(() => (console.log('this is trip data' , this.props.allTrips)), 3000);
+    setTimeout(() => (console.log('this is redux user data before update' , this.props.auth.getUser)), 0);
+    // setTimeout(() => (  ), 2000);
+    setTimeout(() => (console.log('this is user data' , this.props.getUser)), 3000);
+    setTimeout(() => (console.log('this is trip data' , this.props.allTrips)), 4000);
+    setTimeout(() => (console.log('this is redux user data' , this.props.auth)), 5000);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.getUser.getUser && !prevProps.getUser.getUser) {
+      console.log('setting current user with graphql stuff');
+      this.props.setCurrentUser(this.props.getUser.getUser);
+    }
   }
 
   render() {
@@ -51,29 +54,109 @@ class TrendTrips extends React.Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return {
     auth: state.auth,
   };
 }
 
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ setCurrentUser }, dispatch);
+}
+
+console.log('===================================');
+console.log('running compose for the first time');
 
 const Container = compose(
   graphql(
     getUser, 
     { 
       name: 'getUser',
-      options: props => ({
-        variables: {
-          id: props.auth.user.id,
-        },
-      }),
+      options: props => {
+        console.log('creating container component. props.auth.getUser.id = ', props.auth.getUser.id);
+        return {
+          variables: {
+            id: props.auth.getUser.id,
+          },
+        }
+      },
     },
   ),
   graphql(allTrips, { name: 'allTrips' })
 )(TrendTrips);
 
- export default connect(mapStateToProps)(Container);
+export default connect(mapStateToProps, matchDispatchToProps)(Container);
+
+
+
+
+
+// export default async () => {
+
+//   function mapStateToProps(state) {
+//     return {
+//       auth: state.auth,
+//     };
+//   }
+  
+//   function matchDispatchToProps(dispatch) {
+//     return bindActionCreators({ setCurrentUser }, dispatch);
+//   }
+  
+//   const Container = await compose(
+//     graphql(
+//       getUser, 
+//       { 
+//         name: 'getUser',
+//         options: props => ({
+//           variables: {
+//             id: props.auth.user.id,
+//           },
+//         }),
+//       },
+//     ),
+//     graphql(allTrips, { name: 'allTrips' })
+//   )(TrendTrips);
+
+//   return connect(mapStateToProps, matchDispatchToProps)(Container);
+// }();
+
+
+
+
+// function mapStateToProps(state) {
+//   return {
+//     auth: state.auth,
+//   };
+// }
+
+// function matchDispatchToProps(dispatch) {
+//   return bindActionCreators({ setCurrentUser }, dispatch);
+// }
+
+// const Container = compose(
+//   graphql(
+//     getUser, 
+//     { 
+//       name: 'getUser',
+//       options: props => ({
+//         variables: {
+//           id: props.auth.user.id,
+//         },
+//       }),
+//     },
+//   ),
+//   graphql(allTrips, { name: 'allTrips' })
+// )(TrendTrips);
+
+// export default connect(mapStateToProps/*, matchDispatchToProps*/)(Container);
+
+
+
+
+
+ 
 
  // ==================================================
 
