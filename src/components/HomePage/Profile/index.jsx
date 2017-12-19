@@ -1,9 +1,40 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import React from 'react';
 import Select from '../FormComponents/Select';
 import TextArea from '../FormComponents/TextArea';
-  
+
+// average', 'atheltic', 'sexy', 'well-rounded'
+const convert = (body) => {
+  if (body === 'average') {
+    return 1;
+  } 
+  if (body === 'atheltic') {
+    return 3;
+  }
+  if (body === 'sexy') {
+    return 12;
+  }
+  if (body === 'well-rounds') {
+    return 7;
+  }
+  if (body === 1) {
+    return 'average';
+  } 
+  if (body === 3) {
+    return 'atheltic';
+  }
+  if (body === 12) {
+    return 'sexy';
+  }
+  if (body ===  7) {
+    return 'well-rounds';
+  }
+}
+
+
 
 class Profile extends React.Component {
   constructor(props) {
@@ -17,11 +48,7 @@ class Profile extends React.Component {
          84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
       relationshipOptions: ['single', 'in a relationship', 'complicated'],
       genderOptions: ['male', 'female', 'other'],
-      fitnessOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
-      gender: '',
-      body_type: '',
-      relationship: '',
-      age: '',
+      body_typeOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handdleUpdateProfile = this.handdleUpdateProfile.bind(this);
@@ -34,9 +61,22 @@ class Profile extends React.Component {
     this.setState(change);   
   }
   
-  handdleUpdateProfile() {
+  async handdleUpdateProfile(e) {
+    e.preventDefault();
     this.setState({ edit: false });
     console.log(this.state);
+
+    await this.props.mutate({
+      variables: {
+        description: this.state.description || this.props.auth.user.description,
+        username: this.state.username || this.props.auth.user.username,
+        id: this.state.id || this.props.auth.user.id,
+        gender: this.state.gender || this.props.auth.user,
+        body_type: convert(this.state.body_type) || this.props.auth.user.body_type,
+        relationship: this.state.relationship || this.props.auth.user.relationship,
+        age: this.state.age || this.props.auth.user.age,
+      },
+    });
   }
 
 
@@ -60,12 +100,12 @@ class Profile extends React.Component {
             <Select
               title="Body_type"
               name="body_type"
-              placeholder={this.props.auth.user.body_type ? this.props.auth.user.body_type : 'choose a answer'}
+              placeholder={this.props.auth.user.body_type ? convert(this.props.auth.user.body_type) : 'choose a answer'}
               handleFunc={this.handleInputChange}
-              options={this.state.fitnessOptions}
-              selectedOption={this.state.fitness}
+              options={this.state.body_typeOptions}
+              selectedOption={this.state.body_type}
             />
-          : <div>Body_type: {this.props.auth.user.body_type ? this.props.auth.user.body_type : ''}</div>
+          : <div>Body_type: {this.props.auth.user.body_type ? convert(this.props.auth.user.body_type) : ''}</div>
           }
           { this.state.edit ?
             <Select
@@ -112,6 +152,18 @@ class Profile extends React.Component {
 }
 
 
+
+// updateUser(id: Int!, username: String!, email: String!, gender: String!, age: Int!, body_type: Int!, relationship: String!, description: String!): [Int!]!
+
+const updateUser = gql`
+mutation updateUser($id: Int!, $username: String!, $gender: String!, $age: Int!, $body_type: Int!, $relationship: String!, $description: String!) {
+  updateUser(id: $id, username: $username, gender: $gender, age: $age, body_type: $body_type, relationship: $relationship, description: $description)
+}
+`;
+
+const profileWithMutation = graphql(updateUser)(Profile);
+
+
 function mapStateToProps(state) {
   return {
     auth: state.auth,
@@ -119,7 +171,12 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(profileWithMutation);
+
+
+
+
+
 
 
 
