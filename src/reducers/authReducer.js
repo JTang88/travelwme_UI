@@ -1,5 +1,5 @@
 const initialState = {
-  getUser: {},
+  user: {},
 };
 
 export default function (state = initialState, action) {
@@ -7,7 +7,7 @@ export default function (state = initialState, action) {
     case 'SET_CURRENT_USER': 
       console.log('in authReducer. action.payload = ', action.payload);
       return {
-        getUser: action.payload,
+        user: action.payload,
       };
     default: return state;
   }

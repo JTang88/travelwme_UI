@@ -31,17 +31,16 @@ class TrendTrips extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => (console.log('this is redux user data before update' , this.props.auth.getUser)), 0);
-    // setTimeout(() => (  ), 2000);
-    setTimeout(() => (console.log('this is user data' , this.props.getUser)), 3000);
-    setTimeout(() => (console.log('this is trip data' , this.props.allTrips)), 4000);
-    setTimeout(() => (console.log('this is redux user data' , this.props.auth)), 5000);
+    // setTimeout(() => (console.log('this is redux user data before update' , this.props.auth.getUser)), 0);
+    // setTimeout(() => (console.log('this is user data' , this.props.getUser)), 3000);
+    // setTimeout(() => (console.log('this is trip data' , this.props.allTrips)), 4000);
+    // setTimeout(() => (console.log('this is redux user data' , this.props.auth)), 5000);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.getUser.getUser && !prevProps.getUser.getUser) {
+    if (this.props.qlUser.getUser && !prevProps.qlUser.getUser) {
       console.log('setting current user with graphql stuff');
-      this.props.setCurrentUser(this.props.getUser.getUser);
+      this.props.setCurrentUser(this.props.qlUser.getUser);
     }
   }
 
@@ -72,12 +71,12 @@ const Container = compose(
   graphql(
     getUser, 
     { 
-      name: 'getUser',
-      options: props => {
-        console.log('creating container component. props.auth.getUser.id = ', props.auth.getUser.id);
+      name: 'qlUser',
+      options: (props) => {
+        console.log('creating container component. props.auth.getUser.id = ', props.auth.user.id);
         return {
           variables: {
-            id: props.auth.getUser.id,
+            id: props.auth.user.id,
           },
         }
       },
