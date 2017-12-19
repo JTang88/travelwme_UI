@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import React from 'react';
 import Select from '../FormComponents/Select';
 import TextArea from '../FormComponents/TextArea';
+import { setCurrentUser } from '../../../actions/authActions';
 
 // average', 'atheltic', 'sexy', 'well-rounded'
 const convert = (body) => {
@@ -49,6 +50,7 @@ class Profile extends React.Component {
       relationshipOptions: ['single', 'in a relationship', 'complicated'],
       genderOptions: ['male', 'female', 'other'],
       body_typeOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
+      description: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handdleUpdateProfile = this.handdleUpdateProfile.bind(this);
@@ -66,17 +68,21 @@ class Profile extends React.Component {
     this.setState({ edit: false });
     console.log(this.state);
 
+    const updatedUserInfo = {
+      description: this.state.description || this.props.auth.user.description,
+      username: this.state.username || this.props.auth.user.username,
+      id: this.state.id || this.props.auth.user.id,
+      gender: this.state.gender || this.props.auth.user.gender,
+      body_type: convert(this.state.body_type) || this.props.auth.user.body_type,
+      relationship: this.state.relationship || this.props.auth.user.relationship,
+      age: this.state.age || this.props.auth.user.age,
+    }
+
     await this.props.mutate({
-      variables: {
-        description: this.state.description || this.props.auth.user.description,
-        username: this.state.username || this.props.auth.user.username,
-        id: this.state.id || this.props.auth.user.id,
-        gender: this.state.gender || this.props.auth.user,
-        body_type: convert(this.state.body_type) || this.props.auth.user.body_type,
-        relationship: this.state.relationship || this.props.auth.user.relationship,
-        age: this.state.age || this.props.auth.user.age,
-      },
+      variables: updatedUserInfo,
     });
+    
+    this.props.setCurrentUser(updatedUserInfo); 
   }
 
 
@@ -135,7 +141,7 @@ class Profile extends React.Component {
               title="About me:"
               rows={6}
               name="description"
-              content=""
+              content={this.state.description}
               handleFunc={this.handleInputChange}
               placeholder={this.props.auth.user.description ? this.props.auth.user.description : `lease tell your future travel mates a 
               little bit about yourself`}
@@ -154,7 +160,6 @@ class Profile extends React.Component {
 
 
 // updateUser(id: Int!, username: String!, email: String!, gender: String!, age: Int!, body_type: Int!, relationship: String!, description: String!): [Int!]!
-
 const updateUser = gql`
 mutation updateUser($id: Int!, $username: String!, $gender: String!, $age: Int!, $body_type: Int!, $relationship: String!, $description: String!) {
   updateUser(id: $id, username: $username, gender: $gender, age: $age, body_type: $body_type, relationship: $relationship, description: $description)
@@ -162,6 +167,10 @@ mutation updateUser($id: Int!, $username: String!, $gender: String!, $age: Int!,
 `;
 
 const profileWithMutation = graphql(updateUser)(Profile);
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ setCurrentUser }, dispatch);
+}
 
 
 function mapStateToProps(state) {
@@ -171,7 +180,7 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(profileWithMutation);
+export default connect(mapStateToProps, matchDispatchToProps)(profileWithMutation);
 
 
 
