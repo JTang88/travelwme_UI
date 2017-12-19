@@ -13,8 +13,10 @@ query getUser($id: Int!) {
     id
     username
     age
+    gender
     body_type
     relationship
+    description
   }
 }`;
 

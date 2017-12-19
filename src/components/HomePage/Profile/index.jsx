@@ -1,16 +1,8 @@
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import React from 'react';
 import Select from '../FormComponents/Select';
 import TextArea from '../FormComponents/TextArea';
-
-const FakeUser = {
-  id: 1,
-  username: 'Jerry Tang',
-  age: 29,
-  gender: 'male',
-  body_type: 'sexy',
-  relationship: 'single',
-  description: 'I am a creazy person',
-};
   
 
 class Profile extends React.Component {
@@ -45,61 +37,57 @@ class Profile extends React.Component {
   handdleUpdateProfile() {
     this.setState({ edit: false });
     console.log(this.state);
-    // this function needs to call the mutaiton and pass in all the variables
-  
-    
-
   }
 
 
   render() {
     return (
       <div>
-        <h1>{FakeUser.username}</h1>
+        <h1>{this.props.auth.user.username}</h1>
         <ul>
           { this.state.edit ?
             <Select
               title="Gender"
               name="gender"
-              placeholder={FakeUser.gender ? FakeUser.gender : 'choose a answer'}
+              placeholder={this.props.auth.user.gender ? this.props.auth.user.gender : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.genderOptions}
               selectedOption={this.state.gender}
           />
-          : <div>Gender: { FakeUser.gender ? FakeUser.gender : ''}</div>
+          : <div>Gender: { this.props.auth.user.gender ? this.props.auth.user.gender : ''}</div>
             }
           { this.state.edit ?
             <Select
               title="Body_type"
               name="body_type"
-              placeholder={FakeUser.body_type ? FakeUser.body_type : 'choose a answer'}
+              placeholder={this.props.auth.user.body_type ? this.props.auth.user.body_type : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.fitnessOptions}
               selectedOption={this.state.fitness}
             />
-          : <div>Body_type: {FakeUser.body_type ? FakeUser.body_type : ''}</div>
+          : <div>Body_type: {this.props.auth.user.body_type ? this.props.auth.user.body_type : ''}</div>
           }
           { this.state.edit ?
             <Select
               title="Relationship"
               name="relationship"
-              placeholder={FakeUser.relationship ? FakeUser.relationship : 'choose a answer'}
+              placeholder={this.props.auth.user.relationship ? this.props.auth.user.relationship : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.relationshipOptions}
               selectedOption={this.state.relationship}
             />
-          : <div>Relationship: {FakeUser.relationship ? FakeUser.relationship : ''}</div>
+          : <div>Relationship: {this.props.auth.user.relationship ? this.props.auth.user.relationship : ''}</div>
           }
           { this.state.edit ? 
             <Select
               title="Age"
               name="age"
-              placeholder={FakeUser.age ? FakeUser.age : 18}
+              placeholder={this.props.auth.user.age ? this.props.auth.user.age : 18}
               handleFunc={this.handleInputChange}
               options={this.state.ageOptions}
               selectedOption={this.state.age}
             />
-          : <div>Age: {FakeUser.age}</div>
+          : <div>Age: {this.props.auth.user.age}</div>
           }
           { this.state.edit ? 
             <TextArea 
@@ -109,11 +97,11 @@ class Profile extends React.Component {
               name="description"
               content=""
               handleFunc={this.handleInputChange}
-              placeholder={FakeUser.description ? FakeUser.description : `lease tell your future travel mates a 
+              placeholder={this.props.auth.user.description ? this.props.auth.user.description : `lease tell your future travel mates a 
               little bit about yourself`}
             />
           : <div>About me: 
-            <p>{FakeUser.description ? FakeUser.description : ''}</p>
+            <p>{this.props.auth.user.description ? this.props.auth.user.description : ''}</p>
             </div>
           }
         </ul>
@@ -124,19 +112,18 @@ class Profile extends React.Component {
 }
 
 
-// function mapStateToProps(state) {
-//   return {
-//     auth: state.auth,
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
+}
+
+
+export default connect(mapStateToProps)(Profile);
 
 
 
-
-
-
-
-export default Profile;
+// export default Profile;
 
 // Desk for tomorrow
   // 1. learn how to upload and store/retrive image into/from database
