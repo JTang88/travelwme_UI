@@ -5,76 +5,96 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
+import pendingTrips from '../../../../actions/pendingTripsActions';
 import showTrip from '../../../../actions/showTripAction';
 import userId from '../../../../actions/useridAction';
 import tripCreator from '../../../../actions/tripCreatorAction';
+import tripTravelers from '../../../../actions/tripTravelersAction';
+import tripInterested from '../../../../actions/tripInterestedAction';
+import updateStatus from '../../../../actions/tripStatusAction';
 
 const queryTrips = gql`
-query queryTrips($id: Int!) {
-  getUser(id: $id) {
-    id
-    username
-    trips {
+  query queryTrips($id: Int!) {
+    getUser(id: $id) {
       id
-      title
-      date_start
-      date_end
-      gender
-      age
-      fitness
-      relationship_status
-      trip_state
-      users{
+      username
+      trips {
         id
-        username
+        title
+        description
+        date_start
+        date_end
+        gender
+        age
+        relationship
+        cost
+        trip_status
         user_type
+        users{
+          id
+          username
+          user_type
+          gender
+          age
+        }
       }
     }
-  }
 }`;
 
 class MyTrips extends React.Component {
   constructor(props) {
     super(props);
     this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
+    this.displayListofTrips = this.displayListofTrips.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log('QUERY', this.props.data);
-    // if (!this.props.data.loading) {
-    //   this.props.userTrips(this.props.data.getUser.trips);
-    // }
-    if (!this.props.data.loading) {
+  componentDidUpdate(prevProps) {
+    if (this.props.data.getUser && !prevProps.data.getUser) {
+      console.log('QUERY', this.props.data);
       this.props.userTrips(this.props.data.getUser.trips);
+      this.props.pendingTrips(this.props.data.getUser.trips);
     }
   }
 
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
     this.props.tripCreator(trip.users);
+    this.props.tripTravelers(trip.users);
+    this.props.tripInterested(trip.users);
+    this.props.updateStatus(trip.trip_status);
   }
 
-  render() {
-    // console.log('MYTRIPSSSSS', this.props.history.push({
-    //   pathName:
-    //   state: {
-        
-    //   }
-    // }));
+  displayListofTrips() {
+    let tripRender;
 
-    return (
-      <div>
-        <h1>My Trips</h1>
-        <div>
-          {this.props.trips.map(trip =>
+    if (!this.props.data.loading) {
+      if (this.props.mytrips.length > 0) {
+        tripRender = (<div>
+          {this.props.mytrips.map(trip =>
             (<div key={trip.id}>
               <h3 onClick={() => this.setTripAndTravelers(trip)}>
                 <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
                   {trip.title}
                 </Link>
+                  {trip.state}
               </h3>
             </div>))}
-        </div>
+        </div>)
+      } else {
+        tripRender = (<div>
+          <h3>Currently No Trips!</h3>
+        </div>);
+      }
+    }
+
+    return tripRender;
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>My Trips</h1>
+        {this.displayListofTrips()}
         <button onClick={() => console.log(this.props)}>
               button
         </button>
@@ -85,28 +105,24 @@ class MyTrips extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    trips: state.trips,
+    mytrips: state.mytrips,
+    pendtrips: state.pendtrips,
     showtrip: state.showtrip,
     userid: state.userid,
     creator: state.creator,
+    triptrav: state.triptrav,
+    tripint: state.tripint,
+    tripstat: state.tripstat,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ userTrips, showTrip, userId, tripCreator }, dispatch);
+  return bindActionCreators({
+    userTrips, pendingTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested, updateStatus,
+  }, dispatch);
 }
 
-// / The caller could do something like:
-// <ProfileWithData avatarSize={300} />
-// And our HOC could look like:
-// const ProfileWithData = graphql(CurrentUserForLayout, {
-//   options: ({ avatarSize }) => ({ variables: { avatarSize } }),
-// })(Profile);
-// const ProfileWithData = graphql(CurrentUserForLayout, {
-//   options: { variables: { avatarSize: 100 } },
-//   })(Profile);
-
-MyTrips = graphql(queryTrips, {
+const Trips = graphql(queryTrips, {
   options: props => ({
     variables: {
       id: props.userid,
@@ -114,10 +130,4 @@ MyTrips = graphql(queryTrips, {
   }),
 })(MyTrips);
 
-
-// MyTrips=  graphql(queryTrips, {
-//   options: { variables: { id: 2 } },
-// })(MyTrips);
-
-
-export default connect(mapStateToProps, matchDispatchToProps)(MyTrips);
+export default connect(mapStateToProps, matchDispatchToProps)(Trips);

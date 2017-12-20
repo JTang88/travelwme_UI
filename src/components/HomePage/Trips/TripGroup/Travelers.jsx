@@ -1,32 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function Travelers(props) {
-  let tripCreator;
-  let tripJoined;
-  // for (let i = 0; i < props.travelers.length; i++) {
-  //   if (props.travelers[i].user_type === 'C') {
-  //     tripCreator = (<div>Creator: {props.travelers[i].username}</div>);
-  //   } else {
-  //     tripJoined = (<div>{props.travelers[i].username}</div>);
-  //   }
-  // }
+class Travelers extends React.Component {
+  constructor(props) {
+    super(props);
+    this.showJoinedTravelers = this.showJoinedTravelers.bind(this);
+  }
 
-  // console.log('TRAVELERSSSSS', props.travelers);
-  return (
-    <div>
-      {tripCreator}
-      <h2>Joined</h2>
-      {tripJoined}
-    </div>
-  );
+  showJoinedTravelers() {
+    let showTravelers;
+    if (this.props.triptrav.length === 0) {
+      showTravelers = (<div>No Travelers</div>); }
+    else {
+      showTravelers = (<div className="row">
+        {this.props.triptrav.map(user =>
+      (<div key={user.id} className="col-sm-6 mb-lg-2">
+        {user.username}
+      </div>))}
+      </div>)
+    }
+    return showTravelers;
+  }
+
+  render() {
+    return (
+      <div>
+        {this.showJoinedTravelers()}
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {
   return {
     trips: state.trips,
-    mytrip: state.mytrip,
+    showtrip: state.showtrip,
     userid: state.userid,
+    creator: state.creator,
+    triptrav: state.triptrav,
+    tripint: state.tripint,
   };
 }
 
