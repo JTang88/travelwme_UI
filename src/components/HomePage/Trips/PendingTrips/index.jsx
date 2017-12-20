@@ -11,30 +11,35 @@ import userId from '../../../../actions/useridAction';
 import tripCreator from '../../../../actions/tripCreatorAction';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
+import updateStatus from '../../../../actions/tripStatusAction';
+
 
 const queryTrips = gql`
 query queryTrips($id: Int!) {
   getUser(id: $id) {
-  id
-  username
-  trips {
     id
-    title
-    date_start
-    date_end
-    gender
-    age
-    fitness
-    relationship_status
-    trip_state
-    user_type
-    users{
+    username
+    trips {
       id
-      username
+      title
+      description
+      date_start
+      date_end
+      gender
+      age
+      relationship
+      cost
+      trip_status
       user_type
+      users{
+        id
+        username
+        user_type
+        gender
+        age
+      }
     }
   }
-}
 }`;
 
 
@@ -58,6 +63,7 @@ class PendingTrips extends React.Component {
     this.props.tripCreator(trip.users);
     this.props.tripTravelers(trip.users);
     this.props.tripInterested(trip.users);
+    this.props.updateStatus(trip.trip_status);
   }
 
   render() {
@@ -92,12 +98,13 @@ function mapStateToProps(state) {
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,
+    tripstat: state.tripstat,    
   };
 }
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    userTrips, pendingTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested,
+    userTrips, pendingTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested, updateStatus,
   }, dispatch);
 }
 

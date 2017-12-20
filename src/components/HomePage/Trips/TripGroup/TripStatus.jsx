@@ -11,33 +11,26 @@ class TripStatus extends React.Component {
 
     this.updateTripStatus = this.updateTripStatus.bind(this);
     this.renderStatusButton = this.renderStatusButton.bind(this);
-    this.currentTripStatus = this.currentTripStatus.bind(this);
   }
 
-  async updateTripStatus() {
-    let status = await this.currentTripStatus();
-
+  updateTripStatus() {
+    let status;
+    if (this.props.tripstat === 'open') {
+      status = 'close';
+      console.log('clicked close');
+    } else {
+      status = 'open';
+      console.log('reopen');
+    }
     this.props.mutate({
       variables: { id: this.props.showtrip.id, new_state: status },
     })
       .then(({ data }) => {
         console.log('got data', data);
-        this.props.updateStatus(data.updateTripState.trip_state);
+        this.props.updateStatus(data.updateTripState.trip_status);
       }).catch((error) => {
         console.log('there was an error sending the query', error);
       });
-  }
-
-  currentTripStatus() {
-    let stat;
-    if (this.props.tripstat === 'open') {
-      stat = 'close';
-      console.log('clicked close');
-    } else {
-      stat = 'open';
-      console.log('reopen');
-    }
-    return stat;
   }
 
   renderStatusButton() {
@@ -53,22 +46,22 @@ class TripStatus extends React.Component {
     }
     return buttonStat;
   }
-    
+
   render() {
     return (
       <div>
         {this.renderStatusButton()}
       </div>
     );
-  }  
+  }
 }
 
-const mutateStatus = gql `
+const mutateStatus = gql`
 mutation updateTripState($id: Int!, $new_state: String!) {
     updateTripState(id: $id, new_state:$new_state) {
         id
         title
-        trip_state
+        trip_status
   }  
 }
 `;

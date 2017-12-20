@@ -1,13 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-function TripUsers() {
+function TripUsers(props) {
   return (
-    <div>
-      <h2>Joined</h2>
-
-      <h2>Interested</h2>
+    <div className="row">
+      <div className="col-md-12">
+        <h4>Creator</h4>
+        <div>{props.creator.username}</div>
+      </div>
+      <div className="col-md-12">
+        <h4>Joined</h4>
+        {props.triptrav.map(user => (<div key={user.id}>{user.username}</div>))}
+      </div>
+      <div className="col-md-12">
+        <h4>Interested</h4>
+        {props.tripint.map(user => (<div key={user.id}>{user.username}</div>))}
+      </div>
     </div>
   );
 }
 
-export default TripUsers;
+function mapStateToProps(state) {
+  return {
+    trips: state.trips,
+    showtrip: state.showtrip,
+    userid: state.userid,
+    creator: state.creator,
+    triptrav: state.triptrav,
+    tripint: state.tripint,
+  };
+}
+
+export default connect(mapStateToProps)(TripUsers);
