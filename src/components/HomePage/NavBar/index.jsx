@@ -21,7 +21,7 @@ class NavBar extends React.Component {
         <h1 className="text-center">Travel With Me</h1>
         <nav className="navbar navbar-toggleable-md navbar-light bg-faded justify-content-center">
           <div className="navbar-nav">
-            <Link to="/homepage" href="/homepage" className="nav-item nav-link">Home</Link>
+            <Link to="/" href="/" className="nav-item nav-link">Home</Link>
             <Link to="/homepage/plantrip" href="/homepage/plantrip" className="nav-item nav-link">Plan Trip</Link>
             <Link to="/homepage/searchtrip" href="/homepage/searchtrip" className="nav-item nav-link">Search Trip</Link>
   

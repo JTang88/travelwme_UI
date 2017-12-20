@@ -1,13 +1,13 @@
 const initialState = {
-  user: {},
+  trips: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case 'SET_CURRENT_USER': 
-      console.log('in authReducer. action.payload = ', action.payload);
+    case 'SET_TREND_TRIPS': 
+      console.log('in trendTripReducer. action.payload = ', action.payload);
       return {
-        user: action.payload,
+        trips: action.payload,
       };
     default: return state;
   }
