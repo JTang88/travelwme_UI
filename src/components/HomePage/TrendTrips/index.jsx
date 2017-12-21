@@ -17,6 +17,7 @@ query getUser($id: Int!) {
     body_type
     relationship
     description
+    publicId
   }
 }`;
 

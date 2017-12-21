@@ -5,7 +5,8 @@ import HomePage from '../HomePage';
 import Landing from '../LandingPage';
 import Login from '../Auth/Login';
 import Signup from '../Auth/Signup';
-
+import TestingTrip from '../HomePage/FormComponents/testingTrip';
+import ViewTripPhotoTest from '../HomePage/FormComponents/ViewTripPhotoTest';
 
 const checkAuth = () => {
   const token = localStorage.getItem('token');
@@ -43,6 +44,8 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/sign" component={Signup} />
+        <Route path="/viewtripphototest" component={ViewTripPhotoTest} />
+        <Route path="/testingtrip" component={TestingTrip} />
         <Route exact path="/landing" component={Landing} />
         <AuthRoute exact path="/" component={HomePage} />
         <AuthRoute path="/homepage" component={HomePage} />
