@@ -6,7 +6,7 @@ const RadioGroup = (props) => {
     <div>
       <label className="label">{props.title}</label>
       <div className="radio-group">
-        {props.options.map((options) => {
+        {props.options.map((option) => {
           return (
             <div>
               <label>
