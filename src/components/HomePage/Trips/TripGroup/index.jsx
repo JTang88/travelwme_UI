@@ -15,7 +15,7 @@ function TripGroup() {
           <TripDetails />
         </div>
         <div className="col-4">
-          <TripSuggestions />
+          {/* <TripSuggestions /> */}
           <ApproveTrav />
         </div>
         <TripStatus />

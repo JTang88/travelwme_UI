@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import userTrips from '../../../../actions/userTripsAction';
 import pendingTrips from '../../../../actions/pendingTripsActions';
 import showTrip from '../../../../actions/showTripAction';
-import userId from '../../../../actions/useridAction';
 import tripCreator from '../../../../actions/tripCreatorAction';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
@@ -91,10 +90,10 @@ class PendingTrips extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    auth: state.auth,
     mytrips: state.mytrips,
     pendtrips: state.pendtrips,
     showtrip: state.showtrip,
-    userid: state.userid,
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,
@@ -104,14 +103,14 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    userTrips, pendingTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested, updateStatus,
+    userTrips, pendingTrips, showTrip, tripCreator, tripTravelers, tripInterested, updateStatus,
   }, dispatch);
 }
 
 const Pend = graphql(queryTrips, {
   options: props => ({
     variables: {
-      id: props.userid,
+      id: props.auth.user.id,
     },
   }),
 })(PendingTrips);

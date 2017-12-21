@@ -56,7 +56,7 @@ class ApproveTrav extends React.Component {
 
   checkCreator() {
     let showInterestedUsers;
-    if (this.props.creator.id === this.props.userid) {
+    if (this.props.creator.id === this.props.auth.user.id) {
       showInterestedUsers = (
         <div>
           <form>
@@ -96,9 +96,9 @@ class ApproveTrav extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    auth: state.auth,
     trips: state.trips,
     showtrip: state.showtrip,
-    userid: state.userid,
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,

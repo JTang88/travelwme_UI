@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setCurrentUser } from '../../../actions/authActions';
 import setTrendTrips from '../../../actions/trendTripAction';
+import showTrip from '../../../actions/showTripAction';
+import tripCreator from '../../../actions/tripCreatorAction';
+import tripTravelers from '../../../actions/tripTravelersAction';
+import tripInterested from '../../../actions/tripInterestedAction';
+import updateStatus from '../../../actions/tripStatusAction';
 
 const getUser = gql`
 query getUser($id: Int!) {
@@ -24,17 +29,22 @@ query getUser($id: Int!) {
 const allTrips = gql`
 query allTrips {
   allTrips {
+    id
     title
     description
-    date_start 
-    date_end 
-    cost 
-    id
-    users {
+    date_start
+    date_end
+    gender
+    age
+    relationship
+    cost
+    trip_status
+    users{
+      id
       username
-      age
+      user_type
       gender
-      body_type
+      age
     }
   }
 }`;
@@ -59,25 +69,25 @@ class TrendTrips extends React.Component {
 
   }
 
-  // checkOutATrip() {
-  //   this.props.history.push('/homepage/trips/tripinfo')
-  // }
+  setTripAndTravelers(trip) {
+    this.props.showTrip(trip);
+    this.props.tripCreator(trip.users);
+    this.props.tripTravelers(trip.users);
+    this.props.tripInterested(trip.users);
+    this.props.updateStatus(trip.trip_status);
+  }
 
   render() {
+    console.log('TRENDTRIPPPP', this.props);
     return (
       <div>
         <h1>Trending Trips</h1>
         {
           this.props.trend.trips.map((trip, i) => (
-            <div key={i}>
-              <Link to="/sign" href="/sign">{trip.title}</Link>
-               this link is supoose to link to tripinfo not sign, the sign is just a place holder for now!
-              <div> 
-                {trip.date_start}
-              </div> 
-              <div> 
-                {trip.date_end}
-              </div> 
+            <div key={i} >
+              <h3 onClick={() => this.setTripAndTravelers(trip)}>
+                <Link to="homepage/trips/tripinfo" href="homepage/trips/tripinfo">{trip.title}</Link>
+              </h3>
             </div>  
             )
           )
@@ -95,7 +105,9 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ setCurrentUser, setTrendTrips }, dispatch);
+  return bindActionCreators({
+    setCurrentUser, setTrendTrips, showTrip, tripCreator, tripTravelers, tripInterested, updateStatus,
+  }, dispatch);
 }
 
 const Container = compose(
