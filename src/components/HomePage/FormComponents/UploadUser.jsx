@@ -4,7 +4,7 @@ import axios from 'axios';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-class Upload extends React.Component {
+class UploadUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,4 +76,4 @@ const addPhotoToUser = gql`
   }
 `;
 
-export default graphql(addPhotoToUser)(Upload);
+export default graphql(addPhotoToUser)(UploadUser);

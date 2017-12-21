@@ -7,8 +7,7 @@ import { Image } from 'cloudinary-react';
 import Select from '../FormComponents/Select';
 import TextArea from '../FormComponents/TextArea';
 import { setCurrentUser } from '../../../actions/authActions';
-import Upload from '../FormComponents/upload';
-// import RenderPhoto from '../FormComponents/RenderPhoto';
+import UploadUser from '../FormComponents/UploadUser';
 
 
 class Profile extends React.Component {
@@ -64,7 +63,7 @@ class Profile extends React.Component {
     return (
       <div>
         <h1>{this.props.auth.user.username}</h1>
-        { this.state.edit ? <Upload id={this.props.auth.user.id} /> : <Image cloudName="travelwme" publicId={this.props.auth.user.publicId} /> }
+        { this.state.edit ? <UploadUser id={this.props.auth.user.id} /> : <Image cloudName="travelwme" publicId={this.props.auth.user.publicId} /> }
         <ul>
           { this.state.edit ?
             <Select
