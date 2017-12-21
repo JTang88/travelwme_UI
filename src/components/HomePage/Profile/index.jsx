@@ -24,9 +24,19 @@ class Profile extends React.Component {
       genderOptions: ['male', 'female', 'other'],
       body_typeOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
       description: '',
+      publicId: '',
+      oldPhoto: true,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handdleUpdateProfile = this.handdleUpdateProfile.bind(this);
+    this.getUpdatedPhoto = this.getUpdatedPhoto.bind(this);
+  }
+
+  getUpdatedPhoto(pid) {
+    this.setState({
+      publicId: pid,
+      oldPhoto: false,
+    });
   }
 
   handleInputChange(event) {
@@ -35,7 +45,7 @@ class Profile extends React.Component {
     change[event.target.name] = value;
     this.setState(change);   
   }
-  
+
   async handdleUpdateProfile(e) {
     e.preventDefault();
     this.setState({ edit: false });
@@ -49,13 +59,14 @@ class Profile extends React.Component {
       body_type: this.state.body_type || this.props.auth.user.body_type,
       relationship: this.state.relationship || this.props.auth.user.relationship,
       age: this.state.age || this.props.auth.user.age,
+      publicId: this.state.publicId || this.props.auth.user.publicId,
     }
 
     await this.props.mutate({
       variables: updatedUserInfo,
     });
     
-    this.props.setCurrentUser(updatedUserInfo); 
+    await this.props.setCurrentUser(updatedUserInfo); 
   }
 
 
@@ -63,7 +74,7 @@ class Profile extends React.Component {
     return (
       <div>
         <h1>{this.props.auth.user.username}</h1>
-        { this.state.edit ? <UploadUser id={this.props.auth.user.id} /> : <Image cloudName="travelwme" publicId={this.props.auth.user.publicId} /> }
+        { this.state.edit && this.state.oldPhoto ? <UploadUser id={this.props.auth.user.id} getUpdatedPhoto={this.getUpdatedPhoto} /> : <Image cloudName="travelwme" publicId={this.state.publicId ||  this.props.auth.user.publicId} /> }
         <ul>
           { this.state.edit ?
             <Select

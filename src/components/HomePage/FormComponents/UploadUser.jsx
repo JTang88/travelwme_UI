@@ -45,7 +45,7 @@ class UploadUser extends React.Component {
         publicId: response.data.public_id,
       },
     });
-
+    this.props.getUpdatedPhoto(response.data.public_id);
     // this.props.history.push(`/champion/${graphqlResponse.data.createChampion.id}`);
   };
 
