@@ -7,35 +7,6 @@ import Select from '../FormComponents/Select';
 import TextArea from '../FormComponents/TextArea';
 import { setCurrentUser } from '../../../actions/authActions';
 
-// average', 'atheltic', 'sexy', 'well-rounded'
-const convert = (body) => {
-  if (body === 'average') {
-    return 1;
-  } 
-  if (body === 'atheltic') {
-    return 3;
-  }
-  if (body === 'sexy') {
-    return 12;
-  }
-  if (body === 'well-rounds') {
-    return 7;
-  }
-  if (body === 1) {
-    return 'average';
-  } 
-  if (body === 3) {
-    return 'atheltic';
-  }
-  if (body === 12) {
-    return 'sexy';
-  }
-  if (body ===  7) {
-    return 'well-rounds';
-  }
-}
-
-
 
 class Profile extends React.Component {
   constructor(props) {
@@ -73,7 +44,7 @@ class Profile extends React.Component {
       username: this.state.username || this.props.auth.user.username,
       id: this.state.id || this.props.auth.user.id,
       gender: this.state.gender || this.props.auth.user.gender,
-      body_type: convert(this.state.body_type) || this.props.auth.user.body_type,
+      body_type: this.state.body_type || this.props.auth.user.body_type,
       relationship: this.state.relationship || this.props.auth.user.relationship,
       age: this.state.age || this.props.auth.user.age,
     }
@@ -106,12 +77,12 @@ class Profile extends React.Component {
             <Select
               title="Body_type"
               name="body_type"
-              placeholder={this.props.auth.user.body_type ? convert(this.props.auth.user.body_type) : 'choose a answer'}
+              placeholder={this.props.auth.user.body_type ? this.props.auth.user.body_type : 'choose a answer'}
               handleFunc={this.handleInputChange}
               options={this.state.body_typeOptions}
               selectedOption={this.state.body_type}
             />
-          : <div>Body_type: {this.props.auth.user.body_type ? convert(this.props.auth.user.body_type) : ''}</div>
+          : <div>Body_type: {this.props.auth.user.body_type ? this.props.auth.user.body_type : ''}</div>
           }
           { this.state.edit ?
             <Select
@@ -161,7 +132,7 @@ class Profile extends React.Component {
 
 // updateUser(id: Int!, username: String!, email: String!, gender: String!, age: Int!, body_type: Int!, relationship: String!, description: String!): [Int!]!
 const updateUser = gql`
-mutation updateUser($id: Int!, $username: String!, $gender: String!, $age: Int!, $body_type: Int!, $relationship: String!, $description: String!) {
+mutation updateUser($id: Int!, $username: String!, $gender: String!, $age: Int!, $body_type: String!, $relationship: String!, $description: String!) {
   updateUser(id: $id, username: $username, gender: $gender, age: $age, body_type: $body_type, relationship: $relationship, description: $description)
 }
 `;
@@ -184,6 +155,34 @@ export default connect(mapStateToProps, matchDispatchToProps)(profileWithMutatio
 
 
 
+
+// average', 'atheltic', 'sexy', 'well-rounded'
+// const convert = (body) => {
+//   if (body === 'average') {
+//     return 1;
+//   } 
+//   if (body === 'atheltic') {
+//     return 3;
+//   }
+//   if (body === 'sexy') {
+//     return 12;
+//   }
+//   if (body === 'well-rounds') {
+//     return 7;
+//   }
+//   if (body === 1) {
+//     return 'average';
+//   } 
+//   if (body === 3) {
+//     return 'atheltic';
+//   }
+//   if (body === 12) {
+//     return 'sexy';
+//   }
+//   if (body ===  7) {
+//     return 'well-rounds';
+//   }
+// }
 
 
 
