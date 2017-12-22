@@ -22,6 +22,7 @@ query queryTrips($id: Int!) {
       id
       title
       description
+      publicId
       date_start
       date_end
       gender

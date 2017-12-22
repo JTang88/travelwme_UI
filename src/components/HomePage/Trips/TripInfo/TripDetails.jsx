@@ -1,10 +1,12 @@
 import React from 'react';
+import { Image } from 'cloudinary-react';
 import { connect } from 'react-redux';
 
 function TripDetails(props) {
   return (
     <div>
       <h4>Trip Details</h4>
+      <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={props.showtrip.publicId} />
       <h4>Title: {props.showtrip.title}</h4>
       <h4>Description: {props.showtrip.description}</h4>
       <h4>Start Date: {props.showtrip.date_start}</h4>

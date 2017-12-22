@@ -4,7 +4,7 @@ const SearchEntry =({ trip })=>(
   <div>
 
       <div>
-        <img src='http://cdn1.smartvectorpics.com/images/imagesbase/fpik/air-travel-vector-background_23-2147493630.jpg'></img>
+        {/* <img src='http://cdn1.smartvectorpics.com/images/imagesbase/fpik/air-travel-vector-background_23-2147493630.jpg'></img> */}
       </div>
       <div>
       <Link to="/sign" href="/sign">{trip.title}</Link>
