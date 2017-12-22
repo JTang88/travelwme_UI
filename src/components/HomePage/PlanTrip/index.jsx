@@ -26,7 +26,7 @@ class PlanTrip extends Component {
       cost: 0,
       dateStart: '',
       dateEnd: '',
-      genderOptions: ['F','M','All'],
+      genderOptions: ['female','male','all'],
       genderSelected: '',
       ageRangeStart:[18, 25, 30, 35, 40, 45],
       ageRangeEnd:[25, 30, 35, 40, 45, 50], 
