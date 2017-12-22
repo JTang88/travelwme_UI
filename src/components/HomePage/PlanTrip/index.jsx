@@ -216,6 +216,15 @@ class PlanTrip extends Component {
             selectedOption={this.state.age}
             />
           <Select
+            title="Relationship Status"
+            name="relationshipSelected"
+            placeholder="Choose your relationship status"
+            handleFunc={this.handleInputChange}
+            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
+            options={this.state.relationshipOptions}
+            selectedOption={this.state.relationship}
+            />
+          <Select
             title="Gender"
             name="genderSelected"
             placeholder="Choose your gender"
@@ -241,15 +250,6 @@ class PlanTrip extends Component {
             selectedOptions={this.state.keys}
             />
 
-          <Select
-            title="Relationship Status"
-            name="relationshipSelected"
-            placeholder="Choose your relationship status"
-            handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
-            options={this.state.relationshipOptions}
-            selectedOption={this.state.relationship}
-            />
         </form>
         <Link to="/" href="/">
           <button className="btn btn-outline-info text-center" onClick={this.handleSubmit}>Create Trip</button>
