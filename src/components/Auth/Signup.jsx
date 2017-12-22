@@ -52,6 +52,7 @@ class Signup extends Component {
           className="auth-form"
           // onSubmit={this.handleSignupSubmit}
         >
+<<<<<<< e22d9679b70f4b8714fc1effa8903b61a77c9799
           <h1 className="logsig">Sign Up</h1>
           <div className="row justify-content-center align-self-center">
             <input
@@ -88,6 +89,40 @@ class Signup extends Component {
               className="btn btn-outline-info col-sm-2 offset-sm"
             >Sign Up</button>
           </div>  
+=======
+          <h2>Sign Up</h2>
+          <p>
+            Already have an account?
+            <span>
+              <Link to ="/login">
+                Login
+              </Link>
+            </span>
+          </p>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            onChange={this.handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            onChange={this.handleChange}
+          />
+          <button
+            color="yellow"
+            text="Sign Up"
+            onClick={this.handleSignupSubmit}
+          />
+>>>>>>> [feat]search list implemented - queries after form input
         </form>
         <h5>
           Already have an account? 

@@ -228,15 +228,6 @@ class PlanTrip extends Component {
 }
 
 
-// const addKey = gql`
-// mutation addKey(
-//  $word: [Int]) {
-//   addKey(word: $word){
-//     id
-//   }
-// }
-// `;
-
 const createTrip = gql`
 mutation createTrip(
   $title: String!, 
@@ -302,10 +293,9 @@ mutation createTrip(
 //       userId: $userId) 
 //   }`;
 
-// const TestTrip = graphql(addKey)(PlanTrip);
+
 const PlanTripSaveData = graphql(createTrip)(PlanTrip);
 
 export default PlanTripSaveData;
-// export default PlanTrip;
-// export default TestTrip;
+
 

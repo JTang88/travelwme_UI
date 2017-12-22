@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag';
 import SingleInput from '../FormComponents/SingleInput';
 import TextArea from '../FormComponents/TextArea';
 import Select from '../FormComponents/Select';
 import { create } from 'domain';
-// import OneInput from '../FormComponents/OneInput';
+import FoundTrip from '../SearchComponents/FoundTrip';
 
 
 // import { select } from 'async';
@@ -33,12 +33,9 @@ class SearchTrip extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleClearForm = this.handleClearForm.bind(this)
     // this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    // this.testFunc = this.testFunc.bind(this)
   }
 
-  // componentDidMount{
-
-  // }
+  
 
   handleInputChange(event) {
     const change = {};
@@ -59,13 +56,20 @@ class SearchTrip extends Component {
 
 
   render() {
+    // console.log('searched', this.props.data)
     return (
+      <div>
+      <div>
+        <Switch>
+          <Route path="/homepage/searchtrip/searchcomponents/foundtrip" component={FoundTrip} />
+        </Switch>
+      </div>
       <div>
         <form>
           <h1>Search Form</h1>
           <SingleInput
             type="text"
-            name="dateStart"
+            name="date_start"
             title="Date Start"
             handleFunc={this.handleInputChange}
             content={this.state.dateStart}
@@ -73,79 +77,23 @@ class SearchTrip extends Component {
 
           <SingleInput
             type="text"
-            name="dateEnd"
+            name="date_end"
             title="Date End"
             handleFunc={this.handleInputChange}
             content={this.state.dateEnd}
             placeholder="end date" />  
-
-          <SingleInput
-            type="number"
-            name="cost"
-            title="Cost"
-            handleFunc={this.handleInputChange}
-            content={this.state.cost}
-            placeholder="cost" />
-            
-          <Select
-            title="Age Range"
-            name="ageSelected"
-            placeholder="Choose your age range"
-            handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
-            options={this.state.ageRange}
-            selectedOption={this.state.age}
-            />
-          <Select
-            title="Gender"
-            name="genderSelected"
-            placeholder="Choose your gender"
-            handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
-            options={this.state.genderOptions}
-            selectedOption={this.state.gender}
-            />
-          <Select
-            title="Fitness"
-            name="fitnessSelected"
-            placeholder="Choose your fitness level"
-            handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
-            options={this.state.fitnessOptions}
-            selectedOption={this.state.fitness}
-            />
-
-          <Select
-            title="Relationship Status"
-            name="relationshipSelected"
-            placeholder="Choose your relationship status"
-            handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
-            options={this.state.relationshipOptions}
-            selectedOption={this.state.relationship}
-            />
         </form>
-        {/* <button onClick={this.testFunc}>test</button> */}
-        <Link to="/homepage/mytrip/tripinfo" href="/homepage/mytrip/tripinfo">
+        
+      
+        <Link to="/homepage/searchtrip/searchcomponents/foundtrip" href="/homepage/searchtrip/searchcomponents/foundtrip">
           <button >Search Trip</button>
         </Link>
+      </div>
       </div>
     );
   }
 }
 
 
-// const addKey = gql`
-// mutation addKey($word: String) {
-//   addKey(word: $word){
-//     id
-//   }
-// }
-// `;
-
-
-// const PlanTripSaveData = graphql(createTrip)(SearchTrip);
-
-
 export default SearchTrip;
-// export default TestTrip;
+
