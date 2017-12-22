@@ -73,7 +73,7 @@ class Login extends Component {
             </div>
             <div className="row justify-content-center align-self-center"> 
               <input
-                type="test"
+                type="password"
                 name="password"
                 placeholder="password"
                 onChange={this.handleChange}

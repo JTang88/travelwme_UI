@@ -56,7 +56,7 @@ class UploadUser extends React.Component {
         <Dropzone onDrop={this.onDrop}>
           <p>Try dropping some files here, or click to select files to upload.</p>
         </Dropzone>
-        <button onClick={this.submit}>Submit</button>
+        <button className="btn btn-outline-info" onClick={this.submit}>Submit</button>
       </div>
     );
   }

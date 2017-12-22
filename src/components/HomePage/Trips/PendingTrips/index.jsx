@@ -38,6 +38,7 @@ query queryTrips($id: Int!) {
         user_type
         gender
         age
+        publicId
       }
     }
   }

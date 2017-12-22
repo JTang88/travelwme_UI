@@ -136,7 +136,7 @@ class Profile extends React.Component {
             </div>
           }
         </ul>
-        {this.state.edit ? <button onClick={this.handdleUpdateProfile}>Update Profile</button> : <button onClick={() => (this.setState({ edit: true }))} >Edit</button>}
+        {this.state.edit ? <button className="btn btn-outline-info" onClick={this.handdleUpdateProfile}>Update Profile</button> : <button className="btn btn-outline-info" onClick={() => (this.setState({ edit: true }))} >Edit</button>}
       </div>
     );
   }

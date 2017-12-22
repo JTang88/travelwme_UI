@@ -40,6 +40,7 @@ query allTrips {
     relationship
     cost
     trip_status
+    publicId
     users{
       id
       username
