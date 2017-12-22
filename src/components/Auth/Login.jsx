@@ -85,7 +85,8 @@ class Login extends Component {
             color="white"
             text="Log In"
             onClick={this.handleLoginSubmit}
-          />
+            className="btn btn-primary"
+          >Submit</button>
         </form>
       </div>
     );

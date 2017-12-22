@@ -1,0 +1,27 @@
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.landimg {
+  background: url('./img/travelgrp.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+}
+
+.title {
+  font-size: 76px;
+  margin-top: 236px;
+  color: white;
+}
+
+.desc {
+  font-size: 25px;
+  margin-top: 85px;
+  color: white;
+}

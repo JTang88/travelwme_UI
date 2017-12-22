@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
-
+import updateTravelers from '../../../../actions/tripTravelerUpdateAction';
 
 class ApproveTrav extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class ApproveTrav extends React.Component {
 
   handleChange(event) {
     console.log('nameee',event.target.name);
-    console.log('appproval', event.target.value)
+    console.log('appproval', event.target.value);
     const target = event.target;
     const value = target.value
     const name = target.name;
@@ -38,6 +38,7 @@ class ApproveTrav extends React.Component {
   }
 
   updateUserTripStatus() {
+    let travelersup = {};
     console.log('stateeeee', this.state);
     console.log('tripppp', this.props.showtrip);
 
@@ -45,6 +46,12 @@ class ApproveTrav extends React.Component {
       variables: { userId: this.state.user, tripId: this.props.showtrip.id, user_type: this.state.decision },
     })
       .then(({ data }) => {
+        travelersup = {
+          trips: this.props.mytrips,
+          id: this.props.showtrip.id,
+          users: data.updateUserRelationshipToTrip.users,
+        };
+        this.props.updateTravelers(travelersup);
         this.props.tripTravelers(data.updateUserRelationshipToTrip.users);
         this.props.tripInterested(data.updateUserRelationshipToTrip.users);
         console.log('got data', data);
@@ -97,7 +104,7 @@ class ApproveTrav extends React.Component {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    trips: state.trips,
+    mytrips: state.mytrips,
     showtrip: state.showtrip,
     creator: state.creator,
     triptrav: state.triptrav,
@@ -121,7 +128,7 @@ mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: 
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    tripTravelers, tripInterested,
+    tripTravelers, tripInterested, updateTravelers,
   }, dispatch);
 }
 

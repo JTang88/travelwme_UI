@@ -7,7 +7,6 @@ import searchTrip from './reducerSearchTrip';
 import tripCreator from './reducerTripCreator';
 import tripTravelers from './reducerTripTravelers';
 import tripInterested from './reducerTripInterested';
-// import updateStatus from './reducerTripStatus';
 import trendTripReducer from './trendTripReducer';
 import singleStatus from './reducerSingleStat';
 

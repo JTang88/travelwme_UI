@@ -1,6 +1,4 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
@@ -12,33 +10,6 @@ import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
 import updateStatus from '../../../../actions/tripStatusAction';
 
-const queryTrips = gql`
-query queryTrips($id: Int!) {
-  getUser(id: $id) {
-    id
-    username
-    trips {
-      id
-      title
-      description
-      date_start
-      date_end
-      gender
-      age
-      relationship
-      cost
-      trip_status
-      user_type
-      users{
-        id
-        username
-        user_type
-        gender
-        age
-      }
-    }
-  }
-}`;
 
 class ListTrips extends React.Component {
   constructor(props) {
@@ -46,14 +17,6 @@ class ListTrips extends React.Component {
     this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.data.getUser && !prevProps.data.getUser) {
-      console.log('QUERY', this.props.data);
-      this.props.userTrips(this.props.data.getUser.trips);
-      this.props.pendingTrips(this.props.data.getUser.trips);
-    }
-  }
-  
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
     this.props.tripCreator(trip.users);

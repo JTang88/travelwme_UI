@@ -6,34 +6,6 @@ import gql from 'graphql-tag';
 import updateStatus from '../../../../actions/tripStatusAction';
 import singleStatus from '../../../../actions/singleStatusAction';
 
-const queryTrips = gql`
-query queryTrips($id: Int!) {
-  getUser(id: $id) {
-    id
-    username
-    trips {
-      id
-      title
-      description
-      date_start
-      date_end
-      gender
-      age
-      relationship
-      cost
-      trip_status
-      user_type
-      users{
-        id
-        username
-        user_type
-        gender
-        age
-      }
-    }
-  }
-}`;
-
 const mutateStatus = gql`
 mutation updateTripState($id: Int!, $new_state: String!) {
     updateTripState(id: $id, new_state:$new_state) {
@@ -103,7 +75,7 @@ class TripStatus extends React.Component {
   render() {
     return (
       <div>
-        {this.renderStatusButton()}
+        {this.props.showtrip.user_type === 'C' ? this.renderStatusButton() : null}
       </div>
     );
   }
