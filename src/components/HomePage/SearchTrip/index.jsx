@@ -68,7 +68,7 @@ class SearchTrip extends Component {
   changeSearched() {
     console.log('at search trip, foundTrip', foundTrip)
     this.setState({
-      searched: true
+      searched: true,
     });
     // const { costStart, costEnd, dateStart, dateEnd, keys } = this.state;
 
@@ -85,7 +85,7 @@ class SearchTrip extends Component {
 
 
   render() {
-    console.log('this.propsokawoekfoakwoefkwofk= ', this.props)
+    
     let Searched = this.state.searched;
 
     if (!Searched) {
