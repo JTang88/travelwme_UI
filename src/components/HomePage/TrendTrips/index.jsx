@@ -79,11 +79,7 @@ class TrendTrips extends React.Component {
   }
 
   render() {
-<<<<<<< 7aa2f2ab5d39d2076830829e6eaa72cf25584270
     console.log('TRENDTRIPPPP', this.props);
-=======
-    console.log(this.props.data)
->>>>>>> [feat][fix] search and plantrip style changes; added redux
     return (
       <div>
         <h1>Trending Trips</h1>
