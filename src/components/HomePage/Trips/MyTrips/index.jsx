@@ -4,10 +4,10 @@ import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import ListTrips from '../MyTrips/ListTrips';
 import userTrips from '../../../../actions/userTripsAction';
 import pendingTrips from '../../../../actions/pendingTripsActions';
 import showTrip from '../../../../actions/showTripAction';
-import userId from '../../../../actions/useridAction';
 import tripCreator from '../../../../actions/tripCreatorAction';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
@@ -55,13 +55,13 @@ class MyTrips extends React.Component {
       this.props.pendingTrips(this.props.data.getUser.trips);
     }
   }
-
+  
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
     this.props.tripCreator(trip.users);
     this.props.tripTravelers(trip.users);
     this.props.tripInterested(trip.users);
-    this.props.updateStatus(trip.trip_status);
+    // this.props.updateStatus(trip.trip_status);
   }
 
   displayListofTrips() {
@@ -69,17 +69,8 @@ class MyTrips extends React.Component {
 
     if (!this.props.data.loading) {
       if (this.props.mytrips.length > 0) {
-        tripRender = (<div>
-          {this.props.mytrips.map(trip =>
-            (<div key={trip.id}>
-              <h3 onClick={() => this.setTripAndTravelers(trip)}>
-                <Link to="/homepage/trips/tripgroup" href="/homepage/trips/tripgroup" className="nav-item nav-link">
-                  {trip.title}
-                </Link>
-                  {trip.state}
-              </h3>
-            </div>))}
-        </div>)
+        <h3>list trips</h3>
+        tripRender = <ListTrips />
       } else {
         tripRender = (<div>
           <h3>Currently No Trips!</h3>
@@ -105,10 +96,10 @@ class MyTrips extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    auth: state.auth,
     mytrips: state.mytrips,
     pendtrips: state.pendtrips,
     showtrip: state.showtrip,
-    userid: state.userid,
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,
@@ -118,14 +109,14 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    userTrips, pendingTrips, showTrip, userId, tripCreator, tripTravelers, tripInterested, updateStatus,
+    userTrips, pendingTrips, showTrip, tripCreator, tripTravelers, tripInterested, updateStatus,
   }, dispatch);
 }
 
 const Trips = graphql(queryTrips, {
   options: props => ({
     variables: {
-      id: props.userid,
+      id: props.auth.user.id,
     },
   }),
 })(MyTrips);

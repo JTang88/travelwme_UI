@@ -1,7 +1,10 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import tripTravelers from '../../../../actions/tripTravelersAction';
+import tripInterested from '../../../../actions/tripInterestedAction';
 
 class JoinTrip extends React.Component {
   constructor(props) {
@@ -12,10 +15,19 @@ class JoinTrip extends React.Component {
 
   sendUserInterest() {
     this.props.mutate({
-      variables: { userId: this.props.userid, tripId: this.props.showtrip.id, user_type: "I" }
+      variables: { userId: this.props.auth.user.id, tripId: this.props.showtrip.id, user_type: "I" }
     })
       .then(({ data }) => {
+        for (let i = 0; i < data.interestedInATrip.users[0].trips.length; i++) {
+          if (data.interestedInATrip.users[0].trips[i].id === this.props.showtrip.id) {
+            this.props.tripTravelers(data.interestedInATrip.users[0].trips[0].users);
+            this.props.tripInterested(data.interestedInATrip.users[0].trips[0].users);
+          }
+        }
+        console.log('interrrr', this.props.tripint);
+        console.log('travvvvv', this.props.triptrav);  
         console.log('got data', data);
+        //update interested and joined list of travelers
       }).catch((error) => {
         console.log('there was an error sending the query', error);
       });
@@ -24,10 +36,10 @@ class JoinTrip extends React.Component {
   renderJoinButton() {
     let buttonJoin;
     console.log('JOINTRIPPPPPP', this.props.showtrip.users);
-    console.log('USERRRRR', this.props.userid);
+    console.log('USERRRRR', this.props.auth.user.id);
     if (this.props.showtrip.trip_status === 'open') {
       for (let i = 0; i < this.props.showtrip.users.length; i++) {
-        if (this.props.showtrip.users[i].id === this.props.userid) {
+        if (this.props.showtrip.users[i].id === this.props.auth.user.id) {
           if (this.props.showtrip.users[i].user_type === 'J') {
             buttonJoin = (
               <button disabled>JOINED</button>
@@ -70,15 +82,21 @@ class JoinTrip extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    auth: state.auth,
     mytrips: state.mytrips,
     pendtrips: state.pendtrips,
     showtrip: state.showtrip,
-    userid: state.userid,
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,
     tripstat: state.tripstat,
   };
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({
+    tripTravelers, tripInterested,
+  }, dispatch);
 }
 
 const interestedInATrip = gql`
@@ -92,21 +110,19 @@ mutation interestedInATrip($userId: Int!, $tripId: Int!, $user_type: String!) {
         date_end
         gender
         age
-        fitness
-        relationship_status
-        trip_state
+        trip_status
         user_type
         users{
           id
           username
           user_type
         }
-        }
       }
+    }
   }
 }
 `;
 
 JoinTrip = graphql(interestedInATrip)(JoinTrip);
 
-export default connect(mapStateToProps)(JoinTrip);
+export default connect(mapStateToProps, matchDispatchToProps)(JoinTrip);

@@ -13,3 +13,12 @@ function pendTrips(trips) {
 
 export default pendTrips;
 
+
+// for (let i = 0; i < trips.length; i++) {
+//     for (let j = 0; j < trips[i].users.length; j++) {
+//       if (trips[i].users[j].user_type === 'I') {
+//         pendtrips.push(trips[i]);
+//       }
+//     }
+//   }
+

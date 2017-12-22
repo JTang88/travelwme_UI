@@ -47,44 +47,54 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="signup-form-container">
+      <div className="signup-form-container text-center signupimg">
         <form 
           className="auth-form"
           // onSubmit={this.handleSignupSubmit}
         >
-          <h2>Sign Up</h2>
-          <p>
-            Already have an account?
-            <span>
-              <Link to ="/login">
-                Login
-              </Link>
-            </span>
-          </p>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="password"
-            placeholder="password"
-            onChange={this.handleChange}
-          />
-          <button
-            color="yellow"
-            text="Sign Up"
-            onClick={this.handleSignupSubmit}
-          />
+          <h1 className="logsig">Sign Up</h1>
+          <div className="row justify-content-center align-self-center">
+            <input
+              type="text"
+              name="username"
+              placeholder="username"
+              onChange={this.handleChange}
+              className="col-sm-2 offset-sm rounded"
+            />
+          </div>
+          <div className="row justify-content-center align-self-center">  
+            <input
+              type="text"
+              name="email"
+              placeholder="email"
+              onChange={this.handleChange}
+              className="col-sm-2 offset-sm rounded"
+            />
+          </div>  
+          <div className="row justify-content-center align-self-center">
+            <input
+              type="text"
+              name="password"
+              placeholder="password"
+              onChange={this.handleChange}
+              className="col-sm-2 offset-sm rounded"
+            />
+          </div>
+          <div>  
+            <button
+              color="yellow"
+              text="Sign Up"
+              onClick={this.handleSignupSubmit}
+              className="btn btn-outline-info col-sm-2 offset-sm"
+            >Sign Up</button>
+          </div>  
         </form>
+        <h5>
+          Already have an account? 
+          <Link to="/login">
+            <div> Login </div>
+          </Link>
+        </h5>
       </div>
     );
   }

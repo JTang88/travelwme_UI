@@ -35,7 +35,6 @@ function mapStateToProps(state) {
   return {
     trips: state.trips,
     showtrip: state.showtrip,
-    userid: state.userid,
     creator: state.creator,
     triptrav: state.triptrav,
     tripint: state.tripint,
