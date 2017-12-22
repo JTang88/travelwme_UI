@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { graphql } from 'react-apollo'
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { connect } from 'react-redux';
 import SingleInput from '../FormComponents/SingleInput';
 import TextArea from '../FormComponents/TextArea';
 import Select from '../FormComponents/Select';
 import RadioGroup from '../FormComponents/RadioGroup';
 import { create } from 'domain';
+import { Image } from 'cloudinary-react';
+
 // import style from '../FormComponents/style.css';
 import UploadTrip from '../FormComponents/UploadTrip';
 // import OneInput from '../FormComponents/OneInput';
@@ -107,7 +110,7 @@ class PlanTrip extends Component {
       age_end: this.state.ageEndSelected,
       relationship: this.state.relationshipSelected,
       trip_status: 'open',
-      userId: 2,
+      userId: this.props.auth.user.id,
       keys: JSON.stringify(this.state.keys),
       body_types: JSON.stringify(this.state.body_types),
       publicId: this.state.publicId,
@@ -139,12 +142,22 @@ class PlanTrip extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className='col-md-4'>
-          <UploadTrip getpublicId={this.getpublicId}/>
+      <div>
+          <h1 className="text-center">Plan Trip Form</h1>
+        
+        <div className="row justify-content-center align-self-center">
+          {this.state.publicId? 
+            <div>
+              <Image cloudName="travelwme" className="rounded mx-auto d-block img-thumbnail" publicId={this.state.publicId} />
+            </div> : 
+            <div> 
+              <UploadTrip getpublicId={this.getpublicId} />
+            </div>}
         </div>
-        <form className='col-md-8'>
-          <h1>Plan Trip Form</h1>
+
+        <div className="row">
+          <div className="col-md-12 text-center">
+        <form className="formplan">
           <SingleInput
             type="text"
             name="title"
@@ -238,10 +251,12 @@ class PlanTrip extends Component {
             selectedOption={this.state.relationship}
             />
         </form>
-            <button onClick={this.testFunc}>test</button>
-        <Link to="/homepage/mytrip/tripinfo" href="/homepage/mytrip/tripinfo">
-          <button onClick={this.handleSubmit}>Create Trip</button>
+        <Link to="/" href="/">
+          <button className="btn btn-outline-info text-center" onClick={this.handleSubmit}>Create Trip</button>
         </Link>
+        </div>
+        </div>
+            {/* <button className="btn btn-outline-info"onClick={this.testFunc}>test</button> */}
       </div>
     );
   }
@@ -255,7 +270,7 @@ mutation createTrip(
   $cost: Int, 
   $date_start: String, 
   $date_end: String, 
-  $gender: String!, 
+  $gender: String!,
   $age_start: Int!,
   $age_end: Int!, 
   $relationship: String!, 
@@ -284,9 +299,14 @@ mutation createTrip(
   }
   `;
 
+  function mapStateToProps(state) {
+    return {
+      auth: state.auth,
+    };
+  }
 
 const PlanTripSaveData = graphql(createTrip)(PlanTrip);
 
-export default PlanTripSaveData;
+export default connect(mapStateToProps)(PlanTripSaveData);
 
 

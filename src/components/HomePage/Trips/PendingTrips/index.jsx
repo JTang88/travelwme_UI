@@ -22,10 +22,12 @@ query queryTrips($id: Int!) {
       id
       title
       description
+      publicId
       date_start
       date_end
       gender
-      age
+      age_start
+      age_end
       relationship
       cost
       trip_status
@@ -41,11 +43,11 @@ query queryTrips($id: Int!) {
   }
 }`;
 
-
 class PendingTrips extends React.Component {
   constructor(props) {
     super(props);
     this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
+    this.displayListofTrips = this.displayListofTrips.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -65,10 +67,12 @@ class PendingTrips extends React.Component {
     this.props.updateStatus(trip.trip_status);
   }
 
-  render() {
-    return (
-      <div>
-        <h1>Pending Trips</h1>
+  displayListofTrips() {
+    let tripRender;
+
+    if (!this.props.data.loading) {
+      if (this.props.pendtrips.length > 0) {
+        tripRender = (
         <div>
           {this.props.pendtrips.map(trip =>
             (<div key={trip.id}>
@@ -77,8 +81,23 @@ class PendingTrips extends React.Component {
                   {trip.title}
                 </Link>
               </h3>
-            </div>))}
-        </div>
+        </div>))}
+        </div>)
+      } else {
+        tripRender = (<div>
+          <h3>Currently No Trips!</h3>
+        </div>);
+      }
+    }
+
+    return tripRender;
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Pending Trips</h1>
+        {this.displayListofTrips()}
         <button onClick={() => console.log(this.props)}>
               button
         </button>

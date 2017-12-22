@@ -22,10 +22,12 @@ const queryTrips = gql`
         id
         title
         description
+        publicId
         date_start
         date_end
         gender
-        age
+        age_start
+        age_end
         relationship
         cost
         trip_status

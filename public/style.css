@@ -66,3 +66,12 @@ body {
 input {
   margin: 20px;
 }
+
+.formplan {
+  text-align: center;
+}
+
+/* .box {
+  boarder: 1px solid color
+  border-radius: 2px
+} */
