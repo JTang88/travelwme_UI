@@ -9,6 +9,7 @@ import tripTravelers from './reducerTripTravelers';
 import tripInterested from './reducerTripInterested';
 import trendTripReducer from './trendTripReducer';
 import singleStatus from './reducerSingleStat';
+import foundTrip from './reducerfoundTrip';
 
 
 const allReducers = combineReducers({
@@ -19,6 +20,7 @@ const allReducers = combineReducers({
   trips: userTrips,
   showtrip: showTrip,
   search: searchTrip,
+  found: foundTrip,
   creator: tripCreator,
   triptrav: tripTravelers,
   tripint: tripInterested,

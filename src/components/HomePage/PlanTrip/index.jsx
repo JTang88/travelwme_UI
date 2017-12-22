@@ -7,7 +7,7 @@ import TextArea from '../FormComponents/TextArea';
 import Select from '../FormComponents/Select';
 import RadioGroup from '../FormComponents/RadioGroup';
 import { create } from 'domain';
-import style from '../FormComponents/style.css';
+// import style from '../FormComponents/style.css';
 import UploadTrip from '../FormComponents/UploadTrip';
 // import OneInput from '../FormComponents/OneInput';
 
@@ -139,11 +139,11 @@ class PlanTrip extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="row">
+        <div className='col-md-4'>
           <UploadTrip getpublicId={this.getpublicId}/>
         </div>
-        <form>
+        <form className='col-md-8'>
           <h1>Plan Trip Form</h1>
           <SingleInput
             type="text"

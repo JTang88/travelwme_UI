@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchEntry =({trip})=>(
+const SearchEntry =({ trip })=>(
   <div>
 
       <div>

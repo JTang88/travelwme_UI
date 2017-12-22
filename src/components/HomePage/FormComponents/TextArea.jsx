@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 const TextArea = (props) => {
   return (
-    <div className="group">
-     <div>
-      <label className="label">{props.title}</label>
-     </div>
+    <div>
+      <div>
+        <label className="label">{props.title}</label>
+      </div>
+    <div>
       <textarea
         // className="form-input"
         type={props.type}
@@ -15,6 +16,7 @@ const TextArea = (props) => {
         value={props.content}
         onChange={props.handleFunc}
         placeholder={props.placeholder} />
+    </div>   
     </div>
   );
 };
