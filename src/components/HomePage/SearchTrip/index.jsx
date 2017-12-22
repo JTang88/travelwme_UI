@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag';
-import SingleInput from '../FormComponents/SingleInput';
-import TextArea from '../FormComponents/TextArea';
-import Select from '../FormComponents/Select';
 import { create } from 'domain';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import SingleInput from '../FormComponents/SingleInput';
+import TextArea from '../FormComponents/TextArea';
+import Select from '../FormComponents/Select';
 import FoundTrip from '../SearchComponents/FoundTrip';
 import RadioGroup from '../FormComponents/RadioGroup';
 import UploadTrip from '../FormComponents/UploadTrip';
 import foundTrip from '../../../actions/foundTripsAction';
 
-
+// console.log('this.props.foundTrip= ', this.props.foundTrip);
+// console.log('this.props= ', this.props)
 
 // import { select } from 'async';
 
@@ -73,10 +75,12 @@ class SearchTrip extends Component {
 changeSearched () {
   this.setState({
     searched: true
+  }, () => {
+    const { costStart, costEnd, dateStart, dateEnd, keys } = this.state;
+    foundTrip({ costStart, costEnd, dateStart, dateEnd, keys });
   })
 
-  const { costStart, costEnd, dateStart, dateEnd, keys } = this.state;
-  this.props.foundTrip({ costStart, costEnd, dateStart, dateEnd, keys });
+ 
 }
 
 

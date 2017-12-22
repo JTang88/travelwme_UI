@@ -1,6 +1,8 @@
-export default function foundTrips(tripObj) {
+function foundTrips(tripObj) {
   return {
     type: 'FOUND_TRIP',
     payload: tripObj,
   };
 }
+
+export default foundTrips;

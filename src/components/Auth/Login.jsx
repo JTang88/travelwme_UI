@@ -55,7 +55,6 @@ class Login extends Component {
 
   render() {
     return (
-<<<<<<< e22d9679b70f4b8714fc1effa8903b61a77c9799
       <div className="loginimg">
         <div className="login-form-container text-center">
           <form 
@@ -99,41 +98,6 @@ class Login extends Component {
             </h5>
         </div>
       </div>  
-=======
-      <div className="login-form-container">
-        <form 
-          className="auth-form"
-          onSubmit={this.handleLoginSubmit}
-        >
-          <h2>Login</h2>
-          <p>
-            Don't have an account?
-            <span className="auth-link">
-              <Link to="/sign">
-                Sign up
-              </Link>
-            </span>
-          </p>
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            onChange={this.handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            onChange={this.handleChange}
-          />
-          <button
-            color="white"
-            text="Log In"
-            onClick={this.handleLoginSubmit}
-          />
-        </form>
-      </div>
->>>>>>> [feat]search list implemented - queries after form input
     );
   }
 }

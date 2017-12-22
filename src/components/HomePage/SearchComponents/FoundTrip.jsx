@@ -16,11 +16,13 @@ class FoundTrips extends Component {
       trips: [],
     };
   }
-
+  componentWillMount() {
+    console.log('these are the props ', this.props)
+  }
   componentDidUpdate(prevProps) {
     if (this.props.data.searchTrip && !prevProps.data.searchTrip) {
       console.log('QUERY', this.props.data);
-      // this.props.searchTrip(this.props.data.searchTrip);
+      this.props.searchTrip(this.props.data.searchTrip);
  
     }
   }
@@ -28,7 +30,7 @@ class FoundTrips extends Component {
 
   render() {
     console.log('searched at foundtrip', this.props.data, this.state.auth )
-    
+    console.log('this.props= ', this.props)
    
   
     return (
@@ -39,7 +41,12 @@ class FoundTrips extends Component {
       </Switch>
     </div> 
       <div>
-        <h1>Searching</h1>
+      {
+          this.props.search.map((trip, i) => (
+            <div>{trip.title}</div>
+            )
+          )
+        }
       </div>
       <Link to="/homepage/searchtrip" href="/homepage/searchtrip">
             <button >New Search</button>
@@ -51,6 +58,7 @@ class FoundTrips extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('state= ', state)
   return {
     auth: state.auth,
     search: state.search,
@@ -129,13 +137,13 @@ const QueriedTrips = graphql(foundTrip,
     options: props => ({
       
       variables: {
-        date_start: props.found.dateStart, 
-        date_end: props.found.dateEnd,
-        cost_start: props.found.costStart || 0,
-        cost_end: props.found.costEnd, 
-        gender: props.auth.user.gender, 
-        age: props.auth.user.age, 
-        relationship: props.auth.user.relationship,  
+        date_start: found.dateStart, 
+        date_end: found.dateEnd,
+        cost_start: found.costStart || 0,
+        cost_end: found.costEnd, 
+        gender: auth.user.gender, 
+        age: auth.user.age, 
+        relationship: auth.user.relationship,  
 
        
       },
@@ -145,22 +153,24 @@ const QueriedTrips = graphql(foundTrip,
 
 // const QueriedTrips = graphql(foundTrip,
 //   {
-//     options: props => ({
+//     options: props => {
+//       console.log('props= ', props)
+//       return ({
 //       variables: {
 //         date_start: '03-20-2016', 
 //         date_end: '01-20-2018',
 //         cost_start: 0,
 //         cost_end: 4000, 
-//         gender: 'F', 
+//         gender: auth.user.age, 
 //         age: 25, 
 //         relationship: 'single',  
 
        
 //       },
-//     }),
+//     })},
 //   },
 // )(FoundTrips);
 
-// export default connect(mapStateToProps, matchDispatchToProps)(QueriedTrips);
+export default connect(mapStateToProps, matchDispatchToProps)(QueriedTrips);
 
-export default QueriedTrips;
+// export default QueriedTrips;
