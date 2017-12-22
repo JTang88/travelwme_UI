@@ -108,6 +108,7 @@ query searchTrip(
         age_end
         relationship
         cost
+        publicId
         trip_status
         users{
           id
@@ -161,7 +162,7 @@ const QueriedTrips = graphql(foundTrip,
         gender: props.auth.user.gender, 
         age: props.auth.user.age, 
         relationship: props.auth.user.relationship,  
-
+        
        
       },
     }),
@@ -174,10 +175,10 @@ const QueriedTrips = graphql(foundTrip,
 //       console.log('props at query= ', props.auth)
 //       return ({
 //       variables: {
-//         date_start: '03-20-2016', 
-//         date_end: '01-20-2018',
-//         cost_start: 0,
-//         cost_end: 4000, 
+//         date_start: props.found.dateStart, 
+//         date_end: props.found.dateEnd,
+//         cost_start: props.found.costStart || 0,
+//         cost_end: props.found.costEnd || 10000, 
 //         gender: 'F', 
 //         age: 25, 
 //         relationship: 'single',  

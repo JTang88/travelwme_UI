@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
+
 
 const SearchEntry =({ trip })=>
 // {
@@ -8,7 +10,7 @@ const SearchEntry =({ trip })=>
   (<div className="card" >
 
       <div>
-        <img className="card-img-top" src={trip.publicId ||'http://cdn1.smartvectorpics.com/images/imagesbase/fpik/air-travel-vector-background_23-2147493630.jpg'} />
+      <Image cloudName="travelwme" publicId={trip.publicId} />
         </div>     
 
        <div className="card-title">     
