@@ -1,6 +1,6 @@
-export default function (state = [], action) {
+export default function (state = {}, action) {
   switch (action.type) {
-    case 'SEARCH_TRIP':
+    case 'FOUND_TRIP':
       return action.payload;
   }
   return state;

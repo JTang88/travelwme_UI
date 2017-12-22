@@ -5,15 +5,16 @@ const RadioGroup = (props) => {
   return (
     <div>
       <label className="label">{props.title}</label>
-      <div className="radio-group">
-        {props.options.map((options) => {
+      <div className="radio-group" style={{ display: 'flex' }}>
+        {props.options.map((option) => {
           return (
             <div>
               <label>
+                <img className="rgimg" src='http://cdn1.smartvectorpics.com/images/imagesbase/fpik/air-travel-vector-background_23-2147493630.jpg' style={{ borderradius: 50 }}/>
                 <input 
                   className="form-radio"
                   name={props.setName}
-                  onChange={props.handleFunc}
+                  onClick={props.handleFunc}
                   value={option}
                 />
               </label>

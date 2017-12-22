@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 const Select = (props) => {
   return (
     <div className="group">
-    <label>{props.title}</label>
+      <div>
+        <label>{props.title}</label>
+      </div>
+      <div>
       <select
         name={props.name}
         value={props.selectedOption}
@@ -32,6 +35,7 @@ const Select = (props) => {
           // </option>
           }
       </select>
+      </div>
     </div>
   );
 };

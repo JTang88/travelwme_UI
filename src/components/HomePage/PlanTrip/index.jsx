@@ -5,7 +5,10 @@ import gql from 'graphql-tag';
 import SingleInput from '../FormComponents/SingleInput';
 import TextArea from '../FormComponents/TextArea';
 import Select from '../FormComponents/Select';
+import RadioGroup from '../FormComponents/RadioGroup';
 import { create } from 'domain';
+// import style from '../FormComponents/style.css';
+import UploadTrip from '../FormComponents/UploadTrip';
 // import OneInput from '../FormComponents/OneInput';
 
 
@@ -20,24 +23,27 @@ class PlanTrip extends Component {
       cost: 0,
       dateStart: '',
       dateEnd: '',
-      genderOptions: ['F','M','Other','Non-Binary'],
+      genderOptions: ['F','M','All'],
       genderSelected: '',
-      ageRange: [25, 35, 45],
-      ageSelected: 0,
-      fitnessOptions:['average', 'sexy', 'couch potato', 'athletic'],
-      fitnessSelected: '',
+      ageRangeStart:[18, 25, 30, 35, 40, 45],
+      ageRangeEnd:[25, 30, 35, 40, 45, 50], 
+      ageStartSelected: 0,
+      ageEndSelected: 0,
+      fitnessOptions:['average', 'sexy', 'well-rounded', 'athletic'],
+      body_types: [],
       relationshipOptions: ['single', 'commited', 'free love', 'it\'s complicated','married'],
       relationshipSelected: '',
-      // keywordOptions: [],
-      // selectedKeys: [],
-      // tripStatus: "Open",
-      // userType: "C"
-      key: 'test'
+      keywordOptions: ['Adventurer', 'Backpacker', 'Explorer', 'Gourmet', 'Historian' , 'Luxury'],
+      keys: [],
+      publicId: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleClearForm = this.handleClearForm.bind(this)
-    // this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleBodyTypeSelection = this.handleBodyTypeSelection.bind(this);
+    this.handleKeywordSelection = this.handleKeywordSelection.bind(this);
     this.testFunc = this.testFunc.bind(this)
+    this.getpublicId = this.getpublicId.bind(this);
   }
 
   // componentDidMount{
@@ -58,25 +64,86 @@ class PlanTrip extends Component {
       // resets all states to it's type
     });
   }
+
   
-  testFunc (){
-    this.props.mutate({
-      variables: {
-        word: this.state.key
-      }
-    })
-    .then(({ data }) => {
-      console.log('got data', data);
-    }).catch((error) => {
-      console.log('there was an error sending the query', error);
-    });
+  handleBodyTypeSelection(e) {
+		const newSelection = e.target.value;
+		let newSelectionArray;
+		if(this.state.body_types.indexOf(newSelection) > -1) {
+			newSelectionArray = this.state.body_types.filter(s => s !== newSelection)
+		} else {
+			newSelectionArray = [...this.state.body_types, newSelection];
+		}
+		this.setState({ body_types: newSelectionArray }, () => console.log('selection', this.state.body_types));
+  }
+  
+  handleKeywordSelection(e) {
+		const newSelection = e.target.value;
+		let newSelectionArray;
+		if(this.state.keys.indexOf(newSelection) > -1) {
+			newSelectionArray = this.state.keys.filter(s => s !== newSelection)
+		} else {
+			newSelectionArray = [...this.state.keys, newSelection];
+		}
+		this.setState({ keys: newSelectionArray }, () => console.log('selection', this.state.keys));
+	}
+
+ getpublicId (pid) {
+   this.setState({
+      publicId: pid
+   })
+ }
+
+ handleSubmit(){
+  this.props.mutate({
+    variables: {
+      title: this.state.title,
+      description: this.state.description,
+      cost: this.state.cost,
+      date_start: this.state.dateStart,
+      date_end: this.state.dateEnd,
+      gender: this.state.genderSelected,
+      age_start: this.state.ageStartSelected,
+      age_end: this.state.ageEndSelected,
+      relationship: this.state.relationshipSelected,
+      trip_status: 'open',
+      userId: 2,
+      keys: JSON.stringify(this.state.keys),
+      body_types: JSON.stringify(this.state.body_types),
+      publicId: this.state.publicId,
+    },
+  });
+  }
+
+  testFunc(){
+  this.props.mutate({
+    variables: {
+      title: 'TEST FINAL',
+      description: 'some description2',
+      cost: 2000,
+      date_start: '11-12-2017',
+      date_end: '01-02-2018',
+      gender: 'All',
+      age_start: 25,
+      age_end: 35,
+      relationship: 'single',
+      trip_status: 'open',
+      userId: 2,
+      keys: JSON.stringify([1, 2]),
+      body_types: JSON.stringify([1, 2, 3]),
+      publicId: this.state.publicId,
+    },
+  });
   }
 
 
   render() {
     return (
-      <div>
-        <form>
+      <div className="row">
+        <div className='col-md-4'>
+          <UploadTrip getpublicId={this.getpublicId}/>
+        </div>
+        <form className='col-md-8'>
           <h1>Plan Trip Form</h1>
           <SingleInput
             type="text"
@@ -85,7 +152,7 @@ class PlanTrip extends Component {
             handleFunc={this.handleInputChange}
             content={this.state.title}
             placeholder="Add your trip title here" />
-          <TextArea 
+          <TextArea
             type="text"
             title="Trip Description"
             rows={6}
@@ -120,11 +187,19 @@ class PlanTrip extends Component {
             
           <Select
             title="Age Range"
-            name="ageSelected"
+            name="ageStartSelected"
             placeholder="Choose your age range"
             handleFunc={this.handleInputChange}
             // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
-            options={this.state.ageRange}
+            options={this.state.ageRangeStart}
+            selectedOption={this.state.age}
+            />
+          <Select
+            name="ageEndSelected"
+            placeholder="Choose your age range"
+            handleFunc={this.handleInputChange}
+            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
+            options={this.state.ageRangeEnd}
             selectedOption={this.state.age}
             />
           <Select
@@ -136,14 +211,21 @@ class PlanTrip extends Component {
             options={this.state.genderOptions}
             selectedOption={this.state.gender}
             />
-          <Select
-            title="Fitness"
-            name="fitnessSelected"
-            placeholder="Choose your fitness level"
-            handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
+          <RadioGroup
+            title="Who can go on this trip?"
+            setName="body_types"
+            handleFunc={this.handleBodyTypeSelection}
+            type="radio"
             options={this.state.fitnessOptions}
-            selectedOption={this.state.fitness}
+            selectedOptions={this.state.body_types}
+            />
+          <RadioGroup
+            title="Who do you want to be on this trip?"
+            setName="keys"
+            handleFunc={this.handleKeywordSelection}
+            type="radio"
+            options={this.state.keywordOptions}
+            selectedOptions={this.state.keys}
             />
 
           <Select
@@ -156,106 +238,55 @@ class PlanTrip extends Component {
             selectedOption={this.state.relationship}
             />
         </form>
-        return <button onClick={this.testFunc}>test</button>
+            <button onClick={this.testFunc}>test</button>
         <Link to="/homepage/mytrip/tripinfo" href="/homepage/mytrip/tripinfo">
-          <button >Create Trip</button>
+          <button onClick={this.handleSubmit}>Create Trip</button>
         </Link>
       </div>
     );
   }
 }
-console.log('this is graphql', graphql)
-console.log('this is gql', gql)
 
-const addKey = gql`
-mutation addKey($word: String) {
-  addKey(word: $word){
-    id
+
+const createTrip = gql`
+mutation createTrip(
+  $title: String!, 
+  $description: String!, 
+  $cost: Int, 
+  $date_start: String, 
+  $date_end: String, 
+  $gender: String!, 
+  $age_start: Int!,
+  $age_end: Int!, 
+  $relationship: String!, 
+  $trip_status: String!,
+  $keys: String,
+  $body_types: String,
+  $userId: Int!,
+  $publicId: String) {
+    createTrip(
+      title: $title, 
+      description: $description,
+      cost: $cost, 
+      date_start: $date_start, 
+      date_end: $date_end, 
+      gender: $gender, 
+      age_start: $age_start,
+      age_end: $age_end, 
+      relationship: $relationship, 
+      trip_status: $trip_status,
+      keys: $keys,
+      body_types: $body_types,
+      userId: $userId,
+      publicId: $publicId){
+        id
+      } 
   }
-}
-`;
-
-const TestTrip = graphql(addKey)(PlanTrip);
-// const PlanTripSaveData = graphql(createTrip)(PlanTrip);
-
-// export default PlanTripSaveData ;
-// export default PlanTrip;
-export default TestTrip;
+  `;
 
 
+const PlanTripSaveData = graphql(createTrip)(PlanTrip);
+
+export default PlanTripSaveData;
 
 
-
-
-
-
-
-
-// testFunc () {
-//     this.props.mutate({
-//     variables:{
-//       title: this.state.title, 
-//       description: this.state.description, 
-//       cost: this.state.cost, 
-//       date_start: this.state.date_start, 
-//       date_end: this.state.date_end, 
-//       gender: this.state.genderSelected, 
-//       age: this.state.ageSelected, 
-//       fitness: this.state.fitnessSelected, 
-//       relationship_status: this.state.relationshipSelected, 
-//       trip_status: 'open',
-//       key1: 'sdaasd', 
-//       key2: 'sadsdadas', 
-//       key3: 'sadsdadas', 
-//       key4: 'sadsdadas', 
-//       key5: 'sadsdadas', 
-//       key6: 'sadsdadas', 
-//       userId: 3,
-//     },
-//   })
-// }
-
-
-
-
-
-// const createTrip = gql`
-// mutation createTrip(
-//   $title: String!, 
-//   $description: String!, 
-//   $cost: Int!, 
-//   $date_start: String!, 
-//   $date_end: String!, 
-//   $gender: String!, 
-//   $age: Int!, 
-//   $fitness: String!, 
-//   $relationship_status: String!, 
-//   $trip_state: String!, 
-//   $key1: String!, 
-//   $key2: String!, 
-//   $key3: String!, 
-//   $key4: String!, 
-//   $key5: String!, 
-//   $key6: String!, 
-//   $userId: Int!){
-//     createTrip(
-//       title: $title, 
-//       description: $description, 
-//       cost: $cost, 
-//       date_start: $date_start, 
-//       date_end: $date_end, 
-//       gender: $gender, 
-//       age: $age, 
-//       fitness: $fitness, 
-//       relationship_status: $relationship_status, 
-//       trip_status: $trip_status, 
-//       key1: $key1, 
-//       key2: $key2, 
-//       key3: $key3, 
-//       key4: $key4, 
-//       key5: $key5, 
-//       key6: $key6, 
-//       userId: $userId) {
-//         id
-//       }
-//   }`;

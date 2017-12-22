@@ -56,6 +56,7 @@ class TrendTrips extends React.Component {
     // this.checkOutATrip = this.checkOutATrip.bind(this)
   }
 
+
   componentDidUpdate(prevProps) {
     if (this.props.qlUser.getUser && !prevProps.qlUser.getUser) {
       console.log('setting current user with graphql stuff');

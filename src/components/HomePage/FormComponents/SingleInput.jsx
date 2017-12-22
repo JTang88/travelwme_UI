@@ -4,7 +4,10 @@ import PropTypes from 'prop-types'
 const SingleInput = (props) => {
 return (
     <div className="form">
-    <label className="label">{props.title}</label>
+    <div>
+      <label className="label">{props.title}</label>
+    </div>
+    <div>  
       <input
         // className="form-input"
         name={props.name}
@@ -13,6 +16,7 @@ return (
         onChange={props.handleFunc}
         placeholder={props.placeholder} 
         />
+      </div>  
     </div>
   );
 }
