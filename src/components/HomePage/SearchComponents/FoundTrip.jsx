@@ -150,6 +150,7 @@ query searchTrip(
 //       }
 // }`;
 
+<<<<<<< HEAD
 const QueriedTrips = graphql(foundTrip,
   {
     options: props => ({
@@ -169,25 +170,52 @@ const QueriedTrips = graphql(foundTrip,
   },
 )(FoundTrips);
 
+=======
+>>>>>>> [add] Update signout path to login
 // const QueriedTrips = graphql(foundTrip,
 //   {
-//     options: props => {
-//       console.log('props at query= ', props.auth)
-//       return ({
+//     options: props => ({
+      
 //       variables: {
 //         date_start: props.found.dateStart, 
 //         date_end: props.found.dateEnd,
 //         cost_start: props.found.costStart || 0,
 //         cost_end: props.found.costEnd || 10000, 
+<<<<<<< HEAD
 //         gender: 'F', 
 //         age: 25, 
 //         relationship: 'single',  
+=======
+//         gender: props.auth.user.gender || 'F', 
+//         age: props.auth.user.age, 
+//         relationship: props.auth.user.relationship,  
+>>>>>>> [add] Update signout path to login
 
        
 //       },
-//     })},
+//     }),
 //   },
 // )(FoundTrips);
+
+const QueriedTrips = graphql(foundTrip,
+  {
+    options: props => {
+      console.log('props at query= ', props.auth)
+      return ({
+      variables: {
+        date_start: '03-20-2016', 
+        date_end: '01-20-2018',
+        cost_start: 0,
+        cost_end: 4000, 
+        gender: 'F', 
+        age: 25, 
+        relationship: 'single',  
+
+       
+      },
+    })},
+  },
+)(FoundTrips);
 
 export default connect(mapStateToProps, matchDispatchToProps)(QueriedTrips);
 // export default connect(mapStateToProps, matchDispatchToProps)(FoundTrips);
