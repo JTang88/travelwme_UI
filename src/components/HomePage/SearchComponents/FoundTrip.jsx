@@ -29,28 +29,33 @@ class FoundTrips extends Component {
 
 
   render() {
-    console.log('searched at foundtrip', this.props.data, this.state.auth )
+    console.log('searched at foundtrip', this.props.data)
     console.log('this.props= ', this.props)
    
   
     return (
-      <div>
-      <div>
+      <div className="text-center">
+      {/* <div>
       <Switch>
         <Route path="/homepage/searchtrip" component={SearchTrip} />
       </Switch>
-    </div> 
+    </div>  */}
+    <div> 
+      <h1>Here's what we found:</h1>
+      </div>
       <div>
-      {
+       {
           this.props.search.map((trip, i) => (
-            <div>{trip.title}</div>
+            // <div>{trip.title}</div>
+            <SearchEntry trip={ trip }/>
             )
           )
-        }
+        } 
+        
       </div>
-      <Link to="/homepage/searchtrip" href="/homepage/searchtrip">
+      {/* <Link to="/homepage/searchtrip" href="/homepage/searchtrip">
             <button >New Search</button>
-          </Link>
+          </Link> */}
       </div>
     )
   
@@ -96,9 +101,21 @@ query searchTrip(
         id
         title
         description
+        date_start
+        date_end
         gender
         age_start
+        age_end
         relationship
+        cost
+        trip_status
+        users{
+          id
+          username
+          user_type
+          gender
+          age
+        }
       }
 }`;
 
@@ -137,13 +154,13 @@ const QueriedTrips = graphql(foundTrip,
     options: props => ({
       
       variables: {
-        date_start: found.dateStart, 
-        date_end: found.dateEnd,
-        cost_start: found.costStart || 0,
-        cost_end: found.costEnd, 
-        gender: auth.user.gender, 
-        age: auth.user.age, 
-        relationship: auth.user.relationship,  
+        date_start: props.found.dateStart, 
+        date_end: props.found.dateEnd,
+        cost_start: props.found.costStart || 0,
+        cost_end: props.found.costEnd || 10000, 
+        gender: props.auth.user.gender, 
+        age: props.auth.user.age, 
+        relationship: props.auth.user.relationship,  
 
        
       },
@@ -154,14 +171,14 @@ const QueriedTrips = graphql(foundTrip,
 // const QueriedTrips = graphql(foundTrip,
 //   {
 //     options: props => {
-//       console.log('props= ', props)
+//       console.log('props at query= ', props.auth)
 //       return ({
 //       variables: {
 //         date_start: '03-20-2016', 
 //         date_end: '01-20-2018',
 //         cost_start: 0,
 //         cost_end: 4000, 
-//         gender: auth.user.age, 
+//         gender: 'F', 
 //         age: 25, 
 //         relationship: 'single',  
 
@@ -172,5 +189,5 @@ const QueriedTrips = graphql(foundTrip,
 // )(FoundTrips);
 
 export default connect(mapStateToProps, matchDispatchToProps)(QueriedTrips);
-
+// export default connect(mapStateToProps, matchDispatchToProps)(FoundTrips);
 // export default QueriedTrips;

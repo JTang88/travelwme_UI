@@ -11,6 +11,7 @@ import trendTripReducer from './trendTripReducer';
 import singleStatus from './reducerSingleStat';
 import foundTrip from './reducerfoundTrip';
 
+console.log('what am i in index reducers?? singleStatus= ', singleStatus);
 
 const allReducers = combineReducers({
   auth: authReducer,

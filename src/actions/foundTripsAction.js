@@ -1,7 +1,10 @@
-function foundTrips(tripObj) {
+
+
+function foundTrips(terms) {
+
   return {
-    type: 'FOUND_TRIP',
-    payload: tripObj,
+    type: 'FOUND_TRIPS',
+    payload: terms.searchTerms,
   };
 }
 

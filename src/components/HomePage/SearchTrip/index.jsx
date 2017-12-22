@@ -19,13 +19,6 @@ import foundTrip from '../../../actions/foundTripsAction';
 
 // import { select } from 'async';
 
-const testUser = {
-  gender: 'F',
-  relationship: 'single',
-  age: 26,
-
-}
-
 class SearchTrip extends Component {
   constructor(props) {
     super(props);
@@ -72,19 +65,27 @@ class SearchTrip extends Component {
     });
   }
   
-changeSearched () {
-  this.setState({
-    searched: true
-  }, () => {
-    const { costStart, costEnd, dateStart, dateEnd, keys } = this.state;
-    foundTrip({ costStart, costEnd, dateStart, dateEnd, keys });
-  })
+  changeSearched() {
+    console.log('at search trip, foundTrip', foundTrip)
+    this.setState({
+      searched: true,
+    });
+    // const { costStart, costEnd, dateStart, dateEnd, keys } = this.state;
 
- 
-}
+    const searchTerms = {
+      costStart: this.state.costStart, 
+      costEnd: JSON.parse(this.state.costEnd), 
+      dateStart: this.state.dateStart, 
+      dateEnd: this.state.dateEnd, 
+      keys: this.state.keys,
+    }
+    console.log('these are the searchTerms= ', searchTerms)
+    this.props.foundTrip({ searchTerms });
+  }
 
 
   render() {
+    
     let Searched = this.state.searched;
 
     if (!Searched) {
@@ -151,10 +152,17 @@ changeSearched () {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+    found: state.found,
+  };
+}
+
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({ foundTrip }, dispatch);
 }
 
 
-export default connect(matchDispatchToProps)(SearchTrip);
+export default connect(mapStateToProps, matchDispatchToProps)(SearchTrip);
 
