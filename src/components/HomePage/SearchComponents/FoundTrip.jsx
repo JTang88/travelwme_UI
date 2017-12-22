@@ -9,91 +9,109 @@ class FoundTrips extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      gender: '',
       cost_start: 0,
       cost_end: 0,
       date_start: '',
       date_end: '',
-      keys: [],
+      // keys: [],
       age: 0,
       relationship: '',
       
     };
   }
 
+  
+
   render() {
     console.log('searched at foundtrip', this.props.data )
     return (
       <div>
-
-        <h1>Searched trips</h1>
+        {/* {this.props.data.searchTrip.map((trips, idx) =>{
+          return(
+            // <SearchEntry />
+          )
+        })} */}
+        
       </div>
     );
   }
 }
 
 
-// const searchTrip = gql`
-// query searchTrip(
-//   $gender: String,
-//   $age: Int, 
-//   $relationship: String,  
-//   ){
-//     searchTrip(
-//       gender: $gender, 
-//       age: $age, 
-//       relationship: $relationship,
-//       ){
-//         id
-//         title
-//         description
-//         gender
-//         relationship
-//       }
-// }`;
-
 const searchTrip = gql`
 query searchTrip(
   $cost_start: Int,
-  $cost_end: Int 
+  $cost_end: Int,
   $date_start: String, 
   $date_end: String, 
   $gender: String, 
-  $age: Int, 
-  $body_type: String, 
+  $age: Int,  
   $relationship: String,  
-  $keys: String){
+
+  ){
     searchTrip(
       cost_start: $cost_start,
-      cost_end: $cost_end 
+      cost_end: $cost_end,
       date_start: $date_start, 
-      date_end: $date_end, 
+      date_end: $date_end,  
       gender: $gender, 
       age: $age, 
-      body_type: $body_type, 
-      relationship: $relationship,  
-      keys: $keys){
+      relationship: $relationship, 
+     
+      ){
         id
         title
         description
-        cost
-        date_start
-        date_end
+        gender
+        age_start
+        relationship
       }
 }`;
+
+// const searchTrip = gql`
+// query searchTrip(
+//   $cost_start: Int,
+//   $cost_end: Int 
+//   $date_start: String, 
+//   $date_end: String, 
+//   $gender: String, 
+//   $age: Int, 
+//   $body_type: String, 
+//   $relationship: String,  
+//   $keys: String){
+//     searchTrip(
+//       cost_start: $cost_start,
+//       cost_end: $cost_end 
+//       date_start: $date_start, 
+//       date_end: $date_end, 
+//       gender: $gender, 
+//       age: $age, 
+//       body_type: $body_type, 
+//       relationship: $relationship,  
+//       keys: $keys){
+//         id
+//         title
+//         description
+//         cost
+//         date_start
+//         date_end
+//       }
+// }`;
 
 const QueriedTrips = graphql(searchTrip,
   {
     options: props => ({
       variables: {
+        date_start: '03-20-2016', 
+        date_end: '01-20-2018',
         cost_start: 0,
-        cost_end: 3000, 
-        date_start: '03-10-2016', 
-        date_end: '01-01-2018', 
+        cost_end: 4000, 
         gender: 'F', 
-        age: 27, 
-        body_type: 'average', 
+        age: 25, 
         relationship: 'single',  
-        keys: "[1, 2]"
+
+       
       },
     }),
   },

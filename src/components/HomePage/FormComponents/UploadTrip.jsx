@@ -26,7 +26,7 @@ class UploadTrip extends React.Component {
   }
 
   async submit() {
-    const { id } = this.props;
+    // const { id } = this.props;
     const { file } = this.state;
 
     const formData = new FormData();  
@@ -39,12 +39,13 @@ class UploadTrip extends React.Component {
     );
 
     console.log('this is my respose mother fuckers!!!', response.data.public_id)
-    const graphqlResponse = await this.props.mutate({
-      variables: {
-        id,
-        publicId: response.data.public_id,
-      },
-    });
+    // const graphqlResponse = await this.props.mutate({
+    //   variables: {
+    //     id,
+    //     publicId: response.data.public_id,
+    //   },
+    // });
+    this.props.getpublicId(response.data.public_id);
   }
 
   render() {
@@ -66,10 +67,11 @@ class UploadTrip extends React.Component {
 //   }
 // `;
 
-const addPhotoToUser = gql`
-  mutation addPhotoToTrip($id: Int!, $publicId: String!) {
-    addPhotoToTrip(id: $id, publicId: $publicId) 
-  }
-`;
+// const addPhotoToUser = gql`
+//   mutation addPhotoToTrip($id: Int!, $publicId: String!) {
+//     addPhotoToTrip(id: $id, publicId: $publicId) 
+//   }
+// `;
 
-export default graphql(addPhotoToUser)(UploadTrip);
+// export default graphql(addPhotoToUser)(UploadTrip);
+export default UploadTrip;

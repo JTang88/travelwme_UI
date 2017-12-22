@@ -13,7 +13,7 @@ const RadioGroup = (props) => {
                 <input 
                   className="form-radio"
                   name={props.setName}
-                  onChange={props.handleFunc}
+                  onClick={props.handleFunc}
                   value={option}
                 />
               </label>
