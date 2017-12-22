@@ -138,7 +138,7 @@ class SearchTrip extends Component {
               />
           </form>
           
-          <button onClick={this.changeSearched}>Search Trip</button>
+          <button className="btn btn-outline-info" onClick={this.changeSearched}>Search Trip</button>
         
         </div>
         </div>

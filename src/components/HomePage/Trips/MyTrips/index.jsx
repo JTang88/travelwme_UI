@@ -89,9 +89,6 @@ class MyTrips extends React.Component {
       <div>
         <h1>My Trips</h1>
         {this.displayListofTrips()}
-        <button onClick={() => console.log(this.props)}>
-              button
-        </button>
       </div>
     );
   }
