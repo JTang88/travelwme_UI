@@ -41,12 +41,12 @@ class FoundTrips extends Component {
       </Switch>
     </div> 
       <div>
-      {
+      {/* {
           this.props.search.map((trip, i) => (
             <div>{trip.title}</div>
             )
           )
-        }
+        } */}
       </div>
       <Link to="/homepage/searchtrip" href="/homepage/searchtrip">
             <button >New Search</button>
@@ -132,24 +132,24 @@ query searchTrip(
 //       }
 // }`;
 
-const QueriedTrips = graphql(foundTrip,
-  {
-    options: props => ({
+// const QueriedTrips = graphql(foundTrip,
+//   {
+//     options: props => ({
       
-      variables: {
-        date_start: found.dateStart, 
-        date_end: found.dateEnd,
-        cost_start: found.costStart || 0,
-        cost_end: found.costEnd, 
-        gender: auth.user.gender, 
-        age: auth.user.age, 
-        relationship: auth.user.relationship,  
+//       variables: {
+//         date_start: found.dateStart, 
+//         date_end: found.dateEnd,
+//         cost_start: found.costStart || 0,
+//         cost_end: found.costEnd, 
+//         gender: auth.user.gender, 
+//         age: auth.user.age, 
+//         relationship: auth.user.relationship,  
 
        
-      },
-    }),
-  },
-)(FoundTrips);
+//       },
+//     }),
+//   },
+// )(FoundTrips);
 
 // const QueriedTrips = graphql(foundTrip,
 //   {
@@ -171,6 +171,6 @@ const QueriedTrips = graphql(foundTrip,
 //   },
 // )(FoundTrips);
 
-export default connect(mapStateToProps, matchDispatchToProps)(QueriedTrips);
-
+// export default connect(mapStateToProps, matchDispatchToProps)(QueriedTrips);
+export default connect(mapStateToProps, matchDispatchToProps)(FoundTrips);
 // export default QueriedTrips;
