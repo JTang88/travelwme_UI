@@ -10,7 +10,7 @@ function TripDetails(props) {
       <h4>Start Date: {props.showtrip.date_start}</h4>
       <h4>End Date: {props.showtrip.date_end}</h4>
       <h4>Relationship: {props.showtrip.relationship}</h4>
-      <h4>Trip Status: {props.tripstat}</h4>
+      <h4>Trip Status: { props.singlestat === null ? props.showtrip.trip_status : props.singlestat}</h4>
     </div>
   );
 }
@@ -19,7 +19,7 @@ function mapStateToProps(state) {
   return {
     trips: state.trips,
     showtrip: state.showtrip,
-    tripstat: state.tripstat,
+    singlestat: state.singlestat,
   };
 }
 

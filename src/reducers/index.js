@@ -7,8 +7,9 @@ import searchTrip from './reducerSearchTrip';
 import tripCreator from './reducerTripCreator';
 import tripTravelers from './reducerTripTravelers';
 import tripInterested from './reducerTripInterested';
-import updateStatus from './reducerTripStatus';
+// import updateStatus from './reducerTripStatus';
 import trendTripReducer from './trendTripReducer';
+import singleStatus from './reducerSingleStat';
 
 
 const allReducers = combineReducers({
@@ -22,7 +23,7 @@ const allReducers = combineReducers({
   creator: tripCreator,
   triptrav: tripTravelers,
   tripint: tripInterested,
-  tripstat: updateStatus,
+  singlestat: singleStatus,
 });
 
 export default allReducers;
