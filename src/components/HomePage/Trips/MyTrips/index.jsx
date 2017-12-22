@@ -25,7 +25,8 @@ const queryTrips = gql`
         date_start
         date_end
         gender
-        age
+        age_start
+        age_end
         relationship
         cost
         trip_status
