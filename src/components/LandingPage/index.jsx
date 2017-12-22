@@ -16,7 +16,7 @@ const Landing = () => (
               <h4 className="text-white">Login</h4>
             </Link>   
             <Link to="/sign"> 
-              <h4 className="text-white">Signup</h4>
+              <h4 className="text-white signbtt">Signup</h4>
             </Link>  
             </div>
           </div>

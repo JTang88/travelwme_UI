@@ -55,39 +55,46 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-form-container">
+      <div className="login-form-container text-center loginimg">
         <form 
           className="auth-form"
           onSubmit={this.handleLoginSubmit}
         >
-          <h2>Login</h2>
-          <p>
-            Don't have an account?
-            <span className="auth-link">
-              <Link to="/sign">
-                Sign up
-              </Link>
-            </span>
-          </p>
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            onChange={this.handleChange}
-          />
-          <input
-            type="test"
-            name="password"
-            placeholder="password"
-            onChange={this.handleChange}
-          />
-          <button
-            color="white"
-            text="Log In"
-            onClick={this.handleLoginSubmit}
-            className="btn btn-primary"
-          >Submit</button>
+          <div className="logsig">Login</div>
+          <div className="row justify-content-center align-self-center">
+            <input
+              type="text"
+              name="email"
+              placeholder="email"
+              onChange={this.handleChange}
+              className="col-sm-2 offset-sm rounded"
+            />
+           </div>
+          <div className="row justify-content-center align-self-center"> 
+            <input
+              type="test"
+              name="password"
+              placeholder="password"
+              onChange={this.handleChange}
+              className="col-sm-2 offset-sm rounded"
+            />
+            </div>
+          <div className="row justify-content-center align-self-center">
+            <button
+              color="white"
+              text="Log In"
+              onClick={this.handleLoginSubmit}
+              className="btn btn-outline-info col-sm-2 offset-sm"
+            >Login</button>
+          </div>
         </form>
+
+        <h5>
+            Don't have an account? 
+              <Link to="/sign">
+                <div className="auth-link"> Sign up </div>
+              </Link>
+          </h5>
       </div>
     );
   }

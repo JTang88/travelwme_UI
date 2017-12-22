@@ -2,6 +2,36 @@ body {
   font-family: 'Quicksand', sans-serif;
 }
 
+.loginimg {
+  background: url('./img/girloutlook.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+}
+
+.signupimg {
+  background: url('./img/bus.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+}
+
+.logsig {
+  font-size: 45px;
+  margin-top: 40px;
+  font-weight: bold;
+}
+
 .landimg {
   background: url('./img/travelgrp.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -15,13 +45,22 @@ body {
 }
 
 .title {
-  font-size: 76px;
-  margin-top: 236px;
+  font-size: 110px;
+  margin-top: 390px;
   color: white;
 }
 
 .desc {
-  font-size: 25px;
-  margin-top: 85px;
+  font-size: 30px;
+  margin-top: 80px;
   color: white;
+}
+
+.signbtt{
+  margin-top: 14px;
+  margin-bottom: -16px;
+}
+
+input {
+  margin: 20px;
 }
