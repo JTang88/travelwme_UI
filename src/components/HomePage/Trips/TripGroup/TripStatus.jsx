@@ -64,13 +64,6 @@ class TripStatus extends React.Component {
         } 
       }
     }
-    // if (this.props.showtrip.trip_status === 'open') {
-    //   status = 'close';
-    //   console.log('clicked close');
-    // } else {
-    //   status = 'open';
-    //   console.log('reopen');
-    // }
 
     this.props.mutate({
       variables: { id: this.props.showtrip.id, new_state: status },
@@ -82,7 +75,6 @@ class TripStatus extends React.Component {
           id: this.props.showtrip.id,
           status: data.updateTripState.trip_status,
         };
-        console.log('componenttttt', statusup);
         this.props.updateStatus(statusup);
         this.props.singleStatus(data.updateTripState.trip_status);
       }).catch((error) => {
@@ -107,30 +99,6 @@ class TripStatus extends React.Component {
     }
     return buttonStat;
   }
-    // if (this.props.singlestat === null) {
-    //   if (this.props.showtrip.trip_status === 'open') {
-    //     buttonStat = (
-    //       <button onClick={this.updateTripStatus}>Close Trip</button>
-    //     );
-    //   } else {
-    //     buttonStat = (
-    //       <button onClick={this.updateTripStatus}>Reopen Trip</button>
-    //     );
-    //   } 
-    // } else if (this.props.singlestat) {
-    //   if (this.props.singlestat === 'open') {
-    //     buttonStat = (
-    //       <button onClick={this.updateTripStatus}>Close Trip</button>
-    //     );
-    //   } else {
-    //     buttonStat = (
-    //       <button onClick={this.updateTripStatus}>Reopen Trip</button>
-    //     );
-    //   } 
-    // }
-  //   return buttonStat;
-  // } 
-  
 
   render() {
     return (
