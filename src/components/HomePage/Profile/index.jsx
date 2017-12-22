@@ -72,9 +72,9 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="text-center">
         <h1>{this.props.auth.user.username}</h1>
-        { this.state.edit && this.state.oldPhoto ? <UploadUser id={this.props.auth.user.id} getUpdatedPhoto={this.getUpdatedPhoto} /> : <Image cloudName="travelwme" publicId={this.state.publicId ||  this.props.auth.user.publicId} /> }
+        { this.state.edit && this.state.oldPhoto ? <UploadUser id={this.props.auth.user.id} getUpdatedPhoto={this.getUpdatedPhoto} /> : <Image cloudName="travelwme" className="rounded" publicId={this.state.publicId ||  this.props.auth.user.publicId} /> }
         <ul>
           { this.state.edit ?
             <Select
@@ -96,7 +96,7 @@ class Profile extends React.Component {
               options={this.state.body_typeOptions}
               selectedOption={this.state.body_type}
             />
-          : <div>Body_type: {this.props.auth.user.body_type ? this.props.auth.user.body_type : ''}</div>
+          : <div>Body Type: {this.props.auth.user.body_type ? this.props.auth.user.body_type : ''}</div>
           }
           { this.state.edit ?
             <Select

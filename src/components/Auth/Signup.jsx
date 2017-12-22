@@ -52,7 +52,7 @@ class Signup extends Component {
           className="auth-form"
           // onSubmit={this.handleSignupSubmit}
         >
-          <div className="logsig">Sign Up</div>
+          <h1 className="logsig">Sign Up</h1>
           <div className="row justify-content-center align-self-center">
             <input
               type="text"

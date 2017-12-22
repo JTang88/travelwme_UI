@@ -26,9 +26,9 @@ const Landing = () => (
             </button>
           </nav>
         </div>
-          <div className="text-center title">
+          <h1 className="text-center title">
             Travel With Me
-          </div>
+          </h1>
           <div className="text-center desc">
             Why travel alone?
             Find awesome people to go on your next adventure!

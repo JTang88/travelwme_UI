@@ -1,5 +1,6 @@
 body {
   font-family: 'Quicksand', sans-serif;
+
 }
 
 .loginimg {
@@ -15,7 +16,7 @@ body {
 }
 
 .signupimg {
-  background: url('./img/bus.jpeg') no-repeat center center fixed; 
+  background: url('./img/redsky.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -44,9 +45,10 @@ body {
   position: fixed;
 }
 
+
 .title {
-  font-size: 110px;
-  margin-top: 390px;
+  font-size: 90px;
+  margin-top: 190px;
   color: white;
 }
 
