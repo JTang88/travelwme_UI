@@ -109,7 +109,8 @@ mutation interestedInATrip($userId: Int!, $tripId: Int!, $user_type: String!) {
         date_start
         date_end
         gender
-        age
+        age_start
+        age_end
         trip_status
         user_type
         users{

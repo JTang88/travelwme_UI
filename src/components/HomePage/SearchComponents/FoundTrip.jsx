@@ -169,16 +169,17 @@ const QueriedTrips = graphql(foundTrip,
   },
 )(FoundTrips);
 
+
 // const QueriedTrips = graphql(foundTrip,
 //   {
 //     options: props => {
 //       console.log('props at query= ', props.auth)
 //       return ({
 //       variables: {
-//         date_start: props.found.dateStart, 
-//         date_end: props.found.dateEnd,
-//         cost_start: props.found.costStart || 0,
-//         cost_end: props.found.costEnd || 10000, 
+//         date_start: '03-20-2016', 
+//         date_end: '01-20-2018',
+//         cost_start: 0,
+//         cost_end: 4000, 
 //         gender: 'F', 
 //         age: 25, 
 //         relationship: 'single',  

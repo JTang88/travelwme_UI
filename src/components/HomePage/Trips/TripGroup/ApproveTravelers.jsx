@@ -121,6 +121,7 @@ mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: 
         id
         username
         user_type
+        publicId
       }
   }
 }

@@ -39,9 +39,6 @@ class ListTrips extends React.Component {
               </h3>
             </div>))}
       </div>
-        <button onClick={() => console.log(this.props)}>
-              button
-        </button>
       </div>
     );
   }

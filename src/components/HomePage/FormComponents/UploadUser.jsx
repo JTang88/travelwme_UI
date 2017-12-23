@@ -38,7 +38,6 @@ class UploadUser extends React.Component {
       formData,
     );
 
-    console.log('this is my respose mother fuckers!!!', response.data.public_id)
     const graphqlResponse = await this.props.mutate({
       variables: {
         id,
@@ -56,7 +55,7 @@ class UploadUser extends React.Component {
         <Dropzone onDrop={this.onDrop}>
           <p>Try dropping some files here, or click to select files to upload.</p>
         </Dropzone>
-        <button onClick={this.submit}>Submit</button>
+        <button className="btn btn-outline-info" onClick={this.submit}>Submit</button>
       </div>
     );
   }

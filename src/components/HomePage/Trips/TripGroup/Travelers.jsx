@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'cloudinary-react';
 import { connect } from 'react-redux';
 
 class Travelers extends React.Component {
@@ -10,12 +11,13 @@ class Travelers extends React.Component {
   showJoinedTravelers() {
     let showTravelers;
     if (this.props.triptrav.length === 0) {
-      showTravelers = (<div>No Travelers</div>); }
+      showTravelers = (<div></div>); }
     else {
       showTravelers = (<div className="row">
         {this.props.triptrav.map(user =>
       (<div key={user.id} className="col-sm-6 mb-lg-2">
-        {user.username}
+        <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={user.publicId} />
+        <div>{user.username}</div>
       </div>))}
       </div>)
     }
@@ -25,6 +27,11 @@ class Travelers extends React.Component {
   render() {
     return (
       <div>
+        <div>
+          <div> Creator:</div>
+          <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={this.props.creator.publicId} />
+          <div>{this.props.creator.username}</div>
+        </div>
         {this.showJoinedTravelers()}
       </div>
     );
