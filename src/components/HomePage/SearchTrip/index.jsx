@@ -74,7 +74,7 @@ class SearchTrip extends Component {
 
     const searchTerms = {
       costStart: this.state.costStart, 
-      costEnd: JSON.parse(this.state.costEnd), 
+      costEnd: this.state.costEnd, 
       dateStart: this.state.dateStart, 
       dateEnd: this.state.dateEnd, 
       keys: this.state.keys,
