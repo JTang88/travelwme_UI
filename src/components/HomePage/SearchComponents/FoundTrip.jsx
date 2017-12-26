@@ -86,6 +86,8 @@ query searchTrip(
   $gender: String, 
   $age: Int,  
   $relationship: String,  
+  $body_type: String,
+  $keys: String,
 
   ){
     searchTrip(
@@ -96,6 +98,8 @@ query searchTrip(
       gender: $gender, 
       age: $age, 
       relationship: $relationship, 
+      body_type: $body_type,
+      keys: $keys,
      
       ){
         id
@@ -162,8 +166,8 @@ const QueriedTrips = graphql(foundTrip,
         gender: props.auth.user.gender, 
         age: props.auth.user.age, 
         relationship: props.auth.user.relationship,  
-        
-       
+        body_type: props.auth.user.body_type,
+        keys: JSON.stringify(props.found.keys),
       },
     }),
   },
