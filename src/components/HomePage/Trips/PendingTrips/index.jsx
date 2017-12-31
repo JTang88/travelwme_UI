@@ -32,13 +32,17 @@ query queryTrips($id: Int!) {
       cost
       trip_status
       user_type
-      users{
-        id
-        username
+      members {
+        user {
+          id
+          username
+          user_type
+          gender
+          age
+          publicId
+        }
         user_type
-        gender
-        age
-        publicId
+        tripId
       }
     }
   }
