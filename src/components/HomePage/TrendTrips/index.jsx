@@ -41,12 +41,16 @@ query allTrips {
     cost
     trip_status
     publicId
-    users{
-      id
-      username
+    members {
+      tripId
       user_type
-      gender
-      age
+      user {
+        id
+        username
+        gender
+        age
+      }
+      
     }
   }
 }`;
