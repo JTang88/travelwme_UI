@@ -28,8 +28,8 @@ query getUser($id: Int!) {
 
 
 const showTrendTrips = gql`
-query showTrendTrips($gender: String, $age: Int, $relationship: String, $body_type: String) {
-  showTrendTrips(gender: $gender, age: $age, relationship: $relationship, body_type: $body_type) {
+query showTrendTrips($id: Int!) {
+  showTrendTrips(id: $id) {
     id
     title
     description
@@ -141,16 +141,15 @@ const Container = compose(
       options: (props) => {
         return {
           variables: {
-            gender: props.auth.user.gender,
-            age: props.auth.user.age,
-            relationship: props.auth.user.relationship,
-            body_type: props.auth.user.body_type,
+            id: props.auth.user.id,
           },
         };
       },
     },
   ),
 )(TrendTrips);
+
+// console.log('this is the crazy container', Container)
 
 // $gender: String, $age: Int, $relationship: String, $body_type: String
 
