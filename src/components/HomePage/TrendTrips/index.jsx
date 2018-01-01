@@ -26,9 +26,10 @@ query getUser($id: Int!) {
   }
 }`;
 
-const allTrips = gql`
-query allTrips {
-  allTrips {
+
+const showTrendTrips = gql`
+query showTrendTrips($gender: String, $age: Int, $relationship: String, $body_type: String) {
+  showTrendTrips(gender: $gender, age: $age, relationship: $relationship, body_type: $body_type) {
     id
     title
     description
@@ -49,8 +50,7 @@ query allTrips {
         username
         gender
         age
-      }
-      
+      }  
     }
   }
 }`;
@@ -65,13 +65,16 @@ class TrendTrips extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.qlUser.getUser && !prevProps.qlUser.getUser) {
-      console.log('setting current user with graphql stuff');
+      // console.log('setting current user with graphql stuff');
+      console.log('this is my getUser in componentDidUpdate', this.props.qlUser.getUser)
+
       this.props.setCurrentUser(this.props.qlUser.getUser);
     }
 
-    if (this.props.qlTrips.allTrips && !prevProps.qlTrips.allTrips) {
-      console.log('setting current user with graphql stuff');
-      this.props.setTrendTrips(this.props.qlTrips.allTrips);
+    if (this.props.qlTrips.showTrendTrips && !prevProps.qlTrips.showTrendTrips) {
+      // console.log('setting current user with graphql stuff');
+      console.log('this is my showTrendTrip', this.props.qlTrips.showTrendTrips)
+      this.props.setTrendTrips(this.props.qlTrips.showTrendTrips);
     }
 
   }
@@ -123,17 +126,33 @@ const Container = compose(
     { 
       name: 'qlUser',
       options: (props) => {
-        console.log('creating container component. props.auth.getUser.id = ', props.auth.user.id);
         return {
           variables: {
             id: props.auth.user.id,
           },
-        }
+        };
       },
     },
   ),
-  graphql(allTrips, { name: 'qlTrips' })
+  graphql(
+    showTrendTrips, 
+    { 
+      name: 'qlTrips', 
+      options: (props) => {
+        return {
+          variables: {
+            gender: props.auth.user.gender,
+            age: props.auth.user.age,
+            relationship: props.auth.user.relationship,
+            body_type: props.auth.user.body_type,
+          },
+        };
+      },
+    },
+  ),
 )(TrendTrips);
+
+// $gender: String, $age: Int, $relationship: String, $body_type: String
 
 export default connect(mapStateToProps, matchDispatchToProps)(Container);
 
@@ -162,7 +181,7 @@ export default connect(mapStateToProps, matchDispatchToProps)(Container);
 //         }),
 //       },
 //     ),
-//     graphql(allTrips, { name: 'allTrips' })
+//     graphql(showTrendTrips, { name: 'allTrips' })
 //   )(TrendTrips);
 
 //   return connect(mapStateToProps, matchDispatchToProps)(Container);
