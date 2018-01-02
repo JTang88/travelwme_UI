@@ -114,12 +114,14 @@ query searchTrip(
         cost
         publicId
         trip_status
-        users{
-          id
-          username
+        members{
           user_type
-          gender
-          age
+          user {
+            id
+            age
+            username
+            publicId
+          }
         }
       }
 }`;
