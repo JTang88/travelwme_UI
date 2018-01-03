@@ -22,27 +22,22 @@ query queryTrips($id: Int!) {
       id
       title
       description
-      publicId
       date_start
       date_end
       gender
       age_start
       age_end
+      publicId
       relationship
       cost
       trip_status
       user_type
       members {
+        user_type
         user {
           id
           username
-          user_type
-          gender
-          age
-          publicId
         }
-        user_type
-        tripId
       }
     }
   }

@@ -22,23 +22,22 @@ const queryTrips = gql`
         id
         title
         description
-        publicId
         date_start
         date_end
         gender
         age_start
         age_end
+        publicId
         relationship
         cost
         trip_status
         user_type
-        users{
-          id
-          username
+        members {
           user_type
-          gender
-          age
-          publicId
+          user {
+            id
+            username
+          }
         }
       }
     }
