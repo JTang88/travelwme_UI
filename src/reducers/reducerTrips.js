@@ -23,7 +23,7 @@ export default function (state = [], action) {
       }
       if (action.payload.id === action.payload.trips[i].id) {
         tripObj = { ...action.payload.trips[i] };
-        tripObj.users = action.payload.users;
+        tripObj.members = action.payload.members;
         allTrips = [...allTrips, { ...tripObj }];
       }
     }

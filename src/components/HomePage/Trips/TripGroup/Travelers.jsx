@@ -11,15 +11,19 @@ class Travelers extends React.Component {
   showJoinedTravelers() {
     let showTravelers;
     if (this.props.triptrav.length === 0) {
-      showTravelers = (<div></div>); }
+      showTravelers = (<div>Travelers: None at this time</div>); }
     else {
-      showTravelers = (<div className="row">
-        {this.props.triptrav.map(user =>
-      (<div key={user.id} className="col-sm-6 mb-lg-2">
-        <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={user.publicId} />
-        <div>{user.username}</div>
-      </div>))}
-      </div>)
+      showTravelers = (
+        <div>
+          <div>Travelers:</div>
+          <div className="row">
+            {this.props.triptrav.map(user =>
+          (<div key={user.user.id} className="col-sm-6 mb-lg-2">
+            <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={user.user.publicId} />
+            <div>{user.user.username}</div>
+          </div>))}
+          </div>
+        </div>)
     }
     return showTravelers;
   }
@@ -30,7 +34,7 @@ class Travelers extends React.Component {
         <div>
           <div> Creator:</div>
           <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={this.props.creator.publicId} />
-          <div>{this.props.creator.username}</div>
+          <div>{this.props.creator.user.username}</div>
         </div>
         {this.showJoinedTravelers()}
       </div>

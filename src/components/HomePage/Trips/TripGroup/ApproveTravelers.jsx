@@ -49,11 +49,11 @@ class ApproveTrav extends React.Component {
         travelersup = {
           trips: this.props.mytrips,
           id: this.props.showtrip.id,
-          users: data.updateUserRelationshipToTrip.users,
+          members: data.updateUserRelationshipToTrip.members,
         };
         this.props.updateTravelers(travelersup);
-        this.props.tripTravelers(data.updateUserRelationshipToTrip.users);
-        this.props.tripInterested(data.updateUserRelationshipToTrip.users);
+        this.props.tripTravelers(data.updateUserRelationshipToTrip.members);
+        this.props.tripInterested(data.updateUserRelationshipToTrip.members);
         console.log('got data', data);
       }).catch((error) => {
         console.log('there was an error sending the query', error);
@@ -63,7 +63,7 @@ class ApproveTrav extends React.Component {
 
   checkCreator() {
     let showInterestedUsers;
-    if (this.props.creator.id === this.props.auth.user.id) {
+    if (this.props.creator.user.id === this.props.auth.user.id) {
       showInterestedUsers = (
         <div>
           <form>
@@ -73,8 +73,8 @@ class ApproveTrav extends React.Component {
                 <select name="user" onChange={this.handleChange}>
                   <option defaultValue value="Users">Users</option>
                   {this.props.tripint.map( user =>
-                    (<option key={user.id} value={user.id}>
-                      {user.username}</option>))}
+                    (<option key={user.user.id} value={user.user.id}>
+                      {user.user.username}</option>))}
                 </select>
               </div>
               <div>
@@ -115,14 +115,16 @@ function mapStateToProps(state) {
 const interestedInATrip = gql`
 mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: String!) {
   updateUserRelationshipToTrip(userId: $userId, tripId: $tripId, user_type: $user_type) {
-      id
-      title
-      users {
+    id
+    title
+    members {
+      user_type
+      user {
         id
         username
-        user_type
         publicId
       }
+    }
   }
 }
 `;
