@@ -33,7 +33,7 @@ class Travelers extends React.Component {
       <div>
         <div>
           <div> Creator:</div>
-          <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={this.props.creator.publicId} />
+          <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={this.props.creator.user.publicId} />
           <div>{this.props.creator.user.username}</div>
         </div>
         {this.showJoinedTravelers()}

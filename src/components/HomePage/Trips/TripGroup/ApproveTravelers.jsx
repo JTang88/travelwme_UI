@@ -6,42 +6,35 @@ import { connect } from 'react-redux';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
 import updateTravelers from '../../../../actions/tripTravelerUpdateAction';
+import ShowProfile from './ShowProfile';
 
 class ApproveTrav extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: "",
-      decision: ""
+      user: '',
+      decision: '',
     };
 
     this.checkCreator = this.checkCreator.bind(this);
     this.updateUserTripStatus = this.updateUserTripStatus.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
+  
   handleChange(event) {
-    console.log('nameee',event.target.name);
-    console.log('appproval', event.target.value);
     const target = event.target;
     const value = target.value
     const name = target.name;
 
     this.setState({
       [name]: value,
-    });
-
-    // if (event.target.name === 'user') {
-      //when selected display user info
-    // }
+    });  
   }
+
 
   updateUserTripStatus() {
     let travelersup = {};
-    console.log('stateeeee', this.state);
-    console.log('tripppp', this.props.showtrip);
-
     this.props.mutate({
       variables: { userId: this.state.user, tripId: this.props.showtrip.id, user_type: this.state.decision },
     })
@@ -96,6 +89,7 @@ class ApproveTrav extends React.Component {
     return (
       <div>
         {this.checkCreator()}
+        <ShowProfile selected={this.state.user} />
       </div>
     );
   }
@@ -122,7 +116,13 @@ mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: 
       user {
         id
         username
+        age
+        gender
+        relationship
+        body_type
+        description
         publicId
+        email
       }
     }
   }

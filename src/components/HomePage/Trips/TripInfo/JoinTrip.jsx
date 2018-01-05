@@ -18,23 +18,22 @@ class JoinTrip extends React.Component {
       variables: { userId: this.props.auth.user.id, tripId: this.props.showtrip.id, user_type: "I" }
     })
       .then(({ data }) => {
-        console.log('got data', data);
         for (let i = 0; i < data.interestedInATrip.user.trips.length; i++) {
           if (data.interestedInATrip.user.trips[i].id === this.props.showtrip.id) {
             this.props.tripTravelers(data.interestedInATrip.user.trips[i].members);
             this.props.tripInterested(data.interestedInATrip.user.trips[i].members);
           }
         }
-        console.log('interrrr', this.props.tripint);
-        console.log('travvvvv', this.props.triptrav);  
-        //update interested and joined list of travelers
       }).catch((error) => {
         console.log('there was an error sending the query', error);
       });
   }
 
   renderJoinButton() {
-    let buttonJoin;
+    let buttonJoin = (
+      <button onClick={this.sendUserInterest}>ASK TO JOIN!</button>
+    );
+
     const joinStatus = {
       J: 'JOINED',
       C: 'JOINED',
@@ -43,21 +42,21 @@ class JoinTrip extends React.Component {
     };
 
     if (this.props.showtrip.trip_status === 'open') {
-      if (joinStatus[this.props.showtrip.user_type]) {
-        buttonJoin = (
-          <button disabled>{joinStatus[this.props.showtrip.user_type]}</button>
-        );
-      } else {
-        buttonJoin = (
-          <button onClick={this.sendUserInterest}>ASK TO JOIN!</button>
-        );
+      for (let i = 0; i < this.props.showtrip.members.length; i++) {
+        if (this.props.auth.user.id === this.props.showtrip.members[i].user.id) {
+          if (joinStatus[this.props.showtrip.members[i].user_type]) {
+            buttonJoin = (
+              <button disabled>{joinStatus[this.props.showtrip.members[i].user_type]}</button>
+            );
+          } 
+        }
       }
     } else {
       buttonJoin = (
         <button disabled>CLOSED</button>
       );
     }
-    console.log('USERRRRR', this.props.auth.user.id);
+
     return buttonJoin;
   }
   
@@ -106,8 +105,15 @@ mutation interestedInATrip($userId: Int!, $tripId: Int!, $user_type: String!) {
           members {
             user_type
             user {
-              username
               id
+              username
+              age
+              gender
+              relationship
+              body_type
+              description
+              publicId
+              email
             }
           }
         }
