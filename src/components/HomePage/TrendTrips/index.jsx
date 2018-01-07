@@ -92,15 +92,15 @@ class TrendTrips extends React.Component {
     return (
       <div>
         <h1>Trending Trips</h1>
-        {
-          this.props.trend.trips.map((trip, i) => (
+        { this.props.qlTrips.showTrendTrips ? 
+          this.props.qlTrips.showTrendTrips.map((trip, i) => (
             <div key={i} >
               <h3 onClick={() => this.setTripAndTravelers(trip)}>
                 <Link to="homepage/trips/tripinfo" href="homepage/trips/tripinfo">{trip.title}</Link>
               </h3>
             </div>  
             )
-          )
+          ) : ''
         }
       </div>
     );
