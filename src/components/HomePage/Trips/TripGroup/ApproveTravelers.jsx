@@ -58,7 +58,7 @@ class ApproveTrav extends React.Component {
     let showInterestedUsers;
     if (this.props.creator.user.id === this.props.auth.user.id) {
       showInterestedUsers = (
-        <div>
+        <div className="col-4">
           <form>
             <div className="d-flex flex-column" id="search-bar">
               <h2>Interested Users: </h2>
@@ -87,7 +87,7 @@ class ApproveTrav extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="row">
         {this.checkCreator()}
         <ShowProfile selected={this.state.user} />
       </div>

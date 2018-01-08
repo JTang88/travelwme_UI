@@ -1,5 +1,4 @@
 export default function (state = [], action) {
-  console.log('reducer status', action);
   let allTrips = [];
   let tripObj;
   if (action.type === 'TRIP_STATUS') {
@@ -13,7 +12,6 @@ export default function (state = [], action) {
         allTrips = [...allTrips, { ...tripObj }];
       }
     }
-    console.log('updated statusssss!!!!!!!!!!!!! ', allTrips);
   }
 
   if (action.type === 'UPDATE_TRAVELERS') {
@@ -27,7 +25,6 @@ export default function (state = [], action) {
         allTrips = [...allTrips, { ...tripObj }];
       }
     }
-    console.log('updated usersssss!!!!!!!!!!!!! ', allTrips);
   }
   switch (action.type) {
     case 'USER_TRIPS':

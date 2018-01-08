@@ -14,23 +14,18 @@ class ShowProfile extends React.Component {
       for (let i = 0; i < this.props.tripint.length; i++) {
         if (this.props.tripint[i].user.id === parseInt(this.props.selected)) {
           profile = (
-            <div>
-              <Image cloudName="travelwme" className="rounded img-thumbnail" publicId={this.props.tripint[i].user.publicId} />
-              <br />
-              {this.props.tripint[i].user.username}
-              <br />
-              {this.props.tripint[i].user.gender}
-              <br />
-              {this.props.tripint[i].user.age}
-              <br />
-              {this.props.tripint[i].user.body_type}
-              <br />
-              {this.props.tripint[i].user.description}
-              <br />
-              {this.props.tripint[i].user.email}
-              <br />
-              {this.props.tripint[i].user.relationship}         
-            </div>
+            <div className="row">
+              <div className="col-12">
+                <Image cloudName="travelwme" className="rounded img-thumbnail col-12" publicId={this.props.tripint[i].user.publicId} />
+                <h4 className="col-12">{this.props.tripint[i].user.username}</h4>
+                <h4 className="col-12">{this.props.tripint[i].user.gender}</h4>
+                <h4 className="col-12">{this.props.tripint[i].user.age}</h4>
+                <h4 className="col-12">{this.props.tripint[i].user.body_type}</h4>
+                <h4 className="col-12">{this.props.tripint[i].user.description}</h4>
+                <h4 className="col-12">{this.props.tripint[i].user.email}</h4>
+                <h4 className="col-12">{this.props.tripint[i].user.relationship}</h4>       
+              </div>
+            </div>  
           );
         }
       }
