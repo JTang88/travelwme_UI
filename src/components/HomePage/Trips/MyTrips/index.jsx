@@ -22,23 +22,29 @@ const queryTrips = gql`
         id
         title
         description
-        publicId
         date_start
         date_end
         gender
         age_start
         age_end
+        publicId
         relationship
         cost
         trip_status
         user_type
-        users{
-          id
-          username
+        members {
           user_type
-          gender
-          age
-          publicId
+          user {
+            id
+            username
+            age
+            gender
+            relationship
+            body_type
+            description
+            publicId
+            email
+          }
         }
       }
     }
@@ -47,7 +53,6 @@ const queryTrips = gql`
 class MyTrips extends React.Component {
   constructor(props) {
     super(props);
-    this.setTripAndTravelers = this.setTripAndTravelers.bind(this);
     this.displayListofTrips = this.displayListofTrips.bind(this);
   }
 
@@ -57,14 +62,6 @@ class MyTrips extends React.Component {
       this.props.userTrips(this.props.data.getUser.trips);
       this.props.pendingTrips(this.props.data.getUser.trips);
     }
-  }
-  
-  setTripAndTravelers(trip) {
-    this.props.showTrip(trip);
-    this.props.tripCreator(trip.users);
-    this.props.tripTravelers(trip.users);
-    this.props.tripInterested(trip.users);
-    // this.props.updateStatus(trip.trip_status);
   }
 
   displayListofTrips() {

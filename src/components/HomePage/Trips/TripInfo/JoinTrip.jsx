@@ -18,49 +18,37 @@ class JoinTrip extends React.Component {
       variables: { userId: this.props.auth.user.id, tripId: this.props.showtrip.id, user_type: "I" }
     })
       .then(({ data }) => {
-        for (let i = 0; i < data.interestedInATrip.users[0].trips.length; i++) {
-          if (data.interestedInATrip.users[0].trips[i].id === this.props.showtrip.id) {
-            this.props.tripTravelers(data.interestedInATrip.users[0].trips[0].users);
-            this.props.tripInterested(data.interestedInATrip.users[0].trips[0].users);
+        for (let i = 0; i < data.interestedInATrip.user.trips.length; i++) {
+          if (data.interestedInATrip.user.trips[i].id === this.props.showtrip.id) {
+            this.props.tripTravelers(data.interestedInATrip.user.trips[i].members);
+            this.props.tripInterested(data.interestedInATrip.user.trips[i].members);
           }
         }
-        console.log('interrrr', this.props.tripint);
-        console.log('travvvvv', this.props.triptrav);  
-        console.log('got data', data);
-        //update interested and joined list of travelers
       }).catch((error) => {
         console.log('there was an error sending the query', error);
       });
   }
 
   renderJoinButton() {
-    let buttonJoin;
-    console.log('JOINTRIPPPPPP', this.props.showtrip.users);
-    console.log('USERRRRR', this.props.auth.user.id);
+    let buttonJoin = (
+      <button onClick={this.sendUserInterest}>ASK TO JOIN!</button>
+    );
+
+    const joinStatus = {
+      J: 'JOINED',
+      C: 'JOINED',
+      I: 'PENDING',
+      D: 'DECLINED',
+    };
+
     if (this.props.showtrip.trip_status === 'open') {
-      for (let i = 0; i < this.props.showtrip.users.length; i++) {
-        if (this.props.showtrip.users[i].id === this.props.auth.user.id) {
-          if (this.props.showtrip.users[i].user_type === 'J') {
+      for (let i = 0; i < this.props.showtrip.members.length; i++) {
+        if (this.props.auth.user.id === this.props.showtrip.members[i].user.id) {
+          if (joinStatus[this.props.showtrip.members[i].user_type]) {
             buttonJoin = (
-              <button disabled>JOINED</button>
+              <button disabled>{joinStatus[this.props.showtrip.members[i].user_type]}</button>
             );
-          } else if (this.props.showtrip.users[i].user_type === 'C') {
-            buttonJoin = (
-              <button disabled>JOINED</button>
-            );
-          } else if (this.props.showtrip.users[i].user_type === 'I') {
-            buttonJoin = (
-              <button disabled>PENDING</button>
-            );
-          } else if (this.props.showtrip.users[i].user_type === 'D') {
-            buttonJoin = (
-              <button disabled>DECLINED</button>
-            );
-          }
-        } else {
-          buttonJoin = (
-            <button onClick={this.sendUserInterest}>ASK TO JOIN!</button>
-          );
+          } 
         }
       }
     } else {
@@ -68,6 +56,7 @@ class JoinTrip extends React.Component {
         <button disabled>CLOSED</button>
       );
     }
+
     return buttonJoin;
   }
   
@@ -102,24 +91,33 @@ function matchDispatchToProps(dispatch) {
 const interestedInATrip = gql`
 mutation interestedInATrip($userId: Int!, $tripId: Int!, $user_type: String!) {
     interestedInATrip(userId: $userId, tripId: $tripId, user_type: $user_type) {
-      users {
+      tripId
+      user {
         trips {
-        id
-        title
-        date_start
-        date_end
-        gender
-        age_start
-        age_end
-        trip_status
-        user_type
-        users{
           id
-          username
-          user_type
+          title
+          date_start
+          date_end
+          gender
+          age_start
+          age_end
+          trip_status
+          members {
+            user_type
+            user {
+              id
+              username
+              age
+              gender
+              relationship
+              body_type
+              description
+              publicId
+              email
+            }
+          }
         }
       }
-    }
   }
 }
 `;

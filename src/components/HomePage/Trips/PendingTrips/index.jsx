@@ -15,34 +15,36 @@ import updateStatus from '../../../../actions/tripStatusAction';
 
 const queryTrips = gql`
 query queryTrips($id: Int!) {
-  getUser(id: $id) {
+  getUser(id: $id)  {
     id
     username
     trips {
       id
       title
       description
-      publicId
       date_start
       date_end
       gender
       age_start
       age_end
+      publicId
       relationship
       cost
       trip_status
       user_type
       members {
+        user_type
         user {
           id
           username
-          user_type
-          gender
           age
+          gender
+          relationship
+          body_type
+          description
           publicId
+          email
         }
-        user_type
-        tripId
       }
     }
   }
@@ -66,10 +68,10 @@ class PendingTrips extends React.Component {
 
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
-    this.props.tripCreator(trip.users);
-    this.props.tripTravelers(trip.users);
-    this.props.tripInterested(trip.users);
-    this.props.updateStatus(trip.trip_status);
+    this.props.tripCreator(trip.members);
+    this.props.tripTravelers(trip.members);
+    this.props.tripInterested(trip.members);
+    // this.props.updateStatus(trip.trip_status);
   }
 
   displayListofTrips() {

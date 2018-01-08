@@ -6,42 +6,35 @@ import { connect } from 'react-redux';
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
 import updateTravelers from '../../../../actions/tripTravelerUpdateAction';
+import ShowProfile from './ShowProfile';
 
 class ApproveTrav extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: "",
-      decision: ""
+      user: '',
+      decision: '',
     };
 
     this.checkCreator = this.checkCreator.bind(this);
     this.updateUserTripStatus = this.updateUserTripStatus.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
+  
   handleChange(event) {
-    console.log('nameee',event.target.name);
-    console.log('appproval', event.target.value);
     const target = event.target;
     const value = target.value
     const name = target.name;
 
     this.setState({
       [name]: value,
-    });
-
-    // if (event.target.name === 'user') {
-      //when selected display user info
-    // }
+    });  
   }
+
 
   updateUserTripStatus() {
     let travelersup = {};
-    console.log('stateeeee', this.state);
-    console.log('tripppp', this.props.showtrip);
-
     this.props.mutate({
       variables: { userId: this.state.user, tripId: this.props.showtrip.id, user_type: this.state.decision },
     })
@@ -49,11 +42,11 @@ class ApproveTrav extends React.Component {
         travelersup = {
           trips: this.props.mytrips,
           id: this.props.showtrip.id,
-          users: data.updateUserRelationshipToTrip.users,
+          members: data.updateUserRelationshipToTrip.members,
         };
         this.props.updateTravelers(travelersup);
-        this.props.tripTravelers(data.updateUserRelationshipToTrip.users);
-        this.props.tripInterested(data.updateUserRelationshipToTrip.users);
+        this.props.tripTravelers(data.updateUserRelationshipToTrip.members);
+        this.props.tripInterested(data.updateUserRelationshipToTrip.members);
         console.log('got data', data);
       }).catch((error) => {
         console.log('there was an error sending the query', error);
@@ -63,9 +56,9 @@ class ApproveTrav extends React.Component {
 
   checkCreator() {
     let showInterestedUsers;
-    if (this.props.creator.id === this.props.auth.user.id) {
+    if (this.props.creator.user.id === this.props.auth.user.id) {
       showInterestedUsers = (
-        <div>
+        <div className="col-4">
           <form>
             <div className="d-flex flex-column" id="search-bar">
               <h2>Interested Users: </h2>
@@ -73,8 +66,8 @@ class ApproveTrav extends React.Component {
                 <select name="user" onChange={this.handleChange}>
                   <option defaultValue value="Users">Users</option>
                   {this.props.tripint.map( user =>
-                    (<option key={user.id} value={user.id}>
-                      {user.username}</option>))}
+                    (<option key={user.user.id} value={user.user.id}>
+                      {user.user.username}</option>))}
                 </select>
               </div>
               <div>
@@ -94,8 +87,9 @@ class ApproveTrav extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="row">
         {this.checkCreator()}
+        <ShowProfile selected={this.state.user} />
       </div>
     );
   }
@@ -115,14 +109,22 @@ function mapStateToProps(state) {
 const interestedInATrip = gql`
 mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: String!) {
   updateUserRelationshipToTrip(userId: $userId, tripId: $tripId, user_type: $user_type) {
-      id
-      title
-      users {
+    id
+    title
+    members {
+      user_type
+      user {
         id
         username
-        user_type
+        age
+        gender
+        relationship
+        body_type
+        description
         publicId
+        email
       }
+    }
   }
 }
 `;

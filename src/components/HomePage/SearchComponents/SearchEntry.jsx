@@ -34,6 +34,9 @@ class SearchEntry extends React.Component {
           {this.props.search.map(trip =>
             (<div key={trip.id}>
               <h3 onClick={() => this.setTripAndTravelers(trip)}>
+                <div>
+                <Image cloudName="travelwme" className="rounded mx-auto d-block img-thumbnail" publicId={trip.publicId} />
+              </div> 
                 <Link to="/homepage/trips/tripinfo" href="/homepage/trips/tripinfo" className="nav-item nav-link">
                   {trip.title}
                 </Link>
@@ -49,9 +52,6 @@ class SearchEntry extends React.Component {
     return (
       <div>
         {this.displayListofTrips()}
-        <button onClick={() => console.log(this.props)}>
-              button
-        </button>
       </div>
     );
   }

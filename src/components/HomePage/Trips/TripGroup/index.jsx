@@ -11,14 +11,14 @@ function TripGroup() {
       <h1>Trip Group</h1>
       <Travelers />
       <div className="row">
-        <div className="col-8">
-          <TripDetails />
-        </div>
         <div className="col-4">
+          <TripDetails />
+          <TripStatus />
+        </div>
+        <div className="col-8">
           {/* <TripSuggestions /> */}
           <ApproveTrav />
         </div>
-        <TripStatus />
       </div>
     </div>
   );

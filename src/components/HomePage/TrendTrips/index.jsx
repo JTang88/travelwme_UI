@@ -42,6 +42,7 @@ query showTrendTrips($id: Int!) {
     cost
     trip_status
     publicId
+    user_type
     members {
       tripId
       user_type
@@ -80,10 +81,11 @@ class TrendTrips extends React.Component {
   }
 
   setTripAndTravelers(trip) {
+    console.log('trippppppp clicked', trip);
     this.props.showTrip(trip);
-    this.props.tripCreator(trip.users);
-    this.props.tripTravelers(trip.users);
-    this.props.tripInterested(trip.users);
+    this.props.tripCreator(trip.members);
+    this.props.tripTravelers(trip.members);
+    this.props.tripInterested(trip.members);
     this.props.updateStatus(trip.trip_status);
   }
 

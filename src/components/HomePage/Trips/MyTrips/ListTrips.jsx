@@ -19,9 +19,9 @@ class ListTrips extends React.Component {
 
   setTripAndTravelers(trip) {
     this.props.showTrip(trip);
-    this.props.tripCreator(trip.users);
-    this.props.tripTravelers(trip.users);
-    this.props.tripInterested(trip.users);
+    this.props.tripCreator(trip.members);
+    this.props.tripTravelers(trip.members);
+    this.props.tripInterested(trip.members);
     // this.props.updateStatus(trip.trip_status);
   }
   
