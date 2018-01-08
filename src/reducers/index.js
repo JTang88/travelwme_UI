@@ -13,7 +13,7 @@ import foundTrip from './reducerfoundTrip';
 
 console.log('what am i in index reducers?? singleStatus= ', singleStatus);
 
-const allReducers = combineReducers({
+const allReducers = {
   auth: authReducer,
   mytrips: userTrips,
   pendtrips: pendTrips,
@@ -26,6 +26,6 @@ const allReducers = combineReducers({
   triptrav: tripTravelers,
   tripint: tripInterested,
   singlestat: singleStatus,
-});
+};
 
 export default allReducers;

@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { persistStore, persistCombineReducers } from 'redux-persist';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import storage from 'redux-persist/lib/storage'
 import { ApolloLink } from 'apollo-link';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
-import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter } from 'react-router-dom';
@@ -35,13 +37,33 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const store = createStore(allReducers);
+const config = {
+  key: 'root',
+  storage,
+};
+
+const reducer = persistCombineReducers(config, allReducers);
+
+const configureStore = () => {
+  const store = createStore(reducer);
+  const persistor = persistStore(store);
+  return { persistor, store };
+};
+
+const { store } = configureStore();
+const { persistor } = configureStore();
 
 ReactDOM.render((
-  <ApolloProvider client={client}>
+  <ApolloProvider client={client}>  
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PersistGate 
+        loading={null}
+        onBeforeLift={null}
+        persistor={persistor}
+      >
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </ApolloProvider>), document.getElementById('app'));

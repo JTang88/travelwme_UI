@@ -151,7 +151,11 @@ mutation updateUser($id: Int!, $username: String!, $gender: String!, $age: Int!,
 }
 `;
 
-const profileWithMutation = graphql(updateUser)(Profile);
+const profileWithMutation = graphql(updateUser, {
+  options: {
+    refetchQueries: mutationResult => [ 'showTrendTrips'],
+  },
+})(Profile);
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({ setCurrentUser }, dispatch);
