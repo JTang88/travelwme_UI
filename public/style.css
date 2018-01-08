@@ -75,3 +75,14 @@ input {
   boarder: 1px solid color
   border-radius: 2px
 } */
+
+.masthead {
+  height: 200px;
+  background: red; /* For browsers that do not support gradients */
+  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax (must be last) */
+}
+
+.triptit {
+  font-size: 100px; 
+  padding-top: 50px;
+}
