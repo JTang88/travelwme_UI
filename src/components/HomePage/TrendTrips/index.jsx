@@ -49,8 +49,13 @@ query showTrendTrips($id: Int!) {
       user {
         id
         username
-        gender
         age
+        gender
+        relationship
+        body_type
+        description
+        publicId
+        email
       }  
     }
   }

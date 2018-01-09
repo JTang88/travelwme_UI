@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Button } from 'semantic-ui-react';
 import updateStatus from '../../../../actions/tripStatusAction';
 import singleStatus from '../../../../actions/singleStatusAction';
 
@@ -60,11 +61,11 @@ class TripStatus extends React.Component {
       if (this.props.mytrips[i].id === this.props.showtrip.id) {
         if (this.props.mytrips[i].trip_status === 'open') {
           buttonStat = (
-            <button onClick={this.updateTripStatus}>Close Trip</button>
+            <Button floated="left"onClick={this.updateTripStatus}>Close Trip</Button>
           );
         } else {
           buttonStat = (
-            <button onClick={this.updateTripStatus}>Reopen Trip</button>
+            <Button floated="left" onClick={this.updateTripStatus}>Reopen Trip</Button>
           );
         } 
       }

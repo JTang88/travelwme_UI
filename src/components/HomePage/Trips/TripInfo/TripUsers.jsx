@@ -1,20 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import UserCard from '../TripInfo/UserCard';
+import JoinTrip from './JoinTrip';
+
 
 function TripUsers(props) {
   return (
-    <div className="row">
-      <div className="col-md-12">
-        <h4>Creator</h4>
-        <div>{props.creator.user.username}</div>
+    <div>
+      <div className="tripsub">Creator</div>
+      <div className="row">
+        <UserCard user={props.creator} />
       </div>
-      <div className="col-md-12">
-        <h4>Joined</h4>
-        {props.triptrav.map(user => (<div key={user.user.id}>{user.user.username}</div>))}
+      <div className="tripsub">Joined</div>
+      <div className="row">
+        {props.triptrav.map(user => (
+          <div className="col-4">
+            <UserCard key={user.user.id} user={user} /> 
+          </div>))}
       </div>
-      <div className="col-md-12">
-        <h4>Interested</h4>
-        {props.tripint.map(user => (<div key={user.user.id}>{user.user.username}</div>))}
+      <div className="tripsub">Interested</div>
+      <div className="row">
+        {props.tripint.map(user => (
+          <div className="col-4">
+            <UserCard key={user.user.id} user={user} />
+          </div>))}
+      </div>
+      <div className="trippic">
+        <JoinTrip />
       </div>
     </div>
   );
