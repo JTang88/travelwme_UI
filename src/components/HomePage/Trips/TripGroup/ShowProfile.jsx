@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image } from 'cloudinary-react';
 import { connect } from 'react-redux';
+import UserCard from '../TripInfo/UserCard';
 
 class ShowProfile extends React.Component {
   constructor(props) {
@@ -9,33 +9,20 @@ class ShowProfile extends React.Component {
   }
 
   displaySelectedUser() {
-    let profile;
     if (this.props.selected) {
       for (let i = 0; i < this.props.tripint.length; i++) {
         if (this.props.tripint[i].user.id === parseInt(this.props.selected)) {
-          profile = (
-            <div className="row">
-              <div className="col-12">
-                <Image cloudName="travelwme" className="rounded img-thumbnail col-12" publicId={this.props.tripint[i].user.publicId} />
-                <h4 className="col-12">{this.props.tripint[i].user.username}</h4>
-                <h4 className="col-12">{this.props.tripint[i].user.gender}</h4>
-                <h4 className="col-12">{this.props.tripint[i].user.age}</h4>
-                <h4 className="col-12">{this.props.tripint[i].user.body_type}</h4>
-                <h4 className="col-12">{this.props.tripint[i].user.description}</h4>
-                <h4 className="col-12">{this.props.tripint[i].user.email}</h4>
-                <h4 className="col-12">{this.props.tripint[i].user.relationship}</h4>       
-              </div>
-            </div>  
+          return (
+            <UserCard user={this.props.tripint[i]} />
           );
         }
       }
     }
-    return profile;
   }
 
   render() {
     return (
-      <div>
+      <div className="col-4 trippic">
         {this.displaySelectedUser()}
       </div>
     );
@@ -55,4 +42,3 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(ShowProfile);
-

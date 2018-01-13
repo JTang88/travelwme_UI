@@ -3,6 +3,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
+
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
 import updateTravelers from '../../../../actions/tripTravelerUpdateAction';
@@ -58,10 +60,10 @@ class ApproveTrav extends React.Component {
     let showInterestedUsers;
     if (this.props.creator.user.id === this.props.auth.user.id) {
       showInterestedUsers = (
-        <div className="col-4">
+        <div className="col-4 trippic">
           <form>
             <div className="d-flex flex-column" id="search-bar">
-              <h2>Interested Users: </h2>
+              <h2 className="tripsub">Interested Users: </h2>
               <div>
                 <select name="user" onChange={this.handleChange}>
                   <option defaultValue value="Users">Users</option>
@@ -79,7 +81,7 @@ class ApproveTrav extends React.Component {
               </div>
             </div>
           </form>
-          <button onClick={this.updateUserTripStatus}>Submit</button>
+          <Button onClick={this.updateUserTripStatus}>Submit</Button>
         </div>);
     }
     return showInterestedUsers;

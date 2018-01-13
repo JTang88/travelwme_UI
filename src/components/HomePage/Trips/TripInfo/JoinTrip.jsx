@@ -3,6 +3,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
+
 import tripTravelers from '../../../../actions/tripTravelersAction';
 import tripInterested from '../../../../actions/tripInterestedAction';
 
@@ -31,7 +33,7 @@ class JoinTrip extends React.Component {
 
   renderJoinButton() {
     let buttonJoin = (
-      <button onClick={this.sendUserInterest}>ASK TO JOIN!</button>
+      <Button onClick={this.sendUserInterest}>ASK TO JOIN!</Button>
     );
 
     const joinStatus = {
@@ -46,14 +48,14 @@ class JoinTrip extends React.Component {
         if (this.props.auth.user.id === this.props.showtrip.members[i].user.id) {
           if (joinStatus[this.props.showtrip.members[i].user_type]) {
             buttonJoin = (
-              <button disabled>{joinStatus[this.props.showtrip.members[i].user_type]}</button>
+              <Button disabled>{joinStatus[this.props.showtrip.members[i].user_type]}</Button>
             );
           } 
         }
       }
     } else {
       buttonJoin = (
-        <button disabled>CLOSED</button>
+        <Button disabled>CLOSED</Button>
       );
     }
 
@@ -64,6 +66,7 @@ class JoinTrip extends React.Component {
     return (
       <div>
         {this.renderJoinButton()}
+        
       </div>
     );
   }
