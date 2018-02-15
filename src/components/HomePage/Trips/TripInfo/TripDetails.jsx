@@ -18,10 +18,16 @@ function TripDetails(props) {
         </div>
         <div className="col-4 trippic">
           <h4>Description: {props.showtrip.description}</h4>
-          <h4>Start Date: {props.showtrip.date_start}</h4>
+          <h4>Age start: {props.showtrip.age_start}</h4>
+          <h4>Age end: {props.showtrip.age_end}</h4>
+          <h4>Start Date: {props.showtrip.date_start}</h4>  
           <h4>End Date: {props.showtrip.date_end}</h4>
+          <h4>Gender: {props.showtrip.gender}</h4>
+          <h4>Trip Keywokds: {props.showtrip.trip_keywords}</h4>
+          <h4>Trip BodyTypes: {props.showtrip.body_types}</h4>
           <h4>Relationship: {props.showtrip.relationship}</h4>
           <h4>Trip Status: { props.singlestat === null ? props.showtrip.trip_status : props.singlestat}</h4>
+          <h4>Cost: {props.showtrip.cost}</h4>
           <TripStatus />
         </div>
       </div>

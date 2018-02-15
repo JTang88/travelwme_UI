@@ -28,6 +28,8 @@ const queryTrips = gql`
         age_start
         age_end
         publicId
+        trip_keywords
+        body_types
         relationship
         cost
         trip_status

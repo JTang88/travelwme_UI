@@ -40,6 +40,8 @@ query showTrendTrips($id: Int!) {
     age_end
     relationship
     cost
+    trip_keywords
+    body_types
     trip_status
     publicId
     user_type
