@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import register from '../../mutations/register';
 import Select from '../HomePage/FormComponents/Select';
 
 
@@ -164,14 +162,6 @@ class Signup extends Component {
     );
   }
 }
-
-const register = gql`
-mutation register($username: String!, $email: String!, $password: String! $age: Int!, $gender: String!, $relationship: String!, $body_type: String!) {
-  register(username: $username, email: $email, password: $password, age: $age, gender: $gender, relationship: $relationship, body_type: $body_type) {
-    id
-  }
-}
-`;
 
 const SignupWithMutation = graphql(register)(Signup);
 

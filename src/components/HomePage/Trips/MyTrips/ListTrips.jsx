@@ -63,6 +63,4 @@ function matchDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-
-
 export default connect(mapStateToProps, matchDispatchToProps)(ListTrips);
