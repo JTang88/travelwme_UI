@@ -13,7 +13,7 @@ function HomePage() {
     <div>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={TrendTrips} />
+        <Route exact path="/homepage" component={TrendTrips} />
         <Route path="/homepage/plantrip" component={PlanTrip} />
         <Route path="/homepage/searchtrip" component={SearchTrip} />
         <Route path="/homepage/trips" component={Trips} />

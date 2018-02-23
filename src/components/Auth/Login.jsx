@@ -45,7 +45,7 @@ class Login extends Component {
       localStorage.setItem('token', token.data.login);
       const decodedToken = decode(token.data.login);
       this.props.setCurrentUser(decodedToken.user);
-      this.props.history.push('/');
+      this.props.history.push('/homepage');
     }
   }
 
