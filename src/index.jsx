@@ -26,11 +26,12 @@ const stateLink = withClientState({
   cache,
   resolvers: {
     Mutation: {
-      updateNetworkStatus: (_, { isConnected }, { cache }) => {
+      updateCurrentUser: (_, { id, username }, { cache }) => {
         const data = {
-          networkStatus: {
-            __typename: 'NetworkStatus',
-            isConnected
+          getCurrentUser: {
+            __typename: 'getCurrentUser',
+            id, 
+            username,
           },
         };
         cache.writeData({ data });
@@ -38,12 +39,18 @@ const stateLink = withClientState({
       },
     },
   },
+  defaults: {
+    getCurrentUser: {
+      __typename: 'getCurrentUser',
+      id: 1,
+      username: 'Test User',
+    },
+  },
 });
 
 const httpLink = new HttpLink({ uri: 'http://localhost:3001/graphql' });
-const httpLinkWithAuthToken = middlewareAuthLink.concat(httpLink);
 const client = new ApolloClient({
-  link: ApolloLink.from([stateLink, httpLinkWithAuthToken, httpLink]),
+  link: ApolloLink.from([stateLink, middlewareAuthLink, httpLink]),
   cache,
 });
 

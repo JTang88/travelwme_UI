@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { setCurrentUser } from '../../actions/authActions';
 import login from '../../graphql/mutations/login';
+import updateCurrentUser from '../../graphql/mutations/updateCurrentUser';
 
 class Login extends Component {
   constructor(props) {
@@ -34,22 +32,32 @@ class Login extends Component {
       return;
     }
 
-    const token = await this.props.mutate({
+    // console.log('here is props', this.props.mutate);
+
+    const token = await this.props.loginMutation({
       variables: {
         email,
         password,
       },
     });
 
+    console.log('check to see updateCurrentUserMutation', this.props);
+
     if (token) {
       localStorage.setItem('token', token.data.login);
-      const decodedToken = decode(token.data.login);
-      // this.props.setCurrentUser(decodedToken.user);
+      const { id, username } = await decode(token.data.login).user;
+      this.props.updateCurrentUserMutation({
+        variables: {
+          id,
+          username,
+        },
+      });
       this.props.history.push('/homepage');
     }
   }
 
   render() {
+    // console.log(this.props);
     return (
       <div className="loginimg">
         <div className="login-form-container text-center">
@@ -99,28 +107,10 @@ class Login extends Component {
 }
 
 
-const loginWithMutation = graphql(login)(Login);
-
-export default loginWithMutation;
-
 const WrapedLogin = compose(
   graphql(login, { name: 'loginMutation' }),
   graphql(updateCurrentUser, { name: 'updateCurrentUserMutation' }),
 )(Login);
 
 
-
-
-
-// function mapStateToProps(state) {
-//   return {
-//     auth: state.auth,
-//   };
-// }
-
-// function matchDispatchToProps(dispatch) {
-//   return bindActionCreators({ setCurrentUser }, dispatch);
-// }
-
-// export default connect(mapStateToProps, matchDispatchToProps)(loginWithMutation);
-
+export default WrapedLogin;

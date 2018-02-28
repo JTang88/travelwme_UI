@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Trips from './Trips/index';
+// import Trips from './Trips/index';
 import NavBar from './NavBar';
-import PlanTrip from './PlanTrip';
-import SearchTrip from './SearchTrip';
-import Profile from './Profile';
+// import PlanTrip from './PlanTrip';
+// import SearchTrip from './SearchTrip';
+// import Profile from './Profile';
 import TrendTrips from './TrendTrips';
 
 

@@ -1,16 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { graphql, withApollo, compose } from 'react-apollo';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { setCurrentUser } from '../../../actions/authActions';
-// import setTrendTrips from '../../../actions/trendTripAction';
-// import showTrip from '../../../actions/showTripAction';
-// import tripCreator from '../../../actions/tripCreatorAction';
-// import tripTravelers from '../../../actions/tripTravelersAction';
-// import tripInterested from '../../../actions/tripInterestedAction';
-// import updateStatus from '../../../actions/tripStatusAction';
 import showTrendTrips from '../../../graphql/queries/showTrendTrips';
+import getCurrentUser from '../../../graphql/queries/getCurrentUser';
 
 
 class TrendTrips extends React.Component { 
@@ -27,25 +19,14 @@ class TrendTrips extends React.Component {
     this.props.updateStatus(trip.trip_status);
   }
 
-  render() {
-    console.log(this.props.client);
-
-    // console.log(this.props.client.readQuery({
-    //   query: gql`
-    //   query ReadTodo {
-    //     todo(id: 5) {
-    //       id
-    //       text
-    //       completed
-    //     }
-    //   }
-    // `,
-    // }));
+  render() {   
+    console.log('this.props is:', this.props);
     return (
       <div>
         <h1>Trending Trips</h1>
-        { this.props.data.loading ? '' : 
-          this.props.data.showTrendTrips.map((trip, i) => (
+        { 
+          this.props.showTrendTripsQuery.loading ? '' : 
+          this.props.showTrendTripsQuery.showTrendTrips.map((trip, i) => (
             <div key={i} >
               <div onClick={() => this.setTripAndTravelers(trip)}>
                 <Link to="homepage/trips/tripinfo" href="homepage/trips/tripinfo">
@@ -67,82 +48,17 @@ class TrendTrips extends React.Component {
   }
 }
 
-const TrendTripWithQuery = graphql(showTrendTrips, {
-  options: props => ({ variables: { id: 1 } }),
-})(TrendTrips);
+const TrendTripWithQuery = compose(
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery',
+  }),
+  graphql(showTrendTrips, {
+    name: 'showTrendTripsQuery',
+    options: props => ({ variables: { id: props.getCurrentUserQuery.getCurrentUser.id } }),
+  }),
+)(TrendTrips);
 
 const TrendTripWithClient = withApollo(TrendTripWithQuery);
 
 export default TrendTripWithClient;
-
-
-// client.readQuery({
-//   query: gql`
-//     query ReadTodo {
-//       todo(id: 5) {
-//         id
-//         text
-//         completed
-//       }
-//     }
-//   `,
-// });
-
-
-
-
-
-
-
-
-// function mapStateToProps(state) {
-//   return {
-//     auth: state.auth,
-//     trend: state.trend,
-//   };
-// }
-
-// function matchDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     setCurrentUser, setTrendTrips, showTrip, tripCreator, tripTravelers, tripInterested, updateStatus,
-//   }, dispatch);
-// }
-
-// const TrendTripWithQuery = graphql(showTrendTrips, {
-//   options: props => ({ variables: { id: props.auth.user.id } }),
-// })(TrendTrips);
-
-// export default connect(mapStateToProps, matchDispatchToProps)(TrendTripWithQuery);
-
-
-// const Container = compose(
-//   graphql(
-//     getUser, 
-//     { 
-//       name: 'qlUser',
-//       options: (props) => {
-//         return {
-//           variables: {
-//             id: props.auth.user.id,
-//           },
-//         };
-//       },
-//     },
-//   ),
-//   graphql(
-//     showTrendTrips, 
-//     { 
-//       name: 'qlTrips', 
-//       options: (props) => {
-//         return {
-//           variables: {
-//             id: props.auth.user.id,
-//           },
-//         };
-//       },
-//     },
-//   ),
-// )(TrendTrips);
-
-// export default connect(mapStateToProps, matchDispatchToProps)(Container);
 
