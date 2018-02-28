@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
-import { graphql } from 'react-apollo';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setCurrentUser } from '../../actions/authActions';
-import login from '../../mutations/login';
+import { graphql, compose } from 'react-apollo';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { setCurrentUser } from '../../actions/authActions';
+import login from '../../graphql/mutations/login';
 
 class Login extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class Login extends Component {
     if (token) {
       localStorage.setItem('token', token.data.login);
       const decodedToken = decode(token.data.login);
-      this.props.setCurrentUser(decodedToken.user);
+      // this.props.setCurrentUser(decodedToken.user);
       this.props.history.push('/homepage');
     }
   }
@@ -101,15 +101,26 @@ class Login extends Component {
 
 const loginWithMutation = graphql(login)(Login);
 
-function mapStateToProps(state) {
-  return {
-    auth: state.auth,
-  };
-}
+export default loginWithMutation;
 
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ setCurrentUser }, dispatch);
-}
+const WrapedLogin = compose(
+  graphql(login, { name: 'loginMutation' }),
+  graphql(updateCurrentUser, { name: 'updateCurrentUserMutation' }),
+)(Login);
 
-export default connect(mapStateToProps, matchDispatchToProps)(loginWithMutation);
+
+
+
+
+// function mapStateToProps(state) {
+//   return {
+//     auth: state.auth,
+//   };
+// }
+
+// function matchDispatchToProps(dispatch) {
+//   return bindActionCreators({ setCurrentUser }, dispatch);
+// }
+
+// export default connect(mapStateToProps, matchDispatchToProps)(loginWithMutation);
 

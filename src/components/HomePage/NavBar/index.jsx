@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setCurrentUser } from '../../../actions/authActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { setCurrentUser } from '../../../actions/authActions';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.logout = this.logout.bind(this);
+    // this.logout = this.logout.bind(this);
   }
 
-  async logout() {
-    this.props.setCurrentUser({});
-    localStorage.removeItem('token');
-  }
+  // async logout() {
+  //   this.props.setCurrentUser({});
+  //   localStorage.removeItem('token');
+  // }
 
   render() {
     return (
@@ -42,15 +42,19 @@ class NavBar extends React.Component {
   }
 }
 
+// const wrapedNaveBar = graphql(NavBar);
 
-function mapStateToProps(state) {
-  return {
-    auth: state.auth,
-  };
-}
+// export default wrapedNaveBar;
+export default NavBar;
 
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ setCurrentUser }, dispatch);
-}
+// function mapStateToProps(state) {
+//   return {
+//     auth: state.auth,
+//   };
+// }
 
-export default connect(mapStateToProps, matchDispatchToProps)(NavBar);
+// function matchDispatchToProps(dispatch) {
+//   return bindActionCreators({ setCurrentUser }, dispatch);
+// }
+
+// export default connect(mapStateToProps, matchDispatchToProps)(NavBar);
