@@ -10,26 +10,16 @@ class TrendTrips extends React.Component {
     super(props);
   }
 
-  setTripAndTravelers(trip) {
-    console.log('trippppppp clicked', trip);
-    this.props.showTrip(trip);
-    this.props.tripCreator(trip.members);
-    this.props.tripTravelers(trip.members);
-    this.props.tripInterested(trip.members);
-    this.props.updateStatus(trip.trip_status);
-  }
-
   render() {   
-    console.log('this.props is:', this.props);
     return (
       <div>
         <h1>Trending Trips</h1>
         { 
           this.props.showTrendTripsQuery.loading ? '' : 
-          this.props.showTrendTripsQuery.showTrendTrips.map((trip, i) => (
-            <div key={i} >
-              <div onClick={() => this.setTripAndTravelers(trip)}>
-                <Link to="homepage/trips/tripinfo" href="homepage/trips/tripinfo">
+          this.props.showTrendTripsQuery.showTrendTrips.map(trip => (
+            <div key={trip.id} >
+              <div>
+                <Link to={`homepage/trips/tripinfo/${trip.id}`} href={`homepage/trips/tripinfo/${trip.id}`}>
                   <h3>{trip.title}</h3>
                   <div>
                     <ul>

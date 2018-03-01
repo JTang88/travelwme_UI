@@ -41,10 +41,10 @@ class Login extends Component {
       },
     });
 
-    console.log('check to see updateCurrentUserMutation', this.props);
 
     if (token) {
       localStorage.setItem('token', token.data.login);
+      console.log('token', token.data.login);
       const { id, username } = await decode(token.data.login).user;
       this.props.updateCurrentUserMutation({
         variables: {

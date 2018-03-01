@@ -1,17 +1,33 @@
-import React from 'react';
-import TripDetails from './TripDetails';
-import TripUsers from './TripUsers';
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+// import TripDetails from './TripDetails';
+// import TripUsers from './TripUsers';
+import getTrip from '../../../../graphql/queries/getTrip';
 
-
-function TripInfo() {
-  return (
-    <div>
-      <TripDetails />
-      <div className="trippic">
-        <TripUsers />
+class TripInfo extends Component {
+  constructor(props) {
+    super(props);
+  }
+ 
+  render() {
+    console.log(this.props)
+    return (
+      <div>
+        {this.props.match.params.id}
+        {/* <TripDetails />
+        <div className="trippic">
+          <TripUsers />
+        </div> */}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default (TripInfo);
+const WrapedTripInfo = graphql(getTrip, {
+  options: props => (
+    { variables: { id: Number(props.match.params.id) } }
+  ), 
+})(TripInfo);
+
+export default WrapedTripInfo;
+
