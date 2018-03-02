@@ -14,10 +14,14 @@ query getTrip($id: Int!) {
     body_types
     trip_keywords
     relationship
+    trip_status
     members {
       user {
         id
         username
+        age
+        gender
+        relationship
       }
       user_type
     }

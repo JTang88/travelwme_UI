@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-// import TripDetails from './TripDetails';
-// import TripUsers from './TripUsers';
+import TripDetails from './TripDetails';
+import TripUsers from './TripUsers';
 import getTrip from '../../../../graphql/queries/getTrip';
 
 class TripInfo extends Component {
@@ -10,14 +10,12 @@ class TripInfo extends Component {
   }
  
   render() {
-    console.log(this.props)
     return (
       <div>
-        {this.props.match.params.id}
-        {/* <TripDetails />
+        { !this.props.data.loading ? <TripDetails trip={this.props.data.getTrip} /> : '' }
         <div className="trippic">
-          <TripUsers />
-        </div> */}
+          { !this.props.data.loading ? <TripUsers members={this.props.data.getTrip.members} /> : ''} 
+        </div>
       </div>
     );
   }

@@ -31,9 +31,7 @@ class Login extends Component {
     if (email === '' || password === '') {
       return;
     }
-
-    // console.log('here is props', this.props.mutate);
-
+    
     const token = await this.props.loginMutation({
       variables: {
         email,

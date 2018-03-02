@@ -1,7 +1,5 @@
 import React from 'react';
 import { Image } from 'cloudinary-react';
-import { connect } from 'react-redux';
-import TripStatus from '../TripGroup/TripStatus';
 
 
 function TripDetails(props) {
@@ -9,38 +7,30 @@ function TripDetails(props) {
     <div>
       <header className="masthead text-white text-center">
         <div>
-          <h1 className="text-uppercase triptit">{props.showtrip.title}</h1>
+          <h1 className="text-uppercase triptit">{props.trip.title}</h1>
         </div>
       </header>
       <div className="row">
         <div className="col-8">
-          <Image cloudName="travelwme" className="rounded trippic" publicId={props.showtrip.publicId} />
+          <Image cloudName="travelwme" className="rounded trippic" publicId={props.trip.publicId} />
         </div>
         <div className="col-4 trippic">
-          <h4>Description: {props.showtrip.description}</h4>
-          <h4>Age start: {props.showtrip.age_start}</h4>
-          <h4>Age end: {props.showtrip.age_end}</h4>
-          <h4>Start Date: {props.showtrip.date_start}</h4>  
-          <h4>End Date: {props.showtrip.date_end}</h4>
-          <h4>Gender: {props.showtrip.gender}</h4>
-          <h4>Trip Keywokds: {props.showtrip.trip_keywords}</h4>
-          <h4>Trip BodyTypes: {props.showtrip.body_types}</h4>
-          <h4>Relationship: {props.showtrip.relationship}</h4>
-          <h4>Trip Status: { props.singlestat === null ? props.showtrip.trip_status : props.singlestat}</h4>
-          <h4>Cost: {props.showtrip.cost}</h4>
-          <TripStatus />
+          <h4>Description: {props.trip.description}</h4>
+          <h4>Age start: {props.trip.age_start}</h4>
+          <h4>Age end: {props.trip.age_end}</h4>
+          <h4>Start Date: {props.trip.date_start}</h4>  
+          <h4>End Date: {props.trip.date_end}</h4>
+          <h4>Gender: {props.trip.gender}</h4>
+          <h4>Trip Keywokds: {props.trip.trip_keywords}</h4>
+          <h4>Trip BodyTypes: {props.trip.body_types}</h4>
+          <h4>Relationship: {props.trip.relationship}</h4>
+          <h4>Trip Status: {props.trip.trip_status}</h4>
+          <h4>Cost: {props.trip.cost}</h4>
         </div>
       </div>
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    trips: state.trips,
-    showtrip: state.showtrip,
-    singlestat: state.singlestat,
-  };
-}
 
-export default connect(mapStateToProps)(TripDetails);
+export default TripDetails;
