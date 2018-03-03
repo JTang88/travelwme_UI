@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { graphql, withApollo, compose } from 'react-apollo';
-import showTrendTrips from '../../../graphql/queries/showTrendTrips';
-import getCurrentUser from '../../../graphql/queries/getCurrentUser';
-
+import showTrendTrips from '../../graphql/queries/showTrendTrips';
+import getCurrentUser from '../../graphql/queries/getCurrentUser';
 
 class TrendTrips extends React.Component { 
   constructor(props) {
@@ -51,4 +50,3 @@ const TrendTripWithQuery = compose(
 const TrendTripWithClient = withApollo(TrendTripWithQuery);
 
 export default TrendTripWithClient;
-

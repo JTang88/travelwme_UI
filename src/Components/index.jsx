@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import HomePage from '../HomePage';
-import Landing from '../LandingPage';
-import Login from '../Auth/Login';
-import Signup from '../Auth/Signup';
-import checkAuth from '../../services/checkAuth';
+import HomePage from './HomePage';
+import Landing from './LandingPage';
+import Login from './Auth/Login';
+import Signup from './Auth/Signup';
+import checkAuth from './../services/checkAuth';
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route

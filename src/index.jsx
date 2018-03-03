@@ -7,7 +7,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter } from 'react-router-dom';
-import App from './components/App';
+import App from './Components';
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('token');
