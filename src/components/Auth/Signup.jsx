@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import register from '../../graphql/mutations/register';
-import Select from '../HomePage/FormComponents/Select';
+import Select from '../Global/Forms/Select';
 
 
 class Signup extends Component {
