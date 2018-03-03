@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
-import getTrip from '../../../../graphql/queries/getTrip';
+import getTrip from '../../../../../graphql/queries/getTrip';
 
 class TripInfo extends Component {
   constructor(props) {
