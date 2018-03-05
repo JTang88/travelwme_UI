@@ -14,8 +14,9 @@ const NavBar = () => (
           Trips
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <Link to="/homepage/trips/mytrips" href="/homepage/trips/mytrips" className="dropdown-item">My Trips</Link>
-            <Link to="/homepage/trips/pending" href="/homepage/trips/pending" className="dropdown-item">Pending Trips</Link>
+            <Link to="/homepage/trips/created" href="/homepage/trips/created" className="dropdown-item">Created</Link>
+            <Link to="/homepage/trips/joined" href="/homepage/trips/joined" className="dropdown-item">Joined</Link>
+            <Link to="/homepage/trips/waiting" href="/homepage/trips/waiting" className="dropdown-item">Waiting</Link>
           </div>
         </li>
         <Link to="/homepage/profile" href="/homepage/profile" className="nav-item nav-link">Profile</Link>

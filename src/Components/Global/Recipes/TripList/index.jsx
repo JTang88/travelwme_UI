@@ -7,7 +7,7 @@ const TripList = ({ trips }) => (
       trips.map(trip => (
         <div key={trip.id} >
           <div>
-            <Link to={`homepage/trips/tripinfo/${trip.id}`} href={`homepage/trips/tripinfo/${trip.id}`}>
+            <Link to={`/homepage/trips/tripinfo/${trip.id}`} href={`/homepage/trips/tripinfo/${trip.id}`}>
               <h3>{trip.title}</h3>
               <div>
                 <ul>

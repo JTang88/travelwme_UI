@@ -7,10 +7,10 @@ import getCreatedTrips from '../../../../graphql/queries/getCreatedTrips';
 const Created = (props) => {
   console.log('this is props in Created', props);
   return (
-  <div>
-    Trips I created
-    {/* <TripList /> */}
-  </div>
+    <div>
+      <div>Trips I created</div>
+      { props.getCreatedTripsQuery.loading ? '' : <TripList trips={props.getCreatedTripsQuery.getCreatedTrips} /> }
+    </div>
   )
 };
 
