@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, withApollo, compose } from 'react-apollo';
 import showTrendTrips from '../../graphql/queries/showTrendTrips';
 import getCurrentUser from '../../graphql/queries/getCurrentUser';
-import TripList from '../Global/Recipes/Trips/TripList';
+import TripList from '../Global/Recipes/TripList';
 
 const TrendTrips = props => (
   <div>
