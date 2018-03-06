@@ -1,43 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
 import UserCard from '../TripInfo/UserCard';
-// import JoinTrip from './JoinTrip';
+import getCurrentUser from '../../../../../graphql/queries/getCurrentUser';
+import findATypeOfTravelers from '../../../../../services/findATypeOfTravelers';
 
-const findATypeOfTravelers = (members, type) => {
-  const creator = [];
-  for (let i = 0; i < members.length; i++) {
-    if (members[i].user_type === type) {
-      creator.push(members[i]);
-    } 
+class TripUsers extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      creator: findATypeOfTravelers(this.props.members, 'C')[0],
+    };
   }
-  return creator;
-}; 
 
-function TripUsers(props) {
-  return (
-    <div>
-      <div className="tripsub">Creator</div>
-      <div className="row">
-        <UserCard user={findATypeOfTravelers(props.members, 'C')[0]} />
+  render() {
+    return (
+      <div>
+        <div className="tripsub">Creator</div>
+        <div className="row">
+          { this.state.creator ? <UserCard user={this.state.creator} /> : '' }
+        </div>
+        <div className="tripsub">Joined</div>
+        <div className="row">
+          {findATypeOfTravelers(this.props.members, 'J').map(joiner => (
+            <div className="col-4">
+              <UserCard key={joiner.user.id} user={joiner} /> 
+            </div>))}
+        </div>
+        <div className="tripsub">Interested</div>
+        <div className="row">
+          {findATypeOfTravelers(this.props.members, 'I').map(interester => (
+            <div className="col-4">
+              <UserCard key={interester.user.id} user={interester} />
+            </div>))}
+        </div>
+        {
+          this.props.data.getCurrentUser.id !== this.state.creator.user.id ? 
+            <div className="trippic">
+              <button>Ask to Join</button>
+            </div> : ''
+        }
       </div>
-      <div className="tripsub">Joined</div>
-      <div className="row">
-        {findATypeOfTravelers(props.members, 'J').map(joiner => (
-          <div className="col-4">
-            <UserCard key={joiner.user.id} user={joiner} /> 
-          </div>))}
-      </div>
-      <div className="tripsub">Interested</div>
-      <div className="row">
-        {findATypeOfTravelers(props.members, 'I').map(interester => (
-          <div className="col-4">
-            <UserCard key={interester.user.id} user={interester} />
-          </div>))}
-      </div>
-      {/* <div className="trippic">
-        <JoinTrip />
-      </div>  */}
-    </div>
-  );
+    );
+  }
 }
 
-export default TripUsers;
+export default graphql(getCurrentUser)(TripUsers);
+
