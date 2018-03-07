@@ -3,6 +3,7 @@ import { Image } from 'cloudinary-react';
 
 
 function TripDetails(props) {
+  console.log(props.trip)
   return (
     <div>
       <header className="masthead text-white text-center">
