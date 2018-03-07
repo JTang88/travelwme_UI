@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
-import { updateCurrentTrip } from '../../../../graphql/mutations/updateCurrentTripObj';
+import { updateCurrentTrip } from '../../../../graphql/mutations/updateCurrentTrip';
 
  
 class TripList extends Component {

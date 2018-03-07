@@ -1,6 +1,6 @@
 import { merge } from 'lodash';
-import { updateCurrentTripResolver } from './updateCurrentTripObj';
-import { updateCurrentUserResolver } from './updateCurrentUserObj';
+import { updateCurrentTripResolver } from './updateCurrentTrip';
+import { updateCurrentUserResolver } from './updateCurrentUser';
 
 export default merge(
   {},

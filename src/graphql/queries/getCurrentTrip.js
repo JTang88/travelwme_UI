@@ -1,17 +1,5 @@
 import gql from 'graphql-tag';
 
-// const getCurrentTrip = gql`
-// query getCurrentTrip {
-//   getCurrentTrip @client {
-//     title
-//     cost
-//     date_start
-//     date_end
-//   }
-// }`;
-
-// export default getCurrentTrip;
-
 export const getCurrentTrip = gql`
   query getCurrentTrip {
     getCurrentTrip @client {
@@ -32,5 +20,3 @@ export const getCurrentTripDefault = {
     date_end: '2015-02-07',
   },
 };
-
-

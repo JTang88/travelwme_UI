@@ -28,50 +28,8 @@ const stateLink = withClientState({
   cache,
   resolvers: {
     Mutation,
-    // Mutation: {
-    //   updateCurrentUser: (_, { id, username }, { cache }) => {
-    //     const data = {
-    //       getCurrentUser: {
-    //         __typename: 'getCurrentUser',
-    //         id, 
-    //         username,
-    //       },
-    //     };
-    //     cache.writeData({ data });
-    //     return null;
-    //   },
-    //   updateCurrentTrip: (_, { id, title, cost, date_start, date_end }, { cache }) => {
-    //     const data = {
-    //       getCurrentTrip: {
-    //         __typename: 'getCurrentTrip',
-    //         id, 
-    //         title,
-    //         cost,
-    //         date_start,
-    //         date_end,
-    //       },
-    //     };
-    //     cache.writeData({ data });
-    //     return null;
-    //   },
-    // },
   },
   defaults,
-  // defaults: {
-  //   getCurrentUser: {
-  //     __typename: 'getCurrentUser',
-  //     id: 1,
-  //     username: 'Test User',
-  //   },
-  //   getCurrentTrip: {
-  //     __typename: 'getCurrentUser',
-  //     id: 1,
-  //     title: 'test trip',
-  //     cost: 1,
-  //     date_start: '2010-11-15',
-  //     date_end: '2015-02-07',
-  //   },
-  // },
 });
 
 const httpLink = new HttpLink({ uri: 'http://localhost:3001/graphql' });
