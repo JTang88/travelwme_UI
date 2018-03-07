@@ -11,8 +11,6 @@ import Mutation from './graphql/mutations';
 import defaults from './graphql/queries';
 import App from './Components';
 
-console.log(Mutation);
-
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('token');
   const authorizationHeader = token ? `Bearer ${token}` : null;
