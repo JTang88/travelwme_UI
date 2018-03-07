@@ -3,7 +3,7 @@ import decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import login from '../../graphql/mutations/login';
-import updateCurrentUser from '../../graphql/mutations/updateCurrentUser';
+import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUserObj';
 
 class Login extends Component {
   constructor(props) {

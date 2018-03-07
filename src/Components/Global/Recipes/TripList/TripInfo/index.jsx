@@ -4,7 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
 import getTrip from '../../../../../graphql/queries/getTrip';
-import getCurrentTrip from '../../../../../graphql/queries/getCurrentTrip';
+import { getCurrentTrip } from '../../../../../graphql/queries/getCurrentTripObj';
 
 class TripInfo extends Component {
   constructor(props) {

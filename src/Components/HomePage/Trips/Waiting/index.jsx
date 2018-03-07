@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import TripList from '../../../Global/Recipes/TripList';
-import getCurrentUser from '../../../../graphql/queries/getCurrentUser';
+import { getCurrentUser } from '../../../../graphql/queries/getCurrentUserObj';
 import getWaitingTrips from '../../../../graphql/queries/getWaitingTrips';
 
 const Waiting = (props) => {

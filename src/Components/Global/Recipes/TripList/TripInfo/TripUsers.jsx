@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import UserCard from '../TripInfo/UserCard';
-import getCurrentUser from '../../../../../graphql/queries/getCurrentUser';
+import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUserObj';
 import findATypeOfTravelers from '../../../../../services/findATypeOfTravelers';
 
 class TripUsers extends Component {

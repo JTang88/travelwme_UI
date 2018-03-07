@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import TripList from '../../../Global/Recipes/TripList';
-import getCurrentUser from '../../../../graphql/queries/getCurrentUser';
+import { getCurrentUser } from '../../../../graphql/queries/getCurrentUserObj';
 import getCreatedTrips from '../../../../graphql/queries/getCreatedTrips';
 
 const Created = (props) => {
