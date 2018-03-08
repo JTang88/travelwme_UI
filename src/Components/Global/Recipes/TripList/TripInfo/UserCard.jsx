@@ -15,7 +15,9 @@ function UserCard(props) {
       <Card.Content extra>
         <div>{props.user.user.gender}</div>
         <div>{props.user.user.age}</div>
-        <div>{props.user.user.relationship}</div>
+        <div>{props.user.user.relationship}</div> 
+        { props.creatorView ? 
+          <div><button>Yes</button>or<button>No</button></div> : '' }
       </Card.Content>
     </Card>);
 }
