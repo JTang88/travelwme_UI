@@ -1,7 +1,8 @@
 import React, { Component } from 'react'; 
+import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
-import { updateCurrentTrip } from '../../../../graphql/mutations/updateCurrentTrip';
+// import { updateCurrentTrip } from '../../../../graphql/mutations/updateCurrentTrip';
 
  
 class TripList extends Component {
@@ -11,7 +12,9 @@ class TripList extends Component {
 
   handleClick(trip, e) {
     e.preventDefault();
-    const { id, title, cost, date_start, date_end } = trip;
+    const {
+      id, title, cost, date_start, date_end, 
+    } = trip;
     this.props.mutate({
       variables: {
         id,
@@ -24,12 +27,15 @@ class TripList extends Component {
   }
   
   render() {
+    console.log(this.props.trips);
     return (
       <div>
         { 
           this.props.trips.map(trip => (
             <div key={trip.id} >
-              <div onClick={ (e) => this.handleClick(trip, e)}>
+              {/* <div onClick={e => this.handleClick(trip, e)}> */}
+              <div>
+                <Image cloudName="travelwme" publicId={trip.creator.publicId} /> 
                 <Link to={`/homepage/trips/tripinfo/${trip.id}`} href={`/homepage/trips/tripinfo/${trip.id}`}>
                   <h3>{trip.title}</h3>
                   <div>
@@ -51,6 +57,8 @@ class TripList extends Component {
 
 // export default TripList;
 
-const WrapedTripList = graphql(updateCurrentTrip)(TripList);
+// const WrapedTripList = graphql(updateCurrentTrip)(TripList);
 
-export default WrapedTripList;
+// export default WrapedTripList;
+
+export default TripList;

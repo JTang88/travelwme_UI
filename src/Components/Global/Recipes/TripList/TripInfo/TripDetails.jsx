@@ -3,7 +3,7 @@ import { Image } from 'cloudinary-react';
 
 
 function TripDetails(props) {
-  console.log(props.trip)
+  console.log('code reaches here!!');
   return (
     <div>
       <header className="masthead text-white text-center">
@@ -13,7 +13,7 @@ function TripDetails(props) {
       </header>
       <div className="row">
         <div className="col-8">
-          <Image cloudName="travelwme" className="rounded trippic" publicId={props.trip.publicId} />
+          <Image cloudName="travelwme" className="rounded trippic" publicId={props.trip.creator.publicId} />
         </div>
         <div className="col-4 trippic">
           <h4>Description: {props.trip.description}</h4>

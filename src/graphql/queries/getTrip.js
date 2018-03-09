@@ -4,16 +4,29 @@ const getTrip = gql`
 query getTrip($id: Int!) {
   getTrip(id: $id) {
     description
+    title
     gender
     age_start
     age_end
+    date_start
+    date_end
     body_types
     trip_keywords
     relationship
     trip_status
+    cost
+    creator {
+      id
+      username
+      publicId
+      age
+      gender
+      relationship
+    }
     members {
       user {
         id
+        publicId
         username
         age
         gender
