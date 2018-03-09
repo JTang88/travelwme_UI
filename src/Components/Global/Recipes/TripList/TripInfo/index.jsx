@@ -1,93 +1,66 @@
 import React, { Component } from 'react';
-// import { merge } from 'lodash';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
+import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
+import makeTravelerObjByTypes from '../../../../../services/makeTravelerObjByTypes';
 import getTrip from '../../../../../graphql/queries/getTrip';
-// import { getCurrentTrip } from '../../../../../graphql/queries/getCurrentTrip';
 
 class TripInfo extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      travelers: undefined,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.getTripQuery !== this.props.getTripQuery) {
+      this.setState({
+        travelers: makeTravelerObjByTypes(
+          this.props.getTripQuery.getTrip.members, 
+          this.props.getCurrentUserQuery.getCurrentUser.id, 
+          this.props.getTripQuery.getTrip.creator.id, 
+        ),
+      });
+    }
   }
  
   render() {
     return (
       <div>
-        { !this.props.data.loading ? 
+        { this.state.travelers ? 
           <TripDetails 
-            trip={this.props.data.getTrip}
+            trip={this.props.getTripQuery.getTrip}
+            currentUser={this.state.travelers.currentUser}
           /> : '' 
         }
-        {/* <div className="trippic">
-          { !this.props.getTripQuery.loading ? 
+        <div className="trippic">
+          { this.state.travelers ? 
             <TripUsers 
-              members={this.props.getTripQuery.getTrip.members} 
+              interesters={this.state.travelers.interesters}
+              joiners={this.state.travelers.joiners} 
+              currentUser={this.state.travelers.currentUser}
             /> : ''
           } 
-        </div> */}
+        </div>
       </div>
     );
   }
 }
 
-const WrapedTripInfo = graphql(getTrip, { 
-  options: props => ({ variables: { id: Number(props.match.params.id) } }),
-})(TripInfo);
+
+const WrapedTripInfo = compose(
+  graphql(getTrip, {
+    name: 'getTripQuery',
+    options: props => (
+      { variables: { id: Number(props.match.params.id) } }
+    ), 
+  }),
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery',
+  }),
+)(TripInfo);
 
 export default WrapedTripInfo;
-
-
-// import React, { Component } from 'react';
-// import { merge } from 'lodash';
-// import { graphql, compose } from 'react-apollo';
-// import TripDetails from './TripDetails';
-// import TripUsers from './TripUsers';
-// import getTrip from '../../../../../graphql/queries/getTrip';
-// import { getCurrentTrip } from '../../../../../graphql/queries/getCurrentTrip';
-
-// class TripInfo extends Component {
-//   constructor(props) {
-//     super(props);
-//   }
- 
-//   render() {
-//     return (
-//       <div>
-//         { !this.props.getTripQuery.loading ? 
-//           <TripDetails 
-//             trip={
-//               merge(
-//               {},
-//               this.props.getCurrentTripQuery.getCurrentTrip, 
-//               this.props.getTripQuery.getTrip
-//               )
-//             }
-//           /> : '' 
-//         }
-//         <div className="trippic">
-//           { !this.props.getTripQuery.loading ? 
-//             <TripUsers 
-//               members={this.props.getTripQuery.getTrip.members} 
-//             /> : ''
-//           } 
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// const WrapedTripInfo = compose(
-//   graphql(getTrip, {
-//     name: 'getTripQuery',
-//     options: props => (
-//       { variables: { id: Number(props.match.params.id) } }
-//     ), 
-//   }),
-//   graphql(getCurrentTrip, {
-//     name: 'getCurrentTripQuery',
-//   }),
-// )(TripInfo);
-
-// export default WrapedTripInfo;
 

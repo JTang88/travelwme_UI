@@ -8,6 +8,11 @@ query getWaitingTrips($id: Int!) {
     date_start
     date_end
     cost
+    creator {
+      id
+      publicId
+      username
+    }
   }
 }`;
 

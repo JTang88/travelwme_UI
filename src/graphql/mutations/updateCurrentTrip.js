@@ -21,3 +21,10 @@ export const updateCurrentTripResolver = {
     return null;
   },
 };
+
+
+// creator: {
+//   id: 1,
+//   publicId: '',
+//   username: 'test',
+// },

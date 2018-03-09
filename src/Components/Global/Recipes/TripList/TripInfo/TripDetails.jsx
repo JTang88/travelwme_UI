@@ -3,7 +3,6 @@ import { Image } from 'cloudinary-react';
 
 
 function TripDetails(props) {
-  console.log('code reaches here!!');
   return (
     <div>
       <header className="masthead text-white text-center">
@@ -27,6 +26,23 @@ function TripDetails(props) {
           <h4>Relationship: {props.trip.relationship}</h4>
           <h4>Trip Status: {props.trip.trip_status}</h4>
           <h4>Cost: {props.trip.cost}</h4>
+          {
+            props.currentUser === 'C' ? 
+              <div className="trippic">
+                <button>Edit This Trip</button>
+              </div> : 
+            props.currentUser === 'J' ? 
+              <div className="trippic">
+                <button>Leave This Trip</button>
+              </div> :
+            props.currentUser === 'I' ? 
+              <div className="trippic">
+                <button>Cancel Request</button>
+              </div> :
+              <div className="trippic">
+                <button>Ask to Join</button>
+              </div>
+          }
         </div>
       </div>
     </div>
