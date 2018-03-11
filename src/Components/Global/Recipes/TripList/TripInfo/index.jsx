@@ -25,14 +25,21 @@ class TripInfo extends Component {
       });
     }
   }
- 
+  
   render() {
+    // this.state.travelers ? console.log('this is currentUser in Cached: ', this.state.travelers.currentUserCachedInMembers) : '';
+    this.state.travelers ? 
+    console.log(this.props.getTripQuery.getTrip.members) : '';
+
+      // console.log(this.props.getTripQuery.getTrip.members[this.state.travelers.currentUserIndexInMembers]) : '';
     return (
       <div>
         { this.state.travelers ? 
           <TripDetails 
             trip={this.props.getTripQuery.getTrip}
             currentUser={this.state.travelers.currentUser}
+            userId={this.props.getCurrentUserQuery.getCurrentUser.id}
+            memberId={this.state.travelers.memberId}
           /> : '' 
         }
         <div className="trippic">

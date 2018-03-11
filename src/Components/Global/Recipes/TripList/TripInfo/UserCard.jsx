@@ -3,7 +3,6 @@ import { Image } from 'cloudinary-react';
 import { Card, Icon } from 'semantic-ui-react';
 
 function UserCard(props) {
-  console.log(Image);
   return (
     <Card>
       <Image cloudName="travelwme" width="300" crop="scale" className="rounded img-thumbnail" publicId={props.user.user.publicId} />

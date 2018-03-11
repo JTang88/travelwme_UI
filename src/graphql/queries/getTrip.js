@@ -24,6 +24,7 @@ query getTrip($id: Int!) {
       relationship
     }
     members {
+      id
       user {
         id
         publicId

@@ -2,6 +2,7 @@ const makeTravelerObjByTypes = (members, id, creatorId) => {
   const interesters = [];
   const joiners = [];
   let currentUser = 'N';
+  let memberId;
  
   if (id === creatorId) {
     currentUser = 'C';
@@ -12,11 +13,13 @@ const makeTravelerObjByTypes = (members, id, creatorId) => {
       interesters.push(members[i]);
       if (currentUser === 'N' && members[i].user.id === id) {
         currentUser = 'I';
+        memberId = members[i].id;
       }
     } else if (members[i].user_type === 'J') {
       joiners.push(members[i]);
       if (currentUser === 'N' && members[i].user.id === id) {
         currentUser = 'J';
+        memberId = members[i].id;
       }
     }  
   }
@@ -24,6 +27,7 @@ const makeTravelerObjByTypes = (members, id, creatorId) => {
     interesters,
     joiners,
     currentUser,
+    memberId,
   }; 
 };
 
