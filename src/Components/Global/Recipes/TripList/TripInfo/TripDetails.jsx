@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
-import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationToTrip';
+import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationshipToTrip';
 import { updateCurrentUserRelationToTrip } from '../../../../../graphql/mutations/updateCurrentUserRelationToTrip';
 
 
@@ -10,23 +10,23 @@ class TripDetails extends Component {
     super(props);
   }
 
-  handleCancelRequest(e) {
-    e.preventDefault();
-    this.props.updateUserRelationToTrip({
-      variables: {
-        userId: this.props.userId,
-        tripId: this.props.trip.id,
-        user_type: 'I',
-      },
-    });
+  // handleCancelRequest(e) {
+  //   e.preventDefault();
+  //   this.props.updateUserRelationToTrip({
+  //     variables: {
+  //       userId: this.props.userId,
+  //       tripId: this.props.trip.id,
+  //       user_type: 'I',
+  //     },
+  //   });
 
-    this.props.updateCurrentUserRelationToTrip({
-      variables: {
-        id: this.props.memberId,
+  //   this.props.updateCurrentUserRelationToTrip({
+  //     variables: {
+  //       id: this.props.memberId,
 
-      },
-    });
-  }
+  //     },
+  //   });
+  // }
   
   render() {
     return (
