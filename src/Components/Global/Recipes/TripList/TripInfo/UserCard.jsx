@@ -1,22 +1,42 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo'; 
+import { graphql, compose } from 'react-apollo'; 
 import { Image } from 'cloudinary-react';
 import { Card } from 'semantic-ui-react';
+import getTrip from '../../../../../graphql/queries/getTrip';
 import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationshipToTrip';
+import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
+import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
 
 class UserCard extends Component {
   constructor(props) {
     super(props);
     this.handleYes = this.handleYes.bind(this);
+    this.handleNo = this.handleNo.bind(this);
   }
  
   handleYes(e) {
     e.preventDefault();
-    this.props.mutate({
+    this.props.updateUserRelationshipToTripMutation({
       variables: {
         userId: this.props.user.user.id,
         tripId: this.props.tripId,
         user_type: 'J',
+      },
+    });
+  }
+
+  handleNo(e) {
+    e.preventDefault();
+    this.props.deleteAUserFromTripMutation({
+      variables: {
+        userId: this.props.user.user.id,
+        tripId: this.props.tripId,
+      },
+    });
+    this.props.deleteAMemberFromCacheMutation({
+      variables: {
+        targetMemberId: this.props.user.id,
+        tripId: this.props.tripId,
       },
     });
   }
@@ -35,14 +55,17 @@ class UserCard extends Component {
           <div>{this.props.user.user.age}</div>
           <div>{this.props.user.user.relationship}</div> 
           { this.props.creatorView ? 
-            <div><button onClick={this.handleYes}>Yes</button>or<button>No</button></div> : '' }
+            <div><button onClick={this.handleYes}>Yes</button>or<button onClick={this.handleNo}>No</button></div> : '' }
         </Card.Content>
       </Card>
     );
   }
 }
 
-
-const WrapedUserCard = graphql(updateUserRelationshipToTrip)(UserCard);
+const WrapedUserCard = compose(
+  graphql(updateUserRelationshipToTrip, { name: 'updateUserRelationshipToTripMutation' }),
+  graphql(deleteAUserFromTrip, { name: 'deleteAUserFromTripMutation' }),
+  graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' })
+)(UserCard);
 
 export default WrapedUserCard;
