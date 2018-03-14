@@ -3,7 +3,7 @@ import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
-import { invalidateAWaitingTripInCache } from '../../../../../graphql/mutations/invalidateAWaitingTripInCache';
+import { invalidateATripInCache } from '../../../../../graphql/mutations/invalidateATripInCache';
 
 // import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationshipToTrip';
 // import { updateCurrentUserRelationToTrip } from '../../../../../graphql/mutations/updateCurrentUserRelationToTrip';
@@ -12,10 +12,10 @@ import { invalidateAWaitingTripInCache } from '../../../../../graphql/mutations/
 class TripDetails extends Component {
   constructor(props) {
     super(props);
-    this.handleCancelRequest = this.handleCancelRequest.bind(this);
+    this.handleCancelRequestAndLeaveTrip = this.handleCancelRequestAndLeaveTrip.bind(this);
   }
 
-  handleCancelRequest(e) {
+  handleCancelRequestAndLeaveTrip(tripType, e) {
     e.preventDefault();
     this.props.deleteAUserFromTripMutation({
       variables: {
@@ -28,10 +28,11 @@ class TripDetails extends Component {
         tripId: this.props.tripId,
       },
     });
-    this.props.invalidateAWaitingTripInCacheMutation({
+    this.props.invalidateATripInCacheMutation({
       variables: {
         userId: this.props.userId,        
         tripId: this.props.tripId,
+        tripType,
       },
     });
   }
@@ -68,11 +69,11 @@ class TripDetails extends Component {
                 </div> : 
               this.props.currentUser === 'J' ? 
                 <div className="trippic">
-                  <button>Leave This Trip</button>
+                  <button onClick={e => this.handleCancelRequestAndLeaveTrip('joined', e)}>Leave This Trip</button>
                 </div> :
               this.props.currentUser === 'I' ? 
                 <div className="trippic">
-                  <button onClick={this.handleCancelRequest}>Cancel Request</button>
+                  <button onClick={e => this.handleCancelRequestAndLeaveTrip('waiting', e)}>Cancel Request</button>
                 </div> :
                 <div className="trippic">
                   <button>Ask to Join</button>
@@ -88,7 +89,7 @@ class TripDetails extends Component {
 const WrapedTripDetails = compose(
   graphql(deleteAUserFromTrip, { name: 'deleteAUserFromTripMutation' }),
   graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' }),
-  graphql(invalidateAWaitingTripInCache, { name: 'invalidateAWaitingTripInCacheMutation' })
+  graphql(invalidateATripInCache, { name: 'invalidateATripInCacheMutation' })
 )(TripDetails);
 
 export default WrapedTripDetails;
