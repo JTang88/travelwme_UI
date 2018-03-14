@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo'; 
 import { Image } from 'cloudinary-react';
 import { Card } from 'semantic-ui-react';
-import getTrip from '../../../../../graphql/queries/getTrip';
 import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationshipToTrip';
 import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
@@ -18,7 +17,7 @@ class UserCard extends Component {
     e.preventDefault();
     this.props.updateUserRelationshipToTripMutation({
       variables: {
-        userId: this.props.user.user.id,
+        userId: this.props.member.user.id,
         tripId: this.props.tripId,
         user_type: 'J',
       },
@@ -29,13 +28,13 @@ class UserCard extends Component {
     e.preventDefault();
     this.props.deleteAUserFromTripMutation({
       variables: {
-        userId: this.props.user.user.id,
+        userId: this.props.member.user.id,
         tripId: this.props.tripId,
       },
     });
     this.props.deleteAMemberFromCacheMutation({
       variables: {
-        targetMemberId: this.props.user.id,
+        targetMemberId: this.props.member.id,
         tripId: this.props.tripId,
       },
     });
@@ -44,16 +43,16 @@ class UserCard extends Component {
   render() {
     return (
       <Card>
-        <Image cloudName="travelwme" width="300" crop="scale" className="rounded img-thumbnail" publicId={this.props.user.user.publicId} />
+        <Image cloudName="travelwme" width="300" crop="scale" className="rounded img-thumbnail" publicId={this.props.member.user.publicId} />
         <Card.Content>
           <Card.Header>
-            {this.props.user.user.username}
+            {this.props.member.user.username}
           </Card.Header>
         </Card.Content>
         <Card.Content extra>
-          <div>{this.props.user.user.gender}</div>
-          <div>{this.props.user.user.age}</div>
-          <div>{this.props.user.user.relationship}</div> 
+          <div>{this.props.member.user.gender}</div>
+          <div>{this.props.member.user.age}</div>
+          <div>{this.props.member.user.relationship}</div> 
           { this.props.creatorView ? 
             <div><button onClick={this.handleYes}>Yes</button>or<button onClick={this.handleNo}>No</button></div> : '' }
         </Card.Content>

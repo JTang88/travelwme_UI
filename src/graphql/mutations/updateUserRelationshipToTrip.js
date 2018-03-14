@@ -13,6 +13,7 @@ mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: 
       relationship
     }
     user_type
+    updatedAt
   }
 }
 `;

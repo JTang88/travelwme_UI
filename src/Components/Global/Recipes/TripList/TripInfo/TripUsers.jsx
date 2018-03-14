@@ -9,7 +9,7 @@ const TripUsers = props => (
         <div className="col-4">
           <UserCard 
             key={joiner.user.id} 
-            user={joiner} 
+            member={joiner} 
           /> 
         </div>))}
     </div>
@@ -20,7 +20,7 @@ const TripUsers = props => (
           <UserCard 
             tripId={props.tripId}
             key={interester.user.id} 
-            user={interester} 
+            member={interester} 
             creatorView={props.currentUser === 'C'}
           />
         </div>))}

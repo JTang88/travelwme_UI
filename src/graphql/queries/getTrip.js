@@ -34,6 +34,7 @@ query getTrip($id: Int!) {
         relationship
       }
       user_type
+      updatedAt
     }
   }
 }

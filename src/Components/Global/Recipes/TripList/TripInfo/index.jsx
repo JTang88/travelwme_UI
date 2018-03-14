@@ -27,11 +27,7 @@ class TripInfo extends Component {
   }
   
   render() {
-    // this.state.travelers ? console.log('this is currentUser in Cached: ', this.state.travelers.currentUserCachedInMembers) : '';
-    this.state.travelers ? 
-    console.log(this.state.travelers) : '';
-
-      // console.log(this.props.getTripQuery.getTrip.members[this.state.travelers.currentUserIndexInMembers]) : '';
+    console.log('this is prop in tripInfo: ', this.props);
     return (
       <div>
         { this.state.travelers ? 
@@ -39,13 +35,13 @@ class TripInfo extends Component {
             trip={this.props.getTripQuery.getTrip}
             currentUser={this.state.travelers.currentUser}
             userId={this.props.getCurrentUserQuery.getCurrentUser.id}
-            memberId={this.state.travelers.memberId}
+            currentMemberId={this.state.travelers.currentMemberId}
           /> : '' 
         }
         <div className="trippic">
           { this.state.travelers ? 
             <TripUsers 
-              tripId={this.props.match.params.id}
+              tripId={Number(this.props.match.params.id)}
               interesters={this.state.travelers.interesters}
               joiners={this.state.travelers.joiners} 
               currentUser={this.state.travelers.currentUser}
