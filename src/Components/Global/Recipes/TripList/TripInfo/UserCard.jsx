@@ -28,8 +28,7 @@ class UserCard extends Component {
     e.preventDefault();
     this.props.deleteAUserFromTripMutation({
       variables: {
-        userId: this.props.member.user.id,
-        tripId: this.props.tripId,
+        memberId: this.props.member.id,
       },
     });
     this.props.deleteAMemberFromCacheMutation({

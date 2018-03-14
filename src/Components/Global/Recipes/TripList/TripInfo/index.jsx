@@ -32,6 +32,7 @@ class TripInfo extends Component {
       <div>
         { this.state.travelers ? 
           <TripDetails 
+            tripId={Number(this.props.match.params.id)}
             trip={this.props.getTripQuery.getTrip}
             currentUser={this.state.travelers.currentUser}
             userId={this.props.getCurrentUserQuery.getCurrentUser.id}

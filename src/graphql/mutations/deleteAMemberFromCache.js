@@ -14,7 +14,7 @@ export const deleteAMemberFromCacheResolver = {
       }
     `;
     const current = cache.readFragment({ fragment, id });
-    const data = { ...current, user_type: 'C' };
+    const data = { ...current, user_type: 'D' };
     cache.writeFragment({ fragment, id, data });
   },
 };
