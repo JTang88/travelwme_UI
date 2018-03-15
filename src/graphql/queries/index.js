@@ -4,6 +4,6 @@ import { getCurrentUserDefault } from './getCurrentUser';
 
 export default merge(
   {},
-  { getCurrentTripDefault },
-  { getCurrentUserDefault },
+  getCurrentTripDefault,
+  getCurrentUserDefault,
 );

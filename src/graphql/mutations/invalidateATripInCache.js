@@ -11,15 +11,20 @@ export const invalidateATripInCache = gql`
 export const invalidateATripInCacheResolver = { 
   invalidateATripInCache: async (_, { userId, tripId, tripType }, { cache }) => {
     const query = tripType === 'waiting' ? getWaitingTrips : getJoinedTrips;
-    const queryName = tripType === 'waiting' ? 'getWaitingTrips' : 'getJoinedTrips';
-    const data = await cache.readQuery({ query, variables: { id: userId } });
-    for (let i = 0; i < data[queryName].length; i++) {
-      if (data[queryName][i].id === tripId) {
-        data[queryName][i].id = -1;
-        break;
+
+    try {
+      const queryName = tripType === 'waiting' ? 'getWaitingTrips' : 'getJoinedTrips';
+      const data = await cache.readQuery({ query, variables: { id: userId } });
+      for (let i = 0; i < data[queryName].length; i++) {
+        if (data[queryName][i].id === tripId) {
+          data[queryName][i].id = -1;
+          break;
+        }
       }
-    }
-    cache.writeQuery({ query, variables: { id: userId }, data });
+      cache.writeQuery({ query, variables: { id: userId }, data });
+    } catch (err) {
+      // leave empty on purpose;
+    }  
   },
 };
 
