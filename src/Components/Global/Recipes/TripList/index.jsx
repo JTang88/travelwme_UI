@@ -16,6 +16,9 @@ const TripList = (props) => {
                 <li>From: {trip.date_start}</li>
                 <li>To: {trip.date_end}</li>
                 <li>Cost {trip.cost}</li>
+                <li>{trip.interesters} travelers are interested</li>
+                <li>{trip.joiners} travelers have joined the trip</li>
+                <li>{trip.forSureGoing} travelers are for sure going </li>
               </ul>
             </div>
           </Link>

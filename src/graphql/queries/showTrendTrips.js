@@ -8,6 +8,9 @@ query showTrendTrips($id: Int!) {
     date_start
     date_end
     cost
+    interesters
+    joiners
+    forSureGoing
     creator {
       id
       publicId
