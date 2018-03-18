@@ -13,6 +13,7 @@ mutation interestedInATrip($userId: Int!, $tripId: Int!) {
       gender
       relationship
     }
+    forSureGoing
     user_type
     updatedAt
   }

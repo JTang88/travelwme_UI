@@ -52,6 +52,7 @@ class UserCard extends Component {
           <div>{this.props.member.user.gender}</div>
           <div>{this.props.member.user.age}</div>
           <div>{this.props.member.user.relationship}</div> 
+          <div>for Sure Going? {this.props.member.forSureGoing? 'true' : 'false' }</div> 
           { this.props.creatorView ? 
             <div><button onClick={this.handleYes}>Yes</button>or<button onClick={this.handleNo}>No</button></div> : '' }
         </Card.Content>

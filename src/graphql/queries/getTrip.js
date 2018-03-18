@@ -15,6 +15,9 @@ query getTrip($id: Int!) {
     relationship
     trip_status
     cost
+    interesters
+    joiners
+    forSureGoing
     creator {
       id
       username
@@ -33,6 +36,7 @@ query getTrip($id: Int!) {
         gender
         relationship
       }
+      forSureGoing
       user_type
       updatedAt
     }

@@ -6,6 +6,8 @@ import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteA
 import { invalidateATripInCache } from '../../../../../graphql/mutations/invalidateATripInCache';
 import { addNewlyInterestedTripToList } from '../../../../../graphql/mutations/addNewlyInterestedTripToList';
 import interestedInATrip from '../../../../../graphql/mutations/interestedInATrip';
+import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
+import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 import getTrip from '../../../../../graphql/queries/getTrip';
 
 class TripDetails extends Component {
@@ -13,9 +15,11 @@ class TripDetails extends Component {
     super(props);
     this.handleCancelRequestAndLeaveTrip = this.handleCancelRequestAndLeaveTrip.bind(this);
     this.handleAskToJoin = this.handleAskToJoin.bind(this);
+    this.handleForSureGoing = this.handleForSureGoing.bind(this);
   }
 
   handleCancelRequestAndLeaveTrip(tripType, e) {
+    const targetField = tripType === 'joined' ? 'joiners' : 'interesters';
     e.preventDefault();
     this.props.deleteAUserFromTripMutation({
       variables: {
@@ -35,9 +39,16 @@ class TripDetails extends Component {
         tripType,
       },
     });
+    this.props.updateTripStatMutation({
+      variables: {
+        tripId: this.props.tripId, 
+        field: targetField,
+        type: 'dec',
+      },
+    });
   }
 
-  handleAskToJoin(e) {
+  handleAskToJoin(e) {      
     e.preventDefault();
     this.props.interestedInATripMutation({
       variables: {
@@ -55,6 +66,30 @@ class TripDetails extends Component {
         userId: this.props.userId,        
         tripId: this.props.tripId,
         source: 'trend',
+      },
+    });
+    this.props.updateTripStatMutation({
+      variables: {
+        tripId: this.props.tripId, 
+        field: 'interesters',
+        type: 'inc',
+      },
+    });
+  }
+
+  handleForSureGoing(e) {
+    e.preventDefault();
+    this.props.forSureGoingMutation({
+      variables: {
+        memberId: this.props.currentMemberId, 
+        tripId: this.props.tripId,
+      },
+    });
+    this.props.updateTripStatMutation({
+      variables: {
+        tripId: this.props.tripId, 
+        field: 'forSureGoing',
+        type: 'inc',
       },
     });
   }
@@ -89,17 +124,20 @@ class TripDetails extends Component {
                 <div className="trippic">
                   <button>Edit This Trip</button>
                 </div> : 
-              this.props.currentUser === 'J' ? 
+              this.props.currentUser === 'J' && !this.props.currentMember.forSureGoing ? 
                 <div className="trippic">
                   <button onClick={e => this.handleCancelRequestAndLeaveTrip('joined', e)}>Leave This Trip</button>
+                  let the world know that you are for sure going
+                  <button onClick={this.handleForSureGoing}>for Sure Going!</button>
                 </div> :
               this.props.currentUser === 'I' ? 
                 <div className="trippic">
                   <button onClick={e => this.handleCancelRequestAndLeaveTrip('waiting', e)}>Cancel Request</button>
                 </div> :
+              this.props.currentUser === 'N' ?
                 <div className="trippic">
                   <button onClick={this.handleAskToJoin}>Ask to Join</button>
-                </div>
+                </div> : 'You are for sure going on this trip!'
             }
           </div>
         </div>
@@ -113,7 +151,9 @@ const WrapedTripDetails = compose(
   graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' }),
   graphql(invalidateATripInCache, { name: 'invalidateATripInCacheMutation' }),
   graphql(interestedInATrip, { name: 'interestedInATripMutation' }),
-  graphql(addNewlyInterestedTripToList, { name: 'addNewlyInterestedTripToListMutation' })
+  graphql(addNewlyInterestedTripToList, { name: 'addNewlyInterestedTripToListMutation' }),
+  graphql(forSureGoing, { name: 'forSureGoingMutation' }),
+  graphql(updateTripStat, { name: 'updateTripStatMutation' }),
 )(TripDetails);
 
 export default WrapedTripDetails;

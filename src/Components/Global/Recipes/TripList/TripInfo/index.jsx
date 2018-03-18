@@ -36,6 +36,7 @@ class TripInfo extends Component {
             trip={this.props.getTripQuery.getTrip}
             currentUser={this.state.travelers.currentUser}
             userId={this.props.getCurrentUserQuery.getCurrentUser.id}
+            currentMember={this.state.travelers.currentMember}
             currentMemberId={this.state.travelers.currentMemberId}
           /> : '' 
         }
