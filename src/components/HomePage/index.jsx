@@ -6,6 +6,7 @@ import TripInfo from '../Global/Recipes/TripList/TripInfo';
 import Created from '../HomePage/Trips/Created';
 import Joined from '../HomePage/Trips/Joined';
 import Waiting from '../HomePage/Trips/Waiting';
+import Going from '../HomePage/Trips/Going';
 // import PlanTrip from './PlanTrip';
 // import SearchTrip from './SearchTrip';
 // import Profile from './Profile';
@@ -22,6 +23,8 @@ function HomePage() {
         <Route path="/homepage/trips/created" component={Created} />
         <Route path="/homepage/trips/joined" component={Joined} />
         <Route path="/homepage/trips/waiting" component={Waiting} />
+        <Route path="/homepage/trips/going" component={Going} />
+
 
         {/* <Route path="/homepage/plantrip" component={PlanTrip} />
         <Route path="/homepage/searchtrip" component={SearchTrip} /> */}

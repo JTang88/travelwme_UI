@@ -17,6 +17,7 @@ const NavBar = () => (
             <Link to="/homepage/trips/created" href="/homepage/trips/created" className="dropdown-item">Created</Link>
             <Link to="/homepage/trips/joined" href="/homepage/trips/joined" className="dropdown-item">Joined</Link>
             <Link to="/homepage/trips/waiting" href="/homepage/trips/waiting" className="dropdown-item">Waiting</Link>
+            <Link to="/homepage/trips/going" href="/homepage/trips/going" className="dropdown-item">Going</Link>
           </div>
         </li>
         <Link to="/homepage/profile" href="/homepage/profile" className="nav-item nav-link">Profile</Link>
