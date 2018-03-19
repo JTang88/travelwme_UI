@@ -9,6 +9,7 @@ import interestedInATrip from '../../../../../graphql/mutations/interestedInATri
 import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
 import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 import getTrip from '../../../../../graphql/queries/getTrip';
+import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/moveAJoinedTripToGoingList';
 
 class TripDetails extends Component {
   constructor(props) {
@@ -77,7 +78,7 @@ class TripDetails extends Component {
     });
   }
 
-  handleForSureGoing(e) {
+  async handleForSureGoing(tripType, e) {
     e.preventDefault();
     this.props.forSureGoingMutation({
       variables: {
@@ -90,6 +91,19 @@ class TripDetails extends Component {
         tripId: this.props.tripId, 
         field: 'forSureGoing',
         type: 'inc',
+      },
+    });
+    await this.props.moveAJoinedTripToGoingListMutation({
+      variables: {
+        userId: this.props.userId,        
+        tripId: this.props.tripId,      
+      },
+    });
+    this.props.invalidateATripInCacheMutation({
+      variables: {
+        userId: this.props.userId,        
+        tripId: this.props.tripId,
+        tripType,
       },
     });
   }
@@ -128,7 +142,7 @@ class TripDetails extends Component {
                 <div className="trippic">
                   <button onClick={e => this.handleCancelRequestAndLeaveTrip('joined', e)}>Leave This Trip</button>
                   let the world know that you are for sure going
-                  <button onClick={this.handleForSureGoing}>for Sure Going!</button>
+                  <button onClick={e => this.handleForSureGoing('joined', e)}>for Sure Going!</button>
                 </div> :
               this.props.currentUser === 'I' ? 
                 <div className="trippic">
@@ -154,6 +168,7 @@ const WrapedTripDetails = compose(
   graphql(addNewlyInterestedTripToList, { name: 'addNewlyInterestedTripToListMutation' }),
   graphql(forSureGoing, { name: 'forSureGoingMutation' }),
   graphql(updateTripStat, { name: 'updateTripStatMutation' }),
+  graphql(moveAJoinedTripToGoingList, { name: 'moveAJoinedTripToGoingListMutation' }),
 )(TripDetails);
 
 export default WrapedTripDetails;

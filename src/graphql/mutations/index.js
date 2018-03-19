@@ -5,6 +5,7 @@ import { updateCurrentUserRelationToTripResolver } from './updateCurrentUserRela
 import { deleteAMemberFromCacheResolver } from './deleteAMemberFromCache';
 import { invalidateATripInCacheResolver } from './invalidateATripInCache';
 import { addNewlyInterestedTripToListResolver } from './addNewlyInterestedTripToList';
+import { moveAJoinedTripToGoingListResolver } from './moveAJoinedTripToGoingList';
 
 export default merge(
   {},
@@ -14,4 +15,5 @@ export default merge(
   deleteAMemberFromCacheResolver,
   invalidateATripInCacheResolver,
   addNewlyInterestedTripToListResolver,
+  moveAJoinedTripToGoingListResolver,
 );

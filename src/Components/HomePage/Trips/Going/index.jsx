@@ -14,7 +14,7 @@ const Going = (props) => {
   );
 };
 
-const WrapedForSureGoing = compose(
+const WrapedGoing = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
   }),
@@ -24,4 +24,4 @@ const WrapedForSureGoing = compose(
   }),
 )(Going);
 
-export default Going;
+export default WrapedGoing;
