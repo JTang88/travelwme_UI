@@ -6,6 +6,7 @@ import { deleteAMemberFromCacheResolver } from './deleteAMemberFromCache';
 import { invalidateATripInCacheResolver } from './invalidateATripInCache';
 import { addNewlyInterestedTripToListResolver } from './addNewlyInterestedTripToList';
 import { moveAJoinedTripToGoingListResolver } from './moveAJoinedTripToGoingList';
+import { updateCurrentSearchTermsResolver } from './updateCurrentSearchTerms';
 
 export default merge(
   {},
@@ -16,4 +17,5 @@ export default merge(
   invalidateATripInCacheResolver,
   addNewlyInterestedTripToListResolver,
   moveAJoinedTripToGoingListResolver,
+  updateCurrentSearchTermsResolver,
 );

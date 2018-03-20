@@ -8,7 +8,7 @@ const NavBar = () => (
       <div className="navbar-nav">
         <Link to="/homepage" href="/homepage" className="nav-item nav-link">Home</Link>
         <Link to="/homepage/plantrip" href="/homepage/plantrip" className="nav-item nav-link">Plan Trip</Link>
-        <Link to="/homepage/searchtrip" href="/homepage/searchtrip" className="nav-item nav-link">Search Trip</Link>
+        <Link to="/homepage/searchtrips" href="/homepage/searchtrips" className="nav-item nav-link">Search Trip</Link>
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="/homepage/mytrip" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Trips

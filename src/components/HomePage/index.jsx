@@ -8,7 +8,8 @@ import Joined from '../HomePage/Trips/Joined';
 import Waiting from '../HomePage/Trips/Waiting';
 import Going from '../HomePage/Trips/Going';
 // import PlanTrip from './PlanTrip';
-// import SearchTrip from './SearchTrip';
+import SearchTrips from './SearchTrips';
+import FoundTrips from './SearchTrips/FoundTrips';
 // import Profile from './Profile';
 import TrendTrips from './TrendTrips';
 
@@ -24,10 +25,9 @@ function HomePage() {
         <Route path="/homepage/trips/joined" component={Joined} />
         <Route path="/homepage/trips/waiting" component={Waiting} />
         <Route path="/homepage/trips/going" component={Going} />
-
-
-        {/* <Route path="/homepage/plantrip" component={PlanTrip} />
-        <Route path="/homepage/searchtrip" component={SearchTrip} /> */}
+        <Route exact path="/homepage/searchtrips" component={SearchTrips} />
+        <Route path="/homepage/searchtrips/foundtrips" component={FoundTrips} />
+        {/* <Route path="/homepage/plantrip" component={PlanTrip} /> */}
         {/* <Route path="/homepage/trips" component={Trips} /> */}
         {/* <Route path="/homepage/profile" component={Profile} /> */}
       </Switch>
