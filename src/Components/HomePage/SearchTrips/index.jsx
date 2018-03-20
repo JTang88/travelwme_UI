@@ -41,7 +41,8 @@ class SearchTrips extends Component {
     this.setState({ keys: newSelectionArray }, () => console.log('selection', this.state));
   }
   
-  async handleSearch() {
+  async handleSearch(e) {
+    e.preventDefault();
     console.log('it is hitting handle search');
     const terms = {
       userId: this.props.getCurrentUserQuery.getCurrentUser.id,
@@ -52,12 +53,12 @@ class SearchTrips extends Component {
       keys: JSON.stringify(this.state.keys),
     };
    
-    // console.log({...terms});
-    // await this.props.updateCurrentSearchTermsMutation({
-    //   variables: {
-    //     ...terms,
-    //   },
-    // });
+    console.log({...terms});
+    await this.props.updateCurrentSearchTermsMutation({
+      variables: {
+        ...terms,
+      },
+    });
 
     this.props.history.push('/homepage/searchtrips/foundtrips');
   }
