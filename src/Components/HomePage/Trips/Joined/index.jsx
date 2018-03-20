@@ -9,9 +9,15 @@ const Joined = (props) => {
   return (
     <div>
       <div>Trips I Joined</div>
-      { props.getJoinedTripsQuery.loading ? '' : <TripList trips={props.getJoinedTripsQuery.getJoinedTrips} /> }
+      { 
+        props.getJoinedTripsQuery.loading ? '' : 
+        <TripList 
+          trips={props.getJoinedTripsQuery.getJoinedTrips} 
+          from={props.location.pathname}
+        /> 
+      }
     </div>
-  )
+  );
 };
 
 const WrapedJoined = compose(

@@ -9,7 +9,13 @@ const Going = (props) => {
   return (
     <div>
       <div>Trips I am For Sure Going</div>
-      { props.getForSureGoingTripsQuery.loading ? '' : <TripList trips={props.getForSureGoingTripsQuery.getForSureGoingTrips} /> }
+      { 
+        props.getForSureGoingTripsQuery.loading ? '' : 
+        <TripList 
+          trips={props.getForSureGoingTripsQuery.getForSureGoingTrips} 
+          from={props.location.pathname}
+        /> 
+      }
     </div>
   );
 };

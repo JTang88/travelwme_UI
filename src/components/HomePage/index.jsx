@@ -20,13 +20,14 @@ function HomePage() {
       <NavBar />
       <Switch>
         <Route exact path="/homepage" component={TrendTrips} />
-        <Route path="/homepage/trips/tripinfo/:id" component={TripInfo} />
-        <Route path="/homepage/trips/created" component={Created} />
-        <Route path="/homepage/trips/joined" component={Joined} />
-        <Route path="/homepage/trips/waiting" component={Waiting} />
-        <Route path="/homepage/trips/going" component={Going} />
+        <Route path="/homepage/:tripType/tripinfo/:id" component={TripInfo} />
+        <Route path="/homepage/created" component={Created} />
+        <Route path="/homepage/joined" component={Joined} />
+        <Route path="/homepage/waiting" component={Waiting} />
+        <Route path="/homepage/going" component={Going} />
+
         <Route exact path="/homepage/searchtrips" component={SearchTrips} />
-        <Route path="/homepage/searchtrips/foundtrips" component={FoundTrips} />
+        <Route path="/homepage/foundtrips" component={FoundTrips} />
         {/* <Route path="/homepage/plantrip" component={PlanTrip} /> */}
         {/* <Route path="/homepage/trips" component={Trips} /> */}
         {/* <Route path="/homepage/profile" component={Profile} /> */}

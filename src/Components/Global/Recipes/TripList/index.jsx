@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 
 const TripList = (props) => {
   console.log('this is props in TripList: ', props);
+  const tripType = props.from === '/homepage' ? 'trend' : 
+    props.from === '/homepage/created' ? 'creted' :
+      props.from === '/homepage/joined' ? 'joined' :
+        props.from === '/homepage/going' ? 'going' :
+          props.from === '/homepage/waiting' ? 'waiting' : 'found';
   return props.trips.map((trip) => { 
     return trip.id > 0 ? (
       <div key={trip.id} >
         <div>
           <Image cloudName="travelwme" publicId={trip.creator.publicId} /> 
-          <Link to={`/homepage/trips/tripinfo/${trip.id}`} href={`/homepage/trips/tripinfo/${trip.id}`}>
+          <Link to={`/homepage/${tripType}/tripinfo/${trip.id}`} href={`/homepage/${tripType}/tripinfo/${trip.id}`}>
             <h3>{trip.title}</h3>
             <div>
               <ul>

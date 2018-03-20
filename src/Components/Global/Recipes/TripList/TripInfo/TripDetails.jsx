@@ -10,6 +10,8 @@ import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
 import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 import getTrip from '../../../../../graphql/queries/getTrip';
 import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/moveAJoinedTripToGoingList';
+import { getCurrentSearchTerms } from '../../../../../graphql/queries/getCurrentSearchTerms';
+import { addFoundTripToList } from '../../../../../graphql/mutations/addFoundTripToList';
 
 class TripDetails extends Component {
   constructor(props) {
@@ -62,13 +64,23 @@ class TripDetails extends Component {
         proxy.writeQuery({ query: getTrip, variables: { id: this.props.tripId }, data });
       },
     });
-    this.props.addNewlyInterestedTripToListMutation({
-      variables: {
-        userId: this.props.userId,        
-        tripId: this.props.tripId,
-        source: 'trend',
-      },
-    });
+
+    if (this.props.tripType === 'trend') {
+      this.props.addNewlyInterestedTripToListMutation({
+        variables: {
+          userId: this.props.userId,        
+          tripId: this.props.tripId,
+        },
+      });
+    } else {
+      this.props.addFoundTripToListMutation({
+        variables: {
+          ...this.props.getCurrentSearchTermsQuery.getCurrentSearchTerms,
+          tripId: this.props.tripId,
+        },
+      });
+    }
+
     this.props.updateTripStatMutation({
       variables: {
         tripId: this.props.tripId, 
@@ -168,7 +180,9 @@ const WrapedTripDetails = compose(
   graphql(addNewlyInterestedTripToList, { name: 'addNewlyInterestedTripToListMutation' }),
   graphql(forSureGoing, { name: 'forSureGoingMutation' }),
   graphql(updateTripStat, { name: 'updateTripStatMutation' }),
+  graphql(getCurrentSearchTerms, { name: 'getCurrentSearchTermsQuery' }),
   graphql(moveAJoinedTripToGoingList, { name: 'moveAJoinedTripToGoingListMutation' }),
+  graphql(addFoundTripToList, { name: 'addFoundTripToListMutation' }),
 )(TripDetails);
 
 export default WrapedTripDetails;

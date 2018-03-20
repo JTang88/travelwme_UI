@@ -9,9 +9,15 @@ const Created = (props) => {
   return (
     <div>
       <div>Trips I created</div>
-      { props.getCreatedTripsQuery.loading ? '' : <TripList trips={props.getCreatedTripsQuery.getCreatedTrips} /> }
+      { 
+        props.getCreatedTripsQuery.loading ? '' : 
+        <TripList 
+          trips={props.getCreatedTripsQuery.getCreatedTrips} 
+          from={props.location.pathname}
+        /> 
+      }
     </div>
-  )
+  );
 };
 
 const WrapedCreated = compose(

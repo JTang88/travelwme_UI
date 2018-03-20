@@ -7,6 +7,7 @@ import { invalidateATripInCacheResolver } from './invalidateATripInCache';
 import { addNewlyInterestedTripToListResolver } from './addNewlyInterestedTripToList';
 import { moveAJoinedTripToGoingListResolver } from './moveAJoinedTripToGoingList';
 import { updateCurrentSearchTermsResolver } from './updateCurrentSearchTerms';
+import { addFoundTripToListResolver } from './addFoundTripToList';
 
 export default merge(
   {},
@@ -18,4 +19,5 @@ export default merge(
   addNewlyInterestedTripToListResolver,
   moveAJoinedTripToGoingListResolver,
   updateCurrentSearchTermsResolver,
+  addFoundTripToListResolver,
 );

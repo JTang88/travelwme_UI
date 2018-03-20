@@ -8,7 +8,13 @@ const Waiting = (props) => {
   return (
     <div>
       <div>Trips I Waiting</div>
-      { props.getWaitingTripsQuery.loading ? '' : <TripList trips={props.getWaitingTripsQuery.getWaitingTrips} /> }
+      { 
+        props.getWaitingTripsQuery.loading ? '' : 
+        <TripList 
+          trips={props.getWaitingTripsQuery.getWaitingTrips} 
+          from={props.location.pathname}
+        /> 
+      }
     </div>
   );
 };

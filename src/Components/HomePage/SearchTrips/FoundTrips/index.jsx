@@ -8,7 +8,13 @@ const FoundTrips = (props) => {
   return (
     <div>
       <div>Trips we found for you</div>
-      { props.searchTripsQuery.loading ? '' : <TripList trips={props.searchTripsQuery.searchTrips} /> }
+      { 
+        props.searchTripsQuery.loading ? '' : 
+        <TripList 
+          trips={props.searchTripsQuery.searchTrips} 
+          from={props.location.pathname}
+        /> 
+      }
     </div>
   );
 };

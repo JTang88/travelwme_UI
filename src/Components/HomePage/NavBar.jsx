@@ -14,10 +14,10 @@ const NavBar = () => (
           Trips
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <Link to="/homepage/trips/created" href="/homepage/trips/created" className="dropdown-item">Created</Link>
-            <Link to="/homepage/trips/joined" href="/homepage/trips/joined" className="dropdown-item">Joined</Link>
-            <Link to="/homepage/trips/waiting" href="/homepage/trips/waiting" className="dropdown-item">Waiting</Link>
-            <Link to="/homepage/trips/going" href="/homepage/trips/going" className="dropdown-item">Going</Link>
+            <Link to="/homepage/created" href="/homepage/created" className="dropdown-item">Created</Link>
+            <Link to="/homepage/joined" href="/homepage/joined" className="dropdown-item">Joined</Link>
+            <Link to="/homepage/waiting" href="/homepage/waiting" className="dropdown-item">Waiting</Link>
+            <Link to="/homepage/going" href="/homepage/going" className="dropdown-item">Going</Link>
           </div>
         </li>
         <Link to="/homepage/profile" href="/homepage/profile" className="nav-item nav-link">Profile</Link>

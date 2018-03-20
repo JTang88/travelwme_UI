@@ -60,7 +60,7 @@ class SearchTrips extends Component {
       },
     });
 
-    this.props.history.push('/homepage/searchtrips/foundtrips');
+    this.props.history.push('/homepage/foundtrips');
   }
 
   render() {
