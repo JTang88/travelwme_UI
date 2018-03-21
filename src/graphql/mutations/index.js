@@ -8,6 +8,7 @@ import { addNewlyInterestedTripToListResolver } from './addNewlyInterestedTripTo
 import { moveAJoinedTripToGoingListResolver } from './moveAJoinedTripToGoingList';
 import { updateCurrentSearchTermsResolver } from './updateCurrentSearchTerms';
 import { addFoundTripToListResolver } from './addFoundTripToList';
+import { updateSearchStateResolver } from './updateSearchState';
 
 export default merge(
   {},
@@ -20,4 +21,5 @@ export default merge(
   moveAJoinedTripToGoingListResolver,
   updateCurrentSearchTermsResolver,
   addFoundTripToListResolver,
+  updateSearchStateResolver,
 );

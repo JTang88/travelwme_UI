@@ -13,6 +13,7 @@ const FoundTrips = (props) => {
         <TripList 
           trips={props.searchTripsQuery.searchTrips} 
           from={props.location.pathname}
+          {...props}
         /> 
       }
     </div>

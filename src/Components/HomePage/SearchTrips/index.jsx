@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 import SingleInput from '../../Global/Forms/SingleInput';
 import RadioGroup from '../../Global/Forms/RadioGroup';
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
+import { searchState } from '../../../graphql/queries/searchState';
 import { updateCurrentSearchTerms } from '../../../graphql/mutations/updateCurrentSearchTerms';
+import { updateSearchState } from '../../../graphql/mutations/updateSearchState';
 
 
 class SearchTrips extends Component {
@@ -59,13 +62,19 @@ class SearchTrips extends Component {
         ...terms,
       },
     });
-
+ 
+    this.props.updateSearchStateMutation({
+      variables: {
+        searched: true, 
+      },
+    });
     this.props.history.push('/homepage/foundtrips');
   }
 
   render() {
     console.log('here is the props in searchTrips: ', this.props);
     return (
+      this.props.searchStateQuery.searchState.searched === true ? <Redirect to={{ pathname: '/homepage/foundtrips' }} /> : 
       <div>
         <div>
           <form>
@@ -125,6 +134,12 @@ const WrapedSearchTrips = compose(
   }),
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+  }),
+  graphql(searchState, {
+    name: 'searchStateQuery',
+  }),
+  graphql(updateSearchState, {
+    name: 'updateSearchStateMutation',
   }),
 )(SearchTrips);
 
