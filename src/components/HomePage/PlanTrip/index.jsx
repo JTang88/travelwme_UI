@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import { connect } from 'react-redux';
-import SingleInput from '../FormComponents/SingleInput';
-import TextArea from '../FormComponents/TextArea';
-import Select from '../FormComponents/Select';
-import RadioGroup from '../FormComponents/RadioGroup';
-
-import UploadTrip from '../FormComponents/UploadTrip';
+import SingleInput from '../../Global/Forms/SingleInput';
+import TextArea from '../../Global/Forms/TextArea';
+import Select from '../../Global/Forms/Select';
+import getCreatedTrips from '../../../graphql/queries/getCreatedTrips';
+import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
+import RadioGroup from '../../Global/Forms/RadioGroup';
+import createTrip from '../../../graphql/mutations/createTrip';
 
 class PlanTrip extends Component {
   constructor(props) {
@@ -32,22 +31,11 @@ class PlanTrip extends Component {
       relationshipSelected: '',
       keywordOptions: ['Adventurer', 'Backpacker', 'Explorer', 'Gourmet', 'Historian', 'Luxury'],
       keys: [],
-      publicId: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBodyTypeSelection = this.handleBodyTypeSelection.bind(this);
     this.handleKeywordSelection = this.handleKeywordSelection.bind(this);
-    this.testFunc = this.testFunc.bind(this);
-    this.getpublicId = this.getpublicId.bind(this);
-  }
-
-
-  getpublicId(pid) {
-    this.setState({
-      publicId: pid,
-    });
   }
 
   handleBodyTypeSelection(e) {
@@ -58,7 +46,7 @@ class PlanTrip extends Component {
     } else {
       newSelectionArray = [...this.state.body_types, newSelection];
     }
-    this.setState({ body_types: newSelectionArray }, () => console.log('selection', this.state.body_types));
+    this.setState({ body_types: newSelectionArray }, () => console.log('selection', this.state));
   }
 
 
@@ -70,12 +58,7 @@ class PlanTrip extends Component {
     } else {
       newSelectionArray = [...this.state.keys, newSelection];
     }
-    this.setState({ keys: newSelectionArray }, () => console.log('selection', this.state.keys));
-  }
-  
-  handleClearForm(event) {
-    event.preventDefault();
-    this.setState({});
+    this.setState({ keys: newSelectionArray }, () => console.log('selection', this.state));
   }
 
   handleInputChange(event) {
@@ -86,7 +69,11 @@ class PlanTrip extends Component {
   }
 
   handleSubmit() {
-    this.props.mutate({
+    this.props.createTripMutation({
+      refetchQueries: [{
+        query: getCreatedTrips,
+        variables: { id: this.props.getCurrentUserQuery.getCurrentUser.id },
+      }],
       variables: {
         title: this.state.title,
         description: this.state.description,
@@ -98,52 +85,21 @@ class PlanTrip extends Component {
         age_end: this.state.ageEndSelected,
         relationship: this.state.relationshipSelected,
         trip_status: 'open',
-        userId: this.props.auth.user.id,
+        creatorId: this.props.getCurrentUserQuery.getCurrentUser.id,
+        interesters: 0,
+        joiners: 0,
+        forSureGoing: 1,
         keys: JSON.stringify(this.state.keys),
         body_types: JSON.stringify(this.state.body_types),
         trip_keywords: JSON.stringify(this.state.keys),
-        publicId: this.state.publicId,
       },
     });
   }
-
-  testFunc() {
-    this.props.mutate({
-      variables: {
-        title: 'TEST FINAL',
-        description: 'some description2',
-        cost: 2000,
-        date_start: '11-12-2017',
-        date_end: '01-02-2018',
-        gender: 'All',
-        age_start: 25,
-        age_end: 35,
-        relationship: 'single',
-        trip_status: 'open',
-        userId: 2,
-        keys: JSON.stringify([1, 2]),
-        body_types: JSON.stringify([1, 2, 3]),
-        publicId: this.state.publicId,
-      },
-    });
-  }
-
 
   render() {
     return (
       <div>
         <h1 className="text-center">Plan Trip Form</h1>
-        
-        <div className="row justify-content-center align-self-center">
-          {this.state.publicId ? 
-            <div>
-              <Image cloudName="travelwme" className="rounded mx-auto d-block img-thumbnail" publicId={this.state.publicId} />
-            </div> : 
-            <div> 
-              <UploadTrip getpublicId={this.getpublicId} />
-            </div>}
-        </div>
-
         <div className="row">
           <div className="col-md-12 text-center">
             <form className="formplan">
@@ -196,7 +152,6 @@ class PlanTrip extends Component {
                 name="ageStartSelected"
                 placeholder="Choose your age range"
                 handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
                 options={this.state.ageRangeStart}
                 selectedOption={this.state.age}
               />
@@ -204,7 +159,6 @@ class PlanTrip extends Component {
                 name="ageEndSelected"
                 placeholder="Choose your age range"
                 handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
                 options={this.state.ageRangeEnd}
                 selectedOption={this.state.age}
               />
@@ -213,7 +167,6 @@ class PlanTrip extends Component {
                 name="relationshipSelected"
                 placeholder="Choose your relationship status"
                 handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
                 options={this.state.relationshipOptions}
                 selectedOption={this.state.relationship}
               />
@@ -222,7 +175,6 @@ class PlanTrip extends Component {
                 name="genderSelected"
                 placeholder="Choose your gender"
                 handleFunc={this.handleInputChange}
-            // options={this.state.ageSelected ? this.state.ageSelected : this.state.ageRange}
                 options={this.state.genderOptions}
                 selectedOption={this.state.gender}
               />
@@ -242,65 +194,25 @@ class PlanTrip extends Component {
                 options={this.state.keywordOptions}
                 selectedOptions={this.state.keys}
               />
-
             </form>
             <Link to="/" href="/">
               <button className="btn btn-outline-info text-center" onClick={this.handleSubmit}>Create Trip</button>
             </Link>
           </div>
         </div>
-        {/* <button className="btn btn-outline-info"onClick={this.testFunc}>test</button> */}
       </div>
     );
   }
 }
 
+const WrapedPlanTrip = compose(
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery',
+  }),
+  graphql(createTrip, {
+    name: 'createTripMutation',
+  }),
+)(PlanTrip);
 
-const createTrip = gql`
-mutation createTrip(
-  $title: String!, 
-  $description: String!, 
-  $cost: Int, 
-  $date_start: String, 
-  $date_end: String, 
-  $gender: String!,
-  $age_start: Int!,
-  $age_end: Int!, 
-  $relationship: String!, 
-  $trip_status: String!,
-  $keys: String,
-  $body_types: String,
-  $trip_keywords: String,
-  $userId: Int!,
-  $publicId: String) {
-    createTrip(
-      title: $title, 
-      description: $description,
-      cost: $cost, 
-      date_start: $date_start, 
-      date_end: $date_end, 
-      gender: $gender, 
-      age_start: $age_start,
-      age_end: $age_end, 
-      relationship: $relationship, 
-      trip_status: $trip_status,
-      keys: $keys,
-      body_types: $body_types,
-      trip_keywords: $trip_keywords,
-      userId: $userId,
-      publicId: $publicId){
-        id
-      } 
-  }
-  `;
-
-function mapStateToProps(state) {
-  return {
-    auth: state.auth,
-  };
-}
-
-const PlanTripSaveData = graphql(createTrip)(PlanTrip);
-
-export default connect(mapStateToProps)(PlanTripSaveData);
+export default WrapedPlanTrip;
 

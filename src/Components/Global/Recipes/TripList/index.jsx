@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import { graphql } from 'react-apollo';
 import { Image } from 'cloudinary-react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { updateSearchState } from '../../../../graphql/mutations/updateSearchState';
 
 
