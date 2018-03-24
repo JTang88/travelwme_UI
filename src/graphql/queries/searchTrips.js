@@ -11,6 +11,8 @@ query searchTrips($userId: Int!, $cost_start: Int!, $cost_end: Int!, $date_start
     interesters
     joiners
     forSureGoing
+    countries
+    continents
     creator {
       id
       publicId

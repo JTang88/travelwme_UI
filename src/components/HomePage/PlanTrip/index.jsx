@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import SingleInput from '../../Global/Forms/SingleInput';
 import TextArea from '../../Global/Forms/TextArea';
 import Select from '../../Global/Forms/Select';
+import { countries, continentTable } from '../../../services/country-continent';
 import getCreatedTrips from '../../../graphql/queries/getCreatedTrips';
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import RadioGroup from '../../Global/Forms/RadioGroup';
@@ -30,13 +30,35 @@ class PlanTrip extends Component {
       relationshipOptions: ['single', 'commited', 'it\'s complicated', 'married'],
       relationshipSelected: '',
       keywordOptions: ['Adventurer', 'Backpacker', 'Explorer', 'Gourmet', 'Historian', 'Luxury'],
+      countriesOptions: countries,
       keys: [],
+      countries: [],
+      continents: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBodyTypeSelection = this.handleBodyTypeSelection.bind(this);
     this.handleKeywordSelection = this.handleKeywordSelection.bind(this);
+    this.handleContriesSelection = this.handleContriesSelection.bind(this);
   }
+
+  handleContriesSelection(e) {
+    const { continents } = this.state;
+    const { countries } = this.state;
+    const newCountry = [];
+    const newContinent = [];
+    const foundContinent = continentTable[e.target.value];
+    newCountry.push(e.target.value);
+    
+    if (this.state.continents.indexOf(foundContinent) === -1) {
+      newContinent.push(foundContinent);
+    }
+    this.setState({
+      countries: countries.concat(newCountry),
+      continents: continents.concat(newContinent),
+    }, () => console.log(this.state));
+  }
+
 
   handleBodyTypeSelection(e) {
     const newSelection = e.target.value;
@@ -89,6 +111,8 @@ class PlanTrip extends Component {
         interesters: 0,
         joiners: 0,
         forSureGoing: 1,
+        countries: JSON.stringify(this.state.countries),
+        continents: JSON.stringify(this.state.continents),
         keys: JSON.stringify(this.state.keys),
         body_types: JSON.stringify(this.state.body_types),
         trip_keywords: JSON.stringify(this.state.keys),
@@ -103,6 +127,13 @@ class PlanTrip extends Component {
         <div className="row">
           <div className="col-md-12 text-center">
             <form className="formplan">
+              <Select
+                name="countriesSelected"
+                placeholder="select a country/countries"
+                handleFunc={this.handleContriesSelection}
+                options={this.state.countriesOptions}
+                selectedOptions={this.state.countries}
+              /> 
               <SingleInput
                 type="text"
                 name="title"
@@ -215,4 +246,3 @@ const WrapedPlanTrip = compose(
 )(PlanTrip);
 
 export default WrapedPlanTrip;
-

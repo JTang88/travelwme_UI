@@ -18,6 +18,8 @@ mutation createTrip(
   $forSureGoing: Int,
   $body_types: String,
   $trip_keywords: String,
+  $countries: String!,
+  $continents: String!,
   $creatorId: Int!) {
     createTrip(
       title: $title, 
@@ -36,6 +38,8 @@ mutation createTrip(
       forSureGoing: $forSureGoing
       body_types: $body_types,
       trip_keywords: $trip_keywords,
+      countries: $countries,
+      continents: $continents,
       creatorId: $creatorId){
         id
       } 

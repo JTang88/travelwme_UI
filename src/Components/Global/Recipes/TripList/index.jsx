@@ -37,6 +37,7 @@ class TripList extends Component {
                     <h3>{trip.title}</h3>
                     <div>
                       <ul>
+                        <li>{`Come join ${trip.creator.username} for a trip to ${JSON.parse(trip.countries).join(' ')}`} </li>
                         <li>From: {trip.date_start}</li>
                         <li>To: {trip.date_end}</li>
                         <li>Cost {trip.cost}</li>

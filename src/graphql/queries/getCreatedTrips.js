@@ -11,6 +11,8 @@ query getCreatedTrips($id: Int!) {
     interesters
     joiners
     forSureGoing
+    countries
+    continents
     creator {
       id
       publicId
@@ -20,3 +22,4 @@ query getCreatedTrips($id: Int!) {
 }`;
 
 export default getCreatedTrips;
+

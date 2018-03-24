@@ -11,6 +11,8 @@ query getWaitingTrips($id: Int!) {
     interesters
     joiners
     forSureGoing
+    countries
+    continents
     creator {
       id
       publicId

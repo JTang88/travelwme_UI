@@ -11,6 +11,8 @@ query getForSureGoingTrips($id: Int!) {
     interesters
     joiners
     forSureGoing
+    countries
+    continents
     creator {
       id
       publicId

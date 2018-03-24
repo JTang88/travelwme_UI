@@ -18,6 +18,8 @@ query getTrip($id: Int!) {
     interesters
     joiners
     forSureGoing
+    countries
+    continents
     creator {
       id
       username
