@@ -8,6 +8,8 @@ export const updateCurrentSearchTerms = gql`
     $date_start: String!,  
     $date_end: String!, 
     $keys: String!
+    $country: String,
+    $continent: String,
    ) {
     updateCurrentSearchTerms(
       userId: $userId,
@@ -15,13 +17,16 @@ export const updateCurrentSearchTerms = gql`
       cost_end: $cost_end, 
       date_start: $date_start, 
       date_end: $date_end,
-      keys: $keys 
+      keys: $keys,
+      country: $country,
+      continent: $continent
+
     ) @client
   }`;
 
 export const updateCurrentSearchTermsResolver = { 
-  updateCurrentSearchTerms: async (_, { userId, cost_start, cost_end, date_start, date_end, keys }, { cache }) => {
-    console.log('did it even hit here');
+  updateCurrentSearchTerms: async (_, { userId, cost_start, cost_end, date_start, date_end, keys, country, continent }, { cache }) => {
+    console.log('here is country', country);
     const data = {
       getCurrentSearchTerms: {
         __typename: 'getCurrentSearchTerms',
@@ -31,6 +36,8 @@ export const updateCurrentSearchTermsResolver = {
         date_start, 
         date_end, 
         keys,
+        country,
+        continent,
       },
     };
     cache.writeData({ data });

@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 const getTrip = gql`
 query getTrip($id: Int!) {
   getTrip(id: $id) {
+    countries
     description
     title
     gender

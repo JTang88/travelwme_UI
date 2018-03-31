@@ -5,6 +5,8 @@ import getWaitingTrips from '../queries/getWaitingTrips';
 
 export const addFoundTripToList = gql`
   mutation addFoundTripToList(
+    $country: String,
+    $continent: String,
     $userId: Int!, 
     $tripId: Int!,
     $cost_start: Int!,
@@ -14,6 +16,8 @@ export const addFoundTripToList = gql`
     $keys: String!
   ) {
     addFoundTripToList(
+      country: $country,
+      continent: $continent,
       userId: $userId, 
       tripId: $tripId,
       cost_start: $cost_start,
@@ -26,7 +30,7 @@ export const addFoundTripToList = gql`
 
 export const addFoundTripToListResolver = { 
   addFoundTripToList: (_, args, { cache }) => {
-    const variables = pick(args, ['userId', 'cost_start', 'cost_end', 'date_start', 'date_end', 'keys']);
+    const variables = pick(args, ['country', 'continent', 'userId', 'cost_start', 'cost_end', 'date_start', 'date_end', 'keys']);
     const sourceData = cache.readQuery({ query, variables });
 
     try {

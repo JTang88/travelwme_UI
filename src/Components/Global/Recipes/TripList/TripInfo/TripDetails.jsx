@@ -134,6 +134,7 @@ class TripDetails extends Component {
             <Image cloudName="travelwme" className="rounded trippic" publicId={this.props.trip.creator.publicId} />
           </div>
           <div className="col-4 trippic">
+            <h4>Country: {JSON.parse(this.props.trip.countries).join(' ')}</h4>
             <h4>Description: {this.props.trip.description}</h4>
             <h4>Age start: {this.props.trip.age_start}</h4>
             <h4>Age end: {this.props.trip.age_end}</h4>

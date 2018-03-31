@@ -9,6 +9,8 @@ export const getCurrentSearchTerms = gql`
       date_start
       date_end
       keys
+      country
+      continent
     }
   }`;
 export const getCurrentSearchTermsDefault = {
@@ -20,5 +22,7 @@ export const getCurrentSearchTermsDefault = {
     date_start: '01-01-1000',
     date_end: '01-01-1001',
     keys: '[]',
+    country: null,
+    continent: null,
   },
 };

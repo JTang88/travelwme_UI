@@ -7,6 +7,8 @@ import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import { searchState } from '../../../graphql/queries/searchState';
 import { updateCurrentSearchTerms } from '../../../graphql/mutations/updateCurrentSearchTerms';
 import { updateSearchState } from '../../../graphql/mutations/updateSearchState';
+import Select from '../../Global/Forms/Select';
+import { countries, continents } from '../../../services/country-continent';
 
 
 class SearchTrips extends Component {
@@ -19,12 +21,23 @@ class SearchTrips extends Component {
       dateEnd: '',
       keywordOptions: ['Adventurer', 'Backpacker', 'Explorer', 'Gourmet', 'Historian', 'Luxury'],
       keys: [],
+      searchByOptions: ['Country', 'Continent'],
+      searchBy: '',
+      countryOptions: countries,
+      country: '',
+      continentOptions: continents,
+      continent: '',
     };
+    this.handleLocationSelection = this.handleLocationSelection.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleKeywordSelection = this.handleKeywordSelection.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
   
+  handleLocationSelection(e) {
+    this.state.searchBy === 'Country' ? 
+      this.setState({ country: e.target.value }) : this.setState({ continent: e.target.value });
+  }
 
   handleInputChange(event) {
     const change = {};
@@ -47,7 +60,10 @@ class SearchTrips extends Component {
   async handleSearch(e) {
     e.preventDefault();
     console.log('it is hitting handle search');
+    const locationField = this.state.searchBy === 'Country' ? 'country' : 'continent';
+
     const terms = {
+      [locationField]: this.state[locationField],
       userId: this.props.getCurrentUserQuery.getCurrentUser.id,
       cost_start: Number(this.state.costStart), 
       cost_end: Number(this.state.costEnd), 
@@ -56,7 +72,7 @@ class SearchTrips extends Component {
       keys: JSON.stringify(this.state.keys),
     };
    
-    console.log({...terms});
+    console.log({ ...terms });
     await this.props.updateCurrentSearchTermsMutation({
       variables: {
         ...terms,
@@ -79,6 +95,32 @@ class SearchTrips extends Component {
         <div>
           <form>
             <h1>Search Form</h1>
+            <Select
+              name="searchBySelected"
+              placeholder="Search by country or continent"
+              handleFunc={e => this.setState({ searchBy: e.target.value })}
+              options={this.state.searchByOptions}
+              selectedOptions={this.state.searchBy}
+            /> 
+            {
+              this.state.searchBy === 'Country' ?
+                <Select
+                  name="countriesSelected"
+                  placeholder="select a country"
+                  handleFunc={this.handleLocationSelection}
+                  options={this.state.countryOptions}
+                  selectedOptions={this.state.countries}
+                /> : 
+              this.state.searchBy === 'Continent' ?
+                <Select
+                  name="continentSelected"
+                  placeholder="select a countinent"
+                  handleFunc={this.handleLocationSelection}
+                  options={this.state.continentOptions}
+                  selectedOptions={this.state.continent}
+                /> : ''
+            }
+        
             <SingleInput
               type="text"
               name="dateStart"
