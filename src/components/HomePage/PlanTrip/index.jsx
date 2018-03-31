@@ -27,7 +27,7 @@ class PlanTrip extends Component {
       ageEndSelected: 0,
       fitnessOptions: ['average', 'sexy', 'well-rounded', 'athletic'],
       body_types: [],
-      relationshipOptions: ['single', 'commited', 'it\'s complicated', 'married'],
+      relationshipOptions: ['single', 'commited', 'it\'s complicated', 'married', 'all' ],
       relationshipSelected: '',
       keywordOptions: ['Adventurer', 'Backpacker', 'Explorer', 'Gourmet', 'Historian', 'Luxury'],
       countriesOptions: countries,
