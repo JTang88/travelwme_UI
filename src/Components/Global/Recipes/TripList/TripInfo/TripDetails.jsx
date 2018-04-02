@@ -9,16 +9,28 @@ import interestedInATrip from '../../../../../graphql/mutations/interestedInATri
 import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
 import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 import getTrip from '../../../../../graphql/queries/getTrip';
+import updateTripStatus from '../../../../../graphql/mutations/updateTripStatus';
 import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/moveAJoinedTripToGoingList';
 import { getCurrentSearchTerms } from '../../../../../graphql/queries/getCurrentSearchTerms';
 import { addFoundTripToList } from '../../../../../graphql/mutations/addFoundTripToList';
+import updateTripDescription from '../../../../../graphql/mutations/updateTripDescription';
+import TextArea from '../../../Forms/TextArea';
+
 
 class TripDetails extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      edit: false,
+      description: this.props.trip.description
+    };
     this.handleCancelRequestAndLeaveTrip = this.handleCancelRequestAndLeaveTrip.bind(this);
     this.handleAskToJoin = this.handleAskToJoin.bind(this);
     this.handleForSureGoing = this.handleForSureGoing.bind(this);
+    this.handleCloseAndOpenThisTrip = this.handleCloseAndOpenThisTrip.bind(this);
+    this.handleEditThisTrip = this.handleEditThisTrip.bind(this);
+    this.handleSubmitDescription = this.handleSubmitDescription.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleCancelRequestAndLeaveTrip(tripType, e) {
@@ -120,8 +132,44 @@ class TripDetails extends Component {
     });
   }
   
+  handleCloseAndOpenThisTrip(trip_status, e) {
+    e.preventDefault();
+    this.props.updateTripStatusMutation({
+      variables: {
+        id: this.props.tripId,
+        trip_status,
+      },
+    });
+  }
+
+  handleEditThisTrip(e) {
+    e.preventDefault();
+    this.setState({
+      edit: true,
+    });
+  }
+
+  handleSubmitDescription(e) {
+    e.preventDefault();
+    this.setState({
+      edit: false,
+    });
+    this.props.updateTripDescriptionMutation({
+      variables: {
+        id: this.props.tripId,
+        description: this.state.description,
+      },
+    });
+  }
+
+  handleInputChange(event) {
+    const change = {};
+    change[event.target.name] = event.target.value;
+    this.setState(change, () => (console.log('state', this.state)));
+  }
+
   render() {
-    console.log('this is props in TripDetails: ', this.props)
+    console.log('this is props in TripDetails: ', this.props);
     return (
       <div>
         <header className="masthead text-white text-center">
@@ -135,7 +183,6 @@ class TripDetails extends Component {
           </div>
           <div className="col-4 trippic">
             <h4>Country: {JSON.parse(this.props.trip.countries).join(' ')}</h4>
-            <h4>Description: {this.props.trip.description}</h4>
             <h4>Age start: {this.props.trip.age_start}</h4>
             <h4>Age end: {this.props.trip.age_end}</h4>
             <h4>Start Date: {this.props.trip.date_start}</h4>  
@@ -147,10 +194,35 @@ class TripDetails extends Component {
             <h4>Trip Status: {this.props.trip.trip_status}</h4>
             <h4>Cost: {this.props.trip.cost}</h4>
             {
+              this.state.edit === false ?  
+                <h4>Description: {this.props.trip.description}</h4> : 
+                <TextArea
+                  type="text"
+                  title="Trip Description"
+                  rows={6}
+                  name="description"
+                  content={this.state.description}
+                  handleFunc={this.handleInputChange}
+                />
+            }
+            {
               this.props.currentUser === 'C' ? 
-                <div className="trippic">
-                  <button>Edit This Trip</button>
-                </div> : 
+                <div>
+                  <div> 
+                    {
+                      this.state.edit === false ? 
+                        <button onClick={this.handleEditThisTrip}>Edit Trip Description</button> :
+                        <button onClick={this.handleSubmitDescription}>Submit Description</button>
+                    }
+                  </div> 
+                  <div> 
+                    {
+                      this.props.trip.trip_status === 'open' ? 
+                        <button onClick={e => this.handleCloseAndOpenThisTrip('close', e)}>Close This Trip</button> : 
+                        <button onClick={e => this.handleCloseAndOpenThisTrip('open', e)}>Open This Trip</button>
+                    }  
+                  </div> 
+                </div> :                   
               this.props.currentUser === 'J' && !this.props.currentMember.forSureGoing ? 
                 <div className="trippic">
                   <button onClick={e => this.handleCancelRequestAndLeaveTrip('joined', e)}>Leave This Trip</button>
@@ -184,6 +256,8 @@ const WrapedTripDetails = compose(
   graphql(getCurrentSearchTerms, { name: 'getCurrentSearchTermsQuery' }),
   graphql(moveAJoinedTripToGoingList, { name: 'moveAJoinedTripToGoingListMutation' }),
   graphql(addFoundTripToList, { name: 'addFoundTripToListMutation' }),
+  graphql(updateTripStatus, { name: 'updateTripStatusMutation' }),
+  graphql(updateTripDescription, { name: 'updateTripDescriptionMutation' }),
 )(TripDetails);
 
 export default WrapedTripDetails;
