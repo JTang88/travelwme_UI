@@ -9,7 +9,7 @@ import Going from '../HomePage/Trips/Going';
 import PlanTrip from './PlanTrip';
 import SearchTrips from './SearchTrips';
 import FoundTrips from './SearchTrips/FoundTrips';
-// import Profile from './Profile';
+import Profile from '../Global/Recipes/Profile';
 import TrendTrips from './TrendTrips';
 
 
@@ -27,7 +27,8 @@ function HomePage() {
         <Route exact path="/homepage/searchtrips" component={SearchTrips} />
         <Route path="/homepage/foundtrips" component={FoundTrips} />
         <Route path="/homepage/plantrip" component={PlanTrip} />
-        {/* <Route path="/homepage/profile" component={Profile} /> */}
+        <Route exact path="/homepage/profile/" component={Profile} />
+        <Route path="/homepage/profile/:id" component={Profile} />
       </Switch>
     </div>
   );

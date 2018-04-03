@@ -13,6 +13,7 @@ query getCreatedTrips($id: Int!) {
     forSureGoing
     countries
     continents
+    trip_status
     creator {
       id
       publicId

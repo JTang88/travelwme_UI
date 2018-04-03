@@ -13,6 +13,7 @@ query getWaitingTrips($id: Int!) {
     forSureGoing
     countries
     continents
+    trip_status
     creator {
       id
       publicId

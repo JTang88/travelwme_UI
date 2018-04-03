@@ -29,7 +29,7 @@ class TripList extends Component {
       <div>
         { 
           this.props.trips.map((trip) => { 
-            return trip.id > 0 ? (
+            return (trip.id > 0 && trip.trip_status === 'open') || (trip.id > 0 && trip.trip_status === 'close' && tripType !== 'trend') ? (
               <div key={trip.id} >
                 <div>
                   <Image cloudName="travelwme" publicId={trip.creator.publicId} /> 
