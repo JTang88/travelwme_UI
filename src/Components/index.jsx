@@ -23,9 +23,11 @@ function App() {
   return (
     <div className="app">
       <Switch>
-        <Route path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route path="/sign" component={Signup} />
         <Route exact path="/" component={Landing} />
+        <Route path="/login/forgot" component={Login} />
+        <Route path="/login/sent" component={Login} />
         <AuthRoute path="/homepage" component={HomePage} redirectTo="/login" />
       </Switch>
     </div>

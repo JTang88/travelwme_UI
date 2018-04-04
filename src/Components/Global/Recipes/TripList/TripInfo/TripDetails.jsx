@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
+import { Link } from 'react-router-dom';
 import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
 import { invalidateATripInCache } from '../../../../../graphql/mutations/invalidateATripInCache';
@@ -178,9 +179,20 @@ class TripDetails extends Component {
           </div>
         </header>
         <div className="row">
-          <div className="col-8">
-            <Image cloudName="travelwme" className="rounded trippic" publicId={this.props.trip.creator.publicId} />
-          </div>
+          <Link to={`/homepage/profile/${this.props.trip.creator.id}`} href={`/homepage/profile/${this.props.trip.creator.id}`}>
+            <div className="col-4">
+              <h4>Creator</h4>
+              <Image cloudName="travelwme" className="rounded" publicId={this.props.trip.creator.publicId} />
+            </div>
+            <div className="col-4">
+              <li>
+                <ul>{this.props.trip.creator.username}</ul>
+                <ul>{this.props.trip.creator.gender}</ul>
+                <ul>{this.props.trip.creator.age}</ul>
+                <ul>{this.props.trip.creator.relationship}</ul>
+              </li>
+            </div>
+          </Link>
           <div className="col-4 trippic">
             <h4>Country: {JSON.parse(this.props.trip.countries).join(' ')}</h4>
             <h4>Age start: {this.props.trip.age_start}</h4>

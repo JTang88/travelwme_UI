@@ -29,6 +29,7 @@ query getTrip($id: Int!) {
       age
       gender
       relationship
+      description
     }
     members {
       id
