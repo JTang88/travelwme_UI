@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import UserBox from './UserBox';
 
 const NavBar = () => (
   <div>
     <h1 className="text-center">Travel With Me</h1>
+    <UserBox />
     <nav className="navbar navbar-toggleable-md navbar-light bg-faded justify-content-center">
       <div className="navbar-nav">
         <Link to="/homepage" href="/homepage" className="nav-item nav-link">Home</Link>
@@ -20,8 +22,6 @@ const NavBar = () => (
             <Link to="/homepage/going" href="/homepage/going" className="dropdown-item">Going</Link>
           </div>
         </li>
-        <Link to="/homepage/profile" href="/homepage/profile" className="nav-item nav-link">Profile</Link>
-        <Link to="/login" href="/" className="nav-item nav-link" onClick={this.logout}>Sign Out</Link>
       </div>
     </nav>
   </div>

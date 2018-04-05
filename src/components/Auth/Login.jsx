@@ -45,12 +45,13 @@ class Login extends Component {
 
     if (token) {
       localStorage.setItem('token', token.data.login);
-      console.log('token', token.data.login);
-      const { id, username } = await decode(token.data.login).user;
-      this.props.updateCurrentUserMutation({
+      const { id, username, publicId } = await decode(token.data.login).user;
+      console.log('token username', username);
+      await this.props.updateCurrentUserMutation({
         variables: {
           id,
           username,
+          publicId,
         },
       });
       this.props.history.push('/homepage');
@@ -163,6 +164,11 @@ class Login extends Component {
                         </button>
                       </div>
                     </form>
+                    <h5>
+                      <Link to="/login">
+                        <div> Login </div>
+                      </Link>
+                    </h5>
                   </div>
                 )
               } 

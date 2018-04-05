@@ -94,6 +94,10 @@ input {
   height: 100%;
 }
 
+.UserBoxPic {
+  height: 50px;
+}
+
 .triptit {
   font-size: 100px; 
   padding-top: 50px;

@@ -27,7 +27,6 @@ function App() {
         <Route path="/sign" component={Signup} />
         <Route exact path="/" component={Landing} />
         <Route path="/login/forgot" component={Login} />
-        <Route path="/login/sent" component={Login} />
         <AuthRoute path="/homepage" component={HomePage} redirectTo="/login" />
       </Switch>
     </div>

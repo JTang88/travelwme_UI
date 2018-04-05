@@ -11,6 +11,7 @@ import SearchTrips from './SearchTrips';
 import FoundTrips from './SearchTrips/FoundTrips';
 import Profile from '../Global/Recipes/Profile';
 import TrendTrips from './TrendTrips';
+import Settings from './Settings';
 
 
 function HomePage() {
@@ -24,6 +25,7 @@ function HomePage() {
         <Route path="/homepage/joined" component={Joined} />
         <Route path="/homepage/waiting" component={Waiting} />
         <Route path="/homepage/going" component={Going} />
+        <Route path="/homepage/settings" component={Settings} />
         <Route exact path="/homepage/searchtrips" component={SearchTrips} />
         <Route path="/homepage/foundtrips" component={FoundTrips} />
         <Route path="/homepage/plantrip" component={PlanTrip} />

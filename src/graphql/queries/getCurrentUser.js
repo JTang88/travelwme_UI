@@ -5,6 +5,7 @@ export const getCurrentUser = gql`
     getCurrentUser @client {
       id
       username
+      publicId 
     }
   }`;
 export const getCurrentUserDefault = {
@@ -12,5 +13,6 @@ export const getCurrentUserDefault = {
     __typename: 'getCurrentUser',
     id: 1,
     username: 'Test User',
+    publicId: null,
   },
 };
