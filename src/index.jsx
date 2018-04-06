@@ -25,17 +25,17 @@ const middlewareAuthLink = new ApolloLink((operation, forward) => {
 
 const cache = new InMemoryCache();
 
-persistCache({
-  cache,
-  storage: localStorage,
-});
-
 const stateLink = withClientState({
   cache,
   resolvers: {
     Mutation,
   },
   defaults,
+});
+
+persistCache({
+  cache,
+  storage: localStorage,
 });
 
 const httpLink = new HttpLink({ uri: 'http://localhost:3001/graphql' });

@@ -14,6 +14,18 @@ class TripInfo extends Component {
     };
   }
 
+  componentWillMount() {
+    if (!this.props.getTripQuery.loading) {
+      this.setState({
+        travelers: makeTravelerObjByTypes(
+          this.props.getTripQuery.getTrip.members, 
+          this.props.getCurrentUserQuery.getCurrentUser.id, 
+          this.props.getTripQuery.getTrip.creator.id, 
+        ),
+      });
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.getTripQuery !== this.props.getTripQuery) {
       this.setState({
@@ -25,7 +37,7 @@ class TripInfo extends Component {
       });
     }
   }
-  
+
   render() {
     console.log('this is prop in tripInfo: ', this.props);
     return (
