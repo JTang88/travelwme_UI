@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose, withApollo } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom'; 
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
@@ -8,7 +8,14 @@ import createTrip from '../../../graphql/mutations/createTrip';
 class UserBox extends Component {
   constructor(props) {
     super(props);
+    this.handleLogout = this.handleLogout.bind(this);
   }
+
+  async handleLogout(e) {
+    this.props.client.resetStore();
+    localStorage.removeItem('token');
+  }
+
 
   render() {
     console.log(this.props);
@@ -23,7 +30,7 @@ class UserBox extends Component {
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <Link to="/homepage/profile" href="/homepage/profile" className="nav-item nav-link">Profile</Link>
             <Link to="/homepage/settings" href="/homepage/settings" className="dropdown-item">Settings</Link>
-            <Link to="/login" href="/" className="nav-item nav-link" onClick={this.logout}>Log out</Link>
+            <Link to="/login" href="/" className="nav-item nav-link" onClick={this.handleLogout}>Log out</Link>
           </div>
         </li>
       </div>
@@ -41,4 +48,4 @@ const WrapedUserBox = compose(
   }),
 )(UserBox);
 
-export default WrapedUserBox;
+export default withApollo(WrapedUserBox);
