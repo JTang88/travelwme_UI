@@ -4,6 +4,7 @@ import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
 import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
 import makeTravelerObjByTypes from '../../../../../services/makeTravelerObjByTypes';
+import Comment from './Comment';
 import getTrip from '../../../../../graphql/queries/getTrip';
 
 class TripInfo extends Component {
@@ -43,26 +44,25 @@ class TripInfo extends Component {
     return (
       <div>
         { this.state.travelers ? 
-          <TripDetails 
-            tripId={Number(this.props.match.params.id)}
-            trip={this.props.getTripQuery.getTrip}
-            currentUser={this.state.travelers.currentUser}
-            userId={this.props.getCurrentUserQuery.getCurrentUser.id}
-            currentMember={this.state.travelers.currentMember}
-            currentMemberId={this.state.travelers.currentMemberId}
-            tripType={this.props.match.params.tripType}
-          /> : '' 
-        }
-        <div className="trippic">
-          { this.state.travelers ? 
+          <div>
+            <TripDetails 
+              tripId={Number(this.props.match.params.id)}
+              trip={this.props.getTripQuery.getTrip}
+              currentUser={this.state.travelers.currentUser}
+              userId={this.props.getCurrentUserQuery.getCurrentUser.id}
+              currentMember={this.state.travelers.currentMember}
+              currentMemberId={this.state.travelers.currentMemberId}
+              tripType={this.props.match.params.tripType}
+            /> 
             <TripUsers 
               tripId={Number(this.props.match.params.id)}
               interesters={this.state.travelers.interesters}
               joiners={this.state.travelers.joiners} 
               currentUser={this.state.travelers.currentUser}
-            /> : ''
-          } 
-        </div>
+            /> 
+            <Comment />
+          </div> : '' 
+        }
       </div>
     );
   }

@@ -11,8 +11,9 @@ class TripList extends Component {
     this.handleNewSearch = this.handleNewSearch.bind(this);
   }
 
-  handleNewSearch() {
-    this.props.mutate({
+  async handleNewSearch(e) {
+    e.preventDefault();
+    await this.props.mutate({
       variables: {
         searched: false,
       },
@@ -29,7 +30,7 @@ class TripList extends Component {
       <div>
         { 
           this.props.trips.map((trip) => { 
-            return (trip.id > 0 && trip.trip_status === 'open') || (trip.id > 0 && trip.trip_status === 'close' && tripType !== 'trend') ? (
+            return (trip.id > 0 && trip.trip_status === 'open') || (trip.id > 0 && trip.trip_status === 'close' && tripType === 'created') ? (
               <div key={trip.id} >
                 <div>
                   <Image cloudName="travelwme" publicId={trip.creator.publicId} /> 

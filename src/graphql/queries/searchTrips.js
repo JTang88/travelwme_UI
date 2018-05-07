@@ -13,6 +13,7 @@ query searchTrips($userId: Int!, $cost_start: Int!, $cost_end: Int!, $date_start
     forSureGoing
     countries
     continents
+    trip_status
     creator {
       id
       publicId

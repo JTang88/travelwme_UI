@@ -61,9 +61,11 @@ class SearchTrips extends Component {
     e.preventDefault();
     console.log('it is hitting handle search');
     const locationField = this.state.searchBy === 'Country' ? 'country' : 'continent';
+    const otherLocationField = locationField === 'country' ? 'continent' : 'country';
 
     const terms = {
       [locationField]: this.state[locationField],
+      [otherLocationField]: null,
       userId: this.props.getCurrentUserQuery.getCurrentUser.id,
       cost_start: Number(this.state.costStart), 
       cost_end: Number(this.state.costEnd), 
