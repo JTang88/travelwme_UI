@@ -5,6 +5,7 @@ import TripUsers from './TripUsers';
 import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
 import makeTravelerObjByTypes from '../../../../../services/makeTravelerObjByTypes';
 import Comment from './Comment';
+import AddComment from './Comment/AddComment';
 import getTrip from '../../../../../graphql/queries/getTrip';
 
 class TripInfo extends Component {
@@ -40,7 +41,7 @@ class TripInfo extends Component {
   }
 
   render() {
-    console.log('this is prop in tripInfo: ', this.props);
+    console.log('this is state.travelers in tripInfo: ', this.props)
     return (
       <div>
         { this.state.travelers ? 
@@ -60,7 +61,13 @@ class TripInfo extends Component {
               joiners={this.state.travelers.joiners} 
               currentUser={this.state.travelers.currentUser}
             /> 
-            <Comment />
+            <Comment 
+              tripId={Number(this.props.match.params.id)}
+            />
+            <AddComment 
+              username={this.props.getCurrentUserQuery.getCurrentUser.username}
+
+            />
           </div> : '' 
         }
       </div>
