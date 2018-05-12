@@ -1,11 +1,8 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import { withRouter } from 'react-router';
+import newComment from '../../../../../../graphql/mutations/newComment';
 import getComments from '../../../../../../graphql/queries/getComments';
-// import { getComments } from './ChannelDetails';
-
-// newComment(tripId: Int!, username: String!, text: String!): Comment!
 
 const AddComment = ({ mutate, match, username }) => {
   console.log('this is match in AddComment', username)
@@ -21,7 +18,7 @@ const AddComment = ({ mutate, match, username }) => {
         optimisticResponse: {
           newComment: {
             text: e.target.value,
-            username: 'Johnny',
+            username,
             _id: 'randomId',
             __typename: 'Comment',
           },
@@ -65,26 +62,9 @@ const AddComment = ({ mutate, match, username }) => {
   );
 };
 
-// newComment(tripId: Int!, username: String!, text: String!): Comment!
-
-
-const newComment = gql`
-  mutation newComment($tripId: Int!, $username: String!, $text: String!) {
-    newComment(tripId: $tripId, username: $username, text: $text) {
-      _id
-      text
-      username
-    }
-  }
-`;
 
 const WrapedAddComment = graphql(
   newComment,
 )(withRouter(AddComment));
 
 export default WrapedAddComment;
-
-
-
-
-

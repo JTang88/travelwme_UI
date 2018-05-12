@@ -63,10 +63,10 @@ class TripInfo extends Component {
             /> 
             <Comment 
               tripId={Number(this.props.match.params.id)}
+              username={this.props.getCurrentUserQuery.getCurrentUser.username}
             />
             <AddComment 
               username={this.props.getCurrentUserQuery.getCurrentUser.username}
-
             />
           </div> : '' 
         }

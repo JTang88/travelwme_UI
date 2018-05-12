@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { withRouter } from 'react-router';
 import commentAdded from '../../../../../../graphql/subscriptions/commentAdded';
+import replyAdded from '../../../../../../graphql/subscriptions/replyAdded';
 import getComments from '../../../../../../graphql/queries/getComments';
+import getReply from '../../../../../../graphql/queries/getReply';
+// import Reply from './Reply';
 
 class Comment extends Component {
   constructor(props) {
@@ -10,24 +13,46 @@ class Comment extends Component {
   }
 
   componentWillMount() {
+    this.props.getReplyQuery.subscribeToMore({
+      document: replyAdded,
+      variables: {
+        tripId: this.props.match.params.id,
+      },
+      updateQuery: (prev, { subscriptionData }) => {
+        console.log('is it even in herw?')
+        if (!subscriptionData.data) {
+          return prev;
+        }
+        console.log('here is subscription.date', subscriptionData.data )
+        const newReply = subscriptionData.data.replyAdded;
+        // don't double add the message
+        if (!prev.getReply.find((rep) => rep._id === newReply._id)) {
+          console.log('this is prev.getCommnets', prev.getReply)
+          const current = Object.assign({}, prev, {
+            getReply: [...prev.getReply, newReply],
+          });
+          return current;
+        }
+        return prev;
+      },
+    });
+
     this.props.getCommentsQuery.subscribeToMore({
       document: commentAdded,
       variables: {
         tripId: this.props.match.params.id,
       },
       updateQuery: (prev, { subscriptionData }) => {
-        console.log('here is prev', prev)
         if (!subscriptionData.data) {
           return prev;
         }
         const newComment = subscriptionData.data.commentAdded;
-        console.log('here is new comment', newComment)
         // don't double add the message
         if (!prev.getComments.find((cmt) => cmt._id === newComment._id)) {
+          console.log('this is prev.getCommnets', prev.getComments)
           const current = Object.assign({}, prev, {
             getComments: [...prev.getComments, newComment],
           });
-          console.log('here is current', current);
           return current;
         } 
         return prev;
@@ -46,6 +71,12 @@ class Comment extends Component {
               (
                 <div>
                   <h3>{comment.username}</h3>:{comment.text}
+                  {/* <Reply 
+                    reply={comment.reply}
+                    commentId={comment._id}
+                    tripId={Number(this.props.match.params.id)}
+                    username={this.props.username}
+                  /> */}
                 </div>
               ))
         }
@@ -55,38 +86,8 @@ class Comment extends Component {
 }
 
 const WrapedComment = compose(
-  graphql(
-    getComments,
-    {
-      name: 'getCommentsQuery',
-    },
-  ),
-  graphql(
-    commentAdded,
-    {
-      name: 'commentAddedSubscription',
-    },
-  ),
+  graphql(getReply, { name: 'getReplyQuery' }),
+  graphql(getComments, { name: 'getCommentsQuery' }),
 )(withRouter(Comment));
 
 export default WrapedComment;
-
-// const WrapedComment = compose(
-//   graphql(
-//     getComments, 
-//     { 
-//       name: 'getCommentsQuery', 
-//       options: props => ({ variables: { tripId: props.match.params.id } }), 
-//     },
-//   ),
-//   graphql(
-//     commentAdded, 
-//     { 
-//       name: 'commentAddedSubscription', 
-//       options: props => ({ variables: { tripId: props.match.params.id } }), 
-//     },
-//   ),
-// )(withRouter(Comment));
-
-// export default WrapedComment;
-
