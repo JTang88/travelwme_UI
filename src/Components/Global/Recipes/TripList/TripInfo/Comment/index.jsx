@@ -4,8 +4,8 @@ import { withRouter } from 'react-router';
 import commentAdded from '../../../../../../graphql/subscriptions/commentAdded';
 import replyAdded from '../../../../../../graphql/subscriptions/replyAdded';
 import getComments from '../../../../../../graphql/queries/getComments';
-import getReply from '../../../../../../graphql/queries/getReply';
-// import Reply from './Reply';
+// import getReply from '../../../../../../graphql/queries/getReply';
+import Reply from './Reply';
 
 class Comment extends Component {
   constructor(props) {
@@ -13,27 +13,13 @@ class Comment extends Component {
   }
 
   componentWillMount() {
-    this.props.getReplyQuery.subscribeToMore({
+    this.props.getCommentsQuery.subscribeToMore({
       document: replyAdded,
       variables: {
         tripId: this.props.match.params.id,
       },
-      updateQuery: (prev, { subscriptionData }) => {
-        console.log('is it even in herw?')
-        if (!subscriptionData.data) {
-          return prev;
-        }
-        console.log('here is subscription.date', subscriptionData.data )
-        const newReply = subscriptionData.data.replyAdded;
-        // don't double add the message
-        if (!prev.getReply.find((rep) => rep._id === newReply._id)) {
-          console.log('this is prev.getCommnets', prev.getReply)
-          const current = Object.assign({}, prev, {
-            getReply: [...prev.getReply, newReply],
-          });
-          return current;
-        }
-        return prev;
+      update: (store, { subscriptionData }) => {
+        console.log('It is in here')
       },
     });
 
@@ -71,12 +57,12 @@ class Comment extends Component {
               (
                 <div>
                   <h3>{comment.username}</h3>:{comment.text}
-                  {/* <Reply 
+                  <Reply 
                     reply={comment.reply}
                     commentId={comment._id}
                     tripId={Number(this.props.match.params.id)}
                     username={this.props.username}
-                  /> */}
+                  />
                 </div>
               ))
         }
@@ -85,9 +71,6 @@ class Comment extends Component {
   }
 }
 
-const WrapedComment = compose(
-  graphql(getReply, { name: 'getReplyQuery' }),
-  graphql(getComments, { name: 'getCommentsQuery' }),
-)(withRouter(Comment));
+const WrapedComment = graphql(getComments, { name: 'getCommentsQuery' })(withRouter(Comment));
 
 export default WrapedComment;

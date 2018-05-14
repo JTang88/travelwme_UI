@@ -21,6 +21,7 @@ const AddComment = ({ mutate, match, username }) => {
             username,
             _id: 'randomId',
             __typename: 'Comment',
+            reply: [],
           },
         },
         update: (store, { data: { newComment } }) => {

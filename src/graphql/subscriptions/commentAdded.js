@@ -6,6 +6,13 @@ const commentAdded = gql`
       _id
       username
       text
+      reply {
+        _id
+        username
+        text
+        commentId
+        tripId
+      }
     }
   }
 `;

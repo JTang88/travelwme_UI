@@ -6,6 +6,13 @@ query getComments($tripId: Int!) {
     _id
     username
     text
+    reply {
+      _id
+      tripId
+      commentId
+      username
+      text
+    }
   }
 }`;
 
