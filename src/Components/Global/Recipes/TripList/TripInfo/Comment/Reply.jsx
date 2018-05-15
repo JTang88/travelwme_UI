@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import getComments from '../../../../../../graphql/queries/getComments';
+import getReply from '../../../../../../graphql/queries/getReply';
+import newReply from '../../../../../../graphql/mutations/newReply';
 
 class Reply extends Component {
   constructor(props) {
@@ -34,22 +34,16 @@ class Reply extends Component {
         },
         update: (store, { data: { newReply } }) => {
           const data = store.readQuery({
-            query: getComments,
+            query: getReply,
             variables: {
               tripId,
             },
           });
-
-          data.getComments.find((cmt) => {
-            if (cmt._id === commentId) {
-              if (!cmt.reply.find(rep => rep._id === newReply._id)) {
-                cmt.reply.push(newReply);
-              }
-            }
-          });
-
+          if (!data.getReply.find((rep) => rep._id === newReply._id)) {
+            data.getReply.push(newReply);
+          }
           store.writeQuery({
-            query: getComments,
+            query: getReply,
             variables: {
               tripId,
             },
@@ -65,16 +59,6 @@ class Reply extends Component {
   render() {
     return (
       <div>
-        {
-          this.props.reply.map(rep =>  
-            (
-              <div>
-                <h5>{rep.username}</h5>
-                <p>{rep.text}</p>
-              </div>
-            ))
-        }
-
         { 
           this.state.replyMode === true ? 
             <div>
@@ -87,26 +71,12 @@ class Reply extends Component {
               </div> 
               <button onClick={this.handleKeyUp}>Reply</button> 
             </div> : <button onClick={() => this.setState({ replyMode: true })}>Reply</button>
-
         }
       </div>
 
     );
   }
 }
-
-const newReply = gql`
-  mutation newReply($tripId: Int!, $commentId: String!, $username: String!, $text: String!) {
-    newReply(tripId: $tripId, commentId: $commentId, username: $username, text: $text) {
-      tripId
-      commentId
-      _id
-      text
-      username
-    }
-  }
-`;
-
 
 const WrapedReply = graphql(newReply)(Reply);
 

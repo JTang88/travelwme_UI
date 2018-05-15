@@ -43,7 +43,7 @@ const AddComment = ({ mutate, match, username }) => {
             variables: {
               tripId,
             },
-            data
+            data,
           });
         },
       });

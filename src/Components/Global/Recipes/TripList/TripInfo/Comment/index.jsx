@@ -5,7 +5,7 @@ import commentAdded from '../../../../../../graphql/subscriptions/commentAdded';
 import replyAdded from '../../../../../../graphql/subscriptions/replyAdded';
 import getComments from '../../../../../../graphql/queries/getComments';
 import getReply from '../../../../../../graphql/queries/getReply';
-// import Reply from './Reply';
+import Reply from './Reply';
 
 class Comment extends Component {
   constructor(props) {
@@ -19,15 +19,15 @@ class Comment extends Component {
         tripId: this.props.match.params.id,
       },
       updateQuery: (prev, { subscriptionData }) => {
-        console.log('is it even in herw?')
+        console.log('is it even in herw?');
         if (!subscriptionData.data) {
           return prev;
         }
-        console.log('here is subscription.date', subscriptionData.data )
+        console.log('here is subscription.date', subscriptionData.data);
         const newReply = subscriptionData.data.replyAdded;
         // don't double add the message
-        if (!prev.getReply.find((rep) => rep._id === newReply._id)) {
-          console.log('this is prev.getCommnets', prev.getReply)
+        if (!prev.getReply.find(rep => rep._id === newReply._id)) {
+          console.log('this is prev.getCommnets', prev.getReply);
           const current = Object.assign({}, prev, {
             getReply: [...prev.getReply, newReply],
           });
@@ -48,8 +48,8 @@ class Comment extends Component {
         }
         const newComment = subscriptionData.data.commentAdded;
         // don't double add the message
-        if (!prev.getComments.find((cmt) => cmt._id === newComment._id)) {
-          console.log('this is prev.getCommnets', prev.getComments)
+        if (!prev.getComments.find(cmt => cmt._id === newComment._id)) {
+          console.log('this is prev.getCommnets', prev.getComments);
           const current = Object.assign({}, prev, {
             getComments: [...prev.getComments, newComment],
           });
@@ -66,17 +66,30 @@ class Comment extends Component {
       <div>
         <h1>Comments</h1>
         {
-          this.props.getCommentsQuery.loading ? 'loading' :
+          this.props.getCommentsQuery.loading || this.props.getReplyQuery.loading ? 'loading' :
             this.props.getCommentsQuery.getComments.map(comment => 
               (
                 <div>
                   <h3>{comment.username}</h3>:{comment.text}
-                  {/* <Reply 
+                  {
+                    this.props.getReplyQuery.getReply.map(reply => (
+                      <div>
+                        {
+                          reply.commentId === comment._id ? (
+                            <div>
+                              <h5>{reply.username}</h5> : {reply.text}
+                            </div>
+                          ) : ''
+                        }
+                      </div>
+                    ))
+                  }
+                  <Reply 
                     reply={comment.reply}
                     commentId={comment._id}
                     tripId={Number(this.props.match.params.id)}
                     username={this.props.username}
-                  /> */}
+                  />
                 </div>
               ))
         }
