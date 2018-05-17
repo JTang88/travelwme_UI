@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import UserBox from './UserBox';
+import Notifications from './Notifications';
 
 const NavBar = () => (
   <div>
@@ -20,6 +21,14 @@ const NavBar = () => (
             <Link to="/homepage/joined" href="/homepage/joined" className="dropdown-item">Joined</Link>
             <Link to="/homepage/waiting" href="/homepage/waiting" className="dropdown-item">Waiting</Link>
             <Link to="/homepage/going" href="/homepage/going" className="dropdown-item">Going</Link>
+          </div>
+        </li>
+        <li className="nav-item dropdown">
+          <a className="nav-link" href="/homepage/mytrip" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Notifications
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <Notifications />
           </div>
         </li>
       </div>

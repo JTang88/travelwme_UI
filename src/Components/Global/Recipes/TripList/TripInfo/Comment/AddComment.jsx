@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
 import newComment from '../../../../../../graphql/mutations/newComment';
-import getComments from '../../../../../../graphql/queries/getComments';
+import getTripComments from '../../../../../../graphql/queries/getTripComments';
 
 const AddComment = ({ mutate, match, username }) => {
   console.log('this is match in AddComment', username)
@@ -20,26 +20,26 @@ const AddComment = ({ mutate, match, username }) => {
             text: e.target.value,
             username,
             _id: 'randomId',
-            __typename: 'Comment',
+            __typename: 'TripComment',
           },
         },
         update: (store, { data: { newComment } }) => {
           // Read the data from the cache for this query.
           const data = store.readQuery({
-            query: getComments,
+            query: getTripComments,
             variables: {
               tripId,
             },
           });
 
           // don't double add the message
-          if (!data.getComments.find((msg) => msg._id === newComment._id)) {
+          if (!data.getTripComments.find((msg) => msg._id === newComment._id)) {
             // Add our Message from the mutation to the end.
-            data.getComments.push(newComment);
+            data.getTripComments.push(newComment);
           }
           // Write the data back to the cache.
           store.writeQuery({
-            query: getComments,
+            query: getTripComments,
             variables: {
               tripId,
             },

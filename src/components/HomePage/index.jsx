@@ -13,7 +13,6 @@ import Profile from '../Global/Recipes/Profile';
 import TrendTrips from './TrendTrips';
 import Settings from './Settings';
 
-
 function HomePage() {
   return (
     <div>
