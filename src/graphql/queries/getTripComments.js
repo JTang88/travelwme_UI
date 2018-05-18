@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 const getTripComments = gql`
-query getTripComments($tripId: Int!) {
-  getTripComments(tripId: $tripId) {
+query getTripComments($tripCommentId: String!) {
+  getTripComments(tripCommentId: $tripCommentId) {
     _id
     username
     text
@@ -10,16 +10,3 @@ query getTripComments($tripId: Int!) {
 }`;
 
 export default getTripComments;
-
-// import gql from 'graphql-tag';
-
-// const getTripComments = gql`
-// query getTripComments($tripId: Int!) {
-//   getTripComments(tripId: $tripId) {
-//     _id
-//     username
-//     text
-//   }
-// }`;
-
-// export default getTripComments;

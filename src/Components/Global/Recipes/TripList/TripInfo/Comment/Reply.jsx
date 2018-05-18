@@ -13,18 +13,18 @@ class Reply extends Component {
   }
 
   handleKeyUp(e) {
-    const { mutate, username, commentId, tripId } = this.props;
+    const { mutate, username, commentId, tripCommentId } = this.props;
     if (e.keyCode === 13) {
       mutate({
         variables: {
-          tripId,
+          tripCommentId,
           commentId,
           username,
           text: e.target.value,
         },
         optimisticResponse: {
           newReply: {
-            tripId,
+            tripCommentId,
             commentId,
             username,
             text: e.target.value,
@@ -36,7 +36,7 @@ class Reply extends Component {
           const data = store.readQuery({
             query: getReply,
             variables: {
-              tripId,
+              tripCommentId,
             },
           });
           if (!data.getReply.find((rep) => rep._id === newReply._id)) {
@@ -45,7 +45,7 @@ class Reply extends Component {
           store.writeQuery({
             query: getReply,
             variables: {
-              tripId,
+              tripCommentId,
             },
             data,
           });

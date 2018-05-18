@@ -22,6 +22,7 @@ query getTrip($id: Int!) {
     forSureGoing
     countries
     continents
+    tripCommentId
     creator {
       id
       username

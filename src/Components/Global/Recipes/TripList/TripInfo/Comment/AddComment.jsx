@@ -1,18 +1,17 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import newComment from '../../../../../../graphql/mutations/newComment';
 import getTripComments from '../../../../../../graphql/queries/getTripComments';
 
-const AddComment = ({ mutate, match, username }) => {
+const AddComment = ({ mutate, username, tripCommentId }) => {
   console.log('this is match in AddComment', username)
-  const tripId = Number(match.params.id);
   const handleKeyUp = (e) => {
     if (e.keyCode === 13) {
       mutate({
         variables: {
           username,
-          tripId,
+          tripCommentId,
           text: e.target.value,
         },
         optimisticResponse: {
@@ -28,7 +27,7 @@ const AddComment = ({ mutate, match, username }) => {
           const data = store.readQuery({
             query: getTripComments,
             variables: {
-              tripId,
+              tripCommentId,
             },
           });
 
@@ -41,7 +40,7 @@ const AddComment = ({ mutate, match, username }) => {
           store.writeQuery({
             query: getTripComments,
             variables: {
-              tripId,
+              tripCommentId,
             },
             data,
           });
@@ -63,8 +62,6 @@ const AddComment = ({ mutate, match, username }) => {
 };
 
 
-const WrapedAddComment = graphql(
-  newComment,
-)(withRouter(AddComment));
+const WrapedAddComment = graphql(newComment)(AddComment);
 
 export default WrapedAddComment;

@@ -1,9 +1,8 @@
 import gql from 'graphql-tag';
 
 const newReply = gql`
-  mutation newReply($tripId: Int!, $commentId: String!, $username: String!, $text: String!) {
-    newReply(tripId: $tripId, commentId: $commentId, username: $username, text: $text) {
-      tripId
+  mutation newReply($tripCommentId: String!, $commentId: String!, $username: String!, $text: String!) {
+    newReply(tripCommentId: $tripCommentId, commentId: $commentId, username: $username, text: $text) {
       commentId
       _id
       text

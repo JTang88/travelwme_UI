@@ -13,10 +13,11 @@ class Comment extends Component {
   }
 
   componentWillMount() {
+    const { tripCommentId } = this.props;
     this.props.getReplyQuery.subscribeToMore({
       document: replyAdded,
       variables: {
-        tripId: this.props.match.params.id,
+        tripCommentId,
       },
       updateQuery: (prev, { subscriptionData }) => {
         console.log('is it even in herw?');
@@ -40,7 +41,7 @@ class Comment extends Component {
     this.props.getTripCommentsQuery.subscribeToMore({
       document: commentAdded,
       variables: {
-        tripId: this.props.match.params.id,
+        tripCommentId,
       },
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) {
@@ -87,7 +88,7 @@ class Comment extends Component {
                   <Reply 
                     reply={comment.reply}
                     commentId={comment._id}
-                    tripId={Number(this.props.match.params.id)}
+                    tripCommentId={this.props.tripCommentId}
                     username={this.props.username}
                   />
                 </div>

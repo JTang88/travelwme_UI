@@ -1,9 +1,8 @@
 import gql from 'graphql-tag';
 
 const getReply = gql`
-query getReply($tripId: Int!) {
-  getReply(tripId: $tripId) {
-    tripId
+query getReply($tripCommentId: String!) {
+  getReply(tripCommentId: $tripCommentId) {
     _id
     commentId
     username

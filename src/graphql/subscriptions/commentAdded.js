@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 const commentAdded = gql`
-  subscription commentAdded($tripId: Int!) {
-    commentAdded(tripId: $tripId) {
+  subscription commentAdded($tripCommentId: String!) {
+    commentAdded(tripCommentId: $tripCommentId) {
       _id
       username
       text
