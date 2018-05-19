@@ -12,6 +12,8 @@ query getUser($id: Int!) {
     description
     relationship  
     publicId
+    notificationId
+    convoListId
   }
 }`;
 

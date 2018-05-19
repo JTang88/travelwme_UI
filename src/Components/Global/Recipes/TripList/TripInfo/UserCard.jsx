@@ -20,6 +20,8 @@ class UserCard extends Component {
       variables: {
         userId: this.props.member.user.id,
         tripId: this.props.tripId,
+        senderName: this.props.trip.creator.username,
+        tripTitle: this.props.trip.title,
         user_type: 'J',
       },
     });

@@ -45,13 +45,15 @@ class Login extends Component {
 
     if (token) {
       localStorage.setItem('token', token.data.login);
-      const { id, username, publicId } = await decode(token.data.login).user;
-      console.log('token username', username);
+      const { id } = await decode(token.data.login).user;
+      console.log('this is Id in Login', id)
       await this.props.updateCurrentUserMutation({
         variables: {
           id,
-          username,
-          publicId,
+          username: '',
+          publicId: '',
+          notificationId: '',
+          convoListId: '',
         },
       });
       this.props.history.push('/homepage');

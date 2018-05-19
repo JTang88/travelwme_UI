@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import getTrip from '../../../../graphql/queries/getTrip';
 import Accepted from './Accepted';
 
 class Notifications extends Component {

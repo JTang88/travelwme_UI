@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 const updateUserRelationshipToTrip = gql`
-mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: String!) {
-  updateUserRelationshipToTrip(userId: $userId tripId: $tripId, user_type: $user_type) {
+mutation updateUserRelationshipToTrip($userId: Int!, $senderName: String!, $tripTitle: String!, $tripId: Int!, $user_type: String!) {
+  updateUserRelationshipToTrip(userId: $userId, senderName: $senderName, tripTitle: $tripTitle, tripId: $tripId, user_type: $user_type) {
     id
     user {
       id
@@ -19,3 +19,4 @@ mutation updateUserRelationshipToTrip($userId: Int!, $tripId: Int!, $user_type: 
 `;
 
 export default updateUserRelationshipToTrip;
+

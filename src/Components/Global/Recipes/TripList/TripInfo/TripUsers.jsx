@@ -18,6 +18,7 @@ const TripUsers = props => (
       {props.interesters.map(interester => (
         <div className="col-4">
           <UserCard 
+            trip={props.trip}
             tripId={props.tripId}
             key={interester.user.id} 
             member={interester} 
