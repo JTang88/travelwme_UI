@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import getWaitingTrips from '../../../../graphql/queries/getWaitingTrips';
+import getJoinedTrips from '../../../../graphql/queries/getJoinedTrips';
 import getTrip from '../../../../graphql/queries/getTrip';
 
 class Accepted extends Component {
   state = { refetched: false }
 
   handleRefetch() {
-    this.props.data.refetch();
+    this.props.getTripQuery.refetch();
+    this.props.getWaitingTripsQuery.refetch();
+    this.props.getJoinedTripsQuery.refetch();
     this.setState({ refetched: true });
   }
 
@@ -35,9 +39,21 @@ class Accepted extends Component {
   }
 }
 
-const WrappedAccepted = graphql(getTrip, {
-  options: props => ({ variables: { id: props.tripId } }),
-})(Accepted);
+const WrappedAccepted = compose(
+  graphql(getTrip, {
+    name: 'getTripQuery',
+    options: props => ({ variables: { id: props.tripId } }),
+  }),
+  graphql(getWaitingTrips, {
+    name: 'getWaitingTripsQuery',
+    options: props => ({ variables: { id: props.userId } }),
+  }),
+  graphql(getJoinedTrips, {
+    name: 'getJoinedTripsQuery',
+    options: props => ({ variables: { id: props.userId } }),
+  }),
+)(Accepted);
+
 
 export default WrappedAccepted;
 
