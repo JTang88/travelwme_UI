@@ -4,6 +4,7 @@ import getNotifications from '../../../../graphql/queries/getNotifications';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import noteAdded from '../../../../graphql/subscriptions/noteAdded';
 import Accepted from './Accepted';
+import Request from './Request';
 
 class Notifications extends Component {
   componentWillMount() {
@@ -46,7 +47,16 @@ class Notifications extends Component {
                   userId={this.props.getCurrentUserQuery.getCurrentUser.id}
                 />
               );
-            } 
+            } else if (note.type === 'request') {
+              return (
+                <Request
+                  tripId={note.tripId}
+                  senderName={note.senderName}
+                  tripTitle={note.tripTitle}
+                  userId={this.props.getCurrentUserQuery.getCurrentUser.id}
+                />
+              );
+            }
               return 'testing';  
           })
         }

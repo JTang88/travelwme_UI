@@ -64,10 +64,22 @@ class TripDetails extends Component {
     });
   }
 
+
+  // const note = {
+  //   _id: await new mongoose.Types.ObjectId,
+  //   type: 'accepted',
+  //   senderName: args.senderName,
+  //   tripTitle: args.tripTitle,
+  //   tripId: args.tripId,
+  // }
+
   handleAskToJoin(e) {      
     e.preventDefault();
     this.props.interestedInATripMutation({
       variables: {
+        senderName: this.props.username,
+        creatorId: this.props.trip.creator.id,
+        tripTitle: this.props.trip.title,
         userId: this.props.userId,        
         tripId: this.props.tripId,
       },

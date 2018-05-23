@@ -2,8 +2,8 @@
 import gql from 'graphql-tag';
 
 const interestedInATrip = gql`
-mutation interestedInATrip($userId: Int!, $tripId: Int!) {
-  interestedInATrip(userId: $userId, tripId: $tripId) {
+mutation interestedInATrip($userId: Int!, $tripId: Int!, $senderName: String!, $creatorId: Int!, $tripTitle: String!) {
+  interestedInATrip(userId: $userId, tripId: $tripId, senderName: $senderName, creatorId: $creatorId, tripTitle: $tripTitle) {
     id
     user {
       id
@@ -21,4 +21,3 @@ mutation interestedInATrip($userId: Int!, $tripId: Int!) {
 `;
 
 export default interestedInATrip;
-
