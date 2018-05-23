@@ -13,20 +13,20 @@ class Accepted extends Component {
 
   render() {
     console.log('here is props in Accepted', this.props);
-    // const { tripId, userId, tripTitle } = this.props;
+    const { tripId, senderName, tripTitle, userId } = this.props;
     return (
       <div>
         {
           this.state.refetched ?
-            <Link to={`/homepage/joined/tripinfo/92`}>
-              Congrats!, you have been accepted to test Trip
+            <Link to={`/homepage/joined/tripinfo/${tripId}`}>
+              Congrats!, {senderName} has accepted your request for {tripTitle}
             </Link> :
             <div>
               <Link
-                to={`/homepage/joined/tripinfo/92`}
+                to={`/homepage/joined/tripinfo/${tripId}`}
                 onClick={this.handleRefetch.bind(this)}
               >
-                Congrats!, you have been accepted to test trip
+                Congrats!, {senderName} has accepted your request for {tripTitle}
               </Link>
             </div>
         }
@@ -36,7 +36,7 @@ class Accepted extends Component {
 }
 
 const WrappedAccepted = graphql(getTrip, {
-  options: props => ({ variables: { id: 92 } }),
+  options: props => ({ variables: { id: props.tripId } }),
 })(Accepted);
 
 export default WrappedAccepted;

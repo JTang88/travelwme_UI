@@ -1,31 +1,68 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
+import getNotifications from '../../../../graphql/queries/getNotifications';
+import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
+import noteAdded from '../../../../graphql/subscriptions/noteAdded';
 import Accepted from './Accepted';
 
 class Notifications extends Component {
+  componentWillMount() {
+    const { notificationId } = this.props.getCurrentUserQuery.getCurrentUser
+    this.props.getNotificationsQuery.subscribeToMore({
+      document: noteAdded,
+      variables: {
+        notificationId,
+      },
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) {
+          return prev;
+        }
+        const newNote = subscriptionData.data.noteAdded;
+        if (!prev.getNotifications.find(note => note._id === newNote._id)) {
+          console.log('this is prev.getNotifications', prev.getNotifications);
+          const current = Object.assign({}, prev, {
+            getNotifications: [...prev.getNotifications, newNote],
+          });
+          return current;
+        }
+        return prev;
+      },
+    });
+  }
+
   render() {
     console.log('here is props in Notifications', this.props);
     return (
-      <Accepted />
+      this.props.getNotificationsQuery.loading ? 'loading notifications' :
+      <div>
+        { 
+          this.props.getNotificationsQuery.getNotifications.map((note) => {
+            if (note.type === 'accepted') {
+              return (
+                <Accepted
+                  tripId={note.tripId} 
+                  senderName={note.senderName}
+                  tripTitle={note.tripTitle}
+                  userId={this.props.getCurrentUserQuery.getCurrentUser.id}
+                />
+              );
+            } 
+              return 'testing';  
+          })
+        }
+      </div>
     );
   }
 }
 
-export default Notifications;
+const WrappedNotifications = compose(
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery',
+  }),
+  graphql(getNotifications, {
+    name: 'getNotificationsQuery',
+    options: props => ({ variables: { notificationId: props.getCurrentUserQuery.getCurrentUser.notificationId } }),
+  }),
+)(Notifications);
 
-
-// import item from ./item
-
-// Make a Notification Component
-  // map all items
-    // when a item gets clicked, refetch all related queries (Chenged the refetch state to true)
-    // and take user to the direct page
-
-
-
-// Create a Main Notitcations Component
-  // use getNotification query to get all notifications details (query and variables)
-  // map each notifcations
-    // when a notification matches a notifcation component type (Which you will create)
-    // sends its varialbes to such compnent, (Each notification componet is a clickable link, which will updated the target querys and direct user to new result)
-
+export default WrappedNotifications;
