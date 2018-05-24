@@ -3,9 +3,7 @@ import gql from 'graphql-tag';
 const getConvoList = gql`
 query getConvoList($convoListId: String!) {
   getConvoList(convoListId: $convoListId) {
-    convoIds {
-      convoId
-    }
+    convoIds
   }
 }`;
 
