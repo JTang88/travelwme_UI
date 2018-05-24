@@ -31,6 +31,7 @@ const NavBar = () => (
             <Notifications />
           </div>
         </li>
+        <Link to="/homepage/messages" className="nav-item nav-link">Message</Link>
       </div>
     </nav>
   </div>

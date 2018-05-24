@@ -13,6 +13,7 @@ import FoundTrips from './SearchTrips/FoundTrips';
 import Profile from '../Global/Recipes/Profile';
 import TrendTrips from './TrendTrips';
 import Settings from './Settings';
+import MessageBox from './NavBar/MessageBox';
 import getBasicUserInfo from '../../graphql/queries/getBasicUserInfo';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
@@ -48,6 +49,7 @@ class HomePage extends Component {
               <Route path="/homepage/plantrip" component={PlanTrip} />
               <Route exact path="/homepage/profile/" component={Profile} />
               <Route path="/homepage/profile/:id" component={Profile} />
+              <Route exact path="/homepage/messages" component={MessageBox} />
             </Switch>
           </div>
         }
