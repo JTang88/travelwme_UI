@@ -3,11 +3,44 @@ import { graphql, compose } from 'react-apollo';
 import getConvoList from '../../../../graphql/queries/getConvoList';
 import ConvoSelect from './ConvoSelect';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
+import convoAdded from '../../../../graphql/subscriptions/convoAdded';
 
 class MessageList extends Component {
+  componentWillMount() {
+    const { convoListId } = this.props.getCurrentUserQuery.getCurrentUser;
+    this.props.getConvoListQuery.subscribeToMore({
+      document: convoAdded,
+      variables: {
+        convoListId,
+      },
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) {
+          return prev;
+        }
+        const newConvoId = subscriptionData.data.convoAdded;
+        // don't double add the message
+        // if (!prev.getConvoList.convoIds.find(convoId => convoId === newConvoId)) {
+        //   const current = Object.assign({}, prev, {
+        //     getConvoList: {
+        //       convoIds: [...prev.getConvoList.convoIds, newConvoId],
+        //     },
+        //   });
+        //   return current;
+        // }
+        if (!prev.getConvoList.convoIds.find(convoId => convoId === newConvoId)) {
+          const current = Object.assign({}, prev, {
+            getConvoList: Object.assign({}, prev.getConvoList, {
+              convoIds: [...prev.getConvoList.convoIds, newConvoId],
+            }),
+          });
+          return current;
+        }
+        return prev;
+      },
+    });
+  }
+
   render() {
-    console.log('here is props in message box', this.props);
-    console.log('here is state in message box', this.state);
     return (
       <div>  
         {
@@ -39,8 +72,3 @@ const WrappedMessageList = compose(
 )(MessageList);
 
 export default WrappedMessageList;
-
-
-// fetch all convoId using convoIdList
-  // map each convId to Convo Component
-    // inside of Convo Component, fetch each convo by it's convoId
