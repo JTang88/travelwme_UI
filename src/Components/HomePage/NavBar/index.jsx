@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import UserBox from './UserBox';
 import Notifications from './Notifications';
+import MessageList from './MessageList';
 
-const NavBar = () => (
+const NavBar = ({ renderConvo, openChatBox }) => (
   <div>
     <h1 className="text-center">Travel With Me</h1>
     <UserBox />
@@ -31,7 +32,16 @@ const NavBar = () => (
             <Notifications />
           </div>
         </li>
-        <Link to="/homepage/messages" className="nav-item nav-link">Message</Link>
+        <li className="nav-item dropdown">
+          <a className="nav-link" href="/homepage/mytrip" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Messages
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <MessageList 
+              renderConvo={renderConvo}
+            />
+          </div>
+        </li>
       </div>
     </nav>
   </div>

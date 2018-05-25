@@ -13,13 +13,32 @@ import FoundTrips from './SearchTrips/FoundTrips';
 import Profile from '../Global/Recipes/Profile';
 import TrendTrips from './TrendTrips';
 import Settings from './Settings';
-import MessageBox from './NavBar/MessageBox';
+import ChatBox from './ChatBox';
 import getBasicUserInfo from '../../graphql/queries/getBasicUserInfo';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
 
 
 class HomePage extends Component {
+  state = {
+    showChatBox: false,
+    msgs: null,
+  }
+
+  closeChatBox() {
+    this.setState({
+      showChatBox: false,
+    })
+  }
+
+  renderConvo(msgs, e) {
+    e.preventDefault();
+    this.setState({
+      msgs,
+      showChatBox: true,
+    })
+  }
+
   componentDidUpdate(nextProps) {
     if (nextProps.getBasicUserInfoQuery.getUser !== this.props.getBasicUserInfoQuery.getUser) {
       this.props.updateCurrentUserMutation({
@@ -35,7 +54,9 @@ class HomePage extends Component {
         { 
           this.props.getCurrentUserQuery.getCurrentUser.username === '' ? '' :
           <div>
-            <NavBar />
+            <NavBar 
+              renderConvo={this.renderConvo.bind(this)}
+            />
             <Switch>
               <Route exact path="/homepage" component={TrendTrips} />
               <Route path="/homepage/:tripType/tripinfo/:id" component={TripInfo} />
@@ -49,9 +70,14 @@ class HomePage extends Component {
               <Route path="/homepage/plantrip" component={PlanTrip} />
               <Route exact path="/homepage/profile/" component={Profile} />
               <Route path="/homepage/profile/:id" component={Profile} />
-              <Route exact path="/homepage/messages" component={MessageBox} />
             </Switch>
           </div>
+        }
+        {
+          this.state.showChatBox ? 
+            < ChatBox
+              msgs={this.state.msgs}
+            /> : null
         }
       </div>
     );
@@ -74,40 +100,3 @@ const WrappedHomePage = compose(
 )(HomePage);
 
 export default WrappedHomePage;
-
-
-// const WrapedTripInfo = compose(
-//   graphql(getTrip, {
-//     name: 'getTripQuery',
-//     options: props => (
-//       { variables: { id: Number(props.match.params.id) } }
-//     ),
-//   }),
-//   graphql(getCurrentUser, {
-//     name: 'getCurrentUserQuery',
-//   }),
-// )(TripInfo);
-
-// function HomePage() {
-//   return (
-//     <div>
-//       <NavBar />
-//       <Switch>
-//         <Route exact path="/homepage" component={TrendTrips} />
-//         <Route path="/homepage/:tripType/tripinfo/:id" component={TripInfo} />
-//         <Route path="/homepage/created" component={Created} />
-//         <Route path="/homepage/joined" component={Joined} />
-//         <Route path="/homepage/waiting" component={Waiting} />
-//         <Route path="/homepage/going" component={Going} />
-//         <Route path="/homepage/settings" component={Settings} />
-//         <Route exact path="/homepage/searchtrips" component={SearchTrips} />
-//         <Route path="/homepage/foundtrips" component={FoundTrips} />
-//         <Route path="/homepage/plantrip" component={PlanTrip} />
-//         <Route exact path="/homepage/profile/" component={Profile} />
-//         <Route path="/homepage/profile/:id" component={Profile} />
-//       </Switch>
-//     </div>
-//   );
-// }
-
-// export default HomePage;
