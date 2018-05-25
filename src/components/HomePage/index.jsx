@@ -32,7 +32,9 @@ class HomePage extends Component {
   }
 
   renderConvo(msgs, e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.setState({
       msgs,
       showChatBox: true,

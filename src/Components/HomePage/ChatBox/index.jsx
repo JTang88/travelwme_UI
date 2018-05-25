@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Message from './Message';
 
 class ChatBox extends Component {
+  
   render() {
     console.log('this is msg in ChatBox', this.props.msgs)
     return (
