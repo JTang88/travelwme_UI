@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import getConvo from '../../../../graphql/queries/getConvo';
 import msgAdded from '../../../../graphql/subscriptions/msgAdded';
+import { getChatBoxState } from '../../../../graphql/queries/getChatBoxState';
+import { updateChatBoxState } from '../../../../graphql/mutations/updateChatBoxState';
 
 class ConvoSelect extends Component {
   componentWillMount() {
     const { convoId } = this.props;
-    this.props.data.subscribeToMore({
+    this.props.getConvoQuery.subscribeToMore({
       document: msgAdded,
       variables: {
         convoId,
@@ -29,28 +31,64 @@ class ConvoSelect extends Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.data.getConvo.msgs !== this.props.data.getConvo.msgs) {
-      this.props.renderConvo(this.props.data.getConvo.msgs);
+  componentDidUpdate() {
+    console.log('inside of componentDIdupdate before finish loading getConvo')
+    if (!this.props.getConvoQuery.loading) {
+      console.log('inside of componentDIdupdate after finish loading getConvo')
+      const { users, _id } = this.props.getConvoQuery.getConvo;
+      const { open, currentConvoId, receiverUserId } = this.props.getChatBoxStateQuery.getChatBoxState;
+      if (open && currentConvoId === 'newConvo' && users.length === 2 && users[1].id === receiverUserId) {
+        console.log('inside of componentDIdupdate and passed all filters')
+        this.props.updateChatBoxStateMutation({
+          variables: {
+            open: true,
+            currentConvoId: _id,
+            currentReceiver: null,
+            receiverUserId: null,
+          },
+        });
+        console.log('inside of componentDIdupdate after updateChatBoxState has fired')
+      }
     }
+  }
+
+  handleSelection(e) {
+    e.preventDefault();
+    this.props.updateChatBoxStateMutation({
+      variables: {
+        open: true,
+        currentConvoId: this.props.getConvoQuery.getConvo._id,
+        currentReceiver: null,
+        receiverUserId: null,
+      },
+    });
   }
 
   render() {
     console.log('this is props in ConvoSelect', this.props);
-    return this.props.data.loading ? '' : (
-      <div onClick={e => this.props.renderConvo(this.props.data.getConvo.msgs, e)}>
-        {this.props.data.getConvo.users.map(user => (<h5>{user.username}</h5>))}
+    return this.props.getConvoQuery.loading ? '' : (
+      <div onClick={this.handleSelection.bind(this)}>
+        {this.props.getConvoQuery.getConvo.users.map(user => (<h5>{user.username}</h5>))}
       </div>
     );
   }
 }
 
-const WrappedConvoSelect = graphql(getConvo, {
-  options: props => ({
-    variables: {
-      convoId: props.convoId,
-    },
+const WrappedConvoSelect = compose(
+  graphql(getChatBoxState, {
+    name: 'getChatBoxStateQuery'
   }),
-})(ConvoSelect);
+  graphql(getConvo, {
+    name: 'getConvoQuery',
+    options: props => ({
+      variables: {
+        convoId: props.convoId,
+      },
+    }),
+  }),
+  graphql(updateChatBoxState, {
+    name: 'updateChatBoxStateMutation',
+  }),
+)(ConvoSelect);
 
 export default WrappedConvoSelect;

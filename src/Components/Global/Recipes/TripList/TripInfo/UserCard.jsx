@@ -6,12 +6,14 @@ import { Link } from 'react-router-dom';
 import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationshipToTrip';
 import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
+import { updateChatBoxState } from '../../../../../graphql/mutations/updateChatBoxState';
 
 class UserCard extends Component {
   constructor(props) {
     super(props);
     this.handleYes = this.handleYes.bind(this);
     this.handleNo = this.handleNo.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
   }
  
   handleYes(e) {
@@ -42,6 +44,18 @@ class UserCard extends Component {
     });
   }
 
+  handleMessage(e) { 
+    e.preventDefault();
+    this.props.updateChatBoxStateMutation({
+      variables: {
+        open: true,
+        currentConvoId: 'newConvo',
+        currentReceiver: null,
+        receiverUserId: this.props.member.user.id,
+      },
+    });
+  }
+
   render() {
     return (
       <Link to={`/homepage/profile/${this.props.member.user.id}`} href={`/homepage/profile/${this.props.member.user.id}`}>
@@ -57,6 +71,7 @@ class UserCard extends Component {
             <div>{this.props.member.user.age}</div>
             <div>{this.props.member.user.relationship}</div> 
             <div>for Sure Going? {this.props.member.forSureGoing? 'true' : 'false' }</div> 
+            <button onClick={this.handleMessage}>Message</button>
             { this.props.creatorView ? 
               <div><button onClick={this.handleYes}>Yes</button>or<button onClick={this.handleNo}>No</button></div> : '' }
           </Card.Content>
@@ -69,7 +84,8 @@ class UserCard extends Component {
 const WrapedUserCard = compose(
   graphql(updateUserRelationshipToTrip, { name: 'updateUserRelationshipToTripMutation' }),
   graphql(deleteAUserFromTrip, { name: 'deleteAUserFromTripMutation' }),
-  graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' })
+  graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' }),
+  graphql(updateChatBoxState, { name: 'updateChatBoxStateMutation' }),
 )(UserCard);
 
 export default WrapedUserCard;

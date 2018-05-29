@@ -18,15 +18,6 @@ class MessageList extends Component {
           return prev;
         }
         const newConvoId = subscriptionData.data.convoAdded;
-        // don't double add the message
-        // if (!prev.getConvoList.convoIds.find(convoId => convoId === newConvoId)) {
-        //   const current = Object.assign({}, prev, {
-        //     getConvoList: {
-        //       convoIds: [...prev.getConvoList.convoIds, newConvoId],
-        //     },
-        //   });
-        //   return current;
-        // }
         if (!prev.getConvoList.convoIds.find(convoId => convoId === newConvoId)) {
           const current = Object.assign({}, prev, {
             getConvoList: Object.assign({}, prev.getConvoList, {
@@ -48,7 +39,6 @@ class MessageList extends Component {
           this.props.getConvoListQuery.getConvoList.convoIds.map(convoId => (
             <ConvoSelect
               convoId={convoId}
-              renderConvo={this.props.renderConvo}
             />
           ))
         }

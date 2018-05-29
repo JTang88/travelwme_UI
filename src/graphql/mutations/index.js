@@ -9,6 +9,7 @@ import { moveAJoinedTripToGoingListResolver } from './moveAJoinedTripToGoingList
 import { updateCurrentSearchTermsResolver } from './updateCurrentSearchTerms';
 import { addFoundTripToListResolver } from './addFoundTripToList';
 import { updateSearchStateResolver } from './updateSearchState';
+import { updateChatBoxStateResolver } from './updateChatBoxState';
 
 export default merge(
   {},
@@ -22,4 +23,5 @@ export default merge(
   updateCurrentSearchTermsResolver,
   addFoundTripToListResolver,
   updateSearchStateResolver,
+  updateChatBoxStateResolver,
 );

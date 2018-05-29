@@ -17,30 +17,11 @@ import ChatBox from './ChatBox';
 import getBasicUserInfo from '../../graphql/queries/getBasicUserInfo';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
+import { getChatBoxState } from '../../graphql/queries/getChatBoxState';
+import { updateChatBoxState } from '../../graphql/mutations/updateChatBoxState';
 
 
 class HomePage extends Component {
-  state = {
-    showChatBox: false,
-    msgs: null,
-  }
-
-  closeChatBox() {
-    this.setState({
-      showChatBox: false,
-    })
-  }
-
-  renderConvo(msgs, e) {
-    if (e) {
-      e.preventDefault();
-    }
-    this.setState({
-      msgs,
-      showChatBox: true,
-    })
-  }
-
   componentDidUpdate(nextProps) {
     if (nextProps.getBasicUserInfoQuery.getUser !== this.props.getBasicUserInfoQuery.getUser) {
       this.props.updateCurrentUserMutation({
@@ -50,15 +31,13 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log('here is props in homepage', this.props.getCurrentUserQuery.getCurrentUser);
+    console.log('here is props in homepage', this.props)
     return (
       <div>
         { 
           this.props.getCurrentUserQuery.getCurrentUser.username === '' ? '' :
           <div>
-            <NavBar 
-              renderConvo={this.renderConvo.bind(this)}
-            />
+            <NavBar />
             <Switch>
               <Route exact path="/homepage" component={TrendTrips} />
               <Route path="/homepage/:tripType/tripinfo/:id" component={TripInfo} />
@@ -76,9 +55,9 @@ class HomePage extends Component {
           </div>
         }
         {
-          this.state.showChatBox ? 
-            < ChatBox
-              msgs={this.state.msgs}
+          this.props.getChatBoxStateQuery.getChatBoxState.open ? 
+            <ChatBox
+              convoId={this.props.getChatBoxStateQuery.getChatBoxState.currentConvoId}
             /> : null
         }
       </div>
@@ -90,6 +69,9 @@ const WrappedHomePage = compose(
   graphql(getCurrentUser, { 
     name: 'getCurrentUserQuery',
   }),
+  graphql(getChatBoxState, {
+    name: 'getChatBoxStateQuery',
+  }),
   graphql(getBasicUserInfo, { 
     name: 'getBasicUserInfoQuery',
     options: props => ({ 
@@ -99,6 +81,9 @@ const WrappedHomePage = compose(
   graphql(updateCurrentUser, {
     name: 'updateCurrentUserMutation',
   }),
+  graphql(updateChatBoxState, {
+    name: 'updateChatBoxStateMutation',
+  })
 )(HomePage);
 
 export default WrappedHomePage;
