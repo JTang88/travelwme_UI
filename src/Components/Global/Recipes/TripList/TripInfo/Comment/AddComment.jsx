@@ -5,7 +5,6 @@ import newComment from '../../../../../../graphql/mutations/newComment';
 import getTripComments from '../../../../../../graphql/queries/getTripComments';
 
 const AddComment = ({ mutate, username, tripCommentId }) => {
-  console.log('this is match in AddComment', username)
   const handleKeyUp = (e) => {
     if (e.keyCode === 13) {
       mutate({

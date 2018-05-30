@@ -170,11 +170,10 @@ class TripDetails extends Component {
   handleInputChange(event) {
     const change = {};
     change[event.target.name] = event.target.value;
-    this.setState(change, () => (console.log('state', this.state)));
+    this.setState(change);
   }
 
   render() {
-    console.log('this is props in TripDetails: ', this.props);
     return (
       <div>
         <header className="masthead text-white text-center">

@@ -20,15 +20,12 @@ class Comment extends Component {
         tripCommentId,
       },
       updateQuery: (prev, { subscriptionData }) => {
-        console.log('is it even in herw?');
         if (!subscriptionData.data) {
           return prev;
         }
-        console.log('here is subscription.date', subscriptionData.data);
         const newReply = subscriptionData.data.replyAdded;
         // don't double add the message
         if (!prev.getReply.find(rep => rep._id === newReply._id)) {
-          console.log('this is prev.getCommnets', prev.getReply);
           const current = Object.assign({}, prev, {
             getReply: [...prev.getReply, newReply],
           });
@@ -50,7 +47,6 @@ class Comment extends Component {
         const newComment = subscriptionData.data.commentAdded;
         // don't double add the message
         if (!prev.getTripComments.find(cmt => cmt._id === newComment._id)) {
-          console.log('this is prev.getCommnets', prev.getTripComments);
           const current = Object.assign({}, prev, {
             getTripComments: [...prev.getTripComments, newComment],
           });
@@ -62,19 +58,18 @@ class Comment extends Component {
   }
 
   render() {
-    console.log('here is props in comments', this.props);
     return (
       <div>
         <h1>Comments</h1>
         {
           this.props.getTripCommentsQuery.loading || this.props.getReplyQuery.loading ? 'loading' :
-            this.props.getTripCommentsQuery.getTripComments.map(comment => 
+            this.props.getTripCommentsQuery.getTripComments.map((comment, i) => 
               (
-                <div>
+                <div key={`comment${i}`}>
                   <h3>{comment.username}</h3>:{comment.text}
                   {
-                    this.props.getReplyQuery.getReply.map(reply => (
-                      <div>
+                    this.props.getReplyQuery.getReply.map((reply, i) => (
+                      <div key={`reply${i}`}>
                         {
                           reply.commentId === comment._id ? (
                             <div>

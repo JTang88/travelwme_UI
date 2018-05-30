@@ -5,7 +5,6 @@ import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import getJoinedTrips from '../../../../graphql/queries/getJoinedTrips';
 
 const Joined = (props) => {
-  console.log('this is props in Joined', props);
   return (
     <div>
       <div>Trips I Joined</div>

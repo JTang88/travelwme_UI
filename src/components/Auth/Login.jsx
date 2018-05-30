@@ -46,7 +46,6 @@ class Login extends Component {
     if (token) {
       localStorage.setItem('token', token.data.login);
       const { id } = await decode(token.data.login).user;
-      console.log('this is Id in Login', id)
       await this.props.updateCurrentUserMutation({
         variables: {
           id,
@@ -73,8 +72,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     return this.props.match.path === '/login' ?
       (
         <div className="loginimg">

@@ -31,13 +31,23 @@ class MessageList extends Component {
     });
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (!this.props.getConvoListQuery.loading) {
+      const { convoIds } = this.props.getConvoListQuery.getConvoList;
+      const { convoIds: nextConvoIds } = nextProps.getConvoListQuery.getConvoList;
+      return JSON.stringify(convoIds) !== JSON.stringify(nextConvoIds);
+    }
+  }
+
   render() {
+    console.log('render MessageList')
     return (
       <div>  
         {
           this.props.getConvoListQuery.loading ? '' :
           this.props.getConvoListQuery.getConvoList.convoIds.map(convoId => (
             <ConvoSelect
+              key={convoId}
               convoId={convoId}
             />
           ))

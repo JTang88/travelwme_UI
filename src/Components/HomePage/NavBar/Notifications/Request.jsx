@@ -12,7 +12,6 @@ class Request extends Component {
   }
 
   render() {
-    console.log('here is props in Request', this.props);
     const { tripId, senderName, tripTitle, userId } = this.props;
     return (
       <div>

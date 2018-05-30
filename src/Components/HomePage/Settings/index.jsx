@@ -19,7 +19,7 @@ class Settings extends Component {
 
   handleChange(event) {
     const { name } = event.target;
-    this.setState({ [name]: event.target.value }, () => { console.log(this.state) });
+    this.setState({ [name]: event.target.value });
   }
 
   async handleSubmitPassword(e) {

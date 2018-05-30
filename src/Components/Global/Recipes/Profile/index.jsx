@@ -47,7 +47,6 @@ class Profile extends React.Component {
   async handdleUpdateProfile(e) {
     e.preventDefault();
     this.setState({ edit: false });
-    console.log(this.state);
 
     const updatedUserInfo = {
       description: this.state.description || null,
@@ -66,7 +65,6 @@ class Profile extends React.Component {
 
 
   render() {
-    console.log('props in profile: ', this.props)
     return !this.props.getUserQuery.loading ? (
       <div className="text-center">
         <h1>{this.props.getUserQuery.getUser.username}</h1>

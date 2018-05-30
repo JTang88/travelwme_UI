@@ -88,6 +88,8 @@ const AddMessage = ({
     
   };
 
+  console.log('render AddMessage');
+
   return (
     <div className="messageInput">
       <input

@@ -32,13 +32,10 @@ class ConvoSelect extends Component {
   }
 
   componentDidUpdate() {
-    console.log('inside of componentDIdupdate before finish loading getConvo')
     if (!this.props.getConvoQuery.loading) {
-      console.log('inside of componentDIdupdate after finish loading getConvo')
       const { users, _id } = this.props.getConvoQuery.getConvo;
       const { open, currentConvoId, receiverUserId } = this.props.getChatBoxStateQuery.getChatBoxState;
       if (open && currentConvoId === 'newConvo' && users.length === 2 && users[1].id === receiverUserId) {
-        console.log('inside of componentDIdupdate and passed all filters')
         this.props.updateChatBoxStateMutation({
           variables: {
             open: true,
@@ -47,7 +44,6 @@ class ConvoSelect extends Component {
             receiverUserId: null,
           },
         });
-        console.log('inside of componentDIdupdate after updateChatBoxState has fired')
       }
     }
   }
@@ -65,10 +61,10 @@ class ConvoSelect extends Component {
   }
 
   render() {
-    console.log('this is props in ConvoSelect', this.props);
+    console.log('render ConvoSelect')
     return this.props.getConvoQuery.loading ? '' : (
       <div onClick={this.handleSelection.bind(this)}>
-        {this.props.getConvoQuery.getConvo.users.map(user => (<h5>{user.username}</h5>))}
+        {this.props.getConvoQuery.getConvo.users.map((user, i) => (<h5 key={`userListInMsg${i}`}>{user.username}</h5>))}
       </div>
     );
   }

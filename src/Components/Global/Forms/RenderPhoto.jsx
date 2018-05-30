@@ -7,9 +7,6 @@ import { Image } from 'cloudinary-react';
 const RenderPhoto = (props) => {
 
   const { publicId } = props;
-
-  console.log('this is my publicId at run time ====== ', publicId)
-
   return (
     <div>
       <Image cloudName="travelwme" publicId={publicId} />

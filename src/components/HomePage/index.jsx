@@ -18,7 +18,6 @@ import getBasicUserInfo from '../../graphql/queries/getBasicUserInfo';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
 import { getChatBoxState } from '../../graphql/queries/getChatBoxState';
-import { updateChatBoxState } from '../../graphql/mutations/updateChatBoxState';
 
 
 class HomePage extends Component {
@@ -31,7 +30,7 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log('here is props in homepage', this.props)
+    console.log('render HomePage');
     return (
       <div>
         { 
@@ -81,9 +80,6 @@ const WrappedHomePage = compose(
   graphql(updateCurrentUser, {
     name: 'updateCurrentUserMutation',
   }),
-  graphql(updateChatBoxState, {
-    name: 'updateChatBoxStateMutation',
-  })
 )(HomePage);
 
 export default WrappedHomePage;

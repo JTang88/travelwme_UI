@@ -22,7 +22,6 @@ class TripList extends Component {
   }
 
   render() {
-    console.log('this is this.props in TripList: ', this.props);
     const tripType = this.props.from === '/homepage' ? 'trend' : this.props.from === '/homepage/created' ? 'created' :
       this.props.from === '/homepage/joined' ? 'joined' : this.props.from === '/homepage/going' ? 'going' :
         this.props.from === '/homepage/waiting' ? 'waiting' : 'found';
@@ -31,7 +30,7 @@ class TripList extends Component {
         { 
           this.props.trips.map((trip) => { 
             return (trip.id > 0 && trip.trip_status === 'open') || (trip.id > 0 && trip.trip_status === 'close' && tripType === 'created') ? (
-              <div key={trip.id} >
+              <div key={`tripList${trip.id}`} >
                 <div>
                   <Image cloudName="travelwme" publicId={trip.creator.publicId} /> 
                   <Link to={`/homepage/${tripType}/tripinfo/${trip.id}`} href={`/homepage/${tripType}/tripinfo/${trip.id}`}>

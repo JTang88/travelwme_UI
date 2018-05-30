@@ -18,7 +18,6 @@ class UserBox extends Component {
 
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h3>Hello {this.props.getCurrentUserQuery.getCurrentUser.username} !</h3>

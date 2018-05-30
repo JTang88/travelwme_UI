@@ -56,7 +56,7 @@ class PlanTrip extends Component {
     this.setState({
       countries: countries.concat(newCountry),
       continents: continents.concat(newContinent),
-    }, () => console.log(this.state));
+    });
   }
 
 
@@ -68,7 +68,7 @@ class PlanTrip extends Component {
     } else {
       newSelectionArray = [...this.state.body_types, newSelection];
     }
-    this.setState({ body_types: newSelectionArray }, () => console.log('selection', this.state));
+    this.setState({ body_types: newSelectionArray });
   }
 
 
@@ -80,14 +80,14 @@ class PlanTrip extends Component {
     } else {
       newSelectionArray = [...this.state.keys, newSelection];
     }
-    this.setState({ keys: newSelectionArray }, () => console.log('selection', this.state));
+    this.setState({ keys: newSelectionArray });
   }
 
   handleInputChange(event) {
     const change = {};
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     change[event.target.name] = value;
-    this.setState(change, () => (console.log('state', this.state)));
+    this.setState(change);
   }
 
   handleSubmit() {

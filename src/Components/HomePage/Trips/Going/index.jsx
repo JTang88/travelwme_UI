@@ -5,7 +5,6 @@ import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import getForSureGoingTrips from '../../../../graphql/queries/getForSureGoingTrips';
 
 const Going = (props) => {
-  console.log('this is props in ForSureGoing', props);
   return (
     <div>
       <div>Trips I am For Sure Going</div>

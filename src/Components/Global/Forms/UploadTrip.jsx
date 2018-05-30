@@ -38,13 +38,6 @@ class UploadTrip extends React.Component {
       formData,
     );
 
-    console.log('this is my respose mother fuckers!!!', response.data.public_id)
-    // const graphqlResponse = await this.props.mutate({
-    //   variables: {
-    //     id,
-    //     publicId: response.data.public_id,
-    //   },
-    // });
     this.props.getpublicId(response.data.public_id);
   }
 

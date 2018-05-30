@@ -41,7 +41,6 @@ class TripInfo extends Component {
   }
 
   render() {
-    console.log('this is state.travelers in tripInfo: ', this.props)
     return (
       <div>
         { this.state.travelers ? 

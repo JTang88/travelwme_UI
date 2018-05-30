@@ -11,9 +11,10 @@ class ChatBox extends Component {
         <h1>ChatBox in the House!!</h1>
         {
           this.props.data.getConvo ?
-          this.props.data.getConvo.msgs.map(msg => (
+          this.props.data.getConvo.msgs.map((msg, i) => (
             <Message 
               msg={msg}
+              key={`msg${i}`}
             />
           )) : null 
         }

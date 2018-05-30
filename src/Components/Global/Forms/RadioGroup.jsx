@@ -8,7 +8,7 @@ const RadioGroup = (props) => {
       <div className="radio-group">
         {props.options.map((option, i) => {
           return (
-            <div key={i}>
+            <div key={`RadioGroup${i}`}>
               <label>
                 {/* <img className="rgimg" src='http://cdn1.smartvectorpics.com/images/imagesbase/fpik/air-travel-vector-background_23-2147493630.jpg' style={{ borderradius: 50 }}/> */}
                 <input 

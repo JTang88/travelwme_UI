@@ -20,7 +20,6 @@ class Notifications extends Component {
         }
         const newNote = subscriptionData.data.noteAdded;
         if (!prev.getNotifications.find(note => note._id === newNote._id)) {
-          console.log('this is prev.getNotifications', prev.getNotifications);
           const current = Object.assign({}, prev, {
             getNotifications: [...prev.getNotifications, newNote],
           });
@@ -32,15 +31,15 @@ class Notifications extends Component {
   }
 
   render() {
-    console.log('here is props in Notifications', this.props);
     return (
       this.props.getNotificationsQuery.loading ? 'loading notifications' :
       <div>
         { 
-          this.props.getNotificationsQuery.getNotifications.map((note) => {
+          this.props.getNotificationsQuery.getNotifications.map((note, i) => {
             if (note.type === 'accepted') {
               return (
                 <Accepted
+                  key={`accepted${i}`}
                   tripId={note.tripId} 
                   senderName={note.senderName}
                   tripTitle={note.tripTitle}
@@ -50,6 +49,7 @@ class Notifications extends Component {
             } else if (note.type === 'request') {
               return (
                 <Request
+                  key={`request${i}`}
                   tripId={note.tripId}
                   senderName={note.senderName}
                   tripTitle={note.tripTitle}

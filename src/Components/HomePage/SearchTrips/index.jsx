@@ -43,7 +43,7 @@ class SearchTrips extends Component {
     const change = {};
     const { value } = event.target;
     change[event.target.name] = value;
-    this.setState(change, () => (console.log('state', this.state))); 
+    this.setState(change); 
   }
   
   handleKeywordSelection(e) {
@@ -54,12 +54,11 @@ class SearchTrips extends Component {
     } else {
       newSelectionArray = [...this.state.keys, newSelection];
     }
-    this.setState({ keys: newSelectionArray }, () => console.log('selection', this.state));
+    this.setState({ keys: newSelectionArray });
   }
   
   async handleSearch(e) {
     e.preventDefault();
-    console.log('it is hitting handle search');
     const locationField = this.state.searchBy === 'Country' ? 'country' : 'continent';
     const otherLocationField = locationField === 'country' ? 'continent' : 'country';
 
@@ -74,7 +73,6 @@ class SearchTrips extends Component {
       keys: JSON.stringify(this.state.keys),
     };
    
-    console.log({ ...terms });
     await this.props.updateCurrentSearchTermsMutation({
       variables: {
         ...terms,
@@ -90,7 +88,6 @@ class SearchTrips extends Component {
   }
 
   render() {
-    console.log('here is the props in searchTrips: ', this.props);
     return (
       this.props.searchStateQuery.searchState.searched === true ? <Redirect to={{ pathname: '/homepage/foundtrips' }} /> : 
       <div>
