@@ -7,13 +7,13 @@ import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updat
 import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
 import { updateChatBoxState } from '../../../../../graphql/mutations/updateChatBoxState';
+import MessageButton from '../../../../Global/Forms/MessageButton';
 
 class UserCard extends Component {
   constructor(props) {
     super(props);
     this.handleYes = this.handleYes.bind(this);
     this.handleNo = this.handleNo.bind(this);
-    this.handleMessage = this.handleMessage.bind(this);
   }
  
   handleYes(e) {
@@ -44,18 +44,6 @@ class UserCard extends Component {
     });
   }
 
-  handleMessage(e) { 
-    e.preventDefault();
-    this.props.updateChatBoxStateMutation({
-      variables: {
-        open: true,
-        currentConvoId: 'newConvo',
-        currentReceiver: null,
-        receiverUserId: this.props.member.user.id,
-      },
-    });
-  }
-
   render() {
     return (
       <Link to={`/homepage/profile/${this.props.member.user.id}`} href={`/homepage/profile/${this.props.member.user.id}`}>
@@ -71,7 +59,7 @@ class UserCard extends Component {
             <div>{this.props.member.user.age}</div>
             <div>{this.props.member.user.relationship}</div> 
             <div>for Sure Going? {this.props.member.forSureGoing? 'true' : 'false' }</div> 
-            <button onClick={this.handleMessage}>Message</button>
+            <MessageButton receiverUserId={this.props.member.user.id} />
             { this.props.creatorView ? 
               <div><button onClick={this.handleYes}>Yes</button>or<button onClick={this.handleNo}>No</button></div> : '' }
           </Card.Content>

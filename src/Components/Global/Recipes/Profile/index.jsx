@@ -7,6 +7,7 @@ import UploadUser from '../../Forms/UploadUser';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import getUser from '../../../../graphql/queries/getUser';
 import updateUser from '../../../../graphql/mutations/updateUser';
+import MessageButton from '../../Forms/MessageButton';
 
 
 class Profile extends React.Component {
@@ -135,6 +136,10 @@ class Profile extends React.Component {
                 <div>About me: 
                   <p>{this.props.getUserQuery.getUser.description}</p>
                 </div>
+                {
+                  this.props.match.params.id ? 
+                    <MessageButton receiverUserId={Number(this.props.match.params.id)} /> : null
+                }
               </ul>
               {
                 this.props.getCurrentUserQuery.getCurrentUser.id === this.props.getUserQuery.getUser.id ?

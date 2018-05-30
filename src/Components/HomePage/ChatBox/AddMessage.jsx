@@ -56,7 +56,6 @@ const AddMessage = ({
       });
       e.target.value = '';
     }
-    // $username: String! , $text: String! , $convoId: String!)
     if (e.keyCode === 13 && currentConvoId !== 'newConvo') {
       const convoId = currentConvoId;
       newMsgMutation({

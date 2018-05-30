@@ -15,6 +15,7 @@ import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/mov
 import { getCurrentSearchTerms } from '../../../../../graphql/queries/getCurrentSearchTerms';
 import { addFoundTripToList } from '../../../../../graphql/mutations/addFoundTripToList';
 import updateTripDescription from '../../../../../graphql/mutations/updateTripDescription';
+import MessageButton from '../../../../Global/Forms/MessageButton';
 import TextArea from '../../../Forms/TextArea';
 
 
@@ -63,15 +64,6 @@ class TripDetails extends Component {
       },
     });
   }
-
-
-  // const note = {
-  //   _id: await new mongoose.Types.ObjectId,
-  //   type: 'accepted',
-  //   senderName: args.senderName,
-  //   tripTitle: args.tripTitle,
-  //   tripId: args.tripId,
-  // }
 
   handleAskToJoin(e) {      
     e.preventDefault();
@@ -202,6 +194,10 @@ class TripDetails extends Component {
                 <ul>{this.props.trip.creator.gender}</ul>
                 <ul>{this.props.trip.creator.age}</ul>
                 <ul>{this.props.trip.creator.relationship}</ul>
+                {
+                  this.props.userId !== this.props.trip.creator.id ? 
+                    <MessageButton receiverUserId={this.props.trip.creator.id} /> : null
+                }
               </li>
             </div>
           </Link>
