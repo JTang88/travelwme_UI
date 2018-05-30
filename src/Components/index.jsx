@@ -5,6 +5,7 @@ import Landing from './LandingPage';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import checkAuth from './../services/checkAuth';
+import ForgotPassowrd from '../Components/Auth/ForgotPassword';
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -24,6 +25,7 @@ function App() {
     <div className="app">
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/login/forgot" component={ForgotPassowrd} />
         <Route path="/sign" component={Signup} />
         <Route exact path="/" component={Landing} />
         <Route path="/login/forgot" component={Login} />
