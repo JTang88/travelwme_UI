@@ -2,68 +2,21 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import { addNewlyInterestedTripToList } from '../../../../graphql/mutations/addNewlyInterestedTripToList';
-import interestedInATrip from '../../../../graphql/mutations/interestedInATrip';
 import forSureGoing from '../../../../graphql/mutations/forSureGoing';
 import updateTripStat from '../../../../graphql/mutations/updateTripStat';
-import getTrip from '../../../../graphql/queries/getTrip';
 import { moveAJoinedTripToGoingList } from '../../../../graphql/mutations/moveAJoinedTripToGoingList';
-import { getCurrentSearchTerms } from '../../../../graphql/queries/getCurrentSearchTerms';
-import { addFoundTripToList } from '../../../../graphql/mutations/addFoundTripToList';
 import updateTripDescription from '../../../../graphql/mutations/updateTripDescription';
 import MessageButton from '../../../Global/Forms/MessageButton';
 import Description from './Description';
 import TripStatusButton from './TripStatusButton';
 import CancelOrLeaveButton from './CancelOrLeaveButton';
+import AskToJoinButton from './AskToJoinButton';
 
 
 class TripDetails extends Component {
   constructor(props) {
     super(props);
-    this.handleAskToJoin = this.handleAskToJoin.bind(this);
     this.handleForSureGoing = this.handleForSureGoing.bind(this);
-  }
-
-  handleAskToJoin(e) {      
-    e.preventDefault();
-    this.props.interestedInATripMutation({
-      variables: {
-        senderName: this.props.username,
-        creatorId: this.props.trip.creator.id,
-        tripTitle: this.props.trip.title,
-        userId: this.props.userId,        
-        tripId: this.props.tripId,
-      },
-      update: (proxy, { data: { interestedInATrip } }) => {
-        const data = proxy.readQuery({ query: getTrip, variables: { id: this.props.tripId } });
-        data.getTrip.members.push(interestedInATrip);
-        proxy.writeQuery({ query: getTrip, variables: { id: this.props.tripId }, data });
-      },
-    });
-
-    if (this.props.tripType === 'trend') {
-      this.props.addNewlyInterestedTripToListMutation({
-        variables: {
-          userId: this.props.userId,        
-          tripId: this.props.tripId,
-        },
-      });
-    } else {
-      this.props.addFoundTripToListMutation({
-        variables: {
-          ...this.props.getCurrentSearchTermsQuery.getCurrentSearchTerms,
-          tripId: this.props.tripId,
-        },
-      });
-    }
-
-    this.props.updateTripStatMutation({
-      variables: {
-        tripId: this.props.tripId, 
-        field: 'interesters',
-        type: 'inc',
-      },
-    });
   }
 
   async handleForSureGoing(tripType, e) {
@@ -174,7 +127,14 @@ class TripDetails extends Component {
                 </div> :
               this.props.currentUser === 'N' ?
                 <div className="trippic">
-                  <button onClick={this.handleAskToJoin}>Ask to Join</button>
+                  <AskToJoinButton
+                    senderName={this.props.username}
+                    creatorId={this.props.trip.creator.id}
+                    tripTitle={this.props.trip.title}
+                    userId={this.props.userId}
+                    tripId={this.props.tripId}
+                    tripType={this.props.tripType}
+                  />
                 </div> : 'You are for sure going on this trip!'
             }
           </div>
@@ -185,13 +145,9 @@ class TripDetails extends Component {
 }
   
 const WrapedTripDetails = compose(
-  graphql(interestedInATrip, { name: 'interestedInATripMutation' }),
-  graphql(addNewlyInterestedTripToList, { name: 'addNewlyInterestedTripToListMutation' }),
   graphql(forSureGoing, { name: 'forSureGoingMutation' }),
   graphql(updateTripStat, { name: 'updateTripStatMutation' }),
-  graphql(getCurrentSearchTerms, { name: 'getCurrentSearchTermsQuery' }),
   graphql(moveAJoinedTripToGoingList, { name: 'moveAJoinedTripToGoingListMutation' }),
-  graphql(addFoundTripToList, { name: 'addFoundTripToListMutation' }),
   graphql(updateTripDescription, { name: 'updateTripDescriptionMutation' }),
 )(TripDetails);
 
