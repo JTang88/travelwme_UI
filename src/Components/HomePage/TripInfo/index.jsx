@@ -45,6 +45,11 @@ class TripInfo extends Component {
       <div>
         { this.state.travelers ? 
           <div>
+            <header className="masthead text-white text-center">
+              <div>
+                <h1 className="text-uppercase triptit">{this.props.getTripQuery.getTrip.title}</h1>
+              </div>
+            </header>
             <TripDetails 
               tripId={Number(this.props.match.params.id)}
               trip={this.props.getTripQuery.getTrip}

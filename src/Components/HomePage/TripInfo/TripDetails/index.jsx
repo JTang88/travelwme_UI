@@ -1,64 +1,19 @@
 import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import forSureGoing from '../../../../graphql/mutations/forSureGoing';
-import updateTripStat from '../../../../graphql/mutations/updateTripStat';
-import { moveAJoinedTripToGoingList } from '../../../../graphql/mutations/moveAJoinedTripToGoingList';
-import updateTripDescription from '../../../../graphql/mutations/updateTripDescription';
 import MessageButton from '../../../Global/Forms/MessageButton';
 import Description from './Description';
 import TripStatusButton from './TripStatusButton';
 import CancelOrLeaveButton from './CancelOrLeaveButton';
 import AskToJoinButton from './AskToJoinButton';
+import ForSureGoingButton from './ForSureGoingButton';
 
 
 class TripDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.handleForSureGoing = this.handleForSureGoing.bind(this);
-  }
-
-  async handleForSureGoing(tripType, e) {
-    e.preventDefault();
-    this.props.forSureGoingMutation({
-      variables: {
-        memberId: this.props.currentMemberId, 
-        tripId: this.props.tripId,
-      },
-    });
-    this.props.updateTripStatMutation({
-      variables: {
-        tripId: this.props.tripId, 
-        field: 'forSureGoing',
-        type: 'inc',
-      },
-    });
-    await this.props.moveAJoinedTripToGoingListMutation({
-      variables: {
-        userId: this.props.userId,        
-        tripId: this.props.tripId,      
-      },
-    });
-    this.props.invalidateATripInCacheMutation({
-      variables: {
-        userId: this.props.userId,        
-        tripId: this.props.tripId,
-        tripType,
-      },
-    });
-  }
-  
-
   render() {
     console.log('render trip details');
     return (
       <div>
-        <header className="masthead text-white text-center">
-          <div>
-            <h1 className="text-uppercase triptit">{this.props.trip.title}</h1>
-          </div>
-        </header>
         <div className="row">
           <Link to={`/homepage/profile/${this.props.trip.creator.id}`} href={`/homepage/profile/${this.props.trip.creator.id}`}>
             <div className="col-4">
@@ -112,7 +67,12 @@ class TripDetails extends Component {
                     Leave this Trip
                   </CancelOrLeaveButton>
                     let the world know that you are for sure going
-                  <button onClick={e => this.handleForSureGoing('joined', e)}>for Sure Going!</button>
+                  <ForSureGoingButton 
+                    memberId={this.props.currentMemberId}
+                    tripId={this.props.tripId}
+                    userId={this.props.userId}
+                    tripType={'joined'}
+                  />
                 </div> :
               this.props.currentUser === 'I' ? 
                 <div className="trippic">
@@ -143,12 +103,5 @@ class TripDetails extends Component {
     );
   }
 }
-  
-const WrapedTripDetails = compose(
-  graphql(forSureGoing, { name: 'forSureGoingMutation' }),
-  graphql(updateTripStat, { name: 'updateTripStatMutation' }),
-  graphql(moveAJoinedTripToGoingList, { name: 'moveAJoinedTripToGoingListMutation' }),
-  graphql(updateTripDescription, { name: 'updateTripDescriptionMutation' }),
-)(TripDetails);
 
-export default WrapedTripDetails;
+export default TripDetails;
