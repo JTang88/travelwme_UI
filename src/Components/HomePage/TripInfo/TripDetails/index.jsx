@@ -10,14 +10,13 @@ import interestedInATrip from '../../../../graphql/mutations/interestedInATrip';
 import forSureGoing from '../../../../graphql/mutations/forSureGoing';
 import updateTripStat from '../../../../graphql/mutations/updateTripStat';
 import getTrip from '../../../../graphql/queries/getTrip';
-import updateTripStatus from '../../../../graphql/mutations/updateTripStatus';
 import { moveAJoinedTripToGoingList } from '../../../../graphql/mutations/moveAJoinedTripToGoingList';
 import { getCurrentSearchTerms } from '../../../../graphql/queries/getCurrentSearchTerms';
 import { addFoundTripToList } from '../../../../graphql/mutations/addFoundTripToList';
 import updateTripDescription from '../../../../graphql/mutations/updateTripDescription';
 import MessageButton from '../../../Global/Forms/MessageButton';
-// import TextArea from '../../../Global/Forms/TextArea';
 import Description from './Description';
+import ToggleTripStatus from './ToggleTripStatus';
 
 
 class TripDetails extends Component {
@@ -26,7 +25,6 @@ class TripDetails extends Component {
     this.handleCancelRequestAndLeaveTrip = this.handleCancelRequestAndLeaveTrip.bind(this);
     this.handleAskToJoin = this.handleAskToJoin.bind(this);
     this.handleForSureGoing = this.handleForSureGoing.bind(this);
-    this.handleCloseAndOpenThisTrip = this.handleCloseAndOpenThisTrip.bind(this);
   }
 
   handleCancelRequestAndLeaveTrip(tripType, e) {
@@ -131,17 +129,9 @@ class TripDetails extends Component {
     });
   }
   
-  handleCloseAndOpenThisTrip(trip_status, e) {
-    e.preventDefault();
-    this.props.updateTripStatusMutation({
-      variables: {
-        id: this.props.tripId,
-        trip_status,
-      },
-    });
-  }
 
   render() {
+    console.log('render trip details');
     return (
       <div>
         <header className="masthead text-white text-center">
@@ -187,13 +177,10 @@ class TripDetails extends Component {
             />
             {
               this.props.currentUser === 'C' ? 
-                <div>
-                  {
-                    this.props.trip.trip_status === 'open' ? 
-                      <button onClick={e => this.handleCloseAndOpenThisTrip('close', e)}>Close This Trip</button> : 
-                      <button onClick={e => this.handleCloseAndOpenThisTrip('open', e)}>Open This Trip</button>
-                  }  
-                </div> :                   
+                <ToggleTripStatus 
+                  currentStatus={this.props.trip.trip_status} 
+                  id={this.props.trip.id}  
+                /> :                   
               this.props.currentUser === 'J' && !this.props.currentMember.forSureGoing ? 
                 <div className="trippic">
                   <button onClick={e => this.handleCancelRequestAndLeaveTrip('joined', e)}>Leave This Trip</button>
@@ -227,7 +214,6 @@ const WrapedTripDetails = compose(
   graphql(getCurrentSearchTerms, { name: 'getCurrentSearchTermsQuery' }),
   graphql(moveAJoinedTripToGoingList, { name: 'moveAJoinedTripToGoingListMutation' }),
   graphql(addFoundTripToList, { name: 'addFoundTripToListMutation' }),
-  graphql(updateTripStatus, { name: 'updateTripStatusMutation' }),
   graphql(updateTripDescription, { name: 'updateTripDescriptionMutation' }),
 )(TripDetails);
 

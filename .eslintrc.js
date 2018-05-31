@@ -9,6 +9,7 @@ module.exports = {
     "import"
   ],
   "rules": {
+    "camelcase": 0,
     "react/no-array-index-key": 0,
     "no-useless-constructor": 0,
     "no-trailing-spaces": 0,
