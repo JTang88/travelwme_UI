@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import getReply from '../../../../../../graphql/queries/getReply';
-import newReply from '../../../../../../graphql/mutations/newReply';
+import getReply from '../../../../graphql/queries/getReply';
+import newReply from '../../../../graphql/mutations/newReply';
 
 class Reply extends Component {
   constructor(props) {

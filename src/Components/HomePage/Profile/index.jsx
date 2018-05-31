@@ -1,13 +1,13 @@
 import { graphql, compose } from 'react-apollo';
 import React from 'react';
 import { Image } from 'cloudinary-react';
-import Select from '../../Forms/Select';
-import TextArea from '../../Forms/TextArea';
-import UploadUser from '../../Forms/UploadUser';
-import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
-import getUser from '../../../../graphql/queries/getUser';
-import updateUser from '../../../../graphql/mutations/updateUser';
-import MessageButton from '../../Forms/MessageButton';
+import Select from '../../Global/Forms/Select';
+import TextArea from '../../Global/Forms/TextArea';
+import UploadUser from '../../Global/Forms/UploadUser';
+import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
+import getUser from '../../../graphql/queries/getUser';
+import updateUser from '../../../graphql/mutations/updateUser';
+import MessageButton from '../../Global/Forms/MessageButton';
 
 
 class Profile extends React.Component {

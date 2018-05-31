@@ -1,8 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-// import { withRouter } from 'react-router';
-import newComment from '../../../../../../graphql/mutations/newComment';
-import getTripComments from '../../../../../../graphql/queries/getTripComments';
+import newComment from '../../../../graphql/mutations/newComment';
+import getTripComments from '../../../../graphql/queries/getTripComments';
 
 const AddComment = ({ mutate, username, tripCommentId }) => {
   const handleKeyUp = (e) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import TripList from '../../../Global/Recipes/TripList';
+import TripList from '../../TripList';
 import searchTrips from '../../../../graphql/queries/searchTrips';
 import { getCurrentSearchTerms } from '../../../../graphql/queries/getCurrentSearchTerms';
 

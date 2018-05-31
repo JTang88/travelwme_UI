@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
-import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
-import { invalidateATripInCache } from '../../../../../graphql/mutations/invalidateATripInCache';
-import { addNewlyInterestedTripToList } from '../../../../../graphql/mutations/addNewlyInterestedTripToList';
-import interestedInATrip from '../../../../../graphql/mutations/interestedInATrip';
-import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
-import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
-import getTrip from '../../../../../graphql/queries/getTrip';
-import updateTripStatus from '../../../../../graphql/mutations/updateTripStatus';
-import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/moveAJoinedTripToGoingList';
-import { getCurrentSearchTerms } from '../../../../../graphql/queries/getCurrentSearchTerms';
-import { addFoundTripToList } from '../../../../../graphql/mutations/addFoundTripToList';
-import updateTripDescription from '../../../../../graphql/mutations/updateTripDescription';
-import MessageButton from '../../../../Global/Forms/MessageButton';
-import TextArea from '../../../Forms/TextArea';
+import deleteAUserFromTrip from '../../../../graphql/mutations/deleteAUserFromTrip';
+import { deleteAMemberFromCache } from '../../../../graphql/mutations/deleteAMemberFromCache';
+import { invalidateATripInCache } from '../../../../graphql/mutations/invalidateATripInCache';
+import { addNewlyInterestedTripToList } from '../../../../graphql/mutations/addNewlyInterestedTripToList';
+import interestedInATrip from '../../../../graphql/mutations/interestedInATrip';
+import forSureGoing from '../../../../graphql/mutations/forSureGoing';
+import updateTripStat from '../../../../graphql/mutations/updateTripStat';
+import getTrip from '../../../../graphql/queries/getTrip';
+import updateTripStatus from '../../../../graphql/mutations/updateTripStatus';
+import { moveAJoinedTripToGoingList } from '../../../../graphql/mutations/moveAJoinedTripToGoingList';
+import { getCurrentSearchTerms } from '../../../../graphql/queries/getCurrentSearchTerms';
+import { addFoundTripToList } from '../../../../graphql/mutations/addFoundTripToList';
+import updateTripDescription from '../../../../graphql/mutations/updateTripDescription';
+import MessageButton from '../../../Global/Forms/MessageButton';
+import TextArea from '../../../Global/Forms/TextArea';
 
 
 class TripDetails extends Component {

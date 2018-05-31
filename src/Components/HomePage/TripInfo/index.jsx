@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
-import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
-import makeTravelerObjByTypes from '../../../../../services/makeTravelerObjByTypes';
+import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
+import makeTravelerObjByTypes from '../../../services/makeTravelerObjByTypes';
 import Comment from './Comment';
 import AddComment from './Comment/AddComment';
-import getTrip from '../../../../../graphql/queries/getTrip';
+import getTrip from '../../../graphql/queries/getTrip';
 
 class TripInfo extends Component {
   constructor(props) {

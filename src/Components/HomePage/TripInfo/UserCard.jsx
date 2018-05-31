@@ -3,11 +3,11 @@ import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Card } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import updateUserRelationshipToTrip from '../../../../../graphql/mutations/updateUserRelationshipToTrip';
-import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
-import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
-import { updateChatBoxState } from '../../../../../graphql/mutations/updateChatBoxState';
-import MessageButton from '../../../../Global/Forms/MessageButton';
+import updateUserRelationshipToTrip from '../../../graphql/mutations/updateUserRelationshipToTrip';
+import deleteAUserFromTrip from '../../../graphql/mutations/deleteAUserFromTrip';
+import { deleteAMemberFromCache } from '../../../graphql/mutations/deleteAMemberFromCache';
+import { updateChatBoxState } from '../../../graphql/mutations/updateChatBoxState';
+import MessageButton from '../../Global/Forms/MessageButton';
 
 class UserCard extends Component {
   constructor(props) {

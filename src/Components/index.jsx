@@ -5,7 +5,7 @@ import Landing from './LandingPage';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import checkAuth from './../services/checkAuth';
-import ForgotPassowrd from '../Components/Auth/ForgotPassword';
+import ForgotPassowrd from './Auth/ForgotPassword';
 
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Route

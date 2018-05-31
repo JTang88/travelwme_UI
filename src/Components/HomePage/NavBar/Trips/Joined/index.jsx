@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import TripList from '../../../Global/Recipes/TripList';
-import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
-import getJoinedTrips from '../../../../graphql/queries/getJoinedTrips';
+import TripList from '../../../TripList';
+import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
+import getJoinedTrips from '../../../../../graphql/queries/getJoinedTrips';
 
 const Joined = (props) => {
   return (

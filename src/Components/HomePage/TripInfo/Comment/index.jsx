@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { withRouter } from 'react-router';
-import commentAdded from '../../../../../../graphql/subscriptions/commentAdded';
-import replyAdded from '../../../../../../graphql/subscriptions/replyAdded';
-import getTripComments from '../../../../../../graphql/queries/getTripComments';
-import getReply from '../../../../../../graphql/queries/getReply';
+import commentAdded from '../../../../graphql/subscriptions/commentAdded';
+import replyAdded from '../../../../graphql/subscriptions/replyAdded';
+import getTripComments from '../../../../graphql/queries/getTripComments';
+import getReply from '../../../../graphql/queries/getReply';
 import Reply from './Reply';
 
 class Comment extends Component {
@@ -58,6 +58,7 @@ class Comment extends Component {
   }
 
   render() {
+    console.log('this is props in Commnet', this.props)
     return (
       <div>
         <h1>Comments</h1>

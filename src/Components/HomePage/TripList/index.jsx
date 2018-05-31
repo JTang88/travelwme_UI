@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import { updateSearchState } from '../../../../graphql/mutations/updateSearchState';
+import { updateSearchState } from '../../../graphql/mutations/updateSearchState';
 
 
 class TripList extends Component {
@@ -22,9 +22,11 @@ class TripList extends Component {
   }
 
   render() {
-    const tripType = this.props.from === '/homepage' ? 'trend' : this.props.from === '/homepage/created' ? 'created' :
-      this.props.from === '/homepage/joined' ? 'joined' : this.props.from === '/homepage/going' ? 'going' :
-        this.props.from === '/homepage/waiting' ? 'waiting' : 'found';
+    const tripType = this.props.from === '/homepage' ? 'trend' : 
+      this.props.from === '/homepage/created' ? 'created' :
+      this.props.from === '/homepage/joined' ? 'joined' : 
+      this.props.from === '/homepage/going' ? 'going' :
+      this.props.from === '/homepage/waiting' ? 'waiting' : 'found';
     return (
       <div>
         { 
