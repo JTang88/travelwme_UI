@@ -16,23 +16,17 @@ import { getCurrentSearchTerms } from '../../../../graphql/queries/getCurrentSea
 import { addFoundTripToList } from '../../../../graphql/mutations/addFoundTripToList';
 import updateTripDescription from '../../../../graphql/mutations/updateTripDescription';
 import MessageButton from '../../../Global/Forms/MessageButton';
-import TextArea from '../../../Global/Forms/TextArea';
+// import TextArea from '../../../Global/Forms/TextArea';
+import Description from './Description';
 
 
 class TripDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      edit: false,
-      description: this.props.trip.description
-    };
     this.handleCancelRequestAndLeaveTrip = this.handleCancelRequestAndLeaveTrip.bind(this);
     this.handleAskToJoin = this.handleAskToJoin.bind(this);
     this.handleForSureGoing = this.handleForSureGoing.bind(this);
     this.handleCloseAndOpenThisTrip = this.handleCloseAndOpenThisTrip.bind(this);
-    this.handleEditThisTrip = this.handleEditThisTrip.bind(this);
-    this.handleSubmitDescription = this.handleSubmitDescription.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleCancelRequestAndLeaveTrip(tripType, e) {
@@ -147,32 +141,6 @@ class TripDetails extends Component {
     });
   }
 
-  handleEditThisTrip(e) {
-    e.preventDefault();
-    this.setState({
-      edit: true,
-    });
-  }
-
-  handleSubmitDescription(e) {
-    e.preventDefault();
-    this.setState({
-      edit: false,
-    });
-    this.props.updateTripDescriptionMutation({
-      variables: {
-        id: this.props.tripId,
-        description: this.state.description,
-      },
-    });
-  }
-
-  handleInputChange(event) {
-    const change = {};
-    change[event.target.name] = event.target.value;
-    this.setState(change);
-  }
-
   render() {
     return (
       <div>
@@ -212,35 +180,19 @@ class TripDetails extends Component {
             <h4>Relationship: {this.props.trip.relationship}</h4>
             <h4>Trip Status: {this.props.trip.trip_status}</h4>
             <h4>Cost: {this.props.trip.cost}</h4>
-            {
-              this.state.edit === false ?  
-                <h4>Description: {this.props.trip.description}</h4> : 
-                <TextArea
-                  type="text"
-                  title="Trip Description"
-                  rows={6}
-                  name="description"
-                  content={this.state.description}
-                  handleFunc={this.handleInputChange}
-                />
-            }
+            <Description
+              currentUser={this.props.currentUser}
+              tripId={this.props.trip.id}
+              description={this.props.trip.description}
+            />
             {
               this.props.currentUser === 'C' ? 
                 <div>
-                  <div> 
-                    {
-                      this.state.edit === false ? 
-                        <button onClick={this.handleEditThisTrip}>Edit Trip Description</button> :
-                        <button onClick={this.handleSubmitDescription}>Submit Description</button>
-                    }
-                  </div> 
-                  <div> 
-                    {
-                      this.props.trip.trip_status === 'open' ? 
-                        <button onClick={e => this.handleCloseAndOpenThisTrip('close', e)}>Close This Trip</button> : 
-                        <button onClick={e => this.handleCloseAndOpenThisTrip('open', e)}>Open This Trip</button>
-                    }  
-                  </div> 
+                  {
+                    this.props.trip.trip_status === 'open' ? 
+                      <button onClick={e => this.handleCloseAndOpenThisTrip('close', e)}>Close This Trip</button> : 
+                      <button onClick={e => this.handleCloseAndOpenThisTrip('open', e)}>Open This Trip</button>
+                  }  
                 </div> :                   
               this.props.currentUser === 'J' && !this.props.currentMember.forSureGoing ? 
                 <div className="trippic">
