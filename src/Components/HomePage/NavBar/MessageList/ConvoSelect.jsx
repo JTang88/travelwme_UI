@@ -35,7 +35,7 @@ class ConvoSelect extends Component {
     if (!this.props.getConvoQuery.loading) {
       const { users, _id } = this.props.getConvoQuery.getConvo;
       const { open, currentConvoId, receiverUserId } = this.props.getChatBoxStateQuery.getChatBoxState;
-      if (open && currentConvoId === 'newConvo' && users.length === 2 && users[1].id === receiverUserId) {
+      if (open && currentConvoId === 'newConvo' && users.length === 2 && users.find(user => user.id === receiverUserId)) {
         this.props.updateChatBoxStateMutation({
           variables: {
             open: true,
@@ -61,7 +61,7 @@ class ConvoSelect extends Component {
   }
 
   render() {
-    console.log('render ConvoSelect')
+    console.log('here is props in ConvoSelect')
     return this.props.getConvoQuery.loading ? '' : (
       <div onClick={this.handleSelection.bind(this)}>
         {this.props.getConvoQuery.getConvo.users.map((user, i) => (<h5 key={`userListInMsg${i}`}>{user.username}</h5>))}

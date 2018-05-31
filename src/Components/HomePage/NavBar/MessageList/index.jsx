@@ -37,6 +37,7 @@ class MessageList extends Component {
       const { convoIds: nextConvoIds } = nextProps.getConvoListQuery.getConvoList;
       return JSON.stringify(convoIds) !== JSON.stringify(nextConvoIds);
     }
+    return true;
   }
 
   render() {

@@ -30,7 +30,7 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log('render HomePage');
+    console.log('here is props in homepage', this.props);
     return (
       <div>
         { 
