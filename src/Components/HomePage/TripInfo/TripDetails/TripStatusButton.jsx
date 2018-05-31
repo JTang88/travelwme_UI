@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import updateTripStatus from '../../../../graphql/mutations/updateTripStatus';
 
-const ToggleTripStatus = ({ id, currentStatus, mutate }) => {
+const TripStatusButton = ({ id, currentStatus, mutate }) => {
   const handleCloseAndOpenThisTrip = (e) => {
     const trip_status = currentStatus === 'open' ? 'close' : 'open';
     e.preventDefault();
@@ -23,6 +23,6 @@ const ToggleTripStatus = ({ id, currentStatus, mutate }) => {
   );
 };
 
-const WrappedToggleTripStatus = graphql(updateTripStatus)(ToggleTripStatus);
+const WrappedTripStatusButton = graphql(updateTripStatus)(TripStatusButton);
 
-export default WrappedToggleTripStatus;
+export default WrappedTripStatusButton;

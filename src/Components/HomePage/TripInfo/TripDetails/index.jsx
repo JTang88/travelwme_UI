@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import deleteAUserFromTrip from '../../../../graphql/mutations/deleteAUserFromTrip';
-import { deleteAMemberFromCache } from '../../../../graphql/mutations/deleteAMemberFromCache';
-import { invalidateATripInCache } from '../../../../graphql/mutations/invalidateATripInCache';
 import { addNewlyInterestedTripToList } from '../../../../graphql/mutations/addNewlyInterestedTripToList';
 import interestedInATrip from '../../../../graphql/mutations/interestedInATrip';
 import forSureGoing from '../../../../graphql/mutations/forSureGoing';
@@ -16,45 +13,15 @@ import { addFoundTripToList } from '../../../../graphql/mutations/addFoundTripTo
 import updateTripDescription from '../../../../graphql/mutations/updateTripDescription';
 import MessageButton from '../../../Global/Forms/MessageButton';
 import Description from './Description';
-import ToggleTripStatus from './ToggleTripStatus';
+import TripStatusButton from './TripStatusButton';
+import CancelOrLeaveButton from './CancelOrLeaveButton';
 
 
 class TripDetails extends Component {
   constructor(props) {
     super(props);
-    this.handleCancelRequestAndLeaveTrip = this.handleCancelRequestAndLeaveTrip.bind(this);
     this.handleAskToJoin = this.handleAskToJoin.bind(this);
     this.handleForSureGoing = this.handleForSureGoing.bind(this);
-  }
-
-  handleCancelRequestAndLeaveTrip(tripType, e) {
-    const targetField = tripType === 'joined' ? 'joiners' : 'interesters';
-    e.preventDefault();
-    this.props.deleteAUserFromTripMutation({
-      variables: {
-        memberId: this.props.currentMemberId,
-      },
-    });
-    this.props.deleteAMemberFromCacheMutation({
-      variables: {
-        targetMemberId: this.props.currentMemberId,
-        tripId: this.props.tripId,
-      },
-    });
-    this.props.invalidateATripInCacheMutation({
-      variables: {
-        userId: this.props.userId,        
-        tripId: this.props.tripId,
-        tripType,
-      },
-    });
-    this.props.updateTripStatMutation({
-      variables: {
-        tripId: this.props.tripId, 
-        field: targetField,
-        type: 'dec',
-      },
-    });
   }
 
   handleAskToJoin(e) {      
@@ -177,19 +144,33 @@ class TripDetails extends Component {
             />
             {
               this.props.currentUser === 'C' ? 
-                <ToggleTripStatus 
+                <TripStatusButton 
                   currentStatus={this.props.trip.trip_status} 
                   id={this.props.trip.id}  
                 /> :                   
               this.props.currentUser === 'J' && !this.props.currentMember.forSureGoing ? 
                 <div className="trippic">
-                  <button onClick={e => this.handleCancelRequestAndLeaveTrip('joined', e)}>Leave This Trip</button>
-                  let the world know that you are for sure going
+                  <CancelOrLeaveButton
+                    tripType={'joined'} 
+                    memberId={this.props.currentMemberId}
+                    tripId={this.props.tripId}
+                    userId={this.props.userId}
+                  >
+                    Leave this Trip
+                  </CancelOrLeaveButton>
+                    let the world know that you are for sure going
                   <button onClick={e => this.handleForSureGoing('joined', e)}>for Sure Going!</button>
                 </div> :
               this.props.currentUser === 'I' ? 
                 <div className="trippic">
-                  <button onClick={e => this.handleCancelRequestAndLeaveTrip('waiting', e)}>Cancel Request</button>
+                  <CancelOrLeaveButton
+                    tripType={'waiting'}
+                    memberId={this.props.currentMemberId}
+                    tripId={this.props.tripId}
+                    userId={this.props.userId}
+                  >
+                    Leave this Trip
+                  </CancelOrLeaveButton>
                 </div> :
               this.props.currentUser === 'N' ?
                 <div className="trippic">
@@ -204,9 +185,6 @@ class TripDetails extends Component {
 }
   
 const WrapedTripDetails = compose(
-  graphql(deleteAUserFromTrip, { name: 'deleteAUserFromTripMutation' }),
-  graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' }),
-  graphql(invalidateATripInCache, { name: 'invalidateATripInCacheMutation' }),
   graphql(interestedInATrip, { name: 'interestedInATripMutation' }),
   graphql(addNewlyInterestedTripToList, { name: 'addNewlyInterestedTripToListMutation' }),
   graphql(forSureGoing, { name: 'forSureGoingMutation' }),
