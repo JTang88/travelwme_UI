@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose, withApollo } from 'react-apollo';
 import login from '../../graphql/mutations/login';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 
@@ -32,13 +32,22 @@ class Login extends Component {
       return;
     }
     
-    const token = await this.props.loginMutation({
+  
+    let token = localStorage.getItem('token');
+    if (token) {
+      const { exp } = decode(token);
+      if (exp < new Date().getTime() / 1000) {
+        await localStorage.removeItem('token');
+        this.props.client.resetStore();
+      }
+    }
+
+    token = await this.props.loginMutation({
       variables: {
         email,
         password,
       },
     });
-
 
     if (token) {
       localStorage.setItem('token', token.data.login);
@@ -116,4 +125,4 @@ const WrapedLogin = compose(
 )(Login);
 
 
-export default WrapedLogin;
+export default withApollo(WrapedLogin);
