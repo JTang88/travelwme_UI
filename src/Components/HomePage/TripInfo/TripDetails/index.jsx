@@ -24,16 +24,16 @@ class TripDetails extends Component {
             <h4>Trip Status: {this.props.trip.trip_status}</h4>
             <h4>Cost: {this.props.trip.cost}</h4>
             {
-              this.props.currentUser === 'C' ? 
+              this.props.currentUserType === 'C' ? 
                 <TripStatusButton 
                   currentStatus={this.props.trip.trip_status} 
                   id={this.props.trip.id}  
                 /> :                   
-              this.props.currentUser === 'J' && !this.props.currentMember.forSureGoing ? 
+              this.props.currentUserType === 'J' && !this.props.currentMember.forSureGoing ? 
                 <div className="trippic">
                   <CancelOrLeaveButton
                     tripType={'joined'} 
-                    memberId={this.props.currentMemberId}
+                    memberId={this.props.currentMember.id}
                     tripId={this.props.tripId}
                     userId={this.props.userId}
                   >
@@ -41,24 +41,24 @@ class TripDetails extends Component {
                   </CancelOrLeaveButton>
                     let the world know that you are for sure going
                   <ForSureGoingButton 
-                    memberId={this.props.currentMemberId}
+                    memberId={this.props.currentMember.id}
                     tripId={this.props.tripId}
                     userId={this.props.userId}
                     tripType={'joined'}
                   />
                 </div> :
-              this.props.currentUser === 'I' ? 
+              this.props.currentUserType === 'I' ? 
                 <div className="trippic">
                   <CancelOrLeaveButton
                     tripType={'waiting'}
-                    memberId={this.props.currentMemberId}
+                    memberId={this.props.currentMember.id}
                     tripId={this.props.tripId}
                     userId={this.props.userId}
                   >
                     Leave this Trip
                   </CancelOrLeaveButton>
                 </div> :
-              this.props.currentUser === 'N' ?
+              this.props.currentUserType === 'N' ?
                 <div className="trippic">
                   <AskToJoinButton
                     senderName={this.props.username}

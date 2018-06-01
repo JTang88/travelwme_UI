@@ -22,7 +22,7 @@ const TripUsers = props => (
             tripId={props.tripId}
             key={interester.user.id} 
             member={interester} 
-            creatorView={props.currentUser === 'C'}
+            creatorView={props.currentUserType === 'C'}
           />
         </div>))}
     </div>

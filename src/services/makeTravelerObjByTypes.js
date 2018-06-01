@@ -1,41 +1,37 @@
 const makeTravelerObjByTypes = (members, id, creatorId) => {
   const interesters = [];
   const joiners = [];
-  let currentUser = 'N';
+  let currentUserType = 'N';
   let currentMember = {};
-  let currentMemberId;
  
   const membersCopy = members.slice();
   
   membersCopy.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
 
   if (id === creatorId) {
-    currentUser = 'C';
+    currentUserType = 'C';
   }
 
   for (let i = 0; i < membersCopy.length; i++) {
     if (membersCopy[i].user_type === 'I') {
       interesters.push(membersCopy[i]);
-      if (currentUser === 'N' && membersCopy[i].user.id === id) {
+      if (currentUserType === 'N' && membersCopy[i].user.id === id) {
         currentMember = membersCopy[i];
-        currentUser = 'I';
-        currentMemberId = membersCopy[i].id;
+        currentUserType = 'I';
       }
     } else if (membersCopy[i].user_type === 'J') {
       joiners.push(membersCopy[i]);
-      if (currentUser === 'N' && membersCopy[i].user.id === id) {
+      if (currentUserType === 'N' && membersCopy[i].user.id === id) {
         currentMember = membersCopy[i];
-        currentUser = 'J';
-        currentMemberId = membersCopy[i].id;
+        currentUserType = 'J';
       }
     }  
   }
   return {
     interesters,
     joiners,
-    currentUser,
+    currentUserType,
     currentMember,
-    currentMemberId,
   }; 
 };
 

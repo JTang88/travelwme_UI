@@ -54,20 +54,19 @@ class TripInfo extends Component {
             </header>
             <Creator 
               trip={this.props.getTripQuery.getTrip}
-              currentUser={this.state.travelers.currentUser}
+              currentUserType={this.state.travelers.currentUserType}
             />
             <TripDetails 
               tripId={Number(this.props.match.params.id)}
               trip={this.props.getTripQuery.getTrip}
-              currentUser={this.state.travelers.currentUser}
+              currentUserType={this.state.travelers.currentUserType}
               userId={this.props.getCurrentUserQuery.getCurrentUser.id}
               username={this.props.getCurrentUserQuery.getCurrentUser.username}
               currentMember={this.state.travelers.currentMember}
-              currentMemberId={this.state.travelers.currentMemberId}
               tripType={this.props.match.params.tripType}
             /> 
             <Description
-              currentUser={this.state.travelers.currentUser}
+              currentUserType={this.state.travelers.currentUserType}
               tripId={Number(this.props.match.params.id)}
               description={this.props.getTripQuery.getTrip.description}
             />
@@ -76,7 +75,7 @@ class TripInfo extends Component {
               tripId={Number(this.props.match.params.id)}
               interesters={this.state.travelers.interesters}
               joiners={this.state.travelers.joiners} 
-              currentUser={this.state.travelers.currentUser}
+              currentUserType={this.state.travelers.currentUserType}
             /> 
             <Comment 
               tripId={Number(this.props.match.params.id)}

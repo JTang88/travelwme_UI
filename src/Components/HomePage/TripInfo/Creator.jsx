@@ -14,7 +14,7 @@ const Creator = ({
       relationship,
     },
   },
-  currentUser,
+  currentUserType,
 }) => (
   <Link to={`/homepage/profile/${id}`} href={`/homepage/profile/${id}`}>
     <div className="col-4">
@@ -28,7 +28,7 @@ const Creator = ({
         <ul>{age}</ul>
         <ul>{relationship}</ul>
         {
-          currentUser !== 'C' ?
+          currentUserType !== 'C' ?
             <MessageButton receiverUserId={id} /> : null
         }
       </li>

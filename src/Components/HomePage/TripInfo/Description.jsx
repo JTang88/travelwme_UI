@@ -43,7 +43,7 @@ class Description extends Component {
             <div>
               <h4>Description: {this.props.description}</h4>
               {
-                this.props.currentUser === 'C' ? 
+                this.props.currentUserType === 'C' ? 
                 <button onClick={this.handleEditThisTrip.bind(this)}>
                     Edit Trip Description
                 </button> : null
