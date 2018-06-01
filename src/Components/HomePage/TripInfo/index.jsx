@@ -43,64 +43,67 @@ class TripInfo extends Component {
   }
 
   render() {
-    return (
-      <div>
-        { this.state.travelers ? 
-          <div>
-            <header className="masthead text-white text-center">
-              <div>
-                <h1 className="text-uppercase triptit">{this.props.getTripQuery.getTrip.title}</h1>
-              </div>
-            </header>
-            <Creator 
-              trip={this.props.getTripQuery.getTrip}
-              currentUserType={this.state.travelers.currentUserType}
-            />
-            <TripDetails 
-              trip={this.props.getTripQuery.getTrip}
-              currentUserType={this.state.travelers.currentUserType}
-              user={this.props.getCurrentUserQuery.getCurrentUser}
-              currentMember={this.state.travelers.currentMember}
-              tripType={this.props.match.params.tripType}
-            /> 
-            <Description
-              currentUserType={this.state.travelers.currentUserType}
-              tripId={Number(this.props.match.params.id)}
-              description={this.props.getTripQuery.getTrip.description}
-            />
-            <TripUsers 
-              trip={this.props.getTripQuery.getTrip}
-              tripId={Number(this.props.match.params.id)}
-              interesters={this.state.travelers.interesters}
-              joiners={this.state.travelers.joiners} 
-              currentUserType={this.state.travelers.currentUserType}
-            /> 
-            <Comment 
-              tripId={Number(this.props.match.params.id)}
-              username={this.props.getCurrentUserQuery.getCurrentUser.username}
-              tripCommentId={this.props.getTripQuery.getTrip.tripCommentId}
-            />
-            <AddComment 
-              username={this.props.getCurrentUserQuery.getCurrentUser.username}
-              tripCommentId={this.props.getTripQuery.getTrip.tripCommentId}
-            />
-          </div> : '' 
-        }
-      </div>
-    );
+    if (this.state.travelers) {
+      const { getTrip: trip } = this.props.getTripQuery;
+      const { currentMember, currentUserType, joiners, interesters } = this.state.travelers;
+      const { getCurrentUser: user } = this.props.getCurrentUserQuery;
+      const { tripType, id: tripId } = this.props.match.params;
+      return (  
+        <div>
+          <header className="masthead text-white text-center">
+            <div>
+              <h1 className="text-uppercase triptit">{trip.title}</h1>
+            </div>
+          </header>
+          <Creator
+            trip={trip}
+            currentUserType={currentUserType}
+          />
+          <TripDetails
+            trip={trip}
+            currentUserType={currentUserType}
+            user={user}
+            currentMember={currentMember}
+            tripType={tripType}
+          />
+          <Description
+            currentUserType={currentUserType}
+            tripId={Number(tripId)}
+            description={trip.description}
+          />
+          <TripUsers
+            trip={trip}
+            tripId={Number(tripId)}
+            interesters={interesters}
+            joiners={joiners}
+            currentUserType={currentUserType}
+          />
+          <Comment
+            tripId={Number(tripId)}
+            username={user.username}
+            tripCommentId={trip.tripCommentId}
+          />
+          <AddComment
+            username={user.username}
+            tripCommentId={trip.tripCommentId}
+          />
+        </div> 
+      );
+    } 
+    return null;
   }
 }
 
 
 const WrapedTripInfo = compose(
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery',
+  }),
   graphql(getTrip, {
     name: 'getTripQuery',
     options: props => (
       { variables: { id: Number(props.match.params.id) } }
     ), 
-  }),
-  graphql(getCurrentUser, {
-    name: 'getCurrentUserQuery',
   }),
 )(TripInfo);
 
