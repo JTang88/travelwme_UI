@@ -16,7 +16,6 @@ mutation createTrip(
   $interesters: Int,
   $joiners: Int,
   $forSureGoing: Int,
-  $body_types: String,
   $trip_keywords: String,
   $countries: String!,
   $continents: String!,
@@ -36,7 +35,6 @@ mutation createTrip(
       interesters: $interesters
       joiners: $joiners
       forSureGoing: $forSureGoing
-      body_types: $body_types,
       trip_keywords: $trip_keywords,
       countries: $countries,
       continents: $continents,

@@ -8,7 +8,6 @@ query getUser($id: Int!) {
     email
     gender
     age
-    body_type
     description
     relationship  
     publicId

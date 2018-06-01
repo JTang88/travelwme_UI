@@ -25,8 +25,6 @@ class PlanTrip extends Component {
       ageRangeEnd: [25, 30, 35, 40, 45, 50], 
       ageStartSelected: 0,
       ageEndSelected: 0,
-      fitnessOptions: ['average', 'sexy', 'well-rounded', 'athletic'],
-      body_types: [],
       relationshipOptions: ['single', 'commited', 'it\'s complicated', 'married', 'all' ],
       relationshipSelected: '',
       keywordOptions: ['Adventurer', 'Backpacker', 'Explorer', 'Gourmet', 'Historian', 'Luxury'],
@@ -37,7 +35,6 @@ class PlanTrip extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBodyTypeSelection = this.handleBodyTypeSelection.bind(this);
     this.handleKeywordSelection = this.handleKeywordSelection.bind(this);
     this.handleContriesSelection = this.handleContriesSelection.bind(this);
   }
@@ -58,19 +55,6 @@ class PlanTrip extends Component {
       continents: continents.concat(newContinent),
     });
   }
-
-
-  handleBodyTypeSelection(e) {
-    const newSelection = e.target.value;
-    let newSelectionArray;
-    if (this.state.body_types.indexOf(newSelection) > -1) {
-      newSelectionArray = this.state.body_types.filter(s => s !== newSelection);
-    } else {
-      newSelectionArray = [...this.state.body_types, newSelection];
-    }
-    this.setState({ body_types: newSelectionArray });
-  }
-
 
   handleKeywordSelection(e) {
     const newSelection = e.target.value;
@@ -114,7 +98,6 @@ class PlanTrip extends Component {
         countries: JSON.stringify(this.state.countries),
         continents: JSON.stringify(this.state.continents),
         keys: JSON.stringify(this.state.keys),
-        body_types: JSON.stringify(this.state.body_types),
         trip_keywords: JSON.stringify(this.state.keys),
       },
     });
@@ -208,14 +191,6 @@ class PlanTrip extends Component {
                 handleFunc={this.handleInputChange}
                 options={this.state.genderOptions}
                 selectedOption={this.state.gender}
-              />
-              <RadioGroup
-                title="Who can go on this trip?"
-                setName="body_types"
-                handleFunc={this.handleBodyTypeSelection}
-                type="radio"
-                options={this.state.fitnessOptions}
-                selectedOptions={this.state.body_types}
               />
               <RadioGroup
                 title="Who do you want to be on this trip?"

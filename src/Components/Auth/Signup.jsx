@@ -12,7 +12,6 @@ class Signup extends Component {
       email: '',
       username: '',
       password: '',
-      body_typeOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
       relationshipOptions: ['single', 'in a relationship', 'complicated'],
       ageOptions:
        [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
@@ -47,7 +46,6 @@ class Signup extends Component {
       age,
       gender,
       relationship,
-      body_type,
     } = this.state;
 
     if (username === '' || email === '' || password === '') {
@@ -62,7 +60,6 @@ class Signup extends Component {
         age,
         gender,
         relationship,
-        body_type,
       },
     });
     this.props.history.push('/login');
@@ -131,16 +128,6 @@ class Signup extends Component {
               handleFunc={this.handleInputChange}
               options={this.state.relationshipOptions}
               selectedOption={this.state.relationship}
-            />
-          </div>
-          <div className="row justify-content-center align-self-center">
-            <Select
-              title="Body_type"
-              name="body_type"
-              placeholder="choose a answer"
-              handleFunc={this.handleInputChange}
-              options={this.state.body_typeOptions}
-              selectedOption={this.state.body_type}
             />
           </div>
           <div>  

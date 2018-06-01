@@ -20,7 +20,6 @@ const TripDetails = ({
     date_end,
     gender,
     trip_keywords,
-    body_types,
     relationship,
     trip_status,
     cost,
@@ -46,7 +45,6 @@ const TripDetails = ({
           <h4>End Date: {date_end}</h4>
           <h4>Gender: {gender}</h4>
           <h4>Trip Keywokds: {trip_keywords}</h4>
-          <h4>Trip BodyTypes: {body_types}</h4>
           <h4>Relationship: {relationship}</h4>
           <h4>Trip Status: {trip_status}</h4>
           <h4>Cost: {cost}</h4>

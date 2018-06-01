@@ -12,7 +12,6 @@ query getTrip($id: Int!) {
     age_end
     date_start
     date_end
-    body_types
     trip_keywords
     relationship
     trip_status

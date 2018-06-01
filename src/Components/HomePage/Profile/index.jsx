@@ -22,7 +22,6 @@ class Profile extends React.Component {
          84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
       relationshipOptions: ['single', 'in a relationship', 'complicated'],
       genderOptions: ['male', 'female', 'other'],
-      body_typeOptions: ['average', 'atheltic', 'sexy', 'well-rounded'],
       description: '',
       publicId: '',
     };
@@ -52,7 +51,6 @@ class Profile extends React.Component {
       description: this.state.description || null,
       id: this.props.getUserQuery.getUser.id,
       gender: this.state.gender || null,
-      body_type: this.state.body_type || null,
       relationship: this.state.relationship || null,
       age: this.state.age || null,
       publicId: this.state.publicId || null,
@@ -83,14 +81,6 @@ class Profile extends React.Component {
                   handleFunc={this.handleInputChange}
                   options={this.state.genderOptions}
                   selectedOption={this.state.gender}
-                />
-                <Select
-                  title="Body_type"
-                  name="body_type"
-                  placeholder={this.props.getUserQuery.getUser.body_type}
-                  handleFunc={this.handleInputChange}
-                  options={this.state.body_typeOptions}
-                  selectedOption={this.state.body_type}
                 />
                 <Select
                   title="Relationship"
@@ -128,7 +118,6 @@ class Profile extends React.Component {
               /> 
               <ul>
                 <div>Gender: {this.props.getUserQuery.getUser.gender}</div>
-                <div>Body Type: {this.props.getUserQuery.getUser.body_type}</div>
                 <div>Relationship: {this.props.getUserQuery.getUser.relationship}</div>
                 <div>Age: {this.props.getUserQuery.getUser.age}</div>
                 <div>About me: 

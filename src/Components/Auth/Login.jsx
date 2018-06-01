@@ -38,7 +38,7 @@ class Login extends Component {
       const { exp } = decode(token);
       if (exp < new Date().getTime() / 1000) {
         await localStorage.removeItem('token');
-        this.props.client.resetStore();
+        // this.props.client.resetStore();
       }
     }
 
