@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { Image } from 'cloudinary-react';
-import { Link } from 'react-router-dom';
-import MessageButton from '../../../Global/Forms/MessageButton';
-import Description from './Description';
 import TripStatusButton from './TripStatusButton';
 import CancelOrLeaveButton from './CancelOrLeaveButton';
 import AskToJoinButton from './AskToJoinButton';
@@ -15,24 +11,6 @@ class TripDetails extends Component {
     return (
       <div>
         <div className="row">
-          <Link to={`/homepage/profile/${this.props.trip.creator.id}`} href={`/homepage/profile/${this.props.trip.creator.id}`}>
-            <div className="col-4">
-              <h4>Creator</h4>
-              <Image cloudName="travelwme" className="rounded" publicId={this.props.trip.creator.publicId} />
-            </div>
-            <div className="col-4">
-              <li>
-                <ul>{this.props.trip.creator.username}</ul>
-                <ul>{this.props.trip.creator.gender}</ul>
-                <ul>{this.props.trip.creator.age}</ul>
-                <ul>{this.props.trip.creator.relationship}</ul>
-                {
-                  this.props.userId !== this.props.trip.creator.id ? 
-                    <MessageButton receiverUserId={this.props.trip.creator.id} /> : null
-                }
-              </li>
-            </div>
-          </Link>
           <div className="col-4 trippic">
             <h4>Country: {JSON.parse(this.props.trip.countries).join(' ')}</h4>
             <h4>Age start: {this.props.trip.age_start}</h4>
@@ -45,11 +23,6 @@ class TripDetails extends Component {
             <h4>Relationship: {this.props.trip.relationship}</h4>
             <h4>Trip Status: {this.props.trip.trip_status}</h4>
             <h4>Cost: {this.props.trip.cost}</h4>
-            <Description
-              currentUser={this.props.currentUser}
-              tripId={this.props.trip.id}
-              description={this.props.trip.description}
-            />
             {
               this.props.currentUser === 'C' ? 
                 <TripStatusButton 

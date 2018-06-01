@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
+import Creator from './Creator';
 import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
+import Description from './Description';
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import makeTravelerObjByTypes from '../../../services/makeTravelerObjByTypes';
 import Comment from './Comment';
@@ -50,6 +52,10 @@ class TripInfo extends Component {
                 <h1 className="text-uppercase triptit">{this.props.getTripQuery.getTrip.title}</h1>
               </div>
             </header>
+            <Creator 
+              trip={this.props.getTripQuery.getTrip}
+              currentUser={this.state.travelers.currentUser}
+            />
             <TripDetails 
               tripId={Number(this.props.match.params.id)}
               trip={this.props.getTripQuery.getTrip}
@@ -60,6 +66,11 @@ class TripInfo extends Component {
               currentMemberId={this.state.travelers.currentMemberId}
               tripType={this.props.match.params.tripType}
             /> 
+            <Description
+              currentUser={this.state.travelers.currentUser}
+              tripId={Number(this.props.match.params.id)}
+              description={this.props.getTripQuery.getTrip.description}
+            />
             <TripUsers 
               trip={this.props.getTripQuery.getTrip}
               tripId={Number(this.props.match.params.id)}

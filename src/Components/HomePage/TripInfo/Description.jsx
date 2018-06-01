@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import updateTripDescription from '../../../../graphql/mutations/updateTripDescription'; 
-import TextArea from '../../../Global/Forms/TextArea';
+import updateTripDescription from '../../../graphql/mutations/updateTripDescription'; 
+import TextArea from '../../Global/Forms/TextArea';
 
 class Description extends Component {
   state = {
