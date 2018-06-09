@@ -1,0 +1,80 @@
+.landing-text-container {
+  margin-left: 120px;
+  padding-top: 100px;
+  margin-bottom: 40px;
+}
+
+#travel-with-me {
+  margin-left: 548px;
+}
+
+.landing-nav {
+  float: right;
+  margin-top: 50px;
+  margin-right: 100px;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.center-button {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.center-button div {
+  display: inline;
+  margin-left: 20px;
+  margin-left: 20px;
+}
+
+
+.btn-ghost {
+  display: inline-block;
+  padding: 10px 30px;
+  font-family: Roboto;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 200px;
+  /* color: rgba(255, 255, 255, 0); */
+  -webkit-transition: background-color 0.2s, border 0.2, color 0.2s;
+  transition: background-color 0.2s, border 0.2, color 0.2s;
+  border: 3px solid white;
+  color: white;
+}
+
+.btn-ghost:hover,
+.btn-ghost:active {
+  background-color: #e84393;
+  border: 3px solid #e84393;
+  color: white;
+}
+
+
+.btn-full {
+  display: inline-block;
+  padding: 10px 30px;
+  font-family: Roboto;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 200px;
+  padding-left: 35px;
+  padding-right: 35px;
+  /* color: rgba(255, 255, 255, 0); */
+  -webkit-transition: background-color 0.2s, border 0.2, color 0.2s;
+  background-color: #e84393;
+  transition: background-color 0.2s, border 0.2, color 0.2s;
+  border: 3px solid #e84393;
+  color: white;
+}
+
+.btn-full:hover,
+.btn-full:active {
+  background-color: #ce1971;
+  border: 3px solid #ce1971;
+  color: white;
+}

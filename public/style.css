@@ -1,9 +1,77 @@
 body {
-  font-family: 'Quicksand', sans-serif;
-
+  /* font-family: 'Quicksand', sans-serif; */
+  color: white;
 }
 
-.loginimg {
+/* .landing {
+  background: linear-gradient(rgba(0, 0, 0, 0.233), rgba(0, 0, 0, 0.432)), url('./main.jpg'); 
+  background-size: cover;
+  height: 100vh;
+} */
+
+/* .landing {
+  background: linear-gradient(#636e7200, #636e7296), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+} */
+
+
+/* .landing {
+  background: linear-gradient(#e8439350, #e84393ce), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+} */
+
+/* .landing {
+  background: linear-gradient(#e8439313, #e84393c7), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+} */
+
+.landing {
+  background: linear-gradient(#e84393c7, #e8439313), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+}
+
+/* .landing {
+  background: linear-gradient(#e84393b2, #e84393b2), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+} */
+
+/* .landing {
+  background: linear-gradient(to left, #e8439300, #e84393b7), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+} */
+
+/* .landing {
+  background: linear-gradient(#e84393b2, #e843938e), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* body {
+  font-family: 'Quicksand', sans-serif;
+  background-image: url('../src/Components/LandingPage/bkgrd.jpg');
+  height: 100vh;
+} */
+
+/* .loginimg {
   background: url('./img/girloutlook.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -13,9 +81,9 @@ body {
   width: 100%;
   height: auto;
   position: fixed;
-}
+} */
 
-.signupimg {
+/* .signupimg {
   background: url('./img/redsky.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -25,16 +93,18 @@ body {
   width: 100%;
   height: auto;
   position: fixed;
-}
+} */
 
-.logsig {
+/* .logsig {
   font-size: 45px;
   margin-top: 40px;
   font-weight: bold;
-}
-
-.landimg {
-  background: url('./img/travelgrp.jpeg') no-repeat center center fixed; 
+} */
+/* 
+.landing {
+  background: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.486)), url('./main.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -43,10 +113,10 @@ body {
   width: 100%;
   height: auto;
   position: fixed;
-}
+} */
 
 
-.title {
+/* .title {
   font-size: 90px;
   margin-top: 190px;
   color: white;
@@ -69,40 +139,4 @@ input {
 
 .formplan {
   text-align: center;
-}
-
-/* .box {
-  boarder: 1px solid color
-  border-radius: 2px
 } */
-
-.masthead {
-  padding-top: 25px;
-  padding-bottom: 65px;
-  background: rgba(212,228,239,1);
-  background: -moz-linear-gradient(-45deg, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(212,228,239,1)), color-stop(100%, rgba(134,174,204,1)));
-  background: -webkit-linear-gradient(-45deg, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
-  background: -o-linear-gradient(-45deg, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
-  background: -ms-linear-gradient(-45deg, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
-  background: linear-gradient(135deg, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=1 );
-}
-
-.trippic {
-  padding: 50px;
-  height: 100%;
-}
-
-.UserBoxPic {
-  height: 50px;
-}
-
-.triptit {
-  font-size: 100px; 
-  padding-top: 50px;
-}
-
-.tripsub {
-  font-size: 50px;
-}
