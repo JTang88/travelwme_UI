@@ -10,9 +10,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter } from 'react-router-dom';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import Mutation from './graphql/mutations';
 import defaults from './graphql/queries';
 import App from './Components';
+import theme from './theme';
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('token');
@@ -46,14 +48,11 @@ const httpLink = new HttpLink({ uri: 'http://localhost:3001/graphql' });
 const wsLink = new WebSocketLink({
   uri: 'ws://localhost:3001/subscriptions',
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
-// using the ability to split links, you can send data to each link
-// depending on what kind of operation is being sent
 const link = split(
-  // split based on operation type
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query);
     return kind === 'OperationDefinition' && operation === 'subscription';
@@ -72,6 +71,8 @@ client.onResetStore(stateLink.writeDefaults);
 ReactDOM.render((
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </BrowserRouter>
   </ApolloProvider>), document.getElementById('app'));

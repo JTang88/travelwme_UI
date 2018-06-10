@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
-import { Link } from 'react-router-dom';
 import { graphql, compose, withApollo } from 'react-apollo';
+import { Button, Typography, TextField } from '@material-ui/core';
 import login from '../../graphql/mutations/login';
+import ForgotPassword from './ForgotPassword';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
+import './auth.css'
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-  }
+  state = {
+    email: '',
+    password: '',
+    forgot: false,
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     const { name } = event.target;
-    this.setState({ [name]: event.target.value });
+    this.setState({ [name]: event.target.value }, console.log(this.state));
   }
 
-  async handleLoginSubmit(e) {
+  handleLoginSubmit = async (e) => {
     e.preventDefault();
     const {
       email,
@@ -32,13 +30,12 @@ class Login extends Component {
       return;
     }
     
-  
     let token = localStorage.getItem('token');
+
     if (token) {
       const { exp } = decode(token);
       if (exp < new Date().getTime() / 1000) {
         await localStorage.removeItem('token');
-        // this.props.client.resetStore();
       }
     }
 
@@ -65,54 +62,46 @@ class Login extends Component {
     }
   }
 
-  render() {
-    return (
-      <div className="loginimg">
-        <div className="login-form-container text-center">
-          <form 
-            className="auth-form"
-            onSubmit={this.handleLoginSubmit}
-          >
-            <h1 className="logsig">Login</h1>
-            <div className="row justify-content-center align-self-center">
-              <input
-                type="text"
-                name="email"
-                placeholder="email"
-                onChange={this.handleChange}
-                className="col-sm-2 offset-sm rounded"
-              />
-            </div>
-            <Link to="/login/forgot" href="/login/forgot" >
-              <h5>Forgot your password ?</h5>
-            </Link>
-            <div className="row justify-content-center align-self-center"> 
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                onChange={this.handleChange}
-                className="col-sm-2 offset-sm rounded"
-              />
-            </div>
-            <div className="row justify-content-center align-self-center">
-              <button
-                color="white"
-                text="Log In"
-                onClick={this.handleLoginSubmit}
-                className="btn btn-outline-info col-sm-2 offset-sm"
-              >Login
-              </button>
-            </div>
-          </form>
+  renderForgot = (e) => {
+    e.preventDefault();
+    this.setState({
+      forgot: true,
+    })
+  }
 
-          <h5>
-            Don't have an account? 
-            <Link to="/sign">
-              <div className="auth-link"> Sign up </div>
-            </Link>
-          </h5>
+  render() {
+    if (this.state.forgot) {
+      return <ForgotPassword />
+    }
+    return (
+      <div>
+        <Typography variant="display3" gutterBottom color="primary" >Log in</Typography>
+        <div className="form-container">   
+          <TextField
+            autoFocus
+            margin="normal"
+            id="name"
+            label="Email Address"
+            type="email"
+            onChange={this.handleChange}
+          />
+          <TextField
+            margin="normal"
+            id="nae"
+            label="Passord"
+            type="password"
+            onChange={this.handleChange}
+          />
+          <div className="forgot" onClick={this.renderForgot}>
+            <a href="#"><Typography variant="body2" gutterBottom color="primary" >Forgot your password ?</Typography></a>
+          </div>
         </div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleLoginSubmit}
+        >Login
+        </Button>
       </div>  
     );  
   }
