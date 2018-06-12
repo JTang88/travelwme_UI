@@ -56,7 +56,7 @@ class UserCard extends Component {
           </Card.Content>
           <Card.Content extra>
             <div>{this.props.member.user.gender}</div>
-            <div>{this.props.member.user.age}</div>
+            <div>{this.props.member.user.birthday}</div>
             <div>{this.props.member.user.relationship}</div> 
             <div>for Sure Going? {this.props.member.forSureGoing? 'true' : 'false' }</div> 
             <MessageButton receiverUserId={this.props.member.user.id} />

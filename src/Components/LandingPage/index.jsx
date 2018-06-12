@@ -50,16 +50,30 @@ class Landing extends Component {
       checkAuth() ? <Redirect to={{ pathname: '/homepage' }} /> :
       <div className="landing">
         <div className="landing-nav">
-          <Button variant="text" size="large" color="inherit">
+          <Button 
+            variant="text" 
+            size="large" 
+            color="inherit">
             about
           </Button>
-          <Button variant="text" size="large" color="inherit" >
+          <Button 
+            variant="text" 
+            size="large" 
+            color="inherit" >
             blog
           </Button>
-          <Button variant="text" size="large" color="inherit">
+          <Button 
+            variant="text" 
+            size="large" 
+            color="inherit"
+            onClick={this.handleOpenSignup}>
             sign up
           </Button>
-          <Button variant="text" size="large" color="inherit" >
+          <Button 
+            variant="text" 
+            size="large" 
+            color="inherit" 
+            onClick={this.handleOpenLogin}>
             log in
           </Button>
         </div>
@@ -70,7 +84,6 @@ class Landing extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-        {/* <div style={modalStyle} className={classes.paper}>test</div> */}
           {
             this.state.login ? 
               <div className={classes.paper}>

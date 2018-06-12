@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import decode from 'jwt-decode';
+import { withRouter } from 'react-router';
 import { graphql, compose, withApollo } from 'react-apollo';
 import { Button, Typography, TextField } from '@material-ui/core';
 import login from '../../graphql/mutations/login';
@@ -14,7 +15,7 @@ class Login extends Component {
     forgot: false,
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name } = event.target;
     this.setState({ [name]: event.target.value }, console.log(this.state));
   }
@@ -70,6 +71,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log('props in login', this.props)
     if (this.state.forgot) {
       return <ForgotPassword />
     }
@@ -79,17 +81,21 @@ class Login extends Component {
         <div className="form-container">   
           <TextField
             autoFocus
+            required
             margin="normal"
-            id="name"
-            label="Email Address"
-            type="email"
+            id="email"
+            label="Email"
+            type="text"
+            name="email"
             onChange={this.handleChange}
           />
           <TextField
             margin="normal"
-            id="nae"
-            label="Passord"
+            required
+            id="password"
+            label="Password"
             type="password"
+            name="password"
             onChange={this.handleChange}
           />
           <div className="forgot" onClick={this.renderForgot}>
@@ -111,7 +117,7 @@ class Login extends Component {
 const WrapedLogin = compose(
   graphql(login, { name: 'loginMutation' }),
   graphql(updateCurrentUser, { name: 'updateCurrentUserMutation' }),
-)(Login);
+)(withRouter(Login));
 
 
 export default withApollo(WrapedLogin);

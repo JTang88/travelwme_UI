@@ -9,7 +9,7 @@ mutation interestedInATrip($userId: Int!, $tripId: Int!, $senderName: String!, $
       id
       publicId
       username
-      age
+      birthday
       gender
       relationship
     }

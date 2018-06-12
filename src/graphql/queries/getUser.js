@@ -7,7 +7,7 @@ query getUser($id: Int!) {
     username
     email
     gender
-    age
+    birthday
     description
     relationship  
     publicId

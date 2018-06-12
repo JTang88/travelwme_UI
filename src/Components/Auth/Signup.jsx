@@ -1,155 +1,187 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { 
+  Typography, 
+  Button, 
+  TextField, 
+  Select, 
+  MenuItem, 
+  InputLabel, 
+  FormControl,
+  withStyles 
+} from '@material-ui/core';
 import { graphql } from 'react-apollo';
+import Login from './Login';
 import register from '../../graphql/mutations/register';
-import Select from '../Global/Forms/Select';
 
+const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+});
 
 class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      username: '',
-      password: '',
-      relationshipOptions: ['single', 'in a relationship', 'complicated'],
-      ageOptions:
-       [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-         40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 
-         62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 
-         84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
-      genderOptions: ['male', 'female', 'other'],
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
-  }
+  state = {
+    backToLogin: false,
+    email: '',
+    username: '',
+    password: '',      
+    gender: '',
+    relationship: ''
+  };
+  
 
-  handleChange(event) {
+  handleChange = (event) => {
     const { name } = event.target;
-    this.setState({ [name]: event.target.value });
+    this.setState({ [name]: event.target.value }, console.log(this.state));
   }
 
-  handleInputChange(event) {
-    const change = {};
-    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    change[event.target.name] = value;
-    this.setState(change);   
+  // handleChange = name => event => {
+  //   this.setState({
+  //     [name]: event.target.value,
+  //   }, console.log('here is state in Signup', this.state));
+  // };
+
+  backToLogin = (e) => {
+    e.preventDefault();
+    this.setState({
+      backToLogin: true,
+    })
   }
 
-  async handleSignupSubmit(e) {
+  handleSignupSubmit = async (e) => {
     e.preventDefault();
     const {
       username,
-      email,
+      email,   
       password,
-      age,
+      birthday,
       gender,
       relationship,
     } = this.state;
 
+    console.log('in sign up')
     if (username === '' || email === '' || password === '') {
       return;
     }
 
+    console.log('pass return')
     await this.props.mutate({
       variables: {
         username,
         email,
         password,
-        age,
+        birthday,
         gender,
         relationship,
       },
     });
-    this.props.history.push('/login');
+    this.setState({
+      backToLogin: true,
+    })
   }
 
   render() {
+    const { classes } = this.props;
+    if (this.state.backToLogin) {
+      return <Login />
+    }
     return (
-      <div className="signup-form-container text-center signupimg">
-        <form 
-          className="auth-form"
-          // onSubmit={this.handleSignupSubmit}
+      <div>
+        <Typography 
+          variant="display3" 
+          gutterBottom 
+          color="primary" 
         >
-          <h1 className="logsig">Sign Up</h1>
-          <div className="row justify-content-center align-self-center">
-            <input
-              type="text"
-              name="username"
-              placeholder="username"
-              onChange={this.handleChange}
-              className="col-sm-2 offset-sm rounded"
-            />
-          </div>
-          <div className="row justify-content-center align-self-center">  
-            <input
-              type="text"
-              name="email"
-              placeholder="email"
-              onChange={this.handleChange}
-              className="col-sm-2 offset-sm rounded"
-            />
-          </div>  
-          <div className="row justify-content-center align-self-center">
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={this.handleChange}
-              className="col-sm-2 offset-sm rounded"
-            />
-          </div>
-          <div className="row justify-content-center align-self-center">
+          Sign up
+        </Typography>
+        <TextField
+          autoFocus
+          required
+          margin="normal"
+          id="username"
+          label="Username"
+          type="text"
+          name="username"
+          onChange={this.handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          id="email"
+          label="Email"
+          type="text"
+          name="email"
+          onChange={this.handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          id="password"
+          label="Password"
+          type="password"
+          name="password"
+          onChange={this.handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          name = "birthday"
+          id="birthday"
+          label="Birthday"
+          type="date"
+          name="birthday"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={this.handleChange}
+        />
+        <div>
+          <FormControl required className={classes.formControl}>
+            <InputLabel htmlFor="gender">Gender</InputLabel>
             <Select
-              title="Age"
-              name="age"
-              placeholder="select your age"
-              handleFunc={this.handleInputChange}
-              options={this.state.ageOptions}
-              selectedOption={this.state.age}
-            />
-          </div>
-          <div className="row justify-content-center align-self-center">
+              value={this.state.gender}
+              onChange={this.handleChange}
+              inputProps={{
+                name: 'gender',
+                id: 'gender',
+              }}
+            >
+              <MenuItem value={'male'}>Male</MenuItem>
+              <MenuItem value={'female'}>Female</MenuItem>
+              <MenuItem value={'other'}>Other</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div className="relationship-container">
+          <FormControl required className={classes.formControl}>
+            <InputLabel htmlFor="relationship">Relationship</InputLabel>
             <Select
-              title="Gender"
-              name="gender"
-              placeholder="select your gender"
-              handleFunc={this.handleInputChange}
-              options={this.state.genderOptions}
-              selectedOption={this.state.gender}
-            />
-          </div>
-          <div className="row justify-content-center align-self-center">
-            <Select
-              title="Relationship"
-              name="relationship"
-              placeholder="choose a answer"
-              handleFunc={this.handleInputChange}
-              options={this.state.relationshipOptions}
-              selectedOption={this.state.relationship}
-            />
-          </div>
-          <div>  
-            <button
-              color="yellow"
-              text="Sign Up"
-              onClick={this.handleSignupSubmit}
-              className="btn btn-outline-info col-sm-2 offset-sm"
-            >Sign Up</button>
-          </div>  
-        </form>
-        <h5>
-          Already have an account? 
-          <Link to="/login">
-            <div> Login </div>
-          </Link>
-        </h5>
+              value={this.state.relationship}
+              onChange={this.handleChange}
+              inputProps={{
+                name: 'relationship',
+                id: 'relationship',
+              }}
+            >
+              <MenuItem value={'single'}>Single</MenuItem>
+              <MenuItem value={'in a relationship'}>In a relationship</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleSignupSubmit}
+        >Sign up
+        </Button>
       </div>
     );
   }
 }
 
-const SignupWithMutation = graphql(register)(Signup);
+const styledSignUp = withStyles(styles)(Signup);
 
-export default SignupWithMutation;
+const styledSignUpWithMutation = graphql(register)(styledSignUp);
+
+export default styledSignUpWithMutation;

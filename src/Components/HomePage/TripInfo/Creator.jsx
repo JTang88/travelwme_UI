@@ -10,7 +10,7 @@ const Creator = ({
       publicId,
       username,
       gender,
-      age,
+      birthday,
       relationship,
     },
   },
@@ -25,7 +25,7 @@ const Creator = ({
       <li>
         <ul>{username}</ul>
         <ul>{gender}</ul>
-        <ul>{age}</ul>
+        <ul>{birthday}</ul>
         <ul>{relationship}</ul>
         {
           currentUserType !== 'C' ?

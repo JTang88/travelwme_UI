@@ -8,7 +8,7 @@ mutation updateUserRelationshipToTrip($userId: Int!, $senderName: String!, $trip
       id
       publicId
       username
-      age
+      birthday
       gender
       relationship
     }

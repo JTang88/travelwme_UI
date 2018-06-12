@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { Typography, Button, TextField } from '@material-ui/core';
+import Login from './Login';
 import forgotPassword from '../../graphql/mutations/forgotPassword';
 
 class ForgotPassword extends Component {
   state = {
     sent: false,
+    backToLogin: false,
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const { name } = event.target;
     this.setState({ [name]: event.target.value });
   }
   
-  async handleForgotPasswordSubmit(e) {
+  handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     await this.props.mutate({
       variables: {
@@ -25,57 +27,87 @@ class ForgotPassword extends Component {
     });
   }
 
+  backToLogin = (e) => {
+    e.preventDefault();
+    this.setState({
+      backToLogin: true,
+    })
+  }
+
   render() {
-    return (
-      <div className="loginimg">
-        <div className="row justify-content-center align-self-center">
-          <div className="login-form-container text-center">
-            {
-              this.state.sent ?
-                (
-                  <div>
-                    <h1>Your temporary passoword has been sent</h1>
-                    <h5>
-                      <Link to="/login">
-                        <div> Login </div>
-                      </Link>
-                    </h5>
-                  </div>
-                ) :
-                (
-                  <div>
-                    <form className="auth-form">
-                      <h1>Forgot your password ?</h1>
-                      <h5>Enter your email address below, and we'll email you instructions on how to change your password</h5>
-                      <input
-                        type="text"
-                        name="email"
-                        placeholder="email"
-                        onChange={this.handleChange.bind(this)}
-                        className="col-sm-2 offset-sm rounded"
-                      />
-                      <div className="row justify-content-center align-self-center">
-                        <button
-                          color="white"
-                          text="Log In"
-                          onClick={this.handleForgotPasswordSubmit.bind(this)}
-                          className="btn btn-outline-info col-sm-2 offset-sm"
-                        >Submit
-                        </button>
-                      </div>
-                    </form>
-                    <h5>
-                      <Link to="/login">
-                        <div> Login </div>
-                      </Link>
-                    </h5>
-                  </div>
-                )
-            }
+    if (this.state.backToLogin) {
+      return <Login />
+    } else if (this.state.sent && !this.state.backToLogin) {
+      return (
+        <div>
+          <Typography 
+            color="primary" 
+            variant="title" 
+            gutterBottom
+            >
+            Your temporary passoword has been sent
+          </Typography>
+          <div onClick={this.backToLogin}>
+            <a href="#">
+              <Typography 
+                variant="body2" 
+                gutterBottom 
+                color="primary" 
+              >
+                Log in
+              </Typography>
+            </a>
           </div>
         </div>
+      )
+    }
+    return (
+      <div>
+        <Typography
+          variant="title"
+          color="primary"
+          gutterBottom
+        >
+          Forgot your password ?
+        </Typography>
+        <Typography
+          variant="subheading"
+          color="primary"
+          gutterBottom
+        >
+          Enter your email address below. We'll email you a temporary password and instructions on how to change your password
+        </Typography>
+        <div>
+          <TextField
+            margin="normal"
+            required
+            id="email"
+            label="Email"
+            type="text"
+            name="email"
+            onChange={this.handleChange}
+          />
+        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleForgotPasswordSubmit}
+        >
+          Submit
+        </Button>
+        <div className="login-route" onClick={this.backToLogin}>
+          <a href="#">
+            <Typography 
+              variant="body2" 
+              gutterBottom 
+              color="primary" 
+            >
+              Log in
+            </Typography>
+          </a>
+        </div>
       </div>
-    );
+    )
   }
 };
 

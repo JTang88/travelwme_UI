@@ -26,7 +26,7 @@ query getTrip($id: Int!) {
       id
       username
       publicId
-      age
+      birthday
       gender
       relationship
       description
@@ -37,7 +37,7 @@ query getTrip($id: Int!) {
         id
         publicId
         username
-        age
+        birthday
         gender
         relationship
       }
