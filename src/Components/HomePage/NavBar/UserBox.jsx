@@ -4,6 +4,7 @@ import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom'; 
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import createTrip from '../../../graphql/mutations/createTrip';
+import './navbar.css';
 
 class UserBox extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class UserBox extends Component {
 
   render() {
     return (
-      <div>
+      <div className="test">
         <h3>Hello {this.props.getCurrentUserQuery.getCurrentUser.username} !</h3>
         <Image className="UserBoxPic" cloudName="travelwme" publicId={this.props.getCurrentUserQuery.getCurrentUser.publicId} /> 
         <li className="nav-item dropdown">

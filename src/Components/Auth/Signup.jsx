@@ -30,17 +30,10 @@ class Signup extends Component {
     relationship: ''
   };
   
-
   handleChange = (event) => {
     const { name } = event.target;
     this.setState({ [name]: event.target.value }, console.log(this.state));
   }
-
-  // handleChange = name => event => {
-  //   this.setState({
-  //     [name]: event.target.value,
-  //   }, console.log('here is state in Signup', this.state));
-  // };
 
   backToLogin = (e) => {
     e.preventDefault();
