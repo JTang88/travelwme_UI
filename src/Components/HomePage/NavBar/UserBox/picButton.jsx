@@ -5,13 +5,15 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    paddingTop: 13,
+    bottom: 1,
+    paddingBottom: 12,
+    paddingTop: 0,
+    marginLeft: 10,
     backgroundColor: 'inherit',
     color: '#636e72',
     borderBottom: '3px solid white',
     borderRadius: 0,
     minWidth: 72,
-    paddingBottom: '25px',
     '&:hover': {
       backgroundColor: 'inherit',
       borderBottom: `3px solid ${theme.palette.primary.main}`,
@@ -25,7 +27,7 @@ const styles = theme => ({
 
 });
 
-function ClassesNesting(props) {
+function PicButton(props) {
   const { classes } = props;
 
   return (
@@ -33,7 +35,7 @@ function ClassesNesting(props) {
       disableRipple
       onClick={props.onClick}
       classes={{
-        root: classes.root, 
+        root: classes.root,
         label: classes.label,
       }}
     >
@@ -42,8 +44,8 @@ function ClassesNesting(props) {
   );
 }
 
-ClassesNesting.propTypes = {
+PicButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ClassesNesting);
+export default withStyles(styles)(PicButton);

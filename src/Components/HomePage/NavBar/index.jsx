@@ -61,7 +61,7 @@ class NavBar extends Component {
             {/* <BarButton>Notifications</BarButton> */}
             <Notifications />
             <BarButton>Messages</BarButton>
-                {/* <UserBox /> */}    
+            <UserBox />    
           </div>
           <div className="clearfix" />
         </header>

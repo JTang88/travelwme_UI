@@ -1,7 +1,7 @@
 header {
   width: 100%;
   color: white;
-  padding-top: 60px;
+  padding-top: 50px;
   padding-right: 40px;
   background-color: white;
   border-bottom: 1px solid #b2bec3;
@@ -24,4 +24,10 @@ header {
 .test {
   display: inline;
   color: black;
+}
+
+.UserBoxPic {
+  width: 46px;
+  border-radius: 50%;
+  border: 2px solid #00cec9;
 }
