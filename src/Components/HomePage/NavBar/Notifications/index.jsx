@@ -69,9 +69,8 @@ class Notifications extends Component {
               this.props.getNotificationsQuery.getNotifications.map((note, i) => {
                 if (note.type === 'accepted') {
                   return (
-                    <MenuItem dense={false} classes={{ root: classes.root }}>
+                    <MenuItem key={`accepted${i}`} classes={{ root: classes.root }}>
                       <Accepted
-                        key={`accepted${i}`}
                         tripId={note.tripId}
                         senderName={note.senderName}
                         tripTitle={note.tripTitle}
@@ -81,9 +80,8 @@ class Notifications extends Component {
                   );
                 } else if (note.type === 'request') {
                   return (
-                    <MenuItem>
+                    <MenuItem key={`request${i}`} classes={{ root: classes.root }}>
                       <Request
-                        key={`request${i}`}
                         tripId={note.tripId}
                         senderName={note.senderName}
                         tripTitle={note.tripTitle}

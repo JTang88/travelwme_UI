@@ -1,20 +1,36 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import TripList from '../../../TripList';
+import TripListHeader from '../../../TripListHeader';
+import CountTripsAndForSureGoings from '../../../../../services/CountTripsAndForSureGoings';
 import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
 import getForSureGoingTrips from '../../../../../graphql/queries/getForSureGoingTrips';
 
-const Going = (props) => {
-  return (
+const Going = ({
+  getForSureGoingTripsQuery: {
+    loading,
+    getForSureGoingTrips,
+  },
+  location: {
+    pathname,
+  },
+}) => {
+  return loading ? '' : (
     <div>
-      <div>Trips I am For Sure Going</div>
-      { 
-        props.getForSureGoingTripsQuery.loading ? '' : 
-        <TripList 
-          trips={props.getForSureGoingTripsQuery.getForSureGoingTrips} 
-          from={props.location.pathname}
-        /> 
-      }
+      <TripListHeader
+        title="Trips You are for Sure Going"
+      >
+        {
+          `• ${CountTripsAndForSureGoings(getForSureGoingTrips).tripsCount} 
+          trips you are for Sure Going
+          • ${CountTripsAndForSureGoings(getForSureGoingTrips).forSureGoings} 
+          total for sure going travelers`
+        }
+      </TripListHeader>
+      <TripList
+        trips={getForSureGoingTrips}
+        from={pathname}
+      />
     </div>
   );
 };

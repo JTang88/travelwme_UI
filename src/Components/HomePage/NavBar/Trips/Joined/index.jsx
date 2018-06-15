@@ -1,20 +1,36 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import TripList from '../../../TripList';
+import TripListHeader from '../../../TripListHeader';
+import CountTripsAndForSureGoings from '../../../../../services/CountTripsAndForSureGoings';
 import { getCurrentUser } from '../../../../../graphql/queries/getCurrentUser';
 import getJoinedTrips from '../../../../../graphql/queries/getJoinedTrips';
 
-const Joined = (props) => {
-  return (
+const Joined = ({
+  getJoinedTripsQuery: {
+    loading,
+    getJoinedTrips,
+  },
+  location: {
+    pathname,
+  },
+}) => {
+  return loading ? '' : (
     <div>
-      <div>Trips I Joined</div>
-      { 
-        props.getJoinedTripsQuery.loading ? '' : 
-        <TripList 
-          trips={props.getJoinedTripsQuery.getJoinedTrips} 
-          from={props.location.pathname}
-        /> 
-      }
+      <TripListHeader
+        title="Trips You Joined"
+      >
+        {
+          `• ${CountTripsAndForSureGoings(getJoinedTrips).tripsCount} 
+          trips you have joined
+          • ${CountTripsAndForSureGoings(getJoinedTrips).forSureGoings} 
+          total for sure going travelers`
+        }
+      </TripListHeader>
+      <TripList
+        trips={getJoinedTrips}
+        from={pathname}
+      />
     </div>
   );
 };

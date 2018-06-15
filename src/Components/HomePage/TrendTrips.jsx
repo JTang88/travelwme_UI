@@ -2,23 +2,38 @@ import React from 'react';
 import { graphql, withApollo, compose } from 'react-apollo';
 import showTrendTrips from '../../graphql/queries/showTrendTrips';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
+import TripListHeader from './TripListHeader';
+import CountTripsAndForSureGoings from '../../services/CountTripsAndForSureGoings';
 import TripList from './TripList';
 
-const TrendTrips = (props) => {
-  return (
-  <div>
-    <div>Trending Trips</div>
-    {
-      props.showTrendTripsQuery.loading ? '' :
-        <TripList
-          trips={props.showTrendTripsQuery.showTrendTrips}
-          from={props.location.pathname}
-        />
-    }
-  </div>
-  )
-}
-
+const TrendTrips = ({
+  showTrendTripsQuery: {
+    loading,
+    showTrendTrips,
+  },
+  location: {
+    pathname,
+  }
+}) => { 
+  return loading ? '' : (
+    <div>
+      <TripListHeader
+        title="Trending Now"
+      >
+        {
+          `• ${CountTripsAndForSureGoings(showTrendTrips).tripsCount} 
+          trips are currently trending
+          • ${CountTripsAndForSureGoings(showTrendTrips).forSureGoings} 
+          total for sure going travelers` 
+        }
+      </TripListHeader>
+      <TripList
+        trips={showTrendTrips}
+        from={pathname}
+      />
+    </div>
+  );
+};
 
 const TrendTripWithQuery = compose(
   graphql(getCurrentUser, {

@@ -1,0 +1,10 @@
+.footer-top {
+  height: 20px;
+  background-color: #b2bec3;
+}
+
+.footer-body {
+  height: 200px;
+  background-color: #e84393;
+  bottom: 0px;
+}
