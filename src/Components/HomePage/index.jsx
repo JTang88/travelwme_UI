@@ -60,7 +60,7 @@ class HomePage extends Component {
               convoId={this.props.getChatBoxStateQuery.getChatBoxState.currentConvoId}
             /> : null
         }
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

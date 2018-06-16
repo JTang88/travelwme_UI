@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import updateTripStatus from '../../../../graphql/mutations/updateTripStatus';
-import deleteAUserFromTrip from '../../../../graphql/mutations/deleteAUserFromTrip';
-import { deleteAMemberFromCache } from '../../../../graphql/mutations/deleteAMemberFromCache';
-import { invalidateATripInCache } from '../../../../graphql/mutations/invalidateATripInCache';
-import updateTripStat from '../../../../graphql/mutations/updateTripStat';
+import updateTripStatus from '../../../../../graphql/mutations/updateTripStatus';
+import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
+import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
+import { invalidateATripInCache } from '../../../../../graphql/mutations/invalidateATripInCache';
+import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 
 const CancelOrLeaveButton = ({ 
   tripType, 

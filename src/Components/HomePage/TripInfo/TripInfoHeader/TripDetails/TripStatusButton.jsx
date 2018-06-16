@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import updateTripStatus from '../../../../graphql/mutations/updateTripStatus';
+import updateTripStatus from '../../../../../graphql/mutations/updateTripStatus';
 
 const TripStatusButton = ({ id, currentStatus, mutate }) => {
   const handleCloseAndOpenThisTrip = (e) => {

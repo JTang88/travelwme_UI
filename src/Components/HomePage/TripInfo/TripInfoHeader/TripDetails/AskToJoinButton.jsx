@@ -1,11 +1,11 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import { getCurrentSearchTerms } from '../../../../graphql/queries/getCurrentSearchTerms';
-import interestedInATrip from '../../../../graphql/mutations/interestedInATrip';
-import { addNewlyInterestedTripToList } from '../../../../graphql/mutations/addNewlyInterestedTripToList';
-import { addFoundTripToList } from '../../../../graphql/mutations/addFoundTripToList';
-import updateTripStat from '../../../../graphql/mutations/updateTripStat';
-import getTrip from '../../../../graphql/queries/getTrip';
+import { getCurrentSearchTerms } from '../../../../../graphql/queries/getCurrentSearchTerms';
+import interestedInATrip from '../../../../../graphql/mutations/interestedInATrip';
+import { addNewlyInterestedTripToList } from '../../../../../graphql/mutations/addNewlyInterestedTripToList';
+import { addFoundTripToList } from '../../../../../graphql/mutations/addFoundTripToList';
+import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
+import getTrip from '../../../../../graphql/queries/getTrip';
 
 const AskToJoinButton = ({
   senderName, 

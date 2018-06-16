@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import Creator from './Creator';
-import TripDetails from './TripDetails';
 import TripUsers from './TripUsers';
 import Description from './Description';
+import TripInfoHeader from './TripInfoHeader';
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import makeTravelerObjByTypes from '../../../services/makeTravelerObjByTypes';
 import Comment from './Comment';
@@ -50,21 +50,16 @@ class TripInfo extends Component {
       const { tripType, id: tripId } = this.props.match.params;
       return (  
         <div>
-          <header className="masthead text-white text-center">
-            <div>
-              <h1 className="text-uppercase triptit">{trip.title}</h1>
-            </div>
-          </header>
-          <Creator
-            trip={trip}
-            currentUserType={currentUserType}
-          />
-          <TripDetails
+          <TripInfoHeader 
             trip={trip}
             currentUserType={currentUserType}
             user={user}
             currentMember={currentMember}
             tripType={tripType}
+          />
+          <Creator
+            trip={trip}
+            currentUserType={currentUserType}
           />
           <Description
             currentUserType={currentUserType}

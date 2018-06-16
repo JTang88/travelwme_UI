@@ -1,9 +1,9 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import forSureGoing from '../../../../graphql/mutations/forSureGoing';
-import updateTripStat from '../../../../graphql/mutations/updateTripStat';
-import { moveAJoinedTripToGoingList } from '../../../../graphql/mutations/moveAJoinedTripToGoingList';
-import { invalidateATripInCache } from '../../../../graphql/mutations/invalidateATripInCache';
+import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
+import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
+import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/moveAJoinedTripToGoingList';
+import { invalidateATripInCache } from '../../../../../graphql/mutations/invalidateATripInCache';
 
 const ForSureGoinButton = ({
   memberId,
