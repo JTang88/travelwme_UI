@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import Button from './conditionButton';
 import updateTripStatus from '../../../../../graphql/mutations/updateTripStatus';
 import deleteAUserFromTrip from '../../../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../../../graphql/mutations/deleteAMemberFromCache';
@@ -48,9 +49,9 @@ const CancelOrLeaveButton = ({
   };
 
   return ( 
-    <button onClick={handleCancelRequestAndLeaveTrip}>
+    <Button onClick={handleCancelRequestAndLeaveTrip}>
       {children}
-    </button>
+    </Button>
   );
 };
 

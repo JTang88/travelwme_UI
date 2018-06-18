@@ -7,6 +7,7 @@ import updateUserRelationshipToTrip from '../../../graphql/mutations/updateUserR
 import deleteAUserFromTrip from '../../../graphql/mutations/deleteAUserFromTrip';
 import { deleteAMemberFromCache } from '../../../graphql/mutations/deleteAMemberFromCache';
 import { updateChatBoxState } from '../../../graphql/mutations/updateChatBoxState';
+import updateTripStat from '../../../graphql/mutations/updateTripStat';
 import MessageButton from '../../Global/Forms/MessageButton';
 
 class UserCard extends Component {
@@ -27,6 +28,20 @@ class UserCard extends Component {
         user_type: 'J',
       },
     });
+    this.props.updateTripStatMutation({
+      variables: {
+        tripId: this.props.tripId,
+        field: 'interesters',
+        type: 'dec',
+      },
+    });
+    this.props.updateTripStatMutation({
+      variables: {
+        tripId: this.props.tripId,
+        field: 'joiners',
+        type: 'inc',
+      },
+    });
   }
 
   handleNo(e) {
@@ -40,6 +55,13 @@ class UserCard extends Component {
       variables: {
         targetMemberId: this.props.member.id,
         tripId: this.props.tripId,
+      },
+    });
+    this.props.updateTripStatMutation({
+      variables: {
+        tripId: this.props.tripId,
+        field: 'interesters',
+        type: 'dec',
       },
     });
   }
@@ -74,6 +96,7 @@ const WrapedUserCard = compose(
   graphql(deleteAUserFromTrip, { name: 'deleteAUserFromTripMutation' }),
   graphql(deleteAMemberFromCache, { name: 'deleteAMemberFromCacheMutation' }),
   graphql(updateChatBoxState, { name: 'updateChatBoxStateMutation' }),
+  graphql(updateTripStat, { name: 'updateTripStatMutation' }),
 )(UserCard);
 
 export default WrapedUserCard;

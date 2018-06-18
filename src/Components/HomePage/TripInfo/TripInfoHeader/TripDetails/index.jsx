@@ -28,6 +28,7 @@ const styles = {
     border: '2px solid #00cec9',
     margin: 5,
     color: 'white',
+    size: 'small',
   },
 };
 
@@ -70,176 +71,185 @@ const TripDetails = ({
   currentUserType,
   tripType,
 }) => (
-  <div>
-    <Grid container>
-      <Grid item md={8}>
-        <Typography
-          className={root}
-          variant="display3"
-          color="inherit"
-        >
-          {title}
-        </Typography> 
+  <div style={{ paddingRight: 30 }}>
+    <div className="left-grid">
+      <Typography
+        className={root}
+        variant="display3"
+        color="inherit"
+      >
+        {title}
+      </Typography>
+      <Typography
+        className={root}
+        variant="body2"
+        color="inherit"
+      >
+        {`${date_start} - ${date_end}`}
+      </Typography>
+      <div className="detail-list-container">
         <Typography
           className={root}
           variant="body2"
           color="inherit"
         >
-          {`${date_start} - ${date_end}`}
+          {`Country • ${JSON.parse(countries).join(' ')}`}
+        </Typography>
+        <Typography
+          className={root}
+          variant="body2"
+          color="inherit"
+        >
+          {`Age •  ${age_start} ~ ${age_end}`}
+        </Typography>
+        <Typography
+          className={root}
+          variant="body2"
+          color="inherit"
+        >
+          {` Gender •  ${gender}`}
+        </Typography>
+        <Typography
+          className={root}
+          variant="body2"
+          color="inherit"
+        >
+          {` Relationship •  ${relationship}`}
+        </Typography>
+        <Typography
+          className={root}
+          variant="body2"
+          color="inherit"
+        >
+          {` Cost •  ${cost}`}
+        </Typography>
+        <Typography
+          className={root}
+          variant="body2"
+          color="inherit"
+        >
+          {` Status •  ${trip_status}`}
+        </Typography>
+      </div>
+      {
+        JSON.parse(trip_keywords).map(keyword => (
+          <Button
+            className={button}
+            variant="outlined"
+            size="small"
+          >
+            {keyword}
+          </Button>
+        ))
+      }
+    </div>
+    <div className='right-grid'>
+      <div className="counter-warper">
+        <Typography
+          color="inherit"
+          variant="display3"
+        >
+          {interesters}
+        </Typography>
+        <Typography
+          className={numberSubs}
+          color="inherit"
+          variant="body2"
+        >
+          interested
+        </Typography>
+      </div>
+      <div className="counter-warper">
+        <Typography
+          color="inherit"
+          variant="display3"
+        >
+          {joiners}
         </Typography> 
-        <div className="detail-list-container"> 
-          <Typography 
-            className={root} 
-            variant="body2" 
-            color="inherit"
-          > 
-            {`Country • ${JSON.parse(countries).join(' ')}`}
-          </Typography>
-          <Typography 
-            className={root} 
-            variant="body2" 
-            color="inherit"
-          >
-            {`Age •  ${age_start} ~ ${age_end}`}
-          </Typography>
-          <Typography 
-            className={root} 
-            variant="body2" 
-            color="inherit"
-          >
-            {` Gender •  ${gender}`}
-          </Typography>
-          <Typography 
-            className={root} 
-            variant="body2" 
-            color="inherit"
-          >
-            {` Relationship •  ${relationship}`}
-          </Typography>
-          <Typography 
-            className={root} 
-            variant="body2" 
-            color="inherit"
-          > 
-            {` Cost •  ${cost}`}
-          </Typography>
-          <Typography 
-            className={root} 
-            variant="body2" 
-            color="inherit"
-          >
-            {` Status •  ${trip_status}`}            
-          </Typography>
-        </div>
-        {
-          JSON.parse(trip_keywords).map(keyword => (
-            <Button
-              className={button}
-              variant="outlined"
-              size="small"
-            >
-              {keyword}
-            </Button>
-          ))
-        }
-      </Grid>
-      <Grid item md={4}>
-        <Grid container alignContent="center">
-          <Grid item sm={4} alignItems="center">
-            <Typography
-              color="inherit"
-              variant="display3"
-            >
-              {interesters}
-            </Typography>
-            <Typography
-              className={numberSubs}
-              color="inherit"
-              variant="body2"
-            >
-              interested
-            </Typography>
-          </Grid>
-          <Grid item sm={4} alignItems="center">
-            <Typography
-              color="inherit"
-              variant="display3"
-            >
-              {joiners}
-            </Typography> 
-            <Typography
-              className={joined}
-              color="inherit"
-              variant="body2"
-            >
-              joined
-            </Typography>         
-          </Grid>
-          <Grid item sm={4}>
-            <Typography
-              color="inherit"
-              variant="display3"
-            >
-              {fsg}
-            </Typography> 
-            <Typography
-              className={fsgStyle}
-              color="inherit"
-              variant="body2"
-            >
-              For Sure Going
-            </Typography>
-          </Grid>
-        </Grid>
-        {
-          currentUserType === 'C' ? 
-            <TripStatusButton 
-              currentStatus={trip_status} 
-              id={tripId}  
-            /> :                   
-          currentUserType === 'J' && !forSureGoing ? 
-            <div className="trippic">
-              <CancelOrLeaveButton
-                tripType="joined" 
-                memberId={memberId}
-                tripId={tripId}
-                userId={userId}
-              >
-                Leave this Trip
-              </CancelOrLeaveButton>
-                let the world know that you are for sure going
-              <ForSureGoingButton 
-                memberId={memberId}
-                tripId={tripId}
-                userId={userId}
-                tripType="joined'"
-              />
+        <Typography
+          className={joined}
+          color="inherit"
+          variant="body2"
+        >
+          joined
+        </Typography>         
+      </div>
+      <div className="counter-warper">
+        <Typography
+          color="inherit"
+          variant="display3"
+        >
+          {fsg}
+        </Typography> 
+        <Typography
+          className={fsgStyle}
+          color="inherit"
+          variant="body2"
+        >
+          For Sure Going
+        </Typography>
+      </div>
+      {
+        currentUserType === 'C' ?
+          <div className="condition-button">
+            <TripStatusButton
+              currentStatus={trip_status}
+              id={tripId}
+            /> 
+          </div> :
+          currentUserType === 'J' && !forSureGoing ?
+            <div>
+              <div className="condition-button">
+                <ForSureGoingButton
+                  memberId={memberId}
+                  tripId={tripId}
+                  userId={userId}
+                  tripType="joined'"
+                />
+              </div>
+              <div className="second-button">
+                <CancelOrLeaveButton
+                  tripType="joined"
+                  memberId={memberId}
+                  tripId={tripId}
+                  userId={userId}
+                >
+                  Leave this Trip
+                </CancelOrLeaveButton>
+              </div>
             </div> :
-          currentUserType === 'I' ? 
-            <div className="trippic">
-              <CancelOrLeaveButton
-                tripType="waiting"
-                memberId={memberId}
-                tripId={tripId}
-                userId={userId}
-              >
-                Leave this Trip
-              </CancelOrLeaveButton>
-            </div> :
-          currentUserType === 'N' ?
-            <div className="trippic">
-              <AskToJoinButton
-                senderName={username}
-                creatorId={creatorId}
-                tripTitle={title}
-                userId={userId}
-                tripId={tripId}
-                tripType={tripType}
-              />
-            </div> : 'You are for sure going on this trip!'
+            currentUserType === 'I' ?
+              <div className="condition-button">
+                <CancelOrLeaveButton
+                  tripType="waiting"
+                  memberId={memberId}
+                  tripId={tripId}
+                  userId={userId}
+                >
+                  Leave this Trip
+                </CancelOrLeaveButton>
+              </div> :
+              currentUserType === 'N' ?
+                <div className="condition-button">
+                  <AskToJoinButton
+                    senderName={username}
+                    creatorId={creatorId}
+                    tripTitle={title}
+                    userId={userId}
+                    tripId={tripId}
+                    tripType={tripType}
+                  />
+                </div> : 
+                <div className="for-sure-subs">
+                  <Typography
+                    variant="title"
+                    color="inherit"
+                  >
+                    You Are for Sure Going!
+                  </Typography >
+                </div>    
         }
-      </Grid>
-    </Grid>
+    </div>
   </div>
 );
 

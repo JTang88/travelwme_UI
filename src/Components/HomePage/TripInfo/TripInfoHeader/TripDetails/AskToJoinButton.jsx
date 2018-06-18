@@ -6,6 +6,7 @@ import { addNewlyInterestedTripToList } from '../../../../../graphql/mutations/a
 import { addFoundTripToList } from '../../../../../graphql/mutations/addFoundTripToList';
 import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 import getTrip from '../../../../../graphql/queries/getTrip';
+import Button from './conditionButton';
 
 const AskToJoinButton = ({
   senderName, 
@@ -66,9 +67,9 @@ const AskToJoinButton = ({
   }
 
   return (
-    <button onClick={handleAskToJoin}>
+    <Button variant="contained" color="inherit" onClick={handleAskToJoin}>
       Ask To Join
-    </button>
+    </Button>
   );
 };
 

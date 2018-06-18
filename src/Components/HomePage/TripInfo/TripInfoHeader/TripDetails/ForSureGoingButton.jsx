@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
+import Button from './conditionButton';
 import forSureGoing from '../../../../../graphql/mutations/forSureGoing';
 import updateTripStat from '../../../../../graphql/mutations/updateTripStat';
 import { moveAJoinedTripToGoingList } from '../../../../../graphql/mutations/moveAJoinedTripToGoingList';
@@ -46,9 +47,9 @@ const ForSureGoinButton = ({
   };
 
   return (
-    <button onClick={handleForSureGoing}>
+    <Button variant="contained" color="inherit" onClick={handleForSureGoing}>
       For Sure Going
-    </button>
+    </Button>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+import Button from './conditionButton'
 import updateTripStatus from '../../../../../graphql/mutations/updateTripStatus';
 
 const TripStatusButton = ({ id, currentStatus, mutate }) => {
@@ -15,11 +16,11 @@ const TripStatusButton = ({ id, currentStatus, mutate }) => {
   };
 
   return (
-    <button onClick={handleCloseAndOpenThisTrip}>
+    <Button onClick={handleCloseAndOpenThisTrip}>
       {
         currentStatus === 'open' ? 'Close This Trip' : 'Open this Trip'
       }
-    </button>
+    </Button>
   );
 };
 
