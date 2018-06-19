@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { Typography } from '@material-ui/core';
 import updateTripDescription from '../../../graphql/mutations/updateTripDescription'; 
 import TextArea from '../../Global/Forms/TextArea';
+import './index.css';
 
 class Description extends Component {
   state = {
@@ -40,8 +42,20 @@ class Description extends Component {
       <div>
         {
           this.state.edit === false ?
-            <div>
-              <h4>Description: {this.props.description}</h4>
+            <div className="details-container">
+              <Typography
+                variant="title"
+                color="inherit"
+                gutterBottom
+              >
+                Details
+              </Typography>
+              <Typography
+                variant="body1"
+                color="inherit"
+              >
+                {this.props.description}
+              </Typography>
               {
                 this.props.currentUserType === 'C' ? 
                 <button onClick={this.handleEditThisTrip.bind(this)}>
@@ -53,6 +67,7 @@ class Description extends Component {
               <TextArea
                 type="text"
                 title="Trip Description"
+
                 rows={6}
                 name="description"
                 content={this.state.description}

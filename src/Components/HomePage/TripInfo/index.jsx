@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
+import { Grid } from '@material-ui/core';
 import Creator from './Creator';
 import TripUsers from './TripUsers';
 import Description from './Description';
@@ -57,31 +58,39 @@ class TripInfo extends Component {
             currentMember={currentMember}
             tripType={tripType}
           />
-          <Creator
-            trip={trip}
-            currentUserType={currentUserType}
-          />
-          <Description
-            currentUserType={currentUserType}
-            tripId={Number(tripId)}
-            description={trip.description}
-          />
-          <TripUsers
-            trip={trip}
-            tripId={Number(tripId)}
-            interesters={interesters}
-            joiners={joiners}
-            currentUserType={currentUserType}
-          />
-          <Comment
-            tripId={Number(tripId)}
-            username={user.username}
-            tripCommentId={trip.tripCommentId}
-          />
-          <AddComment
-            username={user.username}
-            tripCommentId={trip.tripCommentId}
-          />
+          <div className="trip-info-container">
+            <Grid container>
+              <Grid item md={8}>
+                <Description
+                  currentUserType={currentUserType}
+                  tripId={Number(tripId)}
+                  description={trip.description}
+                />
+              </Grid>
+              <Grid item md={4}>
+                <Creator
+                  trip={trip}
+                  currentUserType={currentUserType}
+                />
+              </Grid>
+            </Grid>
+            <TripUsers
+              trip={trip}
+              tripId={Number(tripId)}
+              interesters={interesters}
+              joiners={joiners}
+              currentUserType={currentUserType}
+            />
+            <Comment
+              tripId={Number(tripId)}
+              username={user.username}
+              tripCommentId={trip.tripCommentId}
+            />
+            <AddComment
+              username={user.username}
+              tripCommentId={trip.tripCommentId}
+            />
+          </div>
         </div> 
       );
     } 

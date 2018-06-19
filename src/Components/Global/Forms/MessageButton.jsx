@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@material-ui/core';  
 import { graphql } from 'react-apollo';
 import { updateChatBoxState } from '../../../graphql/mutations/updateChatBoxState';
 
@@ -16,9 +17,14 @@ const MessageButton = ({ mutate, receiverUserId }) => {
   };
 
   return (
-    <button onClick={handleClick}>
+    <Button 
+      onClick={handleClick}
+      size="small"
+      variant="outlined"
+      color="secondary"
+    >
       Message
-    </button>
+    </Button>
   );
 };
 

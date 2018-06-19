@@ -1,0 +1,30 @@
+.trip-info-container {
+  padding-top: 25px;
+  padding-left: 65px;
+  padding-right: 65px;
+  color: #2d3436;
+}
+
+.details-container {
+  margin-top: 25px;
+  margin-right: 40px;
+}
+
+.about-me-container {
+  padding-right: 20px;
+  min-height: 120px;
+}
+
+.creator-pic {
+  width: 130px;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  border: 2px solid #b2bec3;
+  border-radius: 3px; 
+}
+
+.creator-infor-container {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #b2bec3;
+}
