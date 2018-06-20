@@ -6,9 +6,10 @@ import MessageButton from '../../Global/Forms/MessageButton';
 
 const styles = {
   root: {
-    width: '97%',
-    marginLeft: 30,
-    paddingTop: 20,
+    width: '80%',
+    marginLeft: 65,
+    paddingTop: 25,
+    minHeight: 420,
     paddingLeft: 25,
     paddingRight: 25,
     color: '#2d3436',
@@ -41,16 +42,16 @@ const Creator = ({
       <Typography variant="title" color="inherit" className={creatorTitle} gutterBottom>
         Creator
       </Typography>
-      <div className="creator-infor-container">
+      <div className="creator-info-container">
         <Grid container >
           <Grid item sm={6}>
             <Image cloudName="travelwme" className="creator-pic" publicId={publicId} />
           </Grid>
           <Grid item sm={6}>
-            <Typography variant="body2" color="inherit">Name: {username}</Typography>
-            <Typography variant="body2" color="inherit">Gender: {gender}</Typography>
-            <Typography variant="body2" color="inherit">DOB: {birthday}</Typography>
-            <Typography variant="body2" color="inherit" gutterBottom>Relationship: {relationship}</Typography>
+            <Typography variant="body2" color="inherit">{username}</Typography>
+            <Typography variant="body2" color="inherit">{gender}</Typography>
+            <Typography variant="body2" color="inherit">{birthday}</Typography>
+            <Typography variant="body2" color="inherit" gutterBottom>{relationship}</Typography>
             {
               currentUserType !== 'C' ?
                 <MessageButton receiverUserId={id} /> : null

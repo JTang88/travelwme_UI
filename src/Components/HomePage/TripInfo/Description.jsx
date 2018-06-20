@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Typography } from '@material-ui/core';
+import { Typography, Button, TextField, withStyles } from '@material-ui/core';
 import updateTripDescription from '../../../graphql/mutations/updateTripDescription'; 
-import TextArea from '../../Global/Forms/TextArea';
 import './index.css';
+
+const styles = {
+  textField: {
+    backgroundColor: 'white',
+  },
+  cancelButton: {
+    marginLeft: 5,
+  }
+}
 
 class Description extends Component {
   state = {
@@ -11,20 +19,20 @@ class Description extends Component {
     description: this.props.description
   }
   
-  handleInputChange(event) {
+  handleInputChange = (event) => {
     const change = {};
     change[event.target.name] = event.target.value;
     this.setState(change);
   }
 
-  handleEditThisTrip(e) {
+  handleToggleEdit = (e) => {
     e.preventDefault();
     this.setState({
-      edit: true,
+      edit: !this.state.edit,
     });
   }
 
-  handleSubmitDescription(e) {
+  handleSubmitDescription = (e) => {
     e.preventDefault();
     this.setState({
       edit: false,
@@ -38,51 +46,62 @@ class Description extends Component {
   }
 
   render() {
+    const { classes: { cancelButton, textField } } = this.props;
     return (
-      <div>
-        {
-          this.state.edit === false ?
-            <div className="details-container">
-              <Typography
-                variant="title"
-                color="inherit"
-                gutterBottom
-              >
-                Details
-              </Typography>
+      <div className="details-container">
+        <Typography
+          variant="title"
+          color="inherit"
+          gutterBottom
+        >
+          Details
+      </Typography>
+      {
+        this.state.edit === false ?
+          <div>
+            <div className="description-area">
               <Typography
                 variant="body1"
                 color="inherit"
               >
                 {this.props.description}
               </Typography>
-              {
-                this.props.currentUserType === 'C' ? 
-                <button onClick={this.handleEditThisTrip.bind(this)}>
-                    Edit Trip Description
-                </button> : null
-              }
-            </div> :
-            <div>
-              <TextArea
+            </div>
+            {
+              this.props.currentUserType === 'C' ? 
+              <Button variant="outlined" color="primary" size="samll" onClick={this.handleToggleEdit}>
+                  Edit Trip Description
+              </Button> : null
+            }
+          </div> :
+          <div>
+            <div className="description-area">
+              <TextField
+                className={textField}
+                value={this.state.description}	
+                id="tripDetails"
                 type="text"
-                title="Trip Description"
-
-                rows={6}
+                lable="Trip Details"
+                rows={19}
+                multiline
+                fullWidth
                 name="description"
-                content={this.state.description}
-                handleFunc={this.handleInputChange.bind(this)}
+                onChange={this.handleInputChange}
               />
-              <button onClick={this.handleSubmitDescription.bind(this)}>
-                Submit Description
-            </button>
-            </div> 
+            </div>
+            <Button variant="outlined" color="primary" size="samll" onClick={this.handleSubmitDescription}>
+              Submit Description
+            </Button>
+            <Button className={cancelButton} variant="outlined" color="primary" size="samll" onClick={this.handleToggleEdit}>
+              Cancel
+            </Button>
+          </div> 
         }
       </div>
     );
   }
 }
 
-const WrappedDescription = graphql(updateTripDescription)(Description)
+const WrappedDescription = graphql(updateTripDescription)(withStyles(styles)(Description))
 
 export default WrappedDescription;

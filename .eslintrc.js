@@ -9,6 +9,7 @@ module.exports = {
     "import"
   ],
   "rules": {
+    "jsx-a11y/anchor-is-valid": 0,
     "no-shadow": 0,
     "react/prop-types": 0,
     "camelcase": 0,

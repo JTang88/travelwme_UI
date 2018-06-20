@@ -1,30 +1,44 @@
 import React from 'react';
+import { Typography, Grid } from '@material-ui/core';
 import UserCard from '../TripInfo/UserCard';
 
-const TripUsers = props => (
-  <div>
-    <div className="tripsub">Joined</div>
-    <div className="row">
-      {props.joiners.map((joiner, i) => (
-        <div className="col-4" key={`joiner${i}`}>
-          <UserCard 
-            key={joiner.user.id} 
-            member={joiner} 
-          /> 
-        </div>))}
-    </div>
-    <div className="tripsub">Interested</div>
-    <div className="row">
-      {props.interesters.map((interester, i) => (
-        <div className="col-4" key={`interest${i}`}>
-          <UserCard 
-            trip={props.trip}
-            tripId={props.tripId}
-            key={interester.user.id} 
-            member={interester} 
-            creatorView={props.currentUserType === 'C'}
+const TripUsers = ({
+  joiners,
+  interesters,
+  trip,
+  currentUserType,
+}) => (
+  <div className="trip-users-container">
+    <Typography variant="title" color="inherit" gutterBottom>
+      Joined :
+    </Typography>
+    <Grid container alignContent="center">
+      {joiners.map((joiner, i) => (
+        <Grid item sm={3} key={`joiner${i}`}>
+          <UserCard
+            trip={trip}
+            key={joiner.user.id}
+            member={joiner}
           />
-        </div>))}
+        </Grid>
+      ))}
+    </Grid>
+    <div className="ineresters-container">
+      <Typography variant="title" color="inherit" gutterBottom>
+        Interested :
+      </Typography>
+      <Grid container>
+        {interesters.map((interester, i) => (
+          <Grid item sm={3} key={`interester${i}`}>
+            <UserCard
+              trip={trip}
+              key={interester.user.id}
+              member={interester}
+              creatorView={currentUserType === 'C'}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   </div>
 );

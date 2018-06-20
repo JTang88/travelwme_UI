@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button } from '@material-ui/core';  
+import { IconButton } from '@material-ui/core';
+import { Message } from '@material-ui/icons';  
 import { graphql } from 'react-apollo';
 import { updateChatBoxState } from '../../../graphql/mutations/updateChatBoxState';
 
@@ -17,14 +18,13 @@ const MessageButton = ({ mutate, receiverUserId }) => {
   };
 
   return (
-    <Button 
+    <IconButton 
       onClick={handleClick}
       size="small"
-      variant="outlined"
-      color="secondary"
+      color="primary"
     >
-      Message
-    </Button>
+      <Message />
+    </IconButton>
   );
 };
 

@@ -58,7 +58,7 @@ class TripInfo extends Component {
             currentMember={currentMember}
             tripType={tripType}
           />
-          <div className="trip-info-container">
+          <div className="creator-details-container">
             <Grid container>
               <Grid item md={8}>
                 <Description
@@ -74,23 +74,23 @@ class TripInfo extends Component {
                 />
               </Grid>
             </Grid>
-            <TripUsers
-              trip={trip}
-              tripId={Number(tripId)}
-              interesters={interesters}
-              joiners={joiners}
-              currentUserType={currentUserType}
-            />
-            <Comment
-              tripId={Number(tripId)}
-              username={user.username}
-              tripCommentId={trip.tripCommentId}
-            />
-            <AddComment
-              username={user.username}
-              tripCommentId={trip.tripCommentId}
-            />
-          </div>
+          </div >
+          <TripUsers
+            trip={trip}
+            tripId={Number(tripId)}
+            interesters={interesters}
+            joiners={joiners}
+            currentUserType={currentUserType}
+          />
+          <Comment
+            tripId={Number(tripId)}
+            username={user.username}
+            tripCommentId={trip.tripCommentId}
+          />
+          <AddComment
+            username={user.username}
+            tripCommentId={trip.tripCommentId}
+          />
         </div> 
       );
     } 
