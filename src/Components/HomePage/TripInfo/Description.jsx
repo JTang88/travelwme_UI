@@ -69,7 +69,7 @@ class Description extends Component {
             </div>
             {
               this.props.currentUserType === 'C' ? 
-              <Button variant="outlined" color="primary" size="samll" onClick={this.handleToggleEdit}>
+              <Button variant="outlined" color="primary" size="small" onClick={this.handleToggleEdit}>
                   Edit Trip Description
               </Button> : null
             }
@@ -89,10 +89,10 @@ class Description extends Component {
                 onChange={this.handleInputChange}
               />
             </div>
-            <Button variant="outlined" color="primary" size="samll" onClick={this.handleSubmitDescription}>
+            <Button variant="outlined" color="primary" size="small" onClick={this.handleSubmitDescription}>
               Submit Description
             </Button>
-            <Button className={cancelButton} variant="outlined" color="primary" size="samll" onClick={this.handleToggleEdit}>
+            <Button className={cancelButton} variant="outlined" color="primary" size="small" onClick={this.handleToggleEdit}>
               Cancel
             </Button>
           </div> 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
-import { Typography } from '@material-ui/core';
+import { Typography, withStyles, Grid } from '@material-ui/core';
 import { withRouter } from 'react-router';
+import { Image } from 'cloudinary-react';
 import commentAdded from '../../../../graphql/subscriptions/commentAdded';
 import replyAdded from '../../../../graphql/subscriptions/replyAdded';
 import getTripComments from '../../../../graphql/queries/getTripComments';
@@ -10,11 +11,26 @@ import AddComment from './AddComment';
 import Reply from './Reply';
 import './index.css';
 
-class Comment extends Component {
-  constructor(props) {
-    super(props);
-  }
+const styles = {
+  commentUsername: {
+    marginLeft: 15,
+    marginTop: 27,
+  },
+  commentTypo: {
+    marginLeft: 6,
+    marginTop: 30,
+  },
+  replyUsername: {
+    marginLeft: 7,
+    marginTop: 17,
+  },
+  replyTypo: {
+    marginTop: 20,
+    marginRight: 0,
+  },
+};
 
+class Comment extends Component {
   componentWillMount() {
     const { tripCommentId } = this.props;
     this.props.getReplyQuery.subscribeToMore({
@@ -61,6 +77,7 @@ class Comment extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     console.log('this is props in Commnet', this.props)
     return (
       <div className="comment-section">
@@ -73,21 +90,78 @@ class Comment extends Component {
               this.props.getTripCommentsQuery.loading || this.props.getReplyQuery.loading ? 'loading' :
                 this.props.getTripCommentsQuery.getTripComments.map((comment, i) => 
                   (
-                    <div key={`comment${i}`}>
-                      <h3>{comment.username}</h3>:{comment.text}
+                    <div className="single-comment-reply-wrap" key={`comment${i}`}>
+                      <Grid container>
+                        <Grid item xs={1}>
+                          <Image
+                            cloudName="travelwme"
+                            className="comment-pic"
+                            publicId={comment.publicId}
+                          />
+                        </Grid> 
+                        <Grid item xs={1}>
+                          <Typography
+                            className={classes.commentUsername}
+                            variant="body2"
+                            color="primary"
+                            gutterBottom
+                          >
+                            {comment.username}: &nbsp;
+                          </Typography>
+                        </Grid> 
+                        <Grid item xs={10}>
+                          <Typography
+                            className={classes.commentTypo}
+                            variant="body1"
+                            color="inherit"
+                            gutterBottom
+                          >
+                            {` ${comment.text}`}
+                          </Typography>
+                        </Grid> 
+                      </Grid>
                       {
                         this.props.getReplyQuery.getReply.map((reply, i) => (
                           <div key={`reply${i}`}>
                             {
                               reply.commentId === comment._id ? (
-                                <div>
-                                  <h5>{reply.username}</h5> : {reply.text}
-                                </div>
+                                <Grid container>
+                                  <Grid item xs={1}>
+                                    <div />
+                                  </Grid> 
+                                  <Grid item xs={1}>
+                                    <Image
+                                      cloudName="travelwme"
+                                      className="reply-pic"
+                                      publicId={reply.publicId}
+                                    />
+                                  </Grid>
+                                  <Grid item xs={1}>
+                                    <Typography
+                                      className={classes.replyUsername}
+                                      variant="body2"
+                                      color="secondary"
+                                      gutterBottom
+                                    >
+                                      {reply.username}: &nbsp;
+                                    </Typography>
+                                  </Grid> 
+                                  <Grid item xs={9}>
+                                    <Typography
+                                      className={classes.replyTypo}
+                                      variant="body1"
+                                      color="inherit"
+                                      gutterBottom
+                                    >
+                                      {` ${reply.text}`}
+                                    </Typography>
+                                  </Grid> 
+                                </Grid>                                    
                               ) : ''
                             }
                           </div>
                         ))
-                      }
+                      }                       
                       <Reply 
                         reply={comment.reply}
                         commentId={comment._id}
@@ -113,7 +187,7 @@ class Comment extends Component {
 const WrapedComment = compose(
   graphql(getReply, { name: 'getReplyQuery' }),
   graphql(getTripComments, { name: 'getTripCommentsQuery' }),
-)(withRouter(Comment));
+)(withRouter(withStyles(styles)(Comment)));
 
 export default WrapedComment;
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { Button, TextField } from '@material-ui/core';
 import getReply from '../../../../graphql/queries/getReply';
 import newReply from '../../../../graphql/mutations/newReply';
 
@@ -13,23 +14,25 @@ class Reply extends Component {
   }
 
   handleKeyUp(e) {
-    const { mutate, username, commentId, tripCommentId } = this.props;
+    const { mutate, username, commentId, publicId, tripCommentId } = this.props;
     if (e.keyCode === 13) {
       mutate({
         variables: {
           tripCommentId,
           commentId,
+          publicId,
           username,
           text: e.target.value,
         },
         optimisticResponse: {
           newReply: {
             tripCommentId,
+            publicId,
             commentId,
             username,
             text: e.target.value,
             _id: 'randomId2',
-            __typename: 'Reply',
+            __typename: 'ReplyDetails',
           },
         },
         update: (store, { data: { newReply } }) => {
@@ -58,19 +61,25 @@ class Reply extends Component {
 
   render() {
     return (
-      <div>
+      <div className="reply-container">
         { 
           this.state.replyMode === true ? 
             <div>
               <div className="messageInput">
-                <input
+                <TextField
+                  autoFocus
+                  fullWidth
+                  margin="normal"
+                  id="reply"
+                  label="Reply"
                   type="text"
-                  placeholder="reply"
+                  name="reply"
                   onKeyUp={this.handleKeyUp}
+                  // onChange={this.handleChange}
                 />
               </div> 
-              <button onClick={this.handleKeyUp}>Reply</button> 
-            </div> : <button onClick={() => this.setState({ replyMode: true })}>Reply</button>
+              <Button color="primary" variant="outline" size="small" onClick={this.handleKeyUp}>Reply</Button> 
+            </div> : <Button color="primary" variant="outline" size="small" onClick={() => this.setState({ replyMode: true })}>Reply</Button>
         }
       </div>
 

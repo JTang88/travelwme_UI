@@ -27,3 +27,26 @@
   padding-left: 30px;
   padding-right: 30px;
 }
+
+/* .single-comment-reply-wrap {
+} */
+
+.comment-pic {
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 46px;
+  border-radius: 50%;
+  border: 1px solid #e84393;
+}
+
+.reply-pic {
+  margin-top: 10px;
+  width: 33px;
+  margin-left: 16px;
+  border-radius: 50%;
+  border: 1px solid #00cec9;
+}
+
+.reply-container {
+  margin: 10px 10px 10px 0px;
+}
