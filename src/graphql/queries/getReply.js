@@ -6,6 +6,7 @@ query getReply($tripCommentId: String!) {
     _id
     commentId
     username
+    publicId
     text
   }
 }`;

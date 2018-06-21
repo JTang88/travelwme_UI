@@ -84,7 +84,7 @@ class TripInfo extends Component {
           />
           <Comment
             tripId={Number(tripId)}
-            username={user.username}
+            user={user}
             tripCommentId={trip.tripCommentId}
           />
         </div> 

@@ -92,14 +92,16 @@ class Comment extends Component {
                         reply={comment.reply}
                         commentId={comment._id}
                         tripCommentId={this.props.tripCommentId}
-                        username={this.props.username}
+                        username={this.props.user.username}
+                        publicId={this.props.user.publicId}
                       />
                     </div>
                   ))
             }
           </div>
           <AddComment
-            username={this.props.username}
+            username={this.props.user.username}
+            publicId={this.props.user.publicId}            
             tripCommentId={this.props.tripCommentId}
           />
         </div>

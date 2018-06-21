@@ -6,6 +6,7 @@ const replyAdded = gql`
       commentId
       _id
       username
+      publicId
       text
     }
   }

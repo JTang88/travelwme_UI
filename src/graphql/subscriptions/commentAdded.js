@@ -5,6 +5,7 @@ const commentAdded = gql`
     commentAdded(tripCommentId: $tripCommentId) {
       _id
       username
+      publicId
       text
     }
   }

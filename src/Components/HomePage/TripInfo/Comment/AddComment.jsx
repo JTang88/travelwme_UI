@@ -3,21 +3,23 @@ import { graphql } from 'react-apollo';
 import newComment from '../../../../graphql/mutations/newComment';
 import getTripComments from '../../../../graphql/queries/getTripComments';
 
-const AddComment = ({ mutate, username, tripCommentId }) => {
+const AddComment = ({ mutate, username, publicId, tripCommentId }) => {
   const handleKeyUp = (e) => {
     if (e.keyCode === 13) {
       mutate({
         variables: {
           username,
           tripCommentId,
+          publicId,
           text: e.target.value,
         },
         optimisticResponse: {
           newComment: {
             text: e.target.value,
             username,
+            publicId,
             _id: 'randomId',
-            __typename: 'TripComment',
+            __typename: 'CommentDetails',
           },
         },
         update: (store, { data: { newComment } }) => {
