@@ -1,0 +1,29 @@
+.comment-section {
+  width: 100%;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.comment-container {
+  margin-bottom: 60px;
+  text-align: left;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: inline-block;
+  width: 700px;
+  color: #2d3436;
+  background-color: white;
+  border-radius: 50px;
+  border: 5px solid #e84393
+}
+
+.comment-title {
+  text-align: center;
+  color: #636e72;
+  border-bottom: 3px solid #b2bec3
+}
+
+.comment-content-container {
+  padding-left: 30px;
+  padding-right: 30px;
+}
