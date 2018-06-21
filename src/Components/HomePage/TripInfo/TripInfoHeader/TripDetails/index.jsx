@@ -123,6 +123,7 @@ const TripDetails = ({
       {
         JSON.parse(trip_keywords).map(keyword => (
           <Button
+            key={keyword}
             className={button}
             variant="outlined"
             size="small"

@@ -5,15 +5,12 @@ import getReply from '../../../../graphql/queries/getReply';
 import newReply from '../../../../graphql/mutations/newReply';
 
 class Reply extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      replyMode: false,
-    };
-    this.handleKeyUp = this.handleKeyUp.bind(this);
+  state = {
+    replyMode: false,
   }
 
-  handleKeyUp(e) {
+  handleKeyUp = (e) => {
+    console.log('here is e in keyIUp', e.type)
     const { mutate, username, commentId, publicId, tripCommentId } = this.props;
     if (e.keyCode === 13) {
       mutate({
@@ -78,8 +75,9 @@ class Reply extends Component {
                   // onChange={this.handleChange}
                 />
               </div> 
-              <Button color="primary" variant="outline" size="small" onClick={this.handleKeyUp}>Reply</Button> 
-            </div> : <Button color="primary" variant="outline" size="small" onClick={() => this.setState({ replyMode: true })}>Reply</Button>
+              {/* <Button color="primary" variant="outline" size="small" onClick={this.handleKeyUp}>Reply</Button>  */}
+              <Button color="primary" size="small" onClick={() => this.setState({ replyMode: false })}>Cancel</Button> 
+            </div> : <Button color="primary" size="small" onClick={() => this.setState({ replyMode: true })}>Reply</Button>
         }
       </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+import { TextField } from '@material-ui/core';
 import newComment from '../../../../graphql/mutations/newComment';
 import getTripComments from '../../../../graphql/queries/getTripComments';
 
@@ -51,11 +52,15 @@ const AddComment = ({ mutate, username, publicId, tripCommentId }) => {
   };
 
   return (
-    <div className="messageInput">
-      <input
+    <div className="comment-Input">
+      <TextField
+        fullWidth
+        margin="normal"
+        id="comment"
+        label="Comment"
         type="text"
-        placeholder="New message"
-        onKeyUp={handleKeyUp}
+        name="comment"
+        onKeyUp={this.handleKeyUp}
       />
     </div>
   );

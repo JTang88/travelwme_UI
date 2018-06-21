@@ -172,12 +172,12 @@ class Comment extends Component {
                     </div>
                   ))
             }
+            <AddComment
+              username={this.props.user.username}
+              publicId={this.props.user.publicId}
+              tripCommentId={this.props.tripCommentId}
+            />
           </div>
-          <AddComment
-            username={this.props.user.username}
-            publicId={this.props.user.publicId}            
-            tripCommentId={this.props.tripCommentId}
-          />
         </div>
       </div>    
     );
