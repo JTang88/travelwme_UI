@@ -1,0 +1,73 @@
+.sticky-chatbox {
+  position: fixed;
+  background-color: white;
+  bottom: 0vh;
+  right: 0;
+  border: 3px solid #b2bec3;
+}
+
+.chat-header {
+  background-color: #dfe6e9;
+  border-bottom: 3px solid #b2bec3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.message-container {
+  background-color: white;
+  height: 400px;
+  width: 335px;
+  padding: 25px;
+  overflow: scroll;
+  bottom: 0vh;
+  right: 0px;
+}
+
+.message {
+  position: relative;
+  min-width: 100%;
+  min-height: 50px;
+  color: #636e72;
+}
+
+/* .message-ing-pic {
+  margin-top: 10px;
+  width: 33px;
+  margin-right: 8px;
+  border-radius: 50%;
+  border: 1px solid #00cec9;
+} */
+
+.message-ing-pic {
+  position: absolute;
+  width: 33px;
+  top: 10%;
+  left: 0%;
+  border-radius: 50%;
+  border: 1px solid #00cec9;
+}
+
+.converser-text-wrap {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #dfe6e9;
+  min-height: 70%;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  left: 15%;
+  top: 5%;
+}
+
+.user-text-wrap {
+  position: absolute;
+  border-radius: 10px;
+  background-color: #74b9ff;
+  min-height: 70%;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  left: 15%;
+  top: 5%;
+}
+

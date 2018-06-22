@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
+import { Menu, MenuItem, withStyles } from '@material-ui/core';
 import getConvoList from '../../../../graphql/queries/getConvoList';
 import ConvoSelect from './ConvoSelect';
+import BarButton from '../../../Global/BarButton';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import convoAdded from '../../../../graphql/subscriptions/convoAdded';
+import './index.css';
 
 class MessageList extends Component {
+  state = {
+    anchorEl: null
+  };
+
   componentWillMount() {
     const { convoListId } = this.props.getCurrentUserQuery.getCurrentUser;
     this.props.getConvoListQuery.subscribeToMore({
@@ -31,28 +38,47 @@ class MessageList extends Component {
     });
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (!this.props.getConvoListQuery.loading) {
-      const { convoIds } = this.props.getConvoListQuery.getConvoList;
-      const { convoIds: nextConvoIds } = nextProps.getConvoListQuery.getConvoList;
-      return JSON.stringify(convoIds) !== JSON.stringify(nextConvoIds);
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   if (!this.props.getConvoListQuery.loading) {
+  //     const { convoIds } = this.props.getConvoListQuery.getConvoList;
+  //     const { convoIds: nextConvoIds } = nextProps.getConvoListQuery.getConvoList;
+  //     return JSON.stringify(convoIds) !== JSON.stringify(nextConvoIds);
+  //   }
+  //   return true;
+  // }
+
+  handleMessageListClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
 
   render() {
-    console.log('render MessageList')
+    const { anchorEl } = this.state;
     return (
-      <div>  
-        {
-          this.props.getConvoListQuery.loading ? '' :
-          this.props.getConvoListQuery.getConvoList.convoIds.map(convoId => (
-            <ConvoSelect
-              key={convoId}
-              convoId={convoId}
-            />
-          ))
-        }
+      <div style={{ display: 'inline-block' }}>  
+        <BarButton onClick={this.handleMessageListClick}>Message</BarButton>
+        <Menu
+          id="message-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+        >   
+          {
+            this.props.getConvoListQuery.loading ? '' :
+              this.props.getConvoListQuery.getConvoList.convoIds.map(convoId => (
+              <MenuItem key={convoId}>
+                <ConvoSelect
+                  convoId={convoId}
+                  currentUser={this.props.getCurrentUserQuery.getCurrentUser}
+                />
+              </MenuItem>
+              ))
+          }
+        </Menu>
       </div>
     );
   }

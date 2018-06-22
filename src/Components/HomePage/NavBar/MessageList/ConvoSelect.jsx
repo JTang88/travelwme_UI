@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
+import { Image } from 'cloudinary-react';
+import { Typography, withStyles } from '@material-ui/core';
 import getConvo from '../../../../graphql/queries/getConvo';
 import msgAdded from '../../../../graphql/subscriptions/msgAdded';
 import { getChatBoxState } from '../../../../graphql/queries/getChatBoxState';
 import { updateChatBoxState } from '../../../../graphql/mutations/updateChatBoxState';
+
+const styles = {
+  root: {
+    display: 'inline-block',
+  }
+}
 
 class ConvoSelect extends Component {
   componentWillMount() {
@@ -48,7 +56,7 @@ class ConvoSelect extends Component {
     }
   }
 
-  handleSelection(e) {
+  handleSelection = (e) => {
     e.preventDefault();
     this.props.updateChatBoxStateMutation({
       variables: {
@@ -62,9 +70,48 @@ class ConvoSelect extends Component {
 
   render() {
     console.log('here is props in ConvoSelect')
+    const { classes, currentUser } = this.props;
     return this.props.getConvoQuery.loading ? '' : (
-      <div onClick={this.handleSelection.bind(this)}>
-        {this.props.getConvoQuery.getConvo.users.map((user, i) => (<h5 key={`userListInMsg${i}`}>{user.username}</h5>))}
+      <div onClick={this.handleSelection}>
+        {
+          this.props.getConvoQuery.getConvo.users.map((user, i) => {
+            if (user.username !== currentUser.username) {
+              return (
+                <div key={`convoSelect${i}`} style={{ display: 'inline-block'}}>
+                  <Image
+                    cloudName="travelwme"
+                    className="message-pic"                    
+                    publicId={user.publicId}
+                  />
+                  <Typography
+                    className={classes.root}
+                    variant="body2"
+                    key={`userListInMsg${i}`}
+                  >
+                    {`${user.username} & You -  `}
+                  </Typography>
+                </div>  
+              )
+            }
+          })
+        }
+        <Typography
+          className={classes.root}
+          variant="body2"
+          color="primary"
+        >
+          { 
+            this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length - 1].username === currentUser.username ? 'You: ' :
+            `${this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length - 1].username}:`   
+          }
+        </Typography>
+        <Typography
+          variant="body1"
+          className={classes.root}
+        >     
+         {`${this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length-1].text.substring(0, 20)}...`}
+        </Typography>
+       
       </div>
     );
   }
@@ -85,6 +132,6 @@ const WrappedConvoSelect = compose(
   graphql(updateChatBoxState, {
     name: 'updateChatBoxStateMutation',
   }),
-)(ConvoSelect);
+)(withStyles(styles)(ConvoSelect));
 
 export default WrappedConvoSelect;

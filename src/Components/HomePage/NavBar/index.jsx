@@ -10,6 +10,7 @@ import {
 import BarButton from '../../Global/BarButton';
 import Notifications from './Notifications';
 import './navbar.css';
+import MessageList from './MessageList';
 import UserBox from './UserBox';
 
 
@@ -60,7 +61,8 @@ class NavBar extends Component {
             </Menu>
             {/* <BarButton>Notifications</BarButton> */}
             <Notifications />
-            <BarButton>Messages</BarButton>
+            <MessageList />
+            {/* <BarButton>Messages</BarButton> */}
             <UserBox />    
           </div>
           <div className="clearfix" />

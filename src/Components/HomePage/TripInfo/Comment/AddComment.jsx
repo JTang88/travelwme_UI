@@ -60,7 +60,7 @@ const AddComment = ({ mutate, username, publicId, tripCommentId }) => {
         label="Comment"
         type="text"
         name="comment"
-        onKeyUp={this.handleKeyUp}
+        onKeyUp={handleKeyUp}
       />
     </div>
   );
