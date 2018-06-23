@@ -1,0 +1,18 @@
+.search-container {
+  padding: 50px;
+  text-align: center;
+  color: #636e72;
+}
+
+.continent-country-container {
+  position: relative;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.center-right-form {
+  margin-top: 30px;
+  margin-left: 43%;
+  margin-right: 43%;
+  text-align: left;
+}

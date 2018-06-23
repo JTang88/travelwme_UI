@@ -46,9 +46,9 @@ class HomePage extends Component {
               <Route path="/homepage/waiting" component={Waiting} />
               <Route path="/homepage/going" component={Going} />
               <Route path="/homepage/settings" component={Settings} />
-              <Route exact path="/homepage/searchtrips" component={SearchTrips} />
+              <Route exact path="/homepage/search" component={SearchTrips} />
               <Route path="/homepage/foundtrips" component={FoundTrips} />
-              <Route path="/homepage/plantrip" component={PlanTrip} />
+              <Route path="/homepage/plan" component={PlanTrip} />
               <Route exact path="/homepage/profile/" component={Profile} />
               <Route path="/homepage/profile/:id" component={Profile} />
             </Switch>
