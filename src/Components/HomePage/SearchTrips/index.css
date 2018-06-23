@@ -1,5 +1,5 @@
 .search-container {
-  padding: 50px;
+  padding: 20px 0 50px 0;
   text-align: center;
   color: #636e72;
 }
@@ -15,4 +15,13 @@
   margin-left: 43%;
   margin-right: 43%;
   text-align: left;
+  margin-bottom: 30px;
+}
+
+.check-box {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  margin-left: 30%;
+  margin-right: 30%;
 }

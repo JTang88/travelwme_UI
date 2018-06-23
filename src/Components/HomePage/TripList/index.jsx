@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Image } from 'cloudinary-react';
 import { withRouter } from 'react-router-dom';
-import { Typography, Table, TableBody, TableCell, TableRow, Paper, withStyles } from '@material-ui/core';
+import { Typography, Table, TableBody, TableCell, TableRow, Paper, withStyles, Button } from '@material-ui/core';
 import { updateSearchState } from '../../../graphql/mutations/updateSearchState';
 import './tripList.css'
 
@@ -49,7 +49,7 @@ class TripList extends Component {
         searched: false,
       },
     });
-    this.props.history.push('/homepage/searchtrips');
+    this.props.history.push('/homepage/search');
   }
 
   handleClick = (tripType, tripId) => {
@@ -144,9 +144,13 @@ class TripList extends Component {
         </Paper>
         {
           this.props.from === '/homepage/foundtrips' ?
-            <button onClick={this.handleNewSearch}>
-              New Search
-            </button> : ''
+             
+            <div className="new-search-bottom-container">
+              <Button variant="contained" color="secondary" size="large" onClick={this.handleNewSearch}>
+                New Search
+              </Button>
+            </div>
+            : ''
         }
       </div>
     );
