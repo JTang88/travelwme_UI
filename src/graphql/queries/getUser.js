@@ -13,6 +13,7 @@ query getUser($id: Int!) {
     publicId
     notificationId
     convoListId
+    createdAt
   }
 }`;
 

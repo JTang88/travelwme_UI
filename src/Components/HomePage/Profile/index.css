@@ -1,0 +1,30 @@
+.profile-container {
+  padding: 50px 0 50px 0; 
+  margin-top: 50px;
+  margin-left: 30%;
+  margin-right:30%;
+  background-color: white;
+  border-radius: 10px;
+  border: 3px solid #b2bec3;
+  text-align: center;
+  color: #636e72; 
+}
+
+.info-container {
+  margin: 30px 33% 30px 33%;
+  width: 33%;
+}
+
+.about-container {
+  border-bottom: 3px solid #b2bec3;
+  border-top: 3px solid #b2bec3;
+  padding: 30px 10% 0 10%;
+  min-height: 300px;
+  text-align: left;
+}
+
+.profile-pic {
+  border: 5px solid #e84393;
+  border-radius: 10px;
+  width: 200px;
+}

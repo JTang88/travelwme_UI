@@ -1,141 +1,183 @@
-import { graphql, compose } from 'react-apollo';
 import React from 'react';
+import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
-import Select from '../../Global/Forms/Select';
-import TextArea from '../../Global/Forms/TextArea';
-import UploadUser from '../../Global/Forms/UploadUser';
+import { Typography, withStyles } from '@material-ui/core';
+import EditProfile from './EditProfile'
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import getUser from '../../../graphql/queries/getUser';
-import updateUser from '../../../graphql/mutations/updateUser';
+import GeneralHeader from '../GeneralHeader';
 import MessageButton from '../../Global/Forms/MessageButton';
+import getAge from '../../../services/getAge';
 
+import './index.css';
+
+
+const styles = {
+  q: {
+    float: 'left',
+  },
+  a: {
+    float: 'right',
+  }
+}
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      edit: false,
-      ageOptions:
-       [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-         40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 
-         62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 
-         84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
-      relationshipOptions: ['single', 'in a relationship', 'complicated'],
-      genderOptions: ['male', 'female', 'other'],
-      description: '',
-      publicId: '',
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handdleUpdateProfile = this.handdleUpdateProfile.bind(this);
-    this.getUpdatedPhoto = this.getUpdatedPhoto.bind(this);
+  state = {
+    edit: false,
   }
 
-  getUpdatedPhoto(pid) {
+  activateEdit = () => {
     this.setState({
-      publicId: pid,
-    });
+      edit: !this.edit,
+    })
   }
-
-  handleInputChange(event) {
-    const change = {};
-    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    change[event.target.name] = value;
-    this.setState(change);   
-  }
-
-  async handdleUpdateProfile(e) {
-    e.preventDefault();
-    this.setState({ edit: false });
-
-    const updatedUserInfo = {
-      description: this.state.description || null,
-      id: this.props.getUserQuery.getUser.id,
-      gender: this.state.gender || null,
-      relationship: this.state.relationship || null,
-      age: this.state.age || null,
-      publicId: this.state.publicId || null,
-    }
-
-    this.props.updateUserMutation({
-      variables: updatedUserInfo,
-    });
-  }
-
 
   render() {
-    return !this.props.getUserQuery.loading ? (
-      <div className="text-center">
-        <h1>{this.props.getUserQuery.getUser.username}</h1>
-        { 
-          this.state.edit ?
-            <div>
-              <UploadUser 
-                id={this.props.getCurrentUserQuery.getCurrentUser.id} 
-                getUpdatedPhoto={this.getUpdatedPhoto} 
-              /> 
-              <ul>
-                <Select
-                  title="Gender"
-                  name="gender"
-                  placeholder={this.props.getUserQuery.getUser.gender}
-                  handleFunc={this.handleInputChange}
-                  options={this.state.genderOptions}
-                  selectedOption={this.state.gender}
-                />
-                <Select
-                  title="Relationship"
-                  name="relationship"
-                  placeholder={this.props.getUserQuery.getUser.relationship}
-                  handleFunc={this.handleInputChange}
-                  options={this.state.relationshipOptions}
-                  selectedOption={this.state.relationship}
-                />
-                <Select
-                  title="Age"
-                  name="age"
-                  placeholder={this.props.getUserQuery.getUser.age}
-                  handleFunc={this.handleInputChange}
-                  options={this.state.ageOptions}
-                  selectedOption={this.state.age}
-                />
-                <TextArea 
-                  type="text"
-                  title="About me:"
-                  rows={6}
-                  name="description"
-                  content={this.state.description}
-                  handleFunc={this.handleInputChange}
-                  placeholder={this.props.getUserQuery.getUser.description || 'lease tell your future travel mates a little bit about yourself' }
-                /> 
-              </ul>
-              <button className="btn btn-outline-info" onClick={this.handdleUpdateProfile}>Update Profile</button>
-            </div> : 
-            <div>
-              <Image 
-                cloudName="travelwme" 
-                className="rounded" 
-                publicId={this.state.publicId || this.props.getUserQuery.getUser.publicId} 
-              /> 
-              <ul>
-                <div>Gender: {this.props.getUserQuery.getUser.gender}</div>
-                <div>Relationship: {this.props.getUserQuery.getUser.relationship}</div>
-                <div>Age: {this.props.getUserQuery.getUser.age}</div>
-                <div>About me: 
-                  <p>{this.props.getUserQuery.getUser.description}</p>
+    console.log('props in profile', this.props)
+    const { classes: { q, a } } = this.props;
+    if (this.state.edit) {
+      return (
+        <EditProfile
+          user={this.props.getUserQuery.getUser}
+        /> 
+      )
+    } else {
+      return (
+        !this.props.getUserQuery.loading ?
+          <div>
+            <GeneralHeader>
+              Profile
+            </GeneralHeader>
+            <div className="profile-container">
+              <Image
+                className="profile-pic"
+                cloudName="travelwme"
+                publicId={this.state.publicId || this.props.getUserQuery.getUser.publicId}
+              />
+              <div className="info-container">
+                <div>
+                  <Typography
+                    className={q}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    Name:
+                </Typography>
+                  <Typography
+                    className={a}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    {this.props.getUserQuery.getUser.username}
+                  </Typography>
+                  <div className="clearfix" />
                 </div>
-                {
-                  this.props.match.params.id ? 
-                    <MessageButton receiverUserId={Number(this.props.match.params.id)} /> : null
-                }
-              </ul>
+                <div>
+                  <Typography
+                    className={q}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    Gender:
+                  </Typography>
+                  <Typography
+                    className={a}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    {this.props.getUserQuery.getUser.gender}
+                  </Typography>
+                  <div className="clearfix" />
+                </div>
+                <div>
+                  <Typography
+                    className={q}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    Relationship:
+                  </Typography>
+                  <Typography
+                    className={a}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    {this.props.getUserQuery.getUser.relationship}
+                  </Typography>
+                  <div className="clearfix" />
+                </div>
+                <div>
+                  <Typography
+                    className={q}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    Age:
+                  </Typography>
+                  <Typography
+                    className={a}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    {getAge(this.props.getUserQuery.getUser.birthday)}
+                  </Typography>
+                  <div className="clearfix" />
+                </div>   
+                <div>
+                  <Typography
+                    className={q}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    Member Since:
+                  </Typography>
+                  <Typography
+                    className={a}
+                    variant="body2"
+                    color="inherit"
+                    gutterBottom
+                  >
+                    {this.props.getUserQuery.getUser.createdAt.substring(0, 10)}
+                  </Typography>
+                  <div className="clearfix" />
+                </div>   
+              </div>   
+              <div className="about-container">
+                <Typography
+                  variant="body2"
+                  color="inherit"
+                  gutterBottom
+                >
+                  About:
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="inherit"
+                >
+                  {this.props.getUserQuery.getUser.description}
+                </Typography>
+              </div>
+              {
+                this.props.match.params.id ?
+                  <MessageButton receiverUserId={Number(this.props.match.params.id)} /> : null
+              }
               {
                 this.props.getCurrentUserQuery.getCurrentUser.id === this.props.getUserQuery.getUser.id ?
-                  <button className="btn btn-outline-info" onClick={() => (this.setState({ edit: true }))} >Edit</button> : ''
-              }
+                  <button onClick={this.activateEdit} >Edit</button> : ''
+              }   
             </div>
-        }
-      </div>
-    ) : 'loading';
+          </div> : 'loading'
+      )
+    }
   }
 }
 
@@ -150,7 +192,6 @@ const WrapedProfile = compose(
       { variables: { id: props.match.params.id ? props.match.params.id : props.getCurrentUserQuery.getCurrentUser.id } }
     ), 
   }),
-  graphql(updateUser, { name: 'updateUserMutation' }),
-)(Profile);
+)(withStyles(styles)(Profile));
 
 export default WrapedProfile;
