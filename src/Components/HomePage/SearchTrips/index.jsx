@@ -36,9 +36,6 @@ const styles = {
     top: '5%',
     right: '42%',
   },
-  formBox: {
-    mrginTop: 30,
-  },
   subs: {
     marginBottom: 40,
     marginTop: 40,
@@ -56,6 +53,7 @@ class SearchTrips extends Component {
     Gourmet: false,
     Historian: false,
     Luxury: false,
+    Explorer: false,
     keys: [],
     searchByOptions: ['Country', 'Continent'],
     searchBy: 'Continent',
