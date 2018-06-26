@@ -14,9 +14,10 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  Input,
+  Chip,
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import RadioGroup from '../../Global/Forms/RadioGroup';
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import { searchState } from '../../../graphql/queries/searchState';
 import { updateCurrentSearchTerms } from '../../../graphql/mutations/updateCurrentSearchTerms';
@@ -25,7 +26,7 @@ import { countries, continents } from '../../../services/country-continent';
 import GeneralHeader from '../GeneralHeader';
 import './index.css'
 
-const styles = {
+const styles = theme => ({
   cc: {
     position: 'absolute',
     top: '33%',
@@ -39,8 +40,17 @@ const styles = {
   subs: {
     marginBottom: 40,
     marginTop: 40,
-  }
-}
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    // minWidth: 200,
+    // maxWidth: 600,
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+});
 
 class SearchTrips extends Component {
   state = {
@@ -57,20 +67,23 @@ class SearchTrips extends Component {
     keys: [],
     searchByOptions: ['Country', 'Continent'],
     searchBy: 'Continent',
-    countryOptions: countries,
-    country: 'Brazil',
-    continentOptions: continents,
-    continent: 'South America',
+    countries: ['Brazil'],
+    continents: ['South America'],
     checkedA: true,
     checkedB: false,
   };
 
 
-  handleLocationSelection = (e) => {
-    this.state.searchBy === 'Country' ?
-      this.setState({ country: e.target.value }) : this.setState({ continent: e.target.value });
-  }
+  // handleLocationSelection = (e) => {
+  //   this.state.searchBy === 'Country' ?
+  //     this.setState({ country: e.target.value }) : this.setState({ continent: e.target.value });
+  // }
 
+  handleLocationSelection = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    }, console.log(this.state));
+  }
 
   handleChangeSwitch = name => event => {
     if (name === 'checkedA') {
@@ -109,11 +122,11 @@ class SearchTrips extends Component {
 
   handleSearch = async (e) => {
     e.preventDefault();
-    const locationField = this.state.searchBy === 'Country' ? 'country' : 'continent';
-    const otherLocationField = locationField === 'country' ? 'continent' : 'country';
+    const locationField = this.state.searchBy === 'Country' ? 'countries' : 'continents';
+    const otherLocationField = locationField === 'countries' ? 'continents' : 'countries';
 
     const terms = {
-      [locationField]: this.state[locationField],
+      [locationField]: JSON.stringify(this.state[locationField]),
       [otherLocationField]: null,
       userId: this.props.getCurrentUserQuery.getCurrentUser.id,
       cost_start: Number(this.state.costStart),
@@ -138,14 +151,14 @@ class SearchTrips extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     return (
       this.props.searchStateQuery.searchState.searched === true ?
         <Redirect to={{ pathname: '/homepage/foundtrips' }} /> :
         <div>
           <GeneralHeader>
             Search Trips
-            </GeneralHeader>
+          </GeneralHeader>
           <div className="search-container">
             <div>
               <div>
@@ -185,15 +198,45 @@ class SearchTrips extends Component {
                 {
                   this.state.searchBy === 'Country' ?
                     <div>
-                      <FormControl required fullWidth margin="normal">
-                        <InputLabel htmlFor="country">Country</InputLabel>
+                      <FormControl required fullWidth className={classes.formControl}>
+                        <InputLabel htmlFor="select-multiple">Countries</InputLabel>
                         <Select
-                          value={this.state.country}
+                          multiple
+                          name="countries"
+                          value={this.state.countries}
+                          onChange={this.handleLocationSelection}
+                          input={<Input id="select-multiple" />}
+                          renderValue={selected => (
+                            <div className={classes.chips}>
+                              {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
+                            </div>
+                          )}
+                        >
+                          {countries.map(country => (
+                            <MenuItem
+                              key={country}
+                              value={country}
+                              style={{
+                                fontWeight:
+                                  this.state.countries.indexOf(country) === -1
+                                    ? theme.typography.fontWeightRegular
+                                    : theme.typography.fontWeightMedium,
+                              }}
+                            >
+                              {country}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      {/* <FormControl required fullWidth margin="normal">
+                        <InputLabel htmlFor="country">Countries</InputLabel>
+                        <Select
+                          value={this.state.countries}
                           fullWidth
                           onChange={this.handleLocationSelection}
                           inputProps={{
-                            name: 'country',
-                            id: 'country',
+                            name: 'countries',
+                            id: 'countries',
                           }}
                         >
                           {
@@ -202,18 +245,48 @@ class SearchTrips extends Component {
                             ))
                           }
                         </Select>
-                      </FormControl>
+                      </FormControl> */}
                     </div> :
                     <div>
-                      <FormControl required fullWidth margin="normal">
-                        <InputLabel htmlFor="continent">Continent</InputLabel>
+                      <FormControl required fullWidth className={classes.formControl}>
+                        <InputLabel htmlFor="select-multiple">Countinents</InputLabel>
                         <Select
-                          value={this.state.continent}
+                          multiple
+                          name="continents"
+                          value={this.state.continents}
+                          onChange={this.handleLocationSelection}
+                          input={<Input id="select-multiple" />}
+                          renderValue={selected => (
+                            <div className={classes.chips}>
+                              {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
+                            </div>
+                          )}
+                        >
+                          {continents.map(continent => (
+                            <MenuItem
+                              key={continent}
+                              value={continent}
+                              style={{
+                                fontWeight:
+                                  this.state.continents.indexOf(continent) === -1
+                                    ? theme.typography.fontWeightRegular
+                                    : theme.typography.fontWeightMedium,
+                              }}
+                            >
+                              {continent}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      {/* <FormControl required fullWidth margin="normal">
+                        <InputLabel htmlFor="continent">Continents</InputLabel>
+                        <Select
+                          value={this.state.continents}
                           fullWidth
                           onChange={this.handleLocationSelection}
                           inputProps={{
-                            name: 'continent',
-                            id: 'continent',
+                            name: 'continents',
+                            id: 'continents',
                           }}
                         >
                           {
@@ -222,7 +295,7 @@ class SearchTrips extends Component {
                             ))
                           }
                         </Select>
-                      </FormControl>
+                      </FormControl> */}
                     </div>
                 }
               </div>
@@ -409,7 +482,7 @@ const WrapedSearchTrips = compose(
   graphql(updateSearchState, {
     name: 'updateSearchStateMutation',
   }),
-)(withStyles(styles)(SearchTrips));
+)(withStyles(styles, { withTheme: true })(SearchTrips));
 
 export default WrapedSearchTrips;
 
