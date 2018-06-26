@@ -116,7 +116,11 @@ const UserCard = ({
   return (
     <Link to={`/homepage/profile/${userId}`}>
       <Card className={card}>
-        <Image className="member-pic" cloudName="travelwme" publicId={publicId} />
+        <Image
+          className="member-pic" 
+          cloudName="travelwme" 
+          publicId={publicId}
+        />
         <CardContent className={cardContent}>
           <Typography color="inherit" variant="body2">
             {username}

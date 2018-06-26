@@ -45,7 +45,11 @@ const Creator = ({
       <div className="creator-info-container">
         <Grid container >
           <Grid item sm={6}>
-            <Image cloudName="travelwme" className="creator-pic" publicId={publicId} />
+            <Image
+              cloudName="travelwme" 
+              className="creator-pic" 
+              publicId={publicId}
+            />
           </Grid>
           <Grid item sm={6}>
             <Typography variant="body2" color="inherit">{username}</Typography>

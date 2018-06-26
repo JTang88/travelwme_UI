@@ -39,11 +39,11 @@ class UserBox extends Component {
     return (
       <div style={{ display: 'inline' }}>
         <PicButton onClick={this.handlePicClick}>
-          <Image 
-            className="UserBoxPic" 
-            cloudName="travelwme" 
+          <Image
+            className="UserBoxPic"
+            cloudName="travelwme"
             publicId={this.props.getCurrentUserQuery.getCurrentUser.publicId} 
-          />
+          />          
         </PicButton>
         <Menu
           id="simple-menu"

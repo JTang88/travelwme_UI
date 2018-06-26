@@ -80,7 +80,7 @@ class ConvoSelect extends Component {
                 <div key={`convoSelect${i}`} style={{ display: 'inline-block'}}>
                   <Image
                     cloudName="travelwme"
-                    className="message-pic"                    
+                    className="message-pic"
                     publicId={user.publicId}
                   />
                   <Typography

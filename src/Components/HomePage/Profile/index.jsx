@@ -1,14 +1,13 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import { Image } from 'cloudinary-react';
-import { Typography, withStyles } from '@material-ui/core';
+import { Typography, withStyles, Button } from '@material-ui/core';
 import EditProfile from './EditProfile'
 import { getCurrentUser } from '../../../graphql/queries/getCurrentUser';
 import getUser from '../../../graphql/queries/getUser';
 import GeneralHeader from '../GeneralHeader';
 import MessageButton from '../../Global/Forms/MessageButton';
 import getAge from '../../../services/getAge';
-
 import './index.css';
 
 
@@ -39,6 +38,7 @@ class Profile extends React.Component {
       return (
         <EditProfile
           user={this.props.getUserQuery.getUser}
+          publicId={this.props.getUserQuery.getUser.publicId}
         /> 
       )
     } else {
@@ -52,7 +52,7 @@ class Profile extends React.Component {
               <Image
                 className="profile-pic"
                 cloudName="travelwme"
-                publicId={this.state.publicId || this.props.getUserQuery.getUser.publicId}
+                publicId={this.props.getUserQuery.getUser.publicId}
               />
               <div className="info-container">
                 <div>
@@ -167,12 +167,12 @@ class Profile extends React.Component {
                 </Typography>
               </div>
               {
-                this.props.match.params.id ?
+                this.props.match.params.id && Number(this.props.match.params.id) !== this.props.getCurrentUserQuery.getCurrentUser.id ?
                   <MessageButton receiverUserId={Number(this.props.match.params.id)} /> : null
               }
               {
                 this.props.getCurrentUserQuery.getCurrentUser.id === this.props.getUserQuery.getUser.id ?
-                  <button onClick={this.activateEdit} >Edit</button> : ''
+                  <Button size="small" variant="contained" color="primary" onClick={this.activateEdit} >Edit</Button> : ''
               }   
             </div>
           </div> : 'loading'

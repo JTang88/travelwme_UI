@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { Image } from 'cloudinary-react';
 import Select from '../../Global/Forms/Select';
 import TextArea from '../../Global/Forms/TextArea';
 import UploadUser from '../../Global/Forms/UploadUser';
@@ -34,17 +35,11 @@ class EditProfile extends Component {
       gender: this.state.gender || null,
       relationship: this.state.relationship || null,
       age: this.state.age || null,
-      publicId: this.state.publicId || null,
+      publicId: null,
     }
 
-    this.props.updateUserMutation({
+    this.props.mutate({
       variables: updatedUserInfo,
-    });
-  }
-
-  getUpdatedPhoto = (pid) => {
-    this.setState({
-      publicId: pid,
     });
   }
 
@@ -63,7 +58,13 @@ class EditProfile extends Component {
         <UploadUser
           id={id}
           getUpdatedPhoto={this.getUpdatedPhoto}
-        />
+        >
+          <Image
+            className="profile-pic"
+            cloudName="travelwme"
+            publicId={this.props.publicId}
+          />
+        </UploadUser>
         <ul>
           <Select
             title="Gender"

@@ -3,75 +3,59 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import './index.css';
 
 class UploadUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: null,
-    };
-    this.onDrop = this.onDrop.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.submit = this.submit.bind(this); 
+  state = {
+    file: null,
   }
     
-  async onDrop(files) {
-    this.setState({ file: files[0] });
-  }
+  onDrop = async (files) => {
+    await this.setState({ file: files[0] });
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  async submit() {
     const { id } = this.props;
     const { file } = this.state;
 
-    const formData = new FormData();  
+    const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'nlizwxq2');
+    formData.append('upload_preset', 'syav4cph');
+
+    // eager = c_crop, w_400, h_400, g_face / w_50, h_50, c_scale | w_30, h_40, c_crop, g_south
+
 
     const response = await axios.post(
       `https://api.cloudinary.com/v1_1/travelwme/image/upload`,
       formData,
     );
+    console.log('inside of onDrop after response', response)
 
-    const graphqlResponse = await this.props.mutate({
+
+    await this.props.mutate({
       variables: {
         id,
         publicId: response.data.public_id,
       },
     });
-    this.props.getUpdatedPhoto(response.data.public_id);
-    // this.props.history.push(`/champion/${graphqlResponse.data.createChampion.id}`);
-  };
+  }
 
   render() {
     return (
       <div>
-        {/* <input name="name" onChange={this.onChange} value={this.state.name} /> */}
         <Dropzone onDrop={this.onDrop}>
-          <p>Try dropping some files here, or click to select files to upload.</p>
+          {this.props.children}
         </Dropzone>
-        <button className="btn btn-outline-info" onClick={this.submit}>Submit</button>
       </div>
     );
   }
 }
 
-// const createChampion = gql`
-//   mutation createChampion($name: String!, $publicId: String!) {
-//     createChampion(name: $name, publicId: $publicId) {
-//       id
-//     }
-//   }
-// `;
 
 const addPhotoToUser = gql`
   mutation addPhotoToUser($id: Int!, $publicId: String!) {
-    addPhotoToUser(id: $id, publicId: $publicId) 
+    addPhotoToUser(id: $id, publicId: $publicId) {
+      id
+      publicId
+    }
   }
 `;
 
