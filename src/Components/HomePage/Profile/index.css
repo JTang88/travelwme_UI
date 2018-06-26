@@ -21,11 +21,16 @@
   padding: 30px 10% 0 10%;
   margin-bottom: 40px;
   min-height: 300px;
-  text-align: left;
+  text-align: justify;
 }
 
 .profile-pic {
   /* border: 5px solid #e84393; */
   border-radius: 10px;
   width: 200px;
+}
+
+.edit-info-container {
+  margin: 0px 33% 50px 33%;
+  width: 33%;
 }

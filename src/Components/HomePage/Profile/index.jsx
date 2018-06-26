@@ -17,7 +17,7 @@ const styles = {
   },
   a: {
     float: 'right',
-  }
+  },
 }
 
 class Profile extends React.Component {
@@ -27,18 +27,18 @@ class Profile extends React.Component {
 
   activateEdit = () => {
     this.setState({
-      edit: !this.edit,
+      edit: !this.state.edit,
     })
   }
 
   render() {
-    console.log('props in profile', this.props)
+    console.log('states in profile', this.state)
     const { classes: { q, a } } = this.props;
     if (this.state.edit) {
       return (
         <EditProfile
           user={this.props.getUserQuery.getUser}
-          publicId={this.props.getUserQuery.getUser.publicId}
+          activateEdit={this.activateEdit}
         /> 
       )
     } else {

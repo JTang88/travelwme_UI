@@ -20,9 +20,6 @@ class UploadUser extends React.Component {
     formData.append('file', file);
     formData.append('upload_preset', 'syav4cph');
 
-    // eager = c_crop, w_400, h_400, g_face / w_50, h_50, c_scale | w_30, h_40, c_crop, g_south
-
-
     const response = await axios.post(
       `https://api.cloudinary.com/v1_1/travelwme/image/upload`,
       formData,
@@ -40,11 +37,11 @@ class UploadUser extends React.Component {
 
   render() {
     return (
-      <div>
-        <Dropzone onDrop={this.onDrop}>
+      <a href="#">
+        <Dropzone className="upload-user-container" onDrop={this.onDrop}>
           {this.props.children}
         </Dropzone>
-      </div>
+      </a>
     );
   }
 }
