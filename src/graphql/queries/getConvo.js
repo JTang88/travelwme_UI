@@ -12,7 +12,7 @@ query getConvo($convoId: String!) {
     msgs {
       _id
       text
-      username
+      userId  
     }
   }
 }`;

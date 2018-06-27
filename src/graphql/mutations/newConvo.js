@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 const newConvo = gql`
-  mutation newConvo($convoListId: String!, $username: String!, $receiverUserId: Int!, $userId: Int!, $text: String!) {
-    newConvo(convoListId: $convoListId, username: $username, receiverUserId: $receiverUserId, userId: $userId, text: $text) 
+  mutation newConvo($convoListId: String!, $receiverUserId: Int!, $userId: Int!, $text: String!) {
+    newConvo(convoListId: $convoListId, receiverUserId: $receiverUserId, userId: $userId, text: $text) 
   }
 `;
 

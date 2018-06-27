@@ -5,12 +5,13 @@ query getCurrentConvo($convoId: String!) {
   getConvo(convoId: $convoId) @client {
     _id
     users {
+      id
       username
       publicId
     }
     msgs {
       text
-      username
+      userId
     }
   }
 }`;

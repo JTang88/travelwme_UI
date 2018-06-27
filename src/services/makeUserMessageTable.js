@@ -1,8 +1,9 @@
 const makeUserMessageTable = (convo) => {
   const result = {};
   for (let i = 0; i < convo.users.length; i++) {
-    result[convo.users[i].username] = convo.users[i].publicId;
+    result[convo.users[i].id] = convo.users[i].publicId;
   }
+  console.log('here is result', result)
   return result;
 };
 
@@ -20,7 +21,7 @@ export default makeUserMessageTable;
 //     msgs {
 //       _id
 //       text
-//       username
+//       userId
 //     }
 //   }
 // }`;

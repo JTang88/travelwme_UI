@@ -5,7 +5,7 @@ const msgAdded = gql`
     msgAdded(convoId: $convoId) {
       _id
       text
-      username
+      userId
     }
   }
 `;

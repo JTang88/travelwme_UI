@@ -12,16 +12,17 @@ class Messages extends Component {
   }
   
   render () {
-    const { data: { getCurrentUser: { username } } } = this.props
+    console.log('here is props in message', this.props)
+    const { data: { getCurrentUser: { id } } } = this.props
     return (
       this.props.convo.msgs.map((msg, i) => (
         <div key={`msg${i}`} className="message">
           <Image
             cloudName="travelwme"
             className="message-ing-pic"
-            publicId={this.state.userConvoTable[msg.username]}
+            publicId={this.state.userConvoTable[msg.userId]}
           />
-          <div className= { msg.username !== username ? "converser-text-wrap" : "user-text-wrap" }>
+          <div className= { Number(msg.userId) !== id ? "converser-text-wrap" : "user-text-wrap" }>
             <Typography variant="body2" color="inherit" >{msg.text}</Typography>
           </div>
         </div>

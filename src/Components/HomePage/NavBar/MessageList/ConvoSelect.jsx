@@ -76,7 +76,7 @@ class ConvoSelect extends Component {
         <div className="convo-container">
           {
             this.props.getConvoQuery.getConvo.users.map((user, i) => {
-              if (user.username !== currentUser.username) {
+              if (user.id !== currentUser.id) {
                 return (
                   <div key={`convoSelect${i}`}>
                     <Image
