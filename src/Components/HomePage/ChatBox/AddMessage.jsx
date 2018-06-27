@@ -91,13 +91,12 @@ const AddMessage = ({
   console.log('render AddMessage');
 
   return (
-    <div className="messageInput">
-      <input
-        type="text"
-        placeholder="New message"
-        onKeyUp={handleKeyUp}
-      />
-    </div>
+    <input
+      className="input-box"
+      type="text"
+      placeholder="New message"
+      onKeyUp={handleKeyUp}
+    />
   );
 };
 

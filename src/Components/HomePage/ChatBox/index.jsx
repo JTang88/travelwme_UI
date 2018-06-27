@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { withStyles, Typography } from '@material-ui/core';
 import Messages from './Messages';
 import getCurrentConvo from '../../../graphql/queries/getCurrentConvo';
 import AddMessage from './AddMessage';
+import { updateChatBoxState } from '../../../graphql/mutations/updateChatBoxState';
 import './index.css';
+
 
 const styles = {
   root: {
@@ -16,6 +18,18 @@ const styles = {
 };
 
 class ChatBox extends Component {
+  handleClose = (e) => {
+    e.preventDefault();
+    this.props.updateChatBoxStateMutation({
+      variables: {
+        open: false,
+        currentConvoId: null,
+        currentReceiver: null,
+        receiverUserId: null,
+      },
+    });
+  }
+
   render() {
     console.log('here is props in chatBox', this.props);
     const { classes } = this.props;
@@ -23,14 +37,16 @@ class ChatBox extends Component {
       <div className="sticky-chatbox">
         <div className="chat-header">
           <Typography className={classes.root} variant="body2" color="primary" >Live Chat</Typography>
-          <Typography className={classes.x}variant="body2" color="primary" >X</Typography>
+          <a href="">
+            <Typography onClick={this.handleClose} className={classes.x} variant="body2" color="primary" >X</Typography>
+          </a>
           <div className="clearfix" />
         </div>
         <div className="message-container">
           {
-            this.props.data.getConvo ?
+            this.props.getCurrentConvoQuery.getConvo ?
               <Messages 
-                convo={this.props.data.getConvo}
+                convo={this.props.getCurrentConvoQuery.getConvo}
               /> : null
           }
         </div>
@@ -41,46 +57,16 @@ class ChatBox extends Component {
   }
 }
 
-const WrappedChatBox = graphql(getCurrentConvo, {
-  options: props => ({
-    variables: { convoId: props.convoId },
+const WrappedChatBox = compose(
+  graphql(getCurrentConvo, {
+    name: 'getCurrentConvoQuery',
+    options: props => ({
+      variables: { convoId: props.convoId },
+    }),
   }),
-})(withStyles(styles)(ChatBox));
+  graphql(updateChatBoxState, {
+    name: 'updateChatBoxStateMutation',
+  }),
+)(withStyles(styles)(ChatBox));
 
 export default WrappedChatBox;
-
-
-// import React, { Component } from 'react';
-// import { graphql } from 'react-apollo';
-// import Message from './Message';
-// import getCurrentConvo from '../../../graphql/queries/getCurrentConvo';
-// import AddMessage from './AddMessage';
-// import './index.css';
-
-// class ChatBox extends Component {
-//   render() {
-//     return (
-//       <div className="sticky-chatbox">
-//         <h1>ChatBox in the House!!</h1>
-//         {
-//           this.props.data.getConvo ?
-//           this.props.data.getConvo.msgs.map((msg, i) => (
-//             <Message 
-//               msg={msg}
-//               key={`msg${i}`}
-//             />
-//           )) : null 
-//         }
-//         <AddMessage />
-//       </div>
-//     );
-//   }
-// }
-
-// const WrappedChatBox = graphql(getCurrentConvo, {
-//   options: props => ({
-//     variables: { convoId: props.convoId },
-//   }),
-// })(ChatBox);
-
-// export default WrappedChatBox;

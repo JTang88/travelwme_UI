@@ -43,8 +43,8 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    // minWidth: 200,
-    // maxWidth: 600,
+    minWidth: 203,
+    maxWidth: 600,
   },
   chips: {
     display: 'flex',
@@ -72,12 +72,6 @@ class SearchTrips extends Component {
     checkedA: true,
     checkedB: false,
   };
-
-
-  // handleLocationSelection = (e) => {
-  //   this.state.searchBy === 'Country' ?
-  //     this.setState({ country: e.target.value }) : this.setState({ continent: e.target.value });
-  // }
 
   handleLocationSelection = (e) => {
     this.setState({
@@ -194,111 +188,73 @@ class SearchTrips extends Component {
               <Typography className={classes.subs} variant="headline" color="primary" gutterBottom>
                 Now let's select your desired travel destination
               </Typography>
-              <div className="center-right-form">
                 {
                   this.state.searchBy === 'Country' ?
-                    <div>
-                      <FormControl required fullWidth className={classes.formControl}>
-                        <InputLabel htmlFor="select-multiple">Countries</InputLabel>
-                        <Select
-                          multiple
-                          name="countries"
-                          value={this.state.countries}
-                          onChange={this.handleLocationSelection}
-                          input={<Input id="select-multiple" />}
-                          renderValue={selected => (
-                            <div className={classes.chips}>
-                              {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
-                            </div>
-                          )}
-                        >
-                          {countries.map(country => (
-                            <MenuItem
-                              key={country}
-                              value={country}
-                              style={{
-                                fontWeight:
-                                  this.state.countries.indexOf(country) === -1
-                                    ? theme.typography.fontWeightRegular
-                                    : theme.typography.fontWeightMedium,
-                              }}
-                            >
-                              {country}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      {/* <FormControl required fullWidth margin="normal">
-                        <InputLabel htmlFor="country">Countries</InputLabel>
-                        <Select
-                          value={this.state.countries}
-                          fullWidth
-                          onChange={this.handleLocationSelection}
-                          inputProps={{
-                            name: 'countries',
-                            id: 'countries',
-                          }}
-                        >
-                          {
-                            this.state.countryOptions.map(country => (
-                              <MenuItem value={country}>{country}</MenuItem>
-                            ))
-                          }
-                        </Select>
-                      </FormControl> */}
-                    </div> :
-                    <div>
-                      <FormControl required fullWidth className={classes.formControl}>
-                        <InputLabel htmlFor="select-multiple">Countinents</InputLabel>
-                        <Select
-                          multiple
-                          name="continents"
-                          value={this.state.continents}
-                          onChange={this.handleLocationSelection}
-                          input={<Input id="select-multiple" />}
-                          renderValue={selected => (
-                            <div className={classes.chips}>
-                              {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
-                            </div>
-                          )}
-                        >
-                          {continents.map(continent => (
-                            <MenuItem
-                              key={continent}
-                              value={continent}
-                              style={{
-                                fontWeight:
-                                  this.state.continents.indexOf(continent) === -1
-                                    ? theme.typography.fontWeightRegular
-                                    : theme.typography.fontWeightMedium,
-                              }}
-                            >
-                              {continent}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      {/* <FormControl required fullWidth margin="normal">
-                        <InputLabel htmlFor="continent">Continents</InputLabel>
-                        <Select
-                          value={this.state.continents}
-                          fullWidth
-                          onChange={this.handleLocationSelection}
-                          inputProps={{
-                            name: 'continents',
-                            id: 'continents',
-                          }}
-                        >
-                          {
-                            this.state.continentOptions.map(continent => (
-                              <MenuItem value={continent}>{continent}</MenuItem>
-                            ))
-                          }
-                        </Select>
-                      </FormControl> */}
-                    </div>
+                  <div>
+                    <FormControl required className={classes.formControl}>
+                      <InputLabel htmlFor="select-multiple">Countries</InputLabel>
+                      <Select
+                        multiple
+                        name="countries"
+                        value={this.state.countries}
+                        onChange={this.handleLocationSelection}
+                        input={<Input id="select-multiple" />}
+                        renderValue={selected => (
+                          <div className={classes.chips}>
+                            {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
+                          </div>
+                        )}
+                      >
+                        {countries.map(country => (
+                          <MenuItem
+                            key={country}
+                            value={country}
+                            style={{
+                              fontWeight:
+                                this.state.countries.indexOf(country) === -1
+                                  ? theme.typography.fontWeightRegular
+                                  : theme.typography.fontWeightMedium,
+                            }}
+                          >
+                            {country}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div> :
+                  <div>
+                    <FormControl required className={classes.formControl}>
+                      <InputLabel htmlFor="select-multiple">Countinents</InputLabel>
+                      <Select
+                        multiple
+                        name="continents"
+                        value={this.state.continents}
+                        onChange={this.handleLocationSelection}
+                        input={<Input id="select-multiple" />}
+                        renderValue={selected => (
+                          <div className={classes.chips}>
+                            {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
+                          </div>
+                        )}
+                      >
+                        {continents.map(continent => (
+                          <MenuItem
+                            key={continent}
+                            value={continent}
+                            style={{
+                              fontWeight:
+                                this.state.continents.indexOf(continent) === -1
+                                  ? theme.typography.fontWeightRegular
+                                  : theme.typography.fontWeightMedium,
+                            }}
+                          >
+                            {continent}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div>
                 }
-              </div>
                 <Typography className={classes.subs} variant="headline" color="primary" gutterBottom>
                   Please select a trip start and end date
                 </Typography>

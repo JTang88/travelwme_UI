@@ -10,7 +10,7 @@ import { updateChatBoxState } from '../../../../graphql/mutations/updateChatBoxS
 const styles = {
   root: {
     display: 'inline-block',
-  }
+  },
 }
 
 class ConvoSelect extends Component {
@@ -72,47 +72,41 @@ class ConvoSelect extends Component {
     console.log('here is props in ConvoSelect')
     const { classes, currentUser } = this.props;
     return this.props.getConvoQuery.loading ? '' : (
-      <div onClick={this.handleSelection}>
-        {
-          this.props.getConvoQuery.getConvo.users.map((user, i) => {
-            if (user.username !== currentUser.username) {
-              return (
-                <div key={`convoSelect${i}`} style={{ display: 'inline-block'}}>
-                  <Image
-                    cloudName="travelwme"
-                    className="message-pic"
-                    publicId={user.publicId}
-                  />
-                  <Typography
-                    className={classes.root}
-                    variant="body2"
-                    key={`userListInMsg${i}`}
-                  >
-                    {`${user.username} & You -  `}
-                  </Typography>
-                </div>  
-              )
-            }
-          })
-        }
-        <Typography
-          className={classes.root}
-          variant="body2"
-          color="primary"
-        >
-          { 
-            this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length - 1].username === currentUser.username ? 'You: ' :
-            `${this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length - 1].username}:`   
+      <div className="convo-list-container" onClick={this.handleSelection}>
+        <div className="convo-container">
+          {
+            this.props.getConvoQuery.getConvo.users.map((user, i) => {
+              if (user.username !== currentUser.username) {
+                return (
+                  <div key={`convoSelect${i}`}>
+                    <Image
+                      cloudName="travelwme"
+                      className="message-pic"
+                      publicId={user.publicId}
+                    />
+                    <div className="msg-subs">
+                      <Typography
+                        className={classes.root}
+                        variant="body2"
+                        color="primary"
+                        key={`userListInMsg${i}`}
+                      >
+                        {`${user.username} & You -`}&nbsp;
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        className={classes.root}
+                      >
+                        {`${this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length - 1].text.substring(0, 20)}...`}
+                      </Typography>
+                    </div>
+                  </div>
+                )
+              }
+            })
           }
-        </Typography>
-        <Typography
-          variant="body1"
-          className={classes.root}
-        >     
-         {`${this.props.getConvoQuery.getConvo.msgs[this.props.getConvoQuery.getConvo.msgs.length-1].text.substring(0, 20)}...`}
-        </Typography>
-       
-      </div>
+        </div>
+      </div> 
     );
   }
 }
