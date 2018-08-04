@@ -14,7 +14,6 @@ import Profile from './Profile';
 import TrendTrips from './TrendTrips';
 import Settings from './Settings';
 import ChatBox from './ChatBox';
-import Footer from './Footer';
 import getBasicUserInfo from '../../graphql/queries/getBasicUserInfo';
 import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
@@ -60,7 +59,6 @@ class HomePage extends Component {
               convoId={this.props.getChatBoxStateQuery.getChatBoxState.currentConvoId}
             /> : null
         }
-        {/* <Footer /> */}
       </div>
     );
   }

@@ -13,7 +13,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Mutation from './graphql/mutations';
 import defaults from './graphql/queries';
-import App from './Components';
+import App from './Components/App.js';
 import theme from './theme';
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
