@@ -12,7 +12,7 @@ const TripUsers = ({
     <Typography variant="title" color="inherit" gutterBottom>
       Joined :
     </Typography>
-    <Grid container alignContent="center">
+    <Grid container>
       {joiners.map((joiner, i) => (
         <Grid item sm={3} key={`joiner${i}`}>
           <UserCard
@@ -27,7 +27,7 @@ const TripUsers = ({
       <Typography variant="title" color="inherit" gutterBottom>
         Interested :
       </Typography>
-      <Grid container>
+        <Grid container>
         {interesters.map((interester, i) => (
           <Grid item sm={3} key={`interester${i}`}>
             <UserCard

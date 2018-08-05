@@ -1,8 +1,8 @@
 .profile-container {
   padding: 50px 0 50px 0; 
-  margin-top: 50px;
-  margin-left: 30%;
-  margin-right:30%;
+  margin: 50px auto 0 auto;
+  width: 40%;
+  min-width: 400px;
   background-color: white;
   border-radius: 10px;
   border: 3px solid #b2bec3;
@@ -11,8 +11,8 @@
 }
 
 .info-container {
-  margin: 30px 33% 30px 33%;
-  width: 33%;
+  margin: 30px auto 30px auto;
+  width: 200px;
 }
 
 .about-container {

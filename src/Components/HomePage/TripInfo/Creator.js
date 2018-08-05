@@ -6,7 +6,7 @@ import MessageButton from '../../Global/Forms/MessageButton';
 
 const styles = {
   root: {
-    width: '80%',
+    width: 360,
     marginLeft: 65,
     paddingTop: 25,
     minHeight: 420,

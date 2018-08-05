@@ -47,10 +47,9 @@ const styles = theme => ({
     marginTop: 40,
   }, 
   description: {
-    width: 630,
-    marginLeft: '27%',
-    marginRight: '27%',
-    marginBottom: 80,
+    width: '45%',
+    minWidth: 300,
+    margin: '0px auto 80px auto',
     backgroundColor: 'white',
   }
 });

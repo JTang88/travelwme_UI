@@ -22,6 +22,7 @@
 }
 
 .creator-details-container {
+  min-width: 1400px;
   padding-bottom: 40px;
   padding-top: 25px;
   padding-left: 65px;

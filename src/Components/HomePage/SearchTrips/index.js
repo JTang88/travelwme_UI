@@ -30,12 +30,12 @@ const styles = theme => ({
   cc: {
     position: 'absolute',
     top: '33%',
-    left: '43%',
+    left: '33%',
   },
   switch: {
     position: 'absolute',
     top: '5%',
-    right: '42%',
+    right: '32%',
   },
   subs: {
     marginBottom: 40,
