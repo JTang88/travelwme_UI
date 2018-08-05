@@ -26,10 +26,3 @@ const TripListHeader = ({ title, children }) => {
 };
 
 export default TripListHeader;
-
-
-// <header>
-//   {
-//     tripType === 'trend' ? <Typography variant="title" color="primary">Trending Right now</Typography> : ''
-//   }
-// </header>

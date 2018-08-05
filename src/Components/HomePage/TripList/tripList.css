@@ -1,5 +1,7 @@
-li {
-  list-style-type: none;
+.trip-list-container {
+  min-height: 80vh;
+  margin-bottom: 50;
+  width: 100%;
   color: #636e72;
 }
 
