@@ -59,6 +59,7 @@ const AddMessage = ({
       const convoId = currentConvoId;
       newMsgMutation({
         variables: {
+          receiverUserId,
           userId: id,
           convoId,
           text: e.target.value,

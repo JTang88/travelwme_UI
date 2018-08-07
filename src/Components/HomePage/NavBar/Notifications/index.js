@@ -3,6 +3,7 @@ import { graphql, compose } from 'react-apollo';
 import { Menu, MenuItem, withStyles } from '@material-ui/core';
 import getNotifications from '../../../../graphql/queries/getNotifications';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
+import toggleNewNotification from '../../../../graphql/mutations/toggleNewNotification';
 import noteAdded from '../../../../graphql/subscriptions/noteAdded';
 import BarButton from '../../../Global/BarButton';
 import Accepted from './Accepted';
@@ -49,6 +50,11 @@ class Notifications extends Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+    this.props.toggleNewNotificationMutation({
+      variables: {
+        userId: this.props.getCurrentUserQuery.getCurrentUser.id
+      }
+    })
   };
 
 
@@ -97,10 +103,13 @@ class Notifications extends Component {
     );
   }
 }
-
+toggleNewNotification
 const WrappedNotifications = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+  }),
+  graphql(toggleNewNotification, {
+    name: 'toggleNewNotificationMutation',
   }),
   graphql(getNotifications, {
     name: 'getNotificationsQuery',

@@ -6,6 +6,7 @@ import ConvoSelect from './ConvoSelect';
 import BarButton from '../../../Global/BarButton';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import convoAdded from '../../../../graphql/subscriptions/convoAdded';
+import toggleNewMessage from '../../../../graphql/mutations/toggleNewMessage';
 import './index.css';
 
 class MessageList extends Component {
@@ -53,6 +54,11 @@ class MessageList extends Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+    this.props.toggleNewMessageMutation({
+      variables: {
+        userId: this.props.getCurrentUserQuery.getCurrentUser.id
+      }
+    })
   };
 
   render() {
@@ -84,9 +90,13 @@ class MessageList extends Component {
   }
 }
 
+
 const WrappedMessageList = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+  }),
+  graphql(toggleNewMessage, {
+    name: 'toggleNewMessageMutation',
   }),
   graphql(getConvoList, {
     name: 'getConvoListQuery',

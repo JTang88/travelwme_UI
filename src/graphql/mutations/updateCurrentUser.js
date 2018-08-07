@@ -1,12 +1,12 @@
 import gql from 'graphql-tag';
 
 export const updateCurrentUser = gql`
-    mutation updateCurrentUser($id: Int, $username: String, $publicId: String, $convoListId: String, $notificationId: String) {
-      updateCurrentUser(id: $id, username: $username, publicId: $publicId, convoListId: $convoListId, notificationId: $notificationId) @client
+    mutation updateCurrentUser($id: Int, $username: String, $publicId: String, $convoListId: String, $notificationId: String, $newNotification: Boolean, $newMessage: Boolean) {
+      updateCurrentUser(id: $id, username: $username, publicId: $publicId, convoListId: $convoListId, notificationId: $notificationId, newNotification: $newNotification, newMessage: $newMessage) @client
     }`;
 
 export const updateCurrentUserResolver = { 
-  updateCurrentUser: (_, { id, username, publicId, convoListId, notificationId }, { cache }) => {
+  updateCurrentUser: (_, { id, username, publicId, convoListId, notificationId, newNotification, newMessage }, { cache }) => {
     const data = {
       getCurrentUser: {
         __typename: 'getCurrentUser',
@@ -15,6 +15,8 @@ export const updateCurrentUserResolver = {
         publicId, 
         convoListId, 
         notificationId,
+        newNotification,
+        newMessage,
       },
     };
     cache.writeData({ data });

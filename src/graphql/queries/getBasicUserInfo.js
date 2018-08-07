@@ -8,6 +8,8 @@ query getBasicUserInfo($id: Int!) {
     publicId 
     convoListId 
     notificationId
+    newMessage
+    newNotification
   }
 }`;
 

@@ -5,7 +5,9 @@ import {
   Typography, 
   Grid,
   Menu, 
-  MenuItem ,
+  MenuItem,
+  Badge,
+  withStyles
 } from '@material-ui/core/';
 import BarButton from '../../Global/BarButton';
 import Notifications from './Notifications';
@@ -13,6 +15,16 @@ import './navbar.css';
 import MessageList from './MessageList';
 import UserBox from './UserBox';
 
+
+const styles = {
+  root: {
+    marginLeft: 10,
+  },
+  badgeRoot: {
+    width: 17,
+    height: 17,
+  }
+}
 
 class NavBar extends Component {
   state = {
@@ -40,6 +52,8 @@ class NavBar extends Component {
 
   render() {
     const { anchorEl } = this.state;
+    const { newMessage, newNotification, classes: { badgeRoot, root } } = this.props;
+    console.log('here is props in navBar', this.props);
     return (
       <div className="header-container">
         <header>
@@ -59,10 +73,29 @@ class NavBar extends Component {
               <MenuItem onClick={() => this.handleSelect('joined')}>Joined</MenuItem>
               <MenuItem onClick={() => this.handleSelect('waiting')}>Waiting</MenuItem>
             </Menu>
-            {/* <BarButton>Notifications</BarButton> */}
-            <Notifications />
-            <MessageList />
-            {/* <BarButton>Messages</BarButton> */}
+            {
+              newNotification ? 
+                <Badge 
+                  color='primary' 
+                  badgeContent='' 
+                  classes={{ badge: badgeRoot, root: root }}
+                >
+                  <Notifications />
+                </Badge> : 
+                  <Notifications />
+            }  
+            {
+              newMessage ?
+                <Badge
+                  color='primary'
+                  badgeContent=''
+                  classes={{ badge: badgeRoot, root: root }}
+                >
+                  <MessageList />
+                </Badge> :
+                  <MessageList />
+            }
+            
             <UserBox />    
           </div>
           <div className="clearfix" />
@@ -73,4 +106,4 @@ class NavBar extends Component {
   }
 } 
 
-export default withRouter(NavBar);
+export default withRouter(withStyles(styles)(NavBar));

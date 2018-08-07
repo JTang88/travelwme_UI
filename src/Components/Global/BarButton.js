@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    paddingTop: 13,
+    paddingTop: 0,
     backgroundColor: 'inherit',
     color: '#636e72',
     borderBottom: '3px solid white',

@@ -40,27 +40,25 @@
 }
 
 .converser-text-wrap {
-  position: absolute;
+  display: inline-block;
   border-radius: 10px;
+  margin: 0 auto 20px 60px;
   background-color: #dfe6e9;
-  min-height: 70%;
+  min-height: 25px;
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  left: 15%;
-  top: 5%;
 }
 
 .user-text-wrap {
-  position: absolute;
+  display: inline-block;
   border-radius: 10px;
+  margin: 0 auto 20px 60px;
   background-color: #74b9ff;
-  min-height: 70%;
+  min-height: 25px;
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  left: 15%;
-  top: 5%;
 }
 
 .input-box {

@@ -49,7 +49,7 @@ class ConvoSelect extends Component {
             open: true,
             currentConvoId: _id,
             currentReceiver: null,
-            receiverUserId: null,
+            receiverUserId,
           },
         });
       }
@@ -58,12 +58,23 @@ class ConvoSelect extends Component {
 
   handleSelection = (e) => {
     e.preventDefault();
+    const { users } = this.props.getConvoQuery.getConvo;
+    const { id } = this.props.currentUser;
+    let receiverUserId = null
+
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].id !== id) {
+        receiverUserId = users[i].id
+      }
+    }
+
+
     this.props.updateChatBoxStateMutation({
       variables: {
         open: true,
         currentConvoId: this.props.getConvoQuery.getConvo._id,
         currentReceiver: null,
-        receiverUserId: null,
+        receiverUserId,
       },
     });
   }

@@ -36,7 +36,10 @@ class HomePage extends Component {
         { 
           this.props.getCurrentUserQuery.getCurrentUser.username === '' ? '' :
           <div>
-            <NavBar />
+            <NavBar 
+              newMessage={this.props.getCurrentUserQuery.getCurrentUser.newMessage}
+              newNotification={this.props.getCurrentUserQuery.getCurrentUser.newNotification}
+            />
             <Switch>
               <Route exact path="/homepage" component={TrendTrips} />
               <Route path="/homepage/:tripType/tripinfo/:id" component={TripInfo} />

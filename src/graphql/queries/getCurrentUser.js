@@ -8,6 +8,8 @@ export const getCurrentUser = gql`
       publicId
       notificationId
       convoListId
+      newNotification
+      newMessage
     }
   }`;
 export const getCurrentUserDefault = {
@@ -18,5 +20,7 @@ export const getCurrentUserDefault = {
     publicId: null,
     notificationId: null,
     convoListId: null,
+    newNotification: false,
+    newMessage: false,
   },
 };

@@ -58,6 +58,8 @@ class Login extends Component {
           publicId: '',
           notificationId: '',
           convoListId: '',
+          newNotification: false,
+          newMessage: false,
         },
       });
       this.props.history.push('/homepage');
