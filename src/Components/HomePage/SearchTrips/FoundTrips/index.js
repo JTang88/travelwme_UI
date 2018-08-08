@@ -16,6 +16,7 @@ const FoundTrips = ({
     pathname,
   },
 }) => {
+  console.log('did it render foundTrip already?')
   return loading ? '' : (
     <div>
       <TripListHeader

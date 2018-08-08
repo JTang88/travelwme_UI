@@ -41,7 +41,7 @@ const AskToJoinButton = ({
       },
     });
 
-    if (tripType === 'trend') {
+    if (tripType === 'trend' || 'joined') {
       addNewlyInterestedTripToListMutation({
         variables: {
           userId,

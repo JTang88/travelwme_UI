@@ -3,7 +3,7 @@ import { getCurrentUser as query } from '../queries/getCurrentUser';
 
 export const updateNewMessageStateCache = gql`
   mutation updateNewMessageStateCache($id: Int!, $newMessage: Boolean!) {
-    updateNewMessageStateCache(id: $id, newMessage: Boolean) @client
+    updateNewMessageStateCache(id: $id, newMessage: $newMessage) @client
   }`;
 
 export const updateNewMessageStateCacheResolver = {

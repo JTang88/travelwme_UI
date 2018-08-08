@@ -1,6 +1,5 @@
 import { merge } from 'lodash';
 import { updateCurrentTripResolver } from './updateCurrentTrip';
-import { updateCurrentUserRelationToTripResolver } from './updateCurrentUserRelationToTrip';
 import { deleteAMemberFromCacheResolver } from './deleteAMemberFromCache';
 import { invalidateATripInCacheResolver } from './invalidateATripInCache';
 import { addNewlyInterestedTripToListResolver } from './addNewlyInterestedTripToList';
@@ -10,11 +9,11 @@ import { addFoundTripToListResolver } from './addFoundTripToList';
 import { updateSearchStateResolver } from './updateSearchState';
 import { updateChatBoxStateResolver } from './updateChatBoxState';
 import { updateNewMessageStateCacheResolver } from './updateNewMessageStateCache';
+import { updateNewNotificationCacheResolver } from './updateNewNotificationCache';
 
 export default merge(
   {},
   updateCurrentTripResolver,
-  updateCurrentUserRelationToTripResolver,
   deleteAMemberFromCacheResolver,
   invalidateATripInCacheResolver,
   addNewlyInterestedTripToListResolver,
@@ -24,4 +23,5 @@ export default merge(
   updateSearchStateResolver,
   updateChatBoxStateResolver,
   updateNewMessageStateCacheResolver,
+  updateNewNotificationCacheResolver
 );

@@ -30,10 +30,11 @@ export const addFoundTripToList = gql`
 
 export const addFoundTripToListResolver = { 
   addFoundTripToList: (_, args, { cache }) => {
-    const variables = pick(args, ['country', 'continent', 'userId', 'cost_start', 'cost_end', 'date_start', 'date_end', 'keys']);
-    const sourceData = cache.readQuery({ query, variables });
-
     try {
+      console.log('did the problem happne in here?')
+      const variables = pick(args, ['country', 'continent', 'userId', 'cost_start', 'cost_end', 'date_start', 'date_end', 'keys']);
+      const sourceData = cache.readQuery({ query, variables });
+      console.log('no')
       const data = cache.readQuery({ query: getWaitingTrips, variables: { id: args.userId } });
       let targetData = '';
       for (let i = 0; i < sourceData.searchTrips.length; i++) {

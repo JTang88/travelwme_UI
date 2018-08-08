@@ -17,7 +17,7 @@ export const getCurrentTrip = gql`
 
 export const getCurrentTripDefault = {
   getCurrentTrip: {
-    __typename: 'getCurrentUser',
+    __typename: 'getCurrentTrip',
     id: 1,
     title: 'test trip',
     cost: 1,
