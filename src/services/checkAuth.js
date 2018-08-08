@@ -2,7 +2,7 @@ import decode from 'jwt-decode';
 // import { withApollo } from 'react-apollo';
 
 const checkAuth = () => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   if (!token) {
     return false;
   }

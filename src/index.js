@@ -17,7 +17,7 @@ import App from './Components/App.js';
 import theme from './theme';
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const authorizationHeader = token ? `Bearer ${token}` : null;
   operation.setContext({
     headers: {
@@ -39,7 +39,7 @@ const stateLink = withClientState({
 
 persistCache({
   cache,
-  storage: localStorage,
+  storage: sessionStorage,
 });
 
 const httpLink = new HttpLink({ uri: 'http://localhost:3001/graphql' });

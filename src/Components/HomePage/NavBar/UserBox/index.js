@@ -14,7 +14,7 @@ class UserBox extends Component {
 
   handleLogout = async () => {
     this.props.client.resetStore();
-    await localStorage.removeItem('token');
+    await sessionStorage.removeItem('token');
     this.props.history.push('/')
   }
 

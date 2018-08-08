@@ -23,6 +23,7 @@ import { getChatBoxState } from '../../graphql/queries/getChatBoxState';
 class HomePage extends Component {
   componentDidUpdate(nextProps) {
     if (nextProps.getBasicUserInfoQuery.getUser !== this.props.getBasicUserInfoQuery.getUser) {
+      console.log('iside of updateCurrentUser at HomePage')
       this.props.updateCurrentUserMutation({
         variables: this.props.getBasicUserInfoQuery.getUser,
       });

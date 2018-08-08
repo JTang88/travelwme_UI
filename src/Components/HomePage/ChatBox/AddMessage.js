@@ -11,6 +11,7 @@ import getConvo from '../../../graphql/queries/getConvo';
 const AddMessage = ({ 
   newConvoMutation, 
   newMsgMutation, 
+  updateCurrentUserMutation,
   getChatBoxStateQuery: {
     getChatBoxState: {
       receiverUserId,
@@ -20,7 +21,6 @@ const AddMessage = ({
   getCurrentUserQuery: { 
     getCurrentUser: {
       convoListId,
-      username,
       id,
     },
   }, 

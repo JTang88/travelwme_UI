@@ -20,7 +20,7 @@ export const getCurrentUserDefault = {
     publicId: null,
     notificationId: null,
     convoListId: null,
-    newNotification: false,
-    newMessage: false,
+    newNotification: null,
+    newMessage: null,
   },
 };

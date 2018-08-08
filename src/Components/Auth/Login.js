@@ -31,13 +31,13 @@ class Login extends Component {
       return;
     }
     
-    let token = localStorage.getItem('token');
+    let token = sessionStorage.getItem('token');
 
     if (token) {
       const { exp } = decode(token);
       if (exp < new Date().getTime() / 1000) {
         await this.props.client.resetStore();
-        await localStorage.removeItem('token');
+        await sessionStorage.removeItem('token');
       }
     }
 
@@ -49,7 +49,7 @@ class Login extends Component {
     });
 
     if (token) {
-      localStorage.setItem('token', token.data.login);
+      sessionStorage.setItem('token', token.data.login);
       const { id } = await decode(token.data.login).user;
       await this.props.updateCurrentUserMutation({
         variables: {

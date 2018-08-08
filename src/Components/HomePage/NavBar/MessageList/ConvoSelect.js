@@ -4,7 +4,9 @@ import { Image } from 'cloudinary-react';
 import { Typography, withStyles } from '@material-ui/core';
 import getConvo from '../../../../graphql/queries/getConvo';
 import msgAdded from '../../../../graphql/subscriptions/msgAdded';
+import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import { getChatBoxState } from '../../../../graphql/queries/getChatBoxState';
+import { updateCurrentUser } from '../../../../graphql/mutations/updateCurrentUser'; 
 import { updateChatBoxState } from '../../../../graphql/mutations/updateChatBoxState';
 
 const styles = {
@@ -25,6 +27,12 @@ class ConvoSelect extends Component {
         if (!subscriptionData.data) {
           return prev;
         }
+
+        if (Number(subscriptionData.data.msgAdded.userId) !== this.props.getCurrentUserQuery.getCurrentUser.id) {
+          const variables = Object.assign({}, this.props.getCurrentUserQuery.getCurrentUser, { newMessage: true })
+          this.props.updateCurrentUserMutation({ variables });
+        }
+
         const newMsg = subscriptionData.data.msgAdded;
         if (!prev.getConvo.msgs.find(msg => msg._id === newMsg._id)) {
           const current = Object.assign({}, prev, {
@@ -125,6 +133,12 @@ class ConvoSelect extends Component {
 const WrappedConvoSelect = compose(
   graphql(getChatBoxState, {
     name: 'getChatBoxStateQuery'
+  }),
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery'
+  }),
+  graphql(updateCurrentUser, {
+    name: 'updateCurrentUserMutation'
   }),
   graphql(getConvo, {
     name: 'getConvoQuery',
