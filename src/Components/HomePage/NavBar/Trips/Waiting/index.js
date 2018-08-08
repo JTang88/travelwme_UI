@@ -38,6 +38,9 @@ const Waiting = ({
 const WrapedWaiting = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getWaitingTrips, {
     name: 'getWaitingTripsQuery',

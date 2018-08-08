@@ -185,6 +185,9 @@ class Profile extends React.Component {
 const WrapedProfile = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getUser, {
     name: 'getUserQuery',

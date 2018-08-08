@@ -6,8 +6,8 @@ import getConvo from '../../../../graphql/queries/getConvo';
 import msgAdded from '../../../../graphql/subscriptions/msgAdded';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
 import { getChatBoxState } from '../../../../graphql/queries/getChatBoxState';
-import { updateCurrentUser } from '../../../../graphql/mutations/updateCurrentUser'; 
 import { updateChatBoxState } from '../../../../graphql/mutations/updateChatBoxState';
+import { updateNewMessageStateCache } from '../../../../graphql/mutations/updateNewMessageStateCache';
 
 const styles = {
   root: {
@@ -29,8 +29,14 @@ class ConvoSelect extends Component {
         }
 
         if (Number(subscriptionData.data.msgAdded.userId) !== this.props.getCurrentUserQuery.getCurrentUser.id) {
-          const variables = Object.assign({}, this.props.getCurrentUserQuery.getCurrentUser, { newMessage: true })
-          this.props.updateCurrentUserMutation({ variables });
+          // const variables = Object.assign({}, this.props.getCurrentUserQuery.getCurrentUser, { newMessage: true })
+          // do something
+          this.props.updateNewMessageStateCacheMutation({
+            variables: {
+              id: this.props.getCurrentUserQuery.getCurrentUser.id,
+              newMessage: true,
+            }
+          })
         }
 
         const newMsg = subscriptionData.data.msgAdded;
@@ -134,11 +140,14 @@ const WrappedConvoSelect = compose(
   graphql(getChatBoxState, {
     name: 'getChatBoxStateQuery'
   }),
-  graphql(getCurrentUser, {
-    name: 'getCurrentUserQuery'
+  graphql(updateNewMessageStateCache, {
+    name: 'updateNewMessageStateCacheMutation'
   }),
-  graphql(updateCurrentUser, {
-    name: 'updateCurrentUserMutation'
+  graphql(getCurrentUser, {
+    name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getConvo, {
     name: 'getConvoQuery',

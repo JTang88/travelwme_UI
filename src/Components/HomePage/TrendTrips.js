@@ -38,6 +38,9 @@ const TrendTrips = ({
 const TrendTripWithQuery = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(showTrendTrips, {
     name: 'showTrendTripsQuery',

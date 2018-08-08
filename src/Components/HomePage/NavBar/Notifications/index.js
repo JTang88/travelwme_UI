@@ -107,6 +107,9 @@ toggleNewNotification
 const WrappedNotifications = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(toggleNewNotification, {
     name: 'toggleNewNotificationMutation',

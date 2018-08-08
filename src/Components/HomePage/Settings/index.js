@@ -190,6 +190,9 @@ class Settings extends Component {
 const WrapedSettings = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getUserEmail, {
     name: 'getUserEmailQuery',

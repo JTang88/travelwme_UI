@@ -5,7 +5,6 @@ import getConvoList from '../../../../graphql/queries/getConvoList';
 import ConvoSelect from './ConvoSelect';
 import BarButton from '../../../Global/BarButton';
 import { getCurrentUser } from '../../../../graphql/queries/getCurrentUser';
-import { updateCurrentUser } from '../../../../graphql/mutations/updateCurrentUser';
 import convoAdded from '../../../../graphql/subscriptions/convoAdded';
 import toggleNewMessage from '../../../../graphql/mutations/toggleNewMessage';
 import './index.css';
@@ -26,11 +25,6 @@ class MessageList extends Component {
         if (!subscriptionData.data) {
           return prev;
         }
-
-        // const variables = Object.assign({}, this.props.getCurrentUserQuery.getCurrentUser, { newMessage: true })
-        // this.props.updateCurrentUserMutation({ variables });
-        
-
         const newConvoId = subscriptionData.data.convoAdded;
         if (!prev.getConvoList.convoIds.find(convoId => convoId === newConvoId)) {
           const current = Object.assign({}, prev, {
@@ -100,12 +94,12 @@ class MessageList extends Component {
 const WrappedMessageList = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(toggleNewMessage, {
     name: 'toggleNewMessageMutation',
-  }),
-  graphql(updateCurrentUser, {
-    name: 'updateCurrentUserMutation',
   }),
   graphql(getConvoList, {
     name: 'getConvoListQuery',

@@ -438,6 +438,9 @@ class PlanTrip extends Component {
 const WrapedPlanTrip = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(createTrip, {
     name: 'createTripMutation',

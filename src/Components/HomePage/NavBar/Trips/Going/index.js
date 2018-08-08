@@ -38,6 +38,9 @@ const Going = ({
 const WrapedGoing = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getForSureGoingTrips, {
     name: 'getForSureGoingTripsQuery',

@@ -38,6 +38,9 @@ const Joined = ({
 const WrapedJoined = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getJoinedTrips, {
     name: 'getJoinedTripsQuery',

@@ -11,7 +11,6 @@ import getConvo from '../../../graphql/queries/getConvo';
 const AddMessage = ({ 
   newConvoMutation, 
   newMsgMutation, 
-  updateCurrentUserMutation,
   getChatBoxStateQuery: {
     getChatBoxState: {
       receiverUserId,
@@ -102,7 +101,12 @@ const AddMessage = ({
 
 
 const WrapedAddMessage = compose(
-  graphql(getCurrentUser, { name: 'getCurrentUserQuery' }),
+  graphql(getCurrentUser, { 
+    name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }), 
+  }),
   graphql(getChatBoxState, { name: 'getChatBoxStateQuery' }),
   graphql(newConvo, { name: 'newConvoMutation' }),
   graphql(newMsg, { name: 'newMsgMutation' }),

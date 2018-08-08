@@ -5,7 +5,6 @@ import { graphql, compose, withApollo } from 'react-apollo';
 import { Button, Typography, TextField } from '@material-ui/core';
 import login from '../../graphql/mutations/login';
 import ForgotPassword from './ForgotPassword';
-import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import './auth.css'
 
 class Login extends Component {
@@ -51,17 +50,7 @@ class Login extends Component {
     if (token) {
       sessionStorage.setItem('token', token.data.login);
       const { id } = await decode(token.data.login).user;
-      await this.props.updateCurrentUserMutation({
-        variables: {
-          id,
-          username: '',
-          publicId: '',
-          notificationId: '',
-          convoListId: '',
-          newNotification: false,
-          newMessage: false,
-        },
-      });
+      await sessionStorage.setItem('currentUserId', id);
       this.props.history.push('/homepage');
     }
   }
@@ -119,7 +108,6 @@ class Login extends Component {
 
 const WrapedLogin = compose(
   graphql(login, { name: 'loginMutation' }),
-  graphql(updateCurrentUser, { name: 'updateCurrentUserMutation' }),
 )(withRouter(Login));
 
 

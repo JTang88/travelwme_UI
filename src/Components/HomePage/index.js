@@ -14,28 +14,18 @@ import Profile from './Profile';
 import TrendTrips from './TrendTrips';
 import Settings from './Settings';
 import ChatBox from './ChatBox';
-import getBasicUserInfo from '../../graphql/queries/getBasicUserInfo';
-import { updateCurrentUser } from '../../graphql/mutations/updateCurrentUser';
 import { getCurrentUser } from '../../graphql/queries/getCurrentUser';
 import { getChatBoxState } from '../../graphql/queries/getChatBoxState';
 
 
 class HomePage extends Component {
-  componentDidUpdate(nextProps) {
-    if (nextProps.getBasicUserInfoQuery.getUser !== this.props.getBasicUserInfoQuery.getUser) {
-      console.log('iside of updateCurrentUser at HomePage')
-      this.props.updateCurrentUserMutation({
-        variables: this.props.getBasicUserInfoQuery.getUser,
-      });
-    }
-  }
 
   render() {
     console.log('here is props in homepage', this.props);
     return (
       <div>
         { 
-          this.props.getCurrentUserQuery.getCurrentUser.username === '' ? '' :
+          this.props.getCurrentUserQuery.loading ? '' :
           <div>
             <NavBar 
               newMessage={this.props.getCurrentUserQuery.getCurrentUser.newMessage}
@@ -68,21 +58,17 @@ class HomePage extends Component {
   }
 };
 
+// currentUserId
+
 const WrappedHomePage = compose(
   graphql(getCurrentUser, { 
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getChatBoxState, {
     name: 'getChatBoxStateQuery',
-  }),
-  graphql(getBasicUserInfo, { 
-    name: 'getBasicUserInfoQuery',
-    options: props => ({ 
-      variables: { id: props.getCurrentUserQuery.getCurrentUser.id },
-    }),
-  }),
-  graphql(updateCurrentUser, {
-    name: 'updateCurrentUserMutation',
   }),
 )(HomePage);
 

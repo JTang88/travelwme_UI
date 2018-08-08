@@ -98,6 +98,9 @@ class TripInfo extends Component {
 const WrapedTripInfo = compose(
   graphql(getCurrentUser, {
     name: 'getCurrentUserQuery',
+    options: props => ({
+      variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+    }),
   }),
   graphql(getTrip, {
     name: 'getTripQuery',

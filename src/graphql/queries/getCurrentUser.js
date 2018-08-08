@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const getCurrentUser = gql`
-  query getCurrentUser {
-    getCurrentUser @client {
+  query getCurrentUser($id: Int!) {
+    getCurrentUser(id: $id) {
       id
       username
       publicId

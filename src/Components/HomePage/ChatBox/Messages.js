@@ -32,4 +32,8 @@ class Messages extends Component {
 
 }
  
-export default graphql(getCurrentUser)(Messages);
+export default graphql(getCurrentUser, {
+  options: props => ({
+    variables: { id: Number(sessionStorage.getItem('currentUserId')) },
+  }),
+})(Messages);
