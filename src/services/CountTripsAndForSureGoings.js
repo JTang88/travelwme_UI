@@ -4,8 +4,8 @@ const countTotalForSureGoings = (Trips) => {
   for (let i = 0; i < Trips.length; i++) {
     if (Trips[i].id > 0) {
       tripsCount++;
+      forSureGoings += Trips[i].forSureGoing;
     }
-    forSureGoings += Trips[i].forSureGoing;
   }
   return {
     forSureGoings,
