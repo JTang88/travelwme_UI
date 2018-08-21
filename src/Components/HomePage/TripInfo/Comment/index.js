@@ -17,7 +17,7 @@ const styles = {
     marginTop: 27,
   },
   commentTypo: {
-    marginLeft: 6,
+    marginLeft: 20,
     marginTop: 30,
   },
   replyUsername: {
@@ -25,8 +25,8 @@ const styles = {
     marginTop: 17,
   },
   replyTypo: {
+    marginLeft: 20,
     marginTop: 20,
-    marginRight: 0,
   },
 };
 
