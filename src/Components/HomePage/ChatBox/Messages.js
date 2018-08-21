@@ -18,7 +18,7 @@ class Messages extends Component {
       this.props.convo.msgs.map((msg, i) => (
         <div key={`msg${i}`} className="message">
           <Image
-            cloudName="travelwme"
+            cloudName={process.env.REACT_APP_CLOUDNAME}
             className="message-ing-pic"
             publicId={this.state.userConvoTable[msg.userId]}
           />

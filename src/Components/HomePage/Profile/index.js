@@ -51,7 +51,7 @@ class Profile extends React.Component {
             <div className="profile-container">
               <Image
                 className="profile-pic"
-                cloudName="travelwme"
+                cloudName={process.env.REACT_APP_CLOUDNAME}
                 publicId={this.props.getUserQuery.getUser.publicId}
               />
               <div className="info-container">

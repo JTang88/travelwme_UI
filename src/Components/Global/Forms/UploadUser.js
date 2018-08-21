@@ -18,10 +18,10 @@ class UploadUser extends React.Component {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'syav4cph');
+    formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET_NAME);
 
     const response = await axios.post(
-      `https://api.cloudinary.com/v1_1/travelwme/image/upload`,
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDNAME}/image/upload`,
       formData,
     );
     console.log('inside of onDrop after response', response)

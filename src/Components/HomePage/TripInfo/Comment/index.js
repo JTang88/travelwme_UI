@@ -94,7 +94,7 @@ class Comment extends Component {
                       <Grid container>
                         <Grid item xs={1}>
                           <Image
-                            cloudName="travelwme"
+                            cloudName={process.env.REACT_APP_CLOUDNAME}
                             className="comment-pic"
                             publicId={comment.publicId}
                           />
@@ -131,7 +131,7 @@ class Comment extends Component {
                                   </Grid> 
                                   <Grid item xs={1}>
                                     <Image
-                                      cloudName="travelwme"
+                                      cloudName={process.env.REACT_APP_CLOUDNAME}
                                       className="reply-pic"
                                       publicId={reply.publicId}
                                     />

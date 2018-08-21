@@ -45,7 +45,6 @@ class Landing extends Component {
   };
 
   render() {
-    console.log('here is process.env', process.env.REACT_APP_REST_SERVER_URL)
     const { classes } = this.props;
     return (
       checkAuth() ? <Redirect to={{ pathname: '/homepage' }} /> :

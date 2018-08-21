@@ -46,7 +46,7 @@ const Creator = ({
         <Grid container >
           <Grid item sm={6}>
             <Image
-              cloudName="travelwme" 
+              cloudName={process.env.REACT_APP_CLOUDNAME} 
               className="creator-pic" 
               publicId={publicId}
             />

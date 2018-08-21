@@ -3,47 +3,16 @@ import React from 'react';
 // import gql from 'graphql-tag';
 import { Image } from 'cloudinary-react';
 
+process.env.REACT_APP_CLOUDNAME
 
 const RenderPhoto = (props) => {
 
   const { publicId } = props;
   return (
     <div>
-      <Image cloudName="travelwme" publicId={publicId} />
+      <Image cloudName={process.env.REACT_APP_CLOUDNAME} publicId={publicId} />
     </div>
   );
 };
 
 export default RenderPhoto;
-
-// const Champion = ({ data: { loading, getChampion } }) => {
-//   if (loading) {
-//     return <h1>loading...</h1>;
-//   }
-
-//   const { name, publicId } = getChampion;
-
-//   return (
-//     <div>
-//       <h1>{name}</h1>
-//       <Image cloudName="travelwme" publicId={publicId} />
-//     </div>
-//   );
-// };
-
-// // export default Champion;
-
-// const getChampionQuery = gql`
-//   query($id: Int!) {
-//     getChampion(id: $id) {
-//       name
-//       publicId
-//     }
-//   }
-// `;
-
-// export default graphql(getChampionQuery, {
-//   options: ({ match }) => ({
-//     variables: match.params,
-//   }),
-// })(Champion);

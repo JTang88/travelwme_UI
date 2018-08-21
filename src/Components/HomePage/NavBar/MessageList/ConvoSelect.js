@@ -105,7 +105,7 @@ class ConvoSelect extends Component {
                 return (
                   <div key={`convoSelect${i}`}>
                     <Image
-                      cloudName="travelwme"
+                      cloudName={process.env.REACT_APP_CLOUDNAME}
                       className="message-pic"
                       publicId={user.publicId}
                     />

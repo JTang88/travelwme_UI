@@ -91,7 +91,7 @@ class EditProfile extends Component {
           >
           <Image
             className="profile-pic"
-            cloudName="travelwme"
+            cloudName={process.env.REACT_APP_CLOUDNAME}
             publicId={publicId}
           />
           <Typography variant="caption" color="primary">

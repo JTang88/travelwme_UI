@@ -71,7 +71,7 @@ class TripList extends Component {
                     onClick={() => this.handleClick(tripType, trip.id)} 
                     key={`tripList${trip.id}`}>
                     <TableCell className={classes.picCell} scope="row">
-                      <Image width="128px" cloudName="travelwme" publicId={trip.creator.publicId} />
+                      <Image width="128px" cloudName={process.env.REACT_APP_CLOUDNAME} publicId={trip.creator.publicId} />
                     </TableCell>
                     <TableCell className={classes.descriptionCell}>
                       <Typography 

@@ -118,7 +118,7 @@ const UserCard = ({
       <Card className={card}>
         <Image
           className="member-pic" 
-          cloudName="travelwme" 
+          cloudName={process.env.REACT_APP_CLOUDNAME} 
           publicId={publicId}
         />
         <CardContent className={cardContent}>
